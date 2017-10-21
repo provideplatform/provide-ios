@@ -150,7 +150,7 @@ class ApiService: NSObject {
 
         localLogout()
 
-        NotificationCenter.default.postNotificationName("ApplicationUserLoggedOut")
+        KTNotificationCenter.post(name: .ApplicationUserLoggedOut)
     }
 
     private func deleteToken(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
@@ -318,7 +318,7 @@ class ApiService: NSObject {
 
             ApiService.shared.fetchCurrentUser(onSuccess: { _, _ in
                 if !UIApplication.shared.isRegisteredForRemoteNotifications {
-                    NotificationCenter.default.postNotificationName("ProfileImageShouldRefresh")
+                    KTNotificationCenter.post(name: .ProfileImageShouldRefresh)
                 }
             }, onError: { error, statusCode, responseString in
                 logWarn("Failed to fetch user (\(statusCode))")
@@ -343,7 +343,7 @@ class ApiService: NSObject {
 
     func registerForRemoteNotifications() {
         if !isSimulator() {
-            NotificationCenter.default.postNotificationName("ApplicationWillRegisterUserNotificationSettings")
+            KTNotificationCenter.post(name: .ApplicationWillRegisterUserNotificationSettings)
 
             let notificationTypes: UIUserNotificationType = [UIUserNotificationType.badge, UIUserNotificationType.sound, UIUserNotificationType.alert]
             let settings = UIUserNotificationSettings(types: notificationTypes, categories: nil)

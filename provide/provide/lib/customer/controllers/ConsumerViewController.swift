@@ -149,7 +149,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     }
 
     @objc private func menuButtonTapped(_ sender: UIBarButtonItem) {
-        NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
+        KTNotificationCenter.post(name: .MenuContainerShouldOpen)
     }
 
     @objc private func messageButtonTapped(_ sender: UIBarButtonItem) {
@@ -377,7 +377,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     @objc func provide() {
         KeyChainService.shared.mode = .provider
-        NotificationCenter.default.postNotificationName("ApplicationShouldReloadTopViewController")
+        KTNotificationCenter.post(name: .ApplicationShouldReloadTopViewController)
     }
 
     // MARK: DestinationInputViewControllerDelegate

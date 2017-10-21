@@ -113,7 +113,7 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
                 self.setHasBeenPromptedToTakeSelfieFlag()
                 self.initCameraViewController()
             case .notDetermined:
-                NotificationCenter.default.postNotificationName("ApplicationWillRequestMediaAuthorization")
+                KTNotificationCenter.post(name: .ApplicationWillRequestMediaAuthorization)
                 AVCaptureDevice.requestAccess(for: .video) { granted in
                     if granted {
                         self.setHasBeenPromptedToTakeSelfieFlag()

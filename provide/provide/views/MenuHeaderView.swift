@@ -103,7 +103,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         imagePickerViewController.delegate = self
 
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
+            KTNotificationCenter.post(name: .MenuContainerShouldReset)
             navigationController.present(imagePickerViewController, animated: true)
         }
     }
@@ -116,7 +116,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
     func cameraViewControllerDidBeginAsyncStillImageCapture(_ viewController: CameraViewController) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
+            KTNotificationCenter.post(name: .MenuContainerShouldOpen)
             navigationController.popViewController(animated: false)
         }
     }
@@ -127,7 +127,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
 
     func cameraViewControllerCanceled(_ viewController: CameraViewController) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
+            KTNotificationCenter.post(name: .MenuContainerShouldOpen)
             navigationController.popViewController(animated: false)
         }
     }
@@ -169,7 +169,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         selfieViewController.delegate = self
 
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
-            NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
+            KTNotificationCenter.post(name: .MenuContainerShouldReset)
             navigationController.pushViewController(selfieViewController, animated: false)
         }
     }
@@ -195,11 +195,11 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
                 navigationController.dismiss(animated: false) {
-                    NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
+                    KTNotificationCenter.post(name: .MenuContainerShouldOpen)
                 }
             } else {
                 picker.presentingViewController?.dismiss(animated: false) {
-                    NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
+                    KTNotificationCenter.post(name: .MenuContainerShouldOpen)
                 }
             }
 
@@ -212,11 +212,11 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         if let navigationController = delegate?.navigationViewControllerForMenuHeaderView(self) {
             navigationController.dismiss(animated: true) {
-                NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
+                KTNotificationCenter.post(name: .MenuContainerShouldOpen)
             }
         } else {
             picker.presentingViewController?.dismiss(animated: false) {
-                NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
+                KTNotificationCenter.post(name: .MenuContainerShouldOpen)
             }
         }
     }

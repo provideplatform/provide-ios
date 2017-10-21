@@ -127,7 +127,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     @objc private func menuButtonTapped(_ sender: UIBarButtonItem) {
-        NotificationCenter.default.postNotificationName("MenuContainerShouldOpen")
+        KTNotificationCenter.post(name: .MenuContainerShouldOpen)
     }
 
     @objc private func messageButtonTapped(_ sender: UIBarButtonItem) {
@@ -425,7 +425,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         clearProviderContext()
 
         KeyChainService.shared.mode = .consumer
-        NotificationCenter.default.postNotificationName("ApplicationShouldReloadTopViewController")
+        KTNotificationCenter.post(name: .ApplicationShouldReloadTopViewController)
     }
 
     // MARK: WorkOrdersViewControllerDelegate

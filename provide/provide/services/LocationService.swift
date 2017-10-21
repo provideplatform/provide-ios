@@ -77,7 +77,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         if CLLocationManager.authorizationStatus() == .authorizedAlways {
             callback()
         } else {
-            NotificationCenter.default.postNotificationName("ApplicationWillRequestLocationAuthorization")
+            KTNotificationCenter.post(name: .ApplicationWillRequestLocationAuthorization)
             onManagerAuthorizedCallbacks.append(callback)
             requestAlwaysAuthorization()
         }

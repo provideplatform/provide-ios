@@ -74,7 +74,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
         case .attachment:
             if let refreshProfileImage = userInfo["refresh_profile_image"] as? Bool, KeyChainService.shared.token?.user != nil && refreshProfileImage {
                 ApiService.shared.fetchCurrentUser(onSuccess: { _, _ in
-                    NotificationCenter.default.postNotificationName("ProfileImageShouldRefresh")
+                    KTNotificationCenter.post(name: .ProfileImageShouldRefresh)
                 }, onError: { error, statusCode, responseString in
                     logError(error)
                 })

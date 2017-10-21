@@ -102,22 +102,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if let jwtToken = jwtToken {
                     if let jwt = KTJwtService.decode(jwtToken) {
                         if ApiService.shared.login(jwt) {
-                            NotificationCenter.default.postNotificationName("ApplicationUserWasAuthenticated")
+                            KTNotificationCenter.post(name: .ApplicationUserWasAuthenticated)
                             return openURL(url)
                         } else {
-                            NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
+                            KTNotificationCenter.post(name: .ApplicationShouldShowInvalidCredentialsToast)
                         }
                     } else {
-                        NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
+                        KTNotificationCenter.post(name: .ApplicationShouldShowInvalidCredentialsToast)
                     }
                 }
 
                 if url.host == "accept-invitation" {
-                    NotificationCenter.default.postNotificationName("ApplicationShouldPresentPinInputViewController")
+                    KTNotificationCenter.post(name: .ApplicationShouldPresentPinInputViewController)
                 }
             } else {
                 if let jwtToken = jwtToken, let jwt = KTJwtService.decode(jwtToken), let userId = jwt.body["user_id"] as? Int, userId != currentUser.id {
-                    NotificationCenter.default.postNotificationName("ApplicationShouldShowInvalidCredentialsToast")
+                    KTNotificationCenter.post(name: .ApplicationShouldShowInvalidCredentialsToast)
                 }
             }
         }

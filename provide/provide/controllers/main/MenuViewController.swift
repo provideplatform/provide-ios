@@ -78,7 +78,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
                 } else if let url = menuItem.url {
                     let webViewController = UIStoryboard("Menu").instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
                     webViewController.url = url
-                    NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
+                    KTNotificationCenter.post(name: .MenuContainerShouldReset)
                     delegate?.navigationControllerForMenuViewController(self)?.pushViewController(webViewController, animated: true)
                 }
             }
@@ -125,8 +125,8 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         alertController.addAction(cancelAction)
 
         let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { action in
-            NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
-            NotificationCenter.default.postNotificationName("ApplicationUserLoggedOut")
+            KTNotificationCenter.post(name: .MenuContainerShouldReset)
+            KTNotificationCenter.post(name: .ApplicationUserLoggedOut)
 
             ApiService.shared.logout(onSuccess: { statusCode, _ in
                 assert(statusCode == 204)
@@ -174,7 +174,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     }
 
     private func segueToInitialViewControllerInStoryboard(_ storyboardName: String) {
-        NotificationCenter.default.postNotificationName("MenuContainerShouldReset")
+        KTNotificationCenter.post(name: .MenuContainerShouldReset)
 
         var storyboardPath: String!
         if storyboardPaths.keys.index(of: storyboardName) != nil {
