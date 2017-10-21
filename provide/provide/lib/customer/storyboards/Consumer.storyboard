@@ -260,14 +260,14 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6kc-Zb-6lg" customClass="CategoryButton" customModule="provide" customModuleProvider="target">
                                                 <rect key="frame" x="125" y="0.0" width="125" height="100"/>
-                                                <state key="normal" title="Black Car"/>
+                                                <state key="normal" title="XL/SUV"/>
                                                 <connections>
                                                     <action selector="categoryButtonTapped:" destination="lHM-7B-TGH" eventType="touchUpInside" id="keD-pT-NdU"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8w-uM-gIa" customClass="CategoryButton" customModule="provide" customModuleProvider="target">
                                                 <rect key="frame" x="250" y="0.0" width="125" height="100"/>
-                                                <state key="normal" title="XL/SUV"/>
+                                                <state key="normal" title="Black Car"/>
                                                 <connections>
                                                     <action selector="categoryButtonTapped:" destination="lHM-7B-TGH" eventType="touchUpInside" id="Acg-av-sUt"/>
                                                 </connections>
