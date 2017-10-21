@@ -32,7 +32,7 @@ class CategorySelectionControl: UIControl {
         }
 
         for category in categories {
-            let button = CategoryButton()
+            let button = CategoryButton(type: .system)
             button.configure(category: category)
             button.addTarget(self, action: #selector(categoryButtonTapped), for: .touchUpInside)
 
