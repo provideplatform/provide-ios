@@ -16,6 +16,8 @@ class ZeroStateViewController: ViewController {
 
     private var backgroundSubview: UIView!
 
+    private var message: String!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,14 +40,19 @@ class ZeroStateViewController: ViewController {
                 view.bringSubview(toFront: v)
             }
         }
+
+        if let message = message {
+            messageLabel.text = message
+        }
     }
 
     private func setLabelText(_ labelText: String) {
-        label.text = labelText
+        label?.text = labelText
     }
 
-    private func setMessage(_ message: String) {
-        messageLabel.text = message
+    func setMessage(_ message: String) {
+        self.message = message
+        messageLabel?.text = message
     }
 
     func render(_ targetView: UIView) {

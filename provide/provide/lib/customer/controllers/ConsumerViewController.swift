@@ -18,6 +18,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     private var destinationResultsViewController: DestinationResultsViewController!
     private var confirmWorkOrderViewController: ConfirmWorkOrderViewController!
     private var providerEnRouteViewController: ProviderEnRouteViewController!
+    
+    private var zeroStateViewController: ZeroStateViewController!
 
     private var updatingWorkOrderContext = false
     private var categories = [Category]() {
@@ -82,6 +84,12 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
                 }
             }
         }
+
+        setupZeroStateView()
+    }
+
+    private func setupZeroStateView() {
+        zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
     }
 
     private func handleInProgressWorkOrderStateChange() {
@@ -188,12 +196,29 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         }
     }
 
+    private func presentServiceAvailabilityZeroState() {
+        LocationService.shared.reverseGeocodeLocation(LocationService.shared.currentLocation) { [weak self] placemark in
+            var msg = "No service available yet"
+            if let locality = placemark.locality {
+                msg = "\(msg) in \(locality)"
+            }
+            self?.zeroStateViewController?.setMessage(msg)
+            self?.zeroStateViewController?.render(self!.view)
+        }
+    }
+
     private func loadCategoriesContext() {
         if let coordinate = LocationService.shared.currentLocation?.coordinate {
             Category.nearby(coordinate: coordinate, radius: 50.0, onSuccess: { [weak self] categories in
                 logInfo("Found \(categories.count) categories: \(categories)")
                 self?.categories = categories
-                self?.loadProviderContext()
+
+                if categories.count == 0 {
+                    self?.presentServiceAvailabilityZeroState()
+                } else {
+                    self?.zeroStateViewController?.dismiss()
+                    self?.loadProviderContext()
+                }
             }, onError: { error, statusCode, response in
                 logWarn("Failed to fetch categories near \(coordinate)")
             })

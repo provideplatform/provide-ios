@@ -99,13 +99,8 @@
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
-            key = "OS_ACTIVITY_MODE"
-            value = "disable"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-         <EnvironmentVariable
             key = "RKLogLevel.RestKit.Network"
-            value = "Error"
+            value = "Info"
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
