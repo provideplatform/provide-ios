@@ -198,7 +198,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     private func locationResolved(_ location: CLLocation) {
-        logInfo("Resolved current location: \(location)")
+        print("🌎 Location: \(location) 🌎")
 
         currentLocation = location
 

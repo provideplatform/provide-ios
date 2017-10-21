@@ -332,14 +332,14 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
                     mapView.addAnnotation(provider.annotation)
                     return true
                 } else {
-                    logInfo("Removing unavailable provider annotation from consumer map view")
+                    print("🗑 Removing unavailable provider annotation from consumer map view 🗑")
                     mapView.removeAnnotation(annotation)
                     return true
                 }
             }
             return false
         }) {
-            logInfo("Added provider annotation: \(provider)")
+            print("🚗 Added provider annotation: \(provider) 🚗")
             mapView.addAnnotation(provider.annotation)
         }
     }

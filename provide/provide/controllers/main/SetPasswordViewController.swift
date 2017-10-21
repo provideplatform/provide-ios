@@ -37,7 +37,7 @@ class SetPasswordViewController: ViewController, UITableViewDelegate, UITableVie
                 confirmField?.resignFirstResponder()
             }
         default:
-            logInfo("Attempted unhandled segue")
+            logWarn("Attempted unhandled segue")
         }
     }
 
