@@ -9,6 +9,18 @@
 import Foundation
 
 extension NSNotification.Name {
-    public static let WorkOrderContextShouldRefresh = NSNotification.Name("WorkOrderContextShouldRefresh")
-    public static let CategorySelectionChanged = NSNotification.Name("CategorySelectionChanged")
+    static let ApplicationShouldPresentPinInputViewController = NSNotification.Name("ApplicationShouldPresentPinInputViewController")
+    static let ApplicationShouldReloadTopViewController = NSNotification.Name("ApplicationShouldReloadTopViewController")
+    static let ApplicationShouldShowInvalidCredentialsToast = NSNotification.Name("ApplicationShouldShowInvalidCredentialsToast")
+    static let ApplicationUserLoggedOut = NSNotification.Name("ApplicationUserLoggedOut")
+    static let ApplicationUserShouldLogout = NSNotification.Name("ApplicationUserShouldLogout")
+    static let ApplicationUserWasAuthenticated = NSNotification.Name("ApplicationUserWasAuthenticated")
+    static let ApplicationWillRegisterUserNotificationSettings = NSNotification.Name("ApplicationWillRegisterUserNotificationSettings")
+    static let ApplicationWillRequestLocationAuthorization = NSNotification.Name("ApplicationWillRequestLocationAuthorization")
+    static let ApplicationWillRequestMediaAuthorization = NSNotification.Name("ApplicationWillRequestMediaAuthorization")
+    static let CategorySelectionChanged = NSNotification.Name("CategorySelectionChanged")
+    static let MenuContainerShouldOpen = NSNotification.Name("MenuContainerShouldOpen")
+    static let MenuContainerShouldReset = NSNotification.Name("MenuContainerShouldReset")
+    static let ProfileImageShouldRefresh = NSNotification.Name("ProfileImageShouldRefresh")
+    static let WorkOrderContextShouldRefresh = NSNotification.Name("WorkOrderContextShouldRefresh")
 }
