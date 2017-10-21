@@ -28,8 +28,8 @@ class ConsumerMapView: MapView, UIGestureRecognizerDelegate {
 
     override func removeAnnotations() {
         var nonUserAnnotations = annotations
-        if userLocation.location != nil {
-            nonUserAnnotations.removeObject(mapView(self, viewFor: userLocation)!)
+        if let annotationView = mapView(self, viewFor: userLocation), userLocation.location != nil {
+            nonUserAnnotations.removeObject(annotationView)
         }
         removeAnnotations(nonUserAnnotations)
     }
