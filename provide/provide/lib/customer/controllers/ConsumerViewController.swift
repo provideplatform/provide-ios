@@ -281,7 +281,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     private func filterProvidersByCategoryFromNotification(_ notification: Notification?) {
         if let categoryId = notification?.object as? Int {
-            if let category = categories.filter({ $0.id == categoryId }).first {
+            if let category = categories.first(where: { $0.id == categoryId }) {
                 filterProvidersByCategory(category)
             }
         } else if let category = notification?.object as? Category {
@@ -299,12 +299,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
                 let annotations = strongSelf.providers.filter({ $0.categoryId == category.id }).map({ $0.annotation })
                 for annotation in annotations {
-                    if !strongSelf.mapView.annotations.contains(where: { ann -> Bool in
-                        if let providerAnnotation = ann as? Provider.Annotation, providerAnnotation.matches(annotation.provider) {
-                            return true
-                        }
-                        return false
-                    }) {
+                    if !strongSelf.mapView.annotations.contains(where: { ($0 as? Provider.Annotation)?.matches(annotation.provider) == true }) {
                         strongSelf.mapView.addAnnotation(annotation)
                     }
                 }
