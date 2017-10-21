@@ -25,6 +25,8 @@ class CategorySelectionControl: UIControl {
     }
 
     func configure(categories: [Category]) {
+        guard !categories.isEmpty else { return }
+
         for view in stackView.arrangedSubviews {
             view.removeFromSuperview()
         }
