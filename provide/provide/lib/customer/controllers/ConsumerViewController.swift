@@ -67,10 +67,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             }
         }
 
-        NotificationCenter.default.addObserverForName("ProviderContextShouldRefresh") { [weak self] _ in
-            self?.loadProviderContext()
-        }
-
         KTNotificationCenter.addObserver(forName: .ProviderBecameAvailable, using: updateProviderLocationFromNotification)
         KTNotificationCenter.addObserver(forName: .ProviderBecameUnavailable, using: updateProviderLocationFromNotification)
         KTNotificationCenter.addObserver(forName: .ProviderLocationChanged, using: updateProviderLocationFromNotification)
