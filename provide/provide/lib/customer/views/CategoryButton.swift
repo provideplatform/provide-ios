@@ -10,8 +10,7 @@ import UIKit
 
 class CategoryButton: UIButton {
 
-    func configure(category: Category, selectionControl: CategorySelectionControl) {
+    func configure(category: Category) {
         setTitle(category.name, for: .normal)
-        addTarget(selectionControl, action: Selector(("categoryButtonTapped:")), for: .touchUpInside)
     }
 }

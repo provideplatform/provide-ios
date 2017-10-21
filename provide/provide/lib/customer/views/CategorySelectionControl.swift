@@ -31,7 +31,8 @@ class CategorySelectionControl: UIControl {
 
         for category in categories {
             let button = CategoryButton()
-            button.configure(category: category, selectionControl: self)
+            button.configure(category: category)
+            button.addTarget(self, action: #selector(categoryButtonTapped), for: .touchUpInside)
 
             stackView.addArrangedSubview(button)
         }
