@@ -36,6 +36,7 @@ class ApiService: NSObject {
 
     private let objectMappings: [String: Any] = [
         "attachments": Attachment.mappingWithRepresentations(),
+        "categories": Category.mapping(),
         "devices": Device.mapping(),
         "directions": Directions.mapping(),
         "eta": Directions.mapping(),
