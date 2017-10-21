@@ -20,7 +20,13 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     private var providerEnRouteViewController: ProviderEnRouteViewController!
 
     private var updatingWorkOrderContext = false
-    private var categories = [Category]()
+    private var categories = [Category]() {
+        didSet {
+            confirmWorkOrderViewController?.configure(workOrder: confirmWorkOrderViewController?.workOrder, categories: categories) { _ in
+                self.setupCancelWorkOrderBarButtonItem()
+            }
+        }
+    }
     private var providers = [Provider]() {
         didSet {
             mapView.removeAnnotations()
