@@ -20,7 +20,7 @@ class CategorySelectionControl: UIControl {
         sender.isSelected = true
         selectedButton = sender
 
-        selectedIndex = stackView.arrangedSubviews.indexOfObject(sender) ?? 0
+        selectedIndex = stackView.arrangedSubviews.index(of: sender) ?? 0
         sendActions(for: .valueChanged)
     }
 
