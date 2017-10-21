@@ -28,7 +28,7 @@ class CategorySelectionControl: UIControl {
         guard !categories.isEmpty else { return }
 
         for view in stackView.arrangedSubviews {
-            stackView.removeArrangedSubview(view)
+            view.removeFromSuperview()
         }
 
         for category in categories {
