@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         if ApiService.shared.hasCachedToken {
-            NotificationCenter.post(name: .WorkOrderContextShouldRefresh)
+            KTNotificationCenter.post(name: .WorkOrderContextShouldRefresh)
         }
 
         dismissLaunchScreenViewController()

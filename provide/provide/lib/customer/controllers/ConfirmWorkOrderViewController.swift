@@ -38,7 +38,7 @@ class ConfirmWorkOrderViewController: ViewController {
         workOrder.categoryId = categoryId
         saveWorkOrder()
 
-        NotificationCenter.post(name: .CategorySelectionChanged, object: categoryId)
+        KTNotificationCenter.post(name: .CategorySelectionChanged, object: categoryId)
     }
 
     private(set) var categories: [Category]! {

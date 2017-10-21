@@ -79,7 +79,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             }
         }
 
-        NotificationCenter.addObserver(forName: .WorkOrderContextShouldRefresh) { _ in
+        KTNotificationCenter.addObserver(forName: .WorkOrderContextShouldRefresh) { _ in
             if !self.updatingWorkOrderContext && (WorkOrderService.shared.inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder || self.canAttemptSegueToPendingAcceptanceWorkOrder) {
                 if self.viewingDirections && WorkOrderService.shared.inProgressWorkOrder != nil {
                     self.updatingWorkOrderContext = true
