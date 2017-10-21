@@ -414,7 +414,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     }
 
     func animateConfirmWorkOrderView(toHidden hidden: Bool) {
-        print("hidden: \(hidden)")
         view.layoutIfNeeded()
         confirmWorkOrderViewControllerBottomConstraint.constant = hidden ? -confirmWorkOrderViewController.view.height : 0
         UIView.animate(withDuration: 0.25) {
