@@ -30,23 +30,16 @@ class ProviderService: NSObject {
     }
 
     func updateProvider(_ provider: Provider) {
-        var newProviders = [Provider]()
-        for p in providers {
-            if p.id == provider.id {
-                newProviders.append(provider)
-            } else {
-                newProviders.append(p)
-            }
+        if let index = providers.index(where: { $0.id == provider.id }) {
+            providers.remove(at: index)
+            providers.insert(provider, at: index)
+        } else {
+            providers.append(provider)
         }
-        providers = newProviders
     }
 
     func removeProvider(_ providerId: Int) {
-        var newProviders = [Provider]()
-        for p in providers where p.id != providerId {
-            newProviders.append(p)
-        }
-        providers = newProviders
+        providers = providers.filter { $0.id != providerId }
     }
 
     func fetch(  // consider adding a radius param, in miles, configured server-side and fetched after authentication
