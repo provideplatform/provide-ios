@@ -441,7 +441,7 @@ class WorkOrder: Model {
             var index: Int?
             for wop in workOrderProviders {
                 if wop.id == workOrderProvider.id || wop.provider.id == workOrderProvider.provider.id {
-                    index = workOrderProviders.indexOfObject(wop)
+                    index = workOrderProviders.index { $0.id == wop.id }
                 }
             }
             if let index = index {

@@ -314,7 +314,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if managedViewControllerSegues.indexOfObject(segue.identifier!) != nil {
+        if managedViewControllerSegues.index(of: segue.identifier!) != nil {
             managedViewControllers.append(segue.destination as! ViewController)
             zeroStateViewController?.dismiss()
         }
