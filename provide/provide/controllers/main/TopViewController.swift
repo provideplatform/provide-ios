@@ -8,7 +8,7 @@
 
 class TopViewController: ViewController, MenuViewControllerDelegate {
 
-    private var vc: UIViewController!
+    private(set) var rootViewController: UIViewController!
 
     private var topStoryboard: UIStoryboard {
         guard let mode = KeyChainService.shared.mode else { return UIStoryboard("Consumer") } // Should never happen
@@ -19,10 +19,6 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
         }
     }
 
-    var rootViewController: UIViewController! {
-        return vc
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,15 +26,15 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
     }
 
     func reload() {
-        if vc != nil {
+        if rootViewController != nil {
             navigationController?.setNavigationBarHidden(true, animated: false)
             navigationController?.popViewController(animated: false)
-            vc = nil
+            rootViewController = nil
         }
 
-        vc = topStoryboard.instantiateInitialViewController()
+        rootViewController = topStoryboard.instantiateInitialViewController()
 
-        navigationController?.pushViewController(vc, animated: false)
+        navigationController?.pushViewController(rootViewController, animated: false)
 
         navigationItem.hidesBackButton = true
         navigationController?.setNavigationBarHidden(false, animated: false)
@@ -60,14 +56,14 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
             default:
                 break
             }
-        } else if let delegate = vc as? MenuViewControllerDelegate {
+        } else if let delegate = rootViewController as? MenuViewControllerDelegate {
             return delegate.menuItemForMenuViewController(menuViewController, at: indexPath)
         }
         return nil
     }
 
     func numberOfSectionsInMenuViewController(_ menuViewController: MenuViewController) -> Int {
-        if let delegate = vc as? MenuViewControllerDelegate {
+        if let delegate = rootViewController as? MenuViewControllerDelegate {
             return delegate.numberOfSectionsInMenuViewController(menuViewController) + 1
         }
         return 1
@@ -76,7 +72,7 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
     func menuViewController(_ menuViewController: MenuViewController, numberOfRowsInSection section: Int) -> Int {
         if section == numberOfSectionsInMenuViewController(menuViewController) - 1 {
             return 2
-        } else if let delegate = vc as? MenuViewControllerDelegate {
+        } else if let delegate = rootViewController as? MenuViewControllerDelegate {
             return delegate.menuViewController(menuViewController, numberOfRowsInSection: section)
         } else {
             return 0
