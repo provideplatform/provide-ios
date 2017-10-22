@@ -21,7 +21,7 @@ class JSONResponseWriter {
     }
 
     static func pathForFile(withRequest request: URLRequest, baseDir: String) -> String {
-        let relativePathFromUrl = request.url!.absoluteString.replaceString("https://", withString: "")
+        let relativePathFromUrl = request.url!.absoluteString.replacingOccurrences(of: "https://", with: "")
         return "\(baseDir)/\(relativePathFromUrl).\(request.httpMethod!).json"
     }
 }

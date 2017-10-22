@@ -675,7 +675,7 @@ class ApiService: NSObject {
                 request.setValue(contentType, forHTTPHeaderField: "content-type")
 
                 if let params = params, contentType.lowercased() == "application/json" {
-                    jsonParams = NSDictionary(dictionary: params).toJSON()
+                    jsonParams = params.toJSONString()
                     request.httpBody = jsonParams.data(using: .utf8)
                 }
             }

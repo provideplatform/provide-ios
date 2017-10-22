@@ -64,7 +64,7 @@ class Model: NSObject {
 
             if value is NSDictionary {
                 if let clazz = clazz {
-                    value = clazz.init(string: (value as! NSDictionary).toJSON())
+                    value = clazz.init(string: ((value as! NSDictionary) as Dictionary).toJSONString())
                 } else {
                     value = value as! NSDictionary
                 }
@@ -72,7 +72,7 @@ class Model: NSObject {
                 if let clazz = clazz {
                     var newValue = [Model]()
                     for v in value as! NSArray {
-                        newValue.append(clazz.init(string: (v as! NSDictionary).toJSON()))
+                        newValue.append(clazz.init(string: ((v as! NSDictionary) as Dictionary).toJSONString()))
                     }
                     value = newValue as AnyObject
                 } else {
