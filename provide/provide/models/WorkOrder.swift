@@ -355,13 +355,6 @@ class WorkOrder: Model {
         return imageCount
     }
 
-    private var isCompleted: Bool {
-        if let status = status {
-            return status == "completed"
-        }
-        return false
-    }
-
     private var isCurrentUserProvider: Bool {
         return providers.contains { $0.userId == currentUser.id }
     }
