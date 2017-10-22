@@ -86,6 +86,8 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                     logWarn("Failed to fetch autocomplete suggestions for query: \(query) (\(statusCode))")
                     self?.pendingSearch = false
                 })
+
+                LocationService.shared.background()
             }
         }
     }
