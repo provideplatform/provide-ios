@@ -55,7 +55,7 @@ class ProviderEnRouteViewController: ViewController {
                 nameLabel.text = workOrder.providers.last!.firstName!.uppercased()
                 nameLabel.isHidden = false
 
-                categoryLabel.text = ""  // FIXME -- workOrder.category.desc
+                categoryLabel.text = workOrder.category?.abbreviation ?? ""
                 categoryLabel.isHidden = false
 
                 makeLabel.text = ""

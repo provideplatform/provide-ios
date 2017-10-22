@@ -86,6 +86,7 @@ class WorkOrder: Model {
         ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "user", mapping: User.mapping())
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", with: Attachment.mappingWithRepresentations()))
+        mapping?.addRelationshipMapping(withSourceKeyPath: "category", mapping: Category.mapping())
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "supervisors", toKeyPath: "supervisors", with: User.mapping()))
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order_providers", toKeyPath: "workOrderProviders", with: WorkOrderProvider.mapping()))
 
