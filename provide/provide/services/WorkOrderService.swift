@@ -61,14 +61,19 @@ class WorkOrderService: NSObject {
 
     func updateWorkOrder(_ workOrder: WorkOrder) {
         var newWorkOrders = [WorkOrder]()
+        var statusChanged = false
         for wo in workOrders {
             if wo.id == workOrder.id {
+                statusChanged = wo.status != workOrder.status
                 newWorkOrders.append(workOrder)
             } else {
                 newWorkOrders.append(wo)
             }
         }
         workOrders = newWorkOrders
+        if statusChanged {
+            KTNotificationCenter.post(name: .WorkOrderStatusChanged, object: workOrder as Any)
+        }
     }
 
     func fetch(_ page: Int = 1, rpp: Int = 10, status: String = "scheduled", today: Bool = false, includeProviders: Bool = true, onWorkOrdersFetched: OnWorkOrdersFetched!) {
