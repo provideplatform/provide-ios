@@ -314,7 +314,7 @@
                                             <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="confirm:" destination="wcE-do-F58" eventType="touchUpInside" id="8a7-0Z-44b"/>
+                                            <action selector="confirmButtonTapped:" destination="wcE-do-F58" eventType="touchUpInside" id="8a7-0Z-44b"/>
                                         </connections>
                                     </button>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="f7X-Fg-TVf">

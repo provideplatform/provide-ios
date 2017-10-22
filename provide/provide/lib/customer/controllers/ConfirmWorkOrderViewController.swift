@@ -90,7 +90,7 @@ class ConfirmWorkOrderViewController: ViewController {
         views.forEach { $0.isHidden = hidden }
     }
 
-    @IBAction private func confirm(_ sender: UIButton) {
+    @IBAction private func confirmButtonTapped(_ sender: UIButton) {
         setViews(hidden: true)
         activityIndicatorView.startAnimating()
 
