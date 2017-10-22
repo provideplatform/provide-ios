@@ -96,7 +96,7 @@ class ConsumerMapView: MapView, UIGestureRecognizerDelegate {
     }
 
     func mapView(_ mapView: MKMapView, didFailToLocateUserWithError error: Error) {
-         logWarn("MapView failed to locate user")
+        logWarn("MapView failed to locate user: \(error.localizedDescription)")
     }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer? {

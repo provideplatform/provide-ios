@@ -102,6 +102,8 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
         if !expanded {
             expanded = true
 
+            print("👱 Activated: search field 👱")
+
             monkey("👨‍💼 Input: destination address") {
                 self.destinationTextField.text = "888 N Quincy St"
                 self.search()

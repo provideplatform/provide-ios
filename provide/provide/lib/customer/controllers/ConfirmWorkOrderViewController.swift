@@ -98,6 +98,7 @@ class ConfirmWorkOrderViewController: ViewController {
         setViews(hidden: true)
         activityIndicatorView.startAnimating()
 
+        print("👱 Tapped: CONFIRM PRVD 👱")
         logInfo("Waiting for a provider to accept the request")
 
         workOrder.status = "pending_acceptance"

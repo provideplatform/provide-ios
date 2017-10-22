@@ -41,7 +41,7 @@ class DestinationResultsViewController: ViewController, UITableViewDelegate, UIT
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let contact = results[indexPath.row]
-        logInfo("Selected destination result: \(contact.desc)")
+        print("👱 Selected: \(contact.desc!) 👱")
         onResultSelected(contact)
         tableView.deselectRow(at: indexPath, animated: true)
     }

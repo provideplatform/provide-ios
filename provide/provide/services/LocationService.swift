@@ -348,7 +348,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-        logInfo("Started monitoring region \(region)")
+        print("⭕️ \(#function) ⭕️")
+        print("⭕️ Started monitoring region \(region) ⭕️")
     }
 
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
