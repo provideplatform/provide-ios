@@ -36,9 +36,11 @@ class CategorySelectionControl: UIControl {
             stackView.addArrangedSubview(button)
         }
 
+        /* BUG: If a category is selected, the work_order_changed notification continuously gets pushed and the trip never ends
         if selectedButton == nil {
             selectedButton = stackView.arrangedSubviews.filter { $0 is CategoryButton }.map { $0 as! CategoryButton }.first
             selectedButton?.isSelected = true
         }
+         */
     }
 }
