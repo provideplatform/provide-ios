@@ -27,23 +27,18 @@ class CategorySelectionControl: UIControl {
     func configure(categories: [Category]) {
         guard !categories.isEmpty else { return }
 
-        for view in stackView.arrangedSubviews {
-            view.removeFromSuperview()
-        }
+        stackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
         for category in categories {
             let button = CategoryButton(type: .system)
             button.configure(category: category)
             button.addTarget(self, action: #selector(categoryButtonTapped), for: .touchUpInside)
-
             stackView.addArrangedSubview(button)
         }
-    }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        selectedButton = stackView.arrangedSubviews.filter { $0 is CategoryButton }.map { $0 as! CategoryButton }.first
-        selectedButton?.isSelected = true
+        if selectedButton == nil {
+            selectedButton = stackView.arrangedSubviews.filter { $0 is CategoryButton }.map { $0 as! CategoryButton }.first
+            selectedButton?.isSelected = true
+        }
     }
 }
