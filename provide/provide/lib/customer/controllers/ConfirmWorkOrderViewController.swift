@@ -34,7 +34,7 @@ class ConfirmWorkOrderViewController: ViewController {
     @IBAction func categoryChanged(_ sender: CategorySelectionControl) {
         let categoryId = sender.selectedIndex + 1 // TODO: Make robust
         let price = workOrder.estimatedPriceForCategory(categoryId) ?? 0
-        fareEstimateLabel.text = "$\(price)"
+        fareEstimateLabel.text = Formatters.currencyFormatter.string(from: price as NSNumber)
         workOrder.categoryId = categoryId
         KTNotificationCenter.post(name: .CategorySelectionChanged, object: categoryId)
     }
@@ -59,7 +59,7 @@ class ConfirmWorkOrderViewController: ViewController {
                     distanceEstimateLabel.isHidden = false
 
                     let price = workOrder.estimatedPriceForCategory(1) ?? 0
-                    fareEstimateLabel.text = "$\(price)"
+                    fareEstimateLabel.text = Formatters.currencyFormatter.string(from: price as NSNumber)
                     fareEstimateLabel.isHidden = false
 
                     // self.creditCardLastFour.text = "" // TODO

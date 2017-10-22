@@ -26,6 +26,7 @@
 		5C087C3D1B50614100A30549 /* MessageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C41C5961B2152A900FA7783 /* MessageServiceTests.swift */; };
 		5C087C3F1B50614100A30549 /* WorkOrderServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0049551B1BE964000ACE9D /* WorkOrderServiceTests.swift */; };
 		5C16BDAE1F8AE414005012BB /* Model+Provide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C16BDAD1F8AE414005012BB /* Model+Provide.swift */; };
+		5C3534341F9C77C0007EB828 /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C3534331F9C77C0007EB828 /* Formatters.swift */; };
 		5C41C58F1B212CA300FA7783 /* PushNotificationType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C41C58E1B212CA300FA7783 /* PushNotificationType.swift */; };
 		5C41C5931B21457800FA7783 /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C41C5921B21457800FA7783 /* MessageService.swift */; };
 		5C41D2DF1F99CF4C0071937D /* CategorySelectionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C41D2DE1F99CF4C0071937D /* CategorySelectionControl.swift */; };
@@ -215,6 +216,7 @@
 		5C0049501B1BD9FF000ACE9D /* HTTPStubs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HTTPStubs; sourceTree = "<group>"; };
 		5C0049551B1BE964000ACE9D /* WorkOrderServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderServiceTests.swift; sourceTree = "<group>"; };
 		5C16BDAD1F8AE414005012BB /* Model+Provide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Provide.swift"; sourceTree = "<group>"; };
+		5C3534331F9C77C0007EB828 /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		5C41C58E1B212CA300FA7783 /* PushNotificationType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationType.swift; sourceTree = "<group>"; };
 		5C41C5921B21457800FA7783 /* MessageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
 		5C41C5961B2152A900FA7783 /* MessageServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageServiceTests.swift; sourceTree = "<group>"; };
@@ -513,6 +515,7 @@
 				5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */,
 				68E113001F5CE3D60069BD45 /* SimulatedCLHeading.swift */,
 				5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */,
+				5C3534331F9C77C0007EB828 /* Formatters.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -1488,6 +1491,7 @@
 				689B0CB21B07DFE3005694B7 /* ApiService.swift in Sources */,
 				681416ED1B8457870076BFBD /* Model.swift in Sources */,
 				68D843C11BFAA73800DE7400 /* NotificationService.swift in Sources */,
+				5C3534341F9C77C0007EB828 /* Formatters.swift in Sources */,
 				5C68C6D41F86812000BBD3B9 /* DestinationInputViewController.swift in Sources */,
 				5CA86B1E1F92372B0027B94F /* NSNotification.Name.swift in Sources */,
 				681416EC1B8457870076BFBD /* Message.swift in Sources */,
