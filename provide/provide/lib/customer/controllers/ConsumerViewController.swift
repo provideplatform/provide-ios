@@ -306,12 +306,12 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         }
     }
 
-    private func filterProvidersByCategoryFromNotification(_ notification: Notification?) {
-        if let categoryId = notification?.object as? Int {
+    private func filterProvidersByCategoryFromNotification(_ notification: Notification) {
+        if let categoryId = notification.object as? Int {
             if let category = categories.first(where: { $0.id == categoryId }) {
                 filterProvidersByCategory(category)
             }
-        } else if let category = notification?.object as? Category {
+        } else if let category = notification.object as? Category {
             filterProvidersByCategory(category)
         } else {
             logWarn("Filter providers notification received without category")
@@ -336,8 +336,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         }
     }
 
-    private func updateProviderLocationFromNotification(_ notification: Notification?) {
-        if let provider = notification?.object as? Provider {
+    private func updateProviderLocationFromNotification(_ notification: Notification) {
+        if let provider = notification.object as? Provider {
             DispatchQueue.main.async {
                 self.updateProviderLocation(provider)
             }
