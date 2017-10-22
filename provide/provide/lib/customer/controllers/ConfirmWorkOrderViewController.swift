@@ -36,8 +36,6 @@ class ConfirmWorkOrderViewController: ViewController {
         let price = workOrder.estimatedPriceForCategory(categoryId) ?? 0
         fareEstimateLabel.text = "$\(price)"
         workOrder.categoryId = categoryId
-        saveWorkOrder()
-
         KTNotificationCenter.post(name: .CategorySelectionChanged, object: categoryId)
     }
 
