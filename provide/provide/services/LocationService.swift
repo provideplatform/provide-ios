@@ -112,6 +112,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
             stopUpdatingLocation()
             stopUpdatingHeading()
 
+            locationServiceStartedDate = nil
+
             logInfo("Stopped location service updates")
         }
     }
