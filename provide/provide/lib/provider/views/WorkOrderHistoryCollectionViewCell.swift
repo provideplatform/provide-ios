@@ -90,7 +90,8 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                     durationLabel.sizeToFit()
                 }
 
-                if let status = workOrder.status {
+                let status = workOrder.status
+                if status != "none" {
                     statusLabel.text = status.uppercased()
 
                     if status == "en_route" || status == "in_progress" {

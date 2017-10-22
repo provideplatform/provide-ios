@@ -32,7 +32,7 @@ class WorkOrder: Model {
     var estimatedPrice = -1.0
     var estimatedDistance: Double = 0
     var estimatedDuration: Double = 0
-    var status: String!
+    var status: String = "none"
     var previewImage: UIImage!
     var providerRating: Double = 0
     var attachments: [Attachment]!

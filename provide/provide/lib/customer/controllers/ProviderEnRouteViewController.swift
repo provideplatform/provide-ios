@@ -112,7 +112,7 @@ class ProviderEnRouteViewController: ViewController {
 
     private func refreshStatus() {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            if workOrder.status == nil {
+            if workOrder.status == "none" {
                 providerStatusLabel?.text = ""
                 providerStatusLabel?.isHidden = false
                 return

@@ -478,6 +478,7 @@ class ApiService: NSObject {
     func createWorkOrder(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var realParams = params
         realParams["id"] = nil
+        realParams["status"] = nil
 
         dispatchApiOperationForPath("work_orders", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
     }
