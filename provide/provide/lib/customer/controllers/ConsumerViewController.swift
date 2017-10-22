@@ -65,10 +65,10 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             self?.loadCategoriesContext()
         }
 
-        KTNotificationCenter.addObserver(forName: .WorkOrderContextShouldRefresh) { [weak self] _ in
+        KTNotificationCenter.addObserver(forName: .WorkOrderContextShouldRefresh) { [weak self] notification in
             guard let strongSelf = self else { return }
             if !strongSelf.updatingWorkOrderContext && WorkOrderService.shared.inProgressWorkOrder == nil {
-                strongSelf.loadWorkOrderContext()
+                strongSelf.loadWorkOrderContext(workOrder: notification.object as? WorkOrder)
             }
         }
 
@@ -197,10 +197,10 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
             workOrder.updateWorkOrderWithStatus("canceled", onSuccess: { [weak self] statusCode, result in
                 self?.attemptSegueToValidWorkOrderContext()
-                self?.loadWorkOrderContext()
+                self?.loadWorkOrderContext(workOrder: workOrder)
             }, onError: { [weak self] err, statusCode, response in
                 logWarn("Failed to cancel work order; attempting to reload work order context")
-                self?.loadWorkOrderContext()
+                self?.loadWorkOrderContext(workOrder: workOrder)
             })
         }
     }
@@ -249,12 +249,26 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         }
     }
 
-    private func loadWorkOrderContext() {
-        updatingWorkOrderContext = true
-        WorkOrderService.shared.fetch(status: "awaiting_schedule,pending_acceptance,en_route,arriving,in_progress") { [weak self] workOrders in
-            WorkOrderService.shared.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
-            self?.attemptSegueToValidWorkOrderContext()
-            self?.updatingWorkOrderContext = false
+    private func loadWorkOrderContext(workOrder: WorkOrder? = nil) {
+        let onWorkOrdersFetched: ([WorkOrder]) -> Void = { [weak self] workOrders in
+            DispatchQueue.main.async {
+                WorkOrderService.shared.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
+                self?.attemptSegueToValidWorkOrderContext()
+                self?.updatingWorkOrderContext = false
+            }
+        }
+
+        if let workOrder = workOrder {
+            if workOrder.status == "canceled" {
+                onWorkOrdersFetched([])
+            } else {
+                onWorkOrdersFetched([workOrder])
+            }
+        } else {
+            updatingWorkOrderContext = true
+            WorkOrderService.shared.fetch(status: "awaiting_schedule,pending_acceptance,en_route,arriving,in_progress") { workOrders in
+                onWorkOrdersFetched(workOrders)
+            }
         }
     }
 
