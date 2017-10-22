@@ -222,10 +222,6 @@ class MenuContainerView: UIView {
             self.frame.origin.x = x
             self.backgroundView.alpha = 0.75 * percentage
         }, completion: { completed in
-            if !self.gestureInProgress {
-                UIApplication.shared.setStatusBarHidden(self.isOpen, with: .slide)
-            }
-
             if !self.isOpen {
                 self.backgroundView.superview!.sendSubview(toBack: self.backgroundView)
             }
