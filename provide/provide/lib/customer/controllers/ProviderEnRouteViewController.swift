@@ -69,8 +69,10 @@ class ProviderEnRouteViewController: ViewController {
                 if oldValue == nil {
                     UIView.animate(withDuration: 0.25, animations: {
                         self.view.frame.origin.y -= self.view.height
-                    }, completion: { completed in
-                        logInfo("Presented provider en route for work order: \(self.workOrder!)")
+                    }, completion: { [weak self] completed in
+                        if let workOrder = self?.workOrder {
+                            logInfo("Presented provider en route for work order: \(workOrder)")
+                        }
                     })
                 }
             }
