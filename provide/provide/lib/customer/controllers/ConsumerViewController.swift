@@ -66,10 +66,9 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         }
 
         KTNotificationCenter.addObserver(forName: .WorkOrderContextShouldRefresh) { [weak self] _ in
-            if let strongSelf = self {
-                if !strongSelf.updatingWorkOrderContext && WorkOrderService.shared.inProgressWorkOrder == nil {
-                    strongSelf.loadWorkOrderContext()
-                }
+            guard let strongSelf = self else { return }
+            if !strongSelf.updatingWorkOrderContext && WorkOrderService.shared.inProgressWorkOrder == nil {
+                strongSelf.loadWorkOrderContext()
             }
         }
 
@@ -324,19 +323,19 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     private func filterProvidersByCategory(_ category: Category) {
         DispatchQueue.main.async { [weak self] in
-            if let strongSelf = self {
-                let invalidAnnotations = strongSelf.providers.filter({ $0.categoryId != category.id }).map({ $0.annotation })
-                strongSelf.mapView.removeAnnotations(invalidAnnotations)
+            guard let strongSelf = self else { return }
 
-                let annotations = strongSelf.providers.filter({ $0.categoryId == category.id }).map({ $0.annotation })
-                for annotation in annotations {
-                    if !strongSelf.mapView.annotations.contains(where: { ($0 as? Provider.Annotation)?.matches(annotation.provider) == true }) {
-                        strongSelf.mapView.addAnnotation(annotation)
-                    }
+            let invalidAnnotations = strongSelf.providers.filter({ $0.categoryId != category.id }).map({ $0.annotation })
+            strongSelf.mapView.removeAnnotations(invalidAnnotations)
+
+            let annotations = strongSelf.providers.filter({ $0.categoryId == category.id }).map({ $0.annotation })
+            for annotation in annotations {
+                if !strongSelf.mapView.annotations.contains(where: { ($0 as? Provider.Annotation)?.matches(annotation.provider) == true }) {
+                    strongSelf.mapView.addAnnotation(annotation)
                 }
-
-                logWarn("Filtered provider annotations by category id: \(category.id)")
             }
+
+            logWarn("Filtered provider annotations by category id: \(category.id)")
         }
     }
 

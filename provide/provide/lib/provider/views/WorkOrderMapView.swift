@@ -13,10 +13,9 @@ class WorkOrderMapView: MapView {
     var directionsViewControllerDelegate: DirectionsViewControllerDelegate! {
         didSet {
             LocationService.shared.resolveCurrentLocation { [weak self] location in
-                if let strongSelf = self {
-                    strongSelf.mapViewDidUpdateUserLocation(strongSelf, location: location)
-                    LocationService.shared.background()
-                }
+                guard let strongSelf = self else { return }
+                strongSelf.mapViewDidUpdateUserLocation(strongSelf, location: location)
+                LocationService.shared.background()
             }
         }
     }
@@ -24,10 +23,9 @@ class WorkOrderMapView: MapView {
     var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate! {
         didSet {
             LocationService.shared.resolveCurrentLocation { [weak self] location in
-                if let strongSelf = self {
-                    strongSelf.mapViewDidUpdateUserLocation(strongSelf, location: location)
-                    LocationService.shared.background()
-                }
+                guard let strongSelf = self else { return }
+                strongSelf.mapViewDidUpdateUserLocation(strongSelf, location: location)
+                LocationService.shared.background()
             }
         }
     }
