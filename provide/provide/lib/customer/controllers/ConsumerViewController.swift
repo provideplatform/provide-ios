@@ -18,7 +18,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     private var destinationResultsViewController: DestinationResultsViewController!
     private var confirmWorkOrderViewController: ConfirmWorkOrderViewController!
     private var providerEnRouteViewController: ProviderEnRouteViewController!
-    
+
     private var zeroStateViewController: ZeroStateViewController!
 
     private var updatingWorkOrderContext = false
