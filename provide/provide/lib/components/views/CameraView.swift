@@ -67,11 +67,11 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     private var lastOCRTimestamp: Date!
 
     private var backCamera: AVCaptureDevice! {
-        return AVCaptureDevice.devices(for: .video).first { ($0 as AnyObject).position == .back }
+        return AVCaptureDevice.devices(for: .video).first { $0.position == .back }
     }
 
     private var frontCamera: AVCaptureDevice! {
-        return AVCaptureDevice.devices(for: .video).first { ($0 as AnyObject).position == .front }
+        return AVCaptureDevice.devices(for: .video).first { $0.position == .front }
     }
 
     var isRunning: Bool {
@@ -206,10 +206,10 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             let channels = connection.audioChannels
 
             for channel in channels {
-                let avg = (channel as AnyObject).averagePowerLevel
-                let peak = (channel as AnyObject).peakHoldLevel
+                let avg = channel.averagePowerLevel
+                let peak = channel.peakHoldLevel
 
-                delegate?.cameraView(self, didMeasureAveragePower: avg!, peakHold: peak!, forAudioChannel: channel )
+                delegate?.cameraView(self, didMeasureAveragePower: avg, peakHold: peak, forAudioChannel: channel )
             }
         }
     }

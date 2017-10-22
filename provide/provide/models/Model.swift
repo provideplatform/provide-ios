@@ -74,7 +74,7 @@ class Model: NSObject {
                     for v in value as! NSArray {
                         newValue.append(clazz.init(string: ((v as! NSDictionary) as Dictionary).toJSONString()))
                     }
-                    value = newValue as AnyObject
+                    value = newValue
                 } else {
                     value = value as! NSArray
                 }

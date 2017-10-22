@@ -271,7 +271,7 @@ class WorkOrder: Model {
     var coordinate: CLLocationCoordinate2D! {
         if let config = config {
             if status == "in_progress" {
-                if let destination = config["destination"] as? [String: AnyObject],
+                if let destination = config["destination"] as? [String: Any],
                     let latitude = destination["latitude"] as? Double,
                     let longitude = destination["longitude"] as? Double {
 
@@ -284,7 +284,7 @@ class WorkOrder: Model {
 
                         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
                     }
-                } else if let origin = config["origin"] as? [String: AnyObject] {
+                } else if let origin = config["origin"] as? [String: Any] {
                     if let latitude = origin["latitude"] as? Double,
                         let longitude = origin["longitude"] as? Double {
 
@@ -304,7 +304,7 @@ class WorkOrder: Model {
     var etaCoordinate: CLLocationCoordinate2D! {
         if let config = config {
             if status == "in_progress" || status == "arriving" {
-                if let destination = config["destination"] as? [String: AnyObject],
+                if let destination = config["destination"] as? [String: Any],
                     let latitude = destination["latitude"] as? Double,
                     let longitude = destination["longitude"] as? Double {
 

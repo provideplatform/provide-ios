@@ -533,7 +533,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     private func unwindManagedViewController(_ viewController: UIViewController) {
-        let segueIdentifier = ("\(NSStringFromClass(type(of: (viewController as AnyObject))))UnwindSegue" as String).components(separatedBy: ".").last!
+        let segueIdentifier = ("\(NSStringFromClass(type(of: viewController)))UnwindSegue" as String).components(separatedBy: ".").last!
         let index = [
             "DirectionsViewControllerUnwindSegue",
             "WorkOrderAnnotationViewControllerUnwindSegue",
