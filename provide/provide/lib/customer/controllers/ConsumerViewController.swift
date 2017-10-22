@@ -182,6 +182,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     }
 
     @objc private func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        LocationService.shared.background()
+
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             workOrder.status = "canceled"  // HACK to allow immediate segue to empty work order context
             attemptSegueToValidWorkOrderContext()
