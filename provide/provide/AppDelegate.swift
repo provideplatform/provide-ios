@@ -171,10 +171,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
 
-        KTNotificationCenter.addObserver(forName: .UIApplicationDidChangeStatusBarOrientation) { notification in
-            DispatchQueue.main.async {
-                self.launchScreenViewController.view.frame = self.window!.frame
-            }
+        KTNotificationCenter.addObserver(forName: .UIApplicationDidChangeStatusBarOrientation, queue: .main) { notification in
+            self.launchScreenViewController.view.frame = self.window!.frame
         }
     }
 

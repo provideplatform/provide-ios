@@ -79,12 +79,10 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
         KTNotificationCenter.addObserver(forName: .CategorySelectionChanged, using: filterProvidersByCategoryFromNotification)
 
-        KTNotificationCenter.addObserver(forName: .WorkOrderStatusChanged) { [weak self] notification in
+        KTNotificationCenter.addObserver(forName: .WorkOrderStatusChanged, queue: .main) { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder {
-                DispatchQueue.main.async {
-                    if WorkOrderService.shared.inProgressWorkOrder?.id == workOrder.id {
-                        self?.handleInProgressWorkOrderStateChange()
-                    }
+                if WorkOrderService.shared.inProgressWorkOrder?.id == workOrder.id {
+                    self?.handleInProgressWorkOrderStateChange()
                 }
             }
         }

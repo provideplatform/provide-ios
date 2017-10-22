@@ -28,12 +28,10 @@ class MapView: MKMapView, MKMapViewDelegate {
 
         delegate = self
 
-        KTNotificationCenter.addObserver(forName: .ProfileImageShouldRefresh) { _ in
+        KTNotificationCenter.addObserver(forName: .ProfileImageShouldRefresh, queue: .main) { _ in
             self.updateUserLocationAnnotation = true
             self.showsUserLocation = false
-            DispatchQueue.main.async {
-                self.showsUserLocation = true
-            }
+            self.showsUserLocation = true
         }
     }
 
