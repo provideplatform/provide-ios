@@ -126,10 +126,6 @@ class ConsumerMapView: MapView, UIGestureRecognizerDelegate {
                                     animated: false)
     }
 
-    func mapViewDidFailToUpdateUserLocation(_ mapView: MapView, error: NSError) {
-        logWarn("Map view failed to update user location")
-    }
-
     func mapViewShouldRefreshVisibleMapRect(_ mapView: MKMapView, animated: Bool = false) {
         mapView.showAnnotations(mapView.annotations, animated: animated)
         mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), animated: animated)
