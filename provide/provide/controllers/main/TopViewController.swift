@@ -10,18 +10,13 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
 
     private var vc: UIViewController!
 
-    private var topStoryboard: UIStoryboard! {
-        if let mode = KeyChainService.shared.mode {
-            switch mode {
-            case .consumer:
-                return UIStoryboard("Consumer")
-            case .provider:
-                return UIStoryboard("Provider")
-            }
-        } else {
-            logWarn("No user mode resolved... panic!!!") // this should never happen...
+    private var topStoryboard: UIStoryboard {
+        guard let mode = KeyChainService.shared.mode else { return UIStoryboard("Consumer") } // Should never happen
+
+        switch mode {
+        case .consumer: return UIStoryboard("Consumer")
+        case .provider: return UIStoryboard("Provider")
         }
-        return nil
     }
 
     var rootViewController: UIViewController! {
