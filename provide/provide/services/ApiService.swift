@@ -385,7 +385,7 @@ class ApiService: NSObject {
         }, onError: onError)
     }
 
-    private func deleteDeviceWithId(_ deviceId: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func _deleteDeviceWithId(_ deviceId: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("devices/\(deviceId)", method: .DELETE, params: nil, onSuccess: onSuccess, onError: onError)
     }
 
@@ -416,11 +416,6 @@ class ApiService: NSObject {
     // MARK: Provider API
 
     @discardableResult
-    private func countProviders(_ params: [String: Any], onTotalResultsCount: @escaping OnTotalResultsCount) -> ApiOperation? {
-        return countTotalResultsForPath("providers", params: params, onTotalResultsCount: onTotalResultsCount)
-    }
-
-    @discardableResult
     func fetchProviders(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> ApiOperation? {
         return dispatchApiOperationForPath("providers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
@@ -429,7 +424,7 @@ class ApiService: NSObject {
         dispatchApiOperationForPath("providers/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    private func fetchProviderAvailability(_ id: String, params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func _fetchProviderAvailability(_ id: String, params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("providers/\(id)/availability", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
@@ -479,39 +474,9 @@ class ApiService: NSObject {
         }, onError: onError)
     }
 
-    // MARK: Task API
-
-    private func fetchTaskWithId(_ id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("tasks/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
-    }
-
-    private func fetchTaskWithId(_ id: String, params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("tasks/\(id)", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    private func fetchTasks(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("tasks", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
-    private func createTask(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        var realParams = params
-        realParams["id"] = nil
-        realParams["userId"] = nil
-
-        dispatchApiOperationForPath("tasks", method: .POST, params: realParams, onSuccess: onSuccess, onError: onError)
-    }
-
-    private func updateTaskWithId(_ id: String, params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        var realParams = params
-        realParams["id"] = nil
-        realParams["userId"] = nil
-
-        dispatchApiOperationForPath("tasks/\(id)", method: .PUT, params: realParams, onSuccess: onSuccess, onError: onError)
-    }
-
     // MARK: Work order API
 
-    private func fetchWorkOrderWithId(_ id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func _fetchWorkOrderWithId(_ id: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("work_orders/\(id)", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
@@ -546,21 +511,17 @@ class ApiService: NSObject {
         addAttachment(data, withMimeType: mimeType, usingPresignedS3RequestURL: presignedS3RequestURL, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    private func updateAttachmentWithId(_ id: String, onWorkOrderWithId workOrderId: String, params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("work_orders/\(workOrderId)/attachments/\(id)", method: .PUT, params: params, onSuccess: onSuccess, onError: onError)
-    }
-
     // MARK: Route API
 
-    private func fetchRoutes(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func _fetchRoutes(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("routes", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    private func fetchRouteWithId(_ id: String, params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func _fetchRouteWithId(_ id: String, params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("routes/\(id)", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
-    private func updateRouteWithId(_ id: String, params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func _updateRouteWithId(_ id: String, params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         var realParams = params
         realParams.removeValue(forKey: "id")
 
@@ -594,11 +555,11 @@ class ApiService: NSObject {
 
     // MARK: - Payment methods API
 
-    private func fetchPaymentMethods(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func _fetchPaymentMethods(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("payment_methods", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    private func createPaymentMethod(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+    private func _createPaymentMethod(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("payment_methods", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 

@@ -13,10 +13,6 @@ class ProviderService: NSObject {
 
     private var providers = [Provider]()
 
-    private func setProviders(_ providers: [Provider]) {
-        self.providers = providers
-    }
-
     func cachedProvider(_ providerId: Int) -> Provider? {
         return providers.first { $0.id == providerId }
     }

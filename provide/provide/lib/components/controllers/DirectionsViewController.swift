@@ -327,7 +327,7 @@ class DirectionsViewController: ViewController {
         return directions?.selectedRoute?.legs[i]
     }
 
-    private func maneuverAtIndexPath(_ indexPath: IndexPath) -> Maneuver? {
+    private func _maneuverAtIndexPath(_ indexPath: IndexPath) -> Maneuver? {
         if let routeLeg = routeLegAtIndex(indexPath.section), indexPath.row < routeLeg.maneuvers.count {
             return routeLeg.maneuvers[indexPath.row]
         } else {

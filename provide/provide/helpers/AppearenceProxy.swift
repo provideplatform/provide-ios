@@ -39,20 +39,6 @@ class AppearenceProxy {
         ]
     }
 
-    class func inProgressBarButtonItemTitleTextAttributes() -> [NSAttributedStringKey: Any] {
-        return [
-            .font: UIFont(name: "Exo2-Bold", size: 14)!,
-            .foregroundColor: Color.inProgressStatusColor(),
-        ]
-    }
-
-    class func cancelBarButtonItemTitleTextAttributes() -> [NSAttributedStringKey: Any] {
-        return [
-            .font: UIFont(name: "Exo2-Light", size: 14)!,
-            .foregroundColor: Color.canceledStatusColor(),
-        ]
-    }
-
     class func whiteButtonItemTitleTextAttributes() -> [NSAttributedStringKey: Any] {
         return [
             .font: UIFont(name: "Exo2-Light", size: 14)!,
@@ -63,13 +49,6 @@ class AppearenceProxy {
     class func barButtonItemTitleTextAttributes() -> [NSAttributedStringKey: Any] {
         return [
             .font: UIFont(name: "Exo2-Light", size: 14)!,
-            .foregroundColor: Color.darkBlueBackground(),
-        ]
-    }
-
-    class func selectedButtonItemTitleTextAttributes() -> [NSAttributedStringKey: Any] {
-        return [
-            .font: UIFont(name: "Exo2-Bold", size: 14)!,
             .foregroundColor: Color.darkBlueBackground(),
         ]
     }

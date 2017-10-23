@@ -46,10 +46,6 @@ class ZeroStateViewController: ViewController {
         }
     }
 
-    private func setLabelText(_ labelText: String) {
-        label?.text = labelText
-    }
-
     func setMessage(_ message: String) {
         self.message = message
         messageLabel?.text = message

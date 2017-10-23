@@ -32,13 +32,6 @@ class Model: NSObject {
 
     var lastRefreshDate: Date!
 
-    private func timeIntervalSinceLastRefreshDate() -> TimeInterval {
-        if let lastRefreshDate = lastRefreshDate {
-            return abs(lastRefreshDate.timeIntervalSinceNow)
-        }
-        return -1.0
-    }
-
     override var description: String {
         return "\(toDictionary(false))"
     }

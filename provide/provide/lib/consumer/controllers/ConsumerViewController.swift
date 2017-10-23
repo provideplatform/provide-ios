@@ -151,11 +151,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         }
     }
 
-    private func refreshContext() {
-        loadWorkOrderContext()
-        loadCategoriesContext()
-    }
-
     private func setupMenuBarButtonItem() {
         let menuIconImage = FAKFontAwesome.naviconIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
         navigationItem.leftBarButtonItem = NavigationBarButton.barButtonItemWithImage(menuIconImage, target: self, action: #selector(menuButtonTapped))

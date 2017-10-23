@@ -89,25 +89,4 @@ class Attachment: Model {
     private var tilingBaseUrl: URL? {
         return (metadata?["tiling_base_url"] as? String).flatMap { URL(string: $0) }
     }
-
-    private func hasTag(_ tag: String) -> Bool {
-        return tags.contains(tag)
-    }
-
-    private func fetch(_ onURLFetched: @escaping OnURLFetched, onError: @escaping OnError) {
-        ApiService.shared.fetchURL(url!, onURLFetched: { statusCode, response in
-            self.data = response
-            onURLFetched(statusCode, response)
-        }, onError: onError)
-    }
-
-    private func updateAttachment(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        ApiService.shared.updateAttachmentWithId(String(id), forAttachableType: attachableType, withAttachableId: String(attachableId), params: params, onSuccess: { statusCode, mappingResult in
-            if let metadata = params["metadata"] as? [String: Any] {
-                self.metadata = metadata
-            }
-
-            onSuccess(statusCode, mappingResult)
-        }, onError: onError)
-    }
 }
