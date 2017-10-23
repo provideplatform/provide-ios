@@ -346,6 +346,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                             logInfo("Completed work order")
                             self?.nextWorkOrderContextShouldBeRewound()
                             self?.attemptSegueToValidWorkOrderContext()
+                            LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
                         }, onError: { error, statusCode, responseString in
                             logWarn("Failed to set work order status to completed upon arrival (\(statusCode))")
                             LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
