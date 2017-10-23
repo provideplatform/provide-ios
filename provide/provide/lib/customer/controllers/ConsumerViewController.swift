@@ -384,7 +384,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         case 1:
             return MenuItem(label: "Payment Methods", action: "paymentMethods")
         case 2:
-            return MenuItem(label: "Driver Mode", action: "provide")
+            return MenuItem(label: "Driver Mode", action: #selector(provide))
         default:
             return nil
         }

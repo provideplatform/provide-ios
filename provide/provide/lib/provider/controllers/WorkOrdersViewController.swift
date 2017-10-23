@@ -391,7 +391,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         case 0:
             return MenuItem(label: "History", action: "history")
         case 1:
-            return MenuItem(label: "Ride Mode", action: "switchToConsumerMode")
+            return MenuItem(label: "Ride Mode", action: #selector(switchToConsumerMode))
         default:
             break
         }

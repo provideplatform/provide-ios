@@ -52,7 +52,7 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
             case 0:
                 return MenuItem(label: "Legal", urlString: "\(CurrentEnvironment.baseUrlString)/#/legal")
             case 1:
-                return MenuItem(label: "Logout", action: "logout")
+                return MenuItem(label: "Logout", action: #selector(MenuViewController.logout))
             default:
                 break
             }

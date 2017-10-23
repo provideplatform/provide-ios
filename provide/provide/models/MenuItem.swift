@@ -22,6 +22,10 @@ class MenuItem: NSObject {
         self.storyboard = storyboard
     }
 
+    convenience init(label: String, action: Selector, urlString: String? = nil) {
+        self.init(label: label, action: action.description, urlString: urlString)
+    }
+
     convenience init(dict: [String: String]) {
         self.init(label: dict["label"]!, action: dict["action"], urlString: dict["url"], storyboard: dict["storyboard"])
     }
