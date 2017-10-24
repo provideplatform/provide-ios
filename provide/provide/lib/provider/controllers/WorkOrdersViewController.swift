@@ -89,6 +89,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                             self.loadWorkOrderContext()
                         } else {
                             log("not reloading context due to work order being routed to destination")
+                            self.registerRegionMonitoringCallbacks()
                             self.updatingWorkOrderContext = false
                         }
                     }, onError: { error, statusCode, responseString in
@@ -311,6 +312,40 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
+    private func registerRegionMonitoringCallbacks() {
+        WorkOrderService.shared.setInProgressWorkOrderRegionMonitoringCallbacks({
+            logInfo("Entered monitored work order region")
+            if let wo = WorkOrderService.shared.inProgressWorkOrder {
+                if wo.canArrive {
+                    wo.arrive(onSuccess: { [weak self] statusCode, responseString in
+                        logInfo("Work order marked as arriving")
+                        LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
+                        DirectionService.shared.resetLastDirectionsApiRequestCoordinateAndTimestamp()
+                        dispatch_after_delay(2.5) {
+                            self?.nextWorkOrderContextShouldBeRewound()
+                            self?.attemptSegueToValidWorkOrderContext()
+                        }
+                        }, onError: { error, statusCode, responseString in
+                            logWarn("Failed to set work order status to in_progress upon arrival (\(statusCode))")
+                            LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
+                    })
+                } else if wo.status == "in_progress" {
+                    wo.complete(onSuccess: { [weak self] statusCode, responseString in
+                        logInfo("Completed work order")
+                        self?.nextWorkOrderContextShouldBeRewound()
+                        self?.attemptSegueToValidWorkOrderContext()
+                        LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
+                        }, onError: { error, statusCode, responseString in
+                            logWarn("Failed to set work order status to completed upon arrival (\(statusCode))")
+                            LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
+                    })
+                }
+            }
+        }, onDidExitRegion: {
+            logInfo("Exited monitored work order region")
+        })
+    }
+
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -324,38 +359,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             assert(segue.destination is DirectionsViewController)
 
             refreshAnnotations()
-
-            WorkOrderService.shared.setInProgressWorkOrderRegionMonitoringCallbacks({
-                logInfo("Entered monitored work order region")
-                if let wo = WorkOrderService.shared.inProgressWorkOrder {
-                    if wo.canArrive {
-                        wo.arrive(onSuccess: { [weak self] statusCode, responseString in
-                            logInfo("Work order marked as arriving")
-                            LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
-                            DirectionService.shared.resetLastDirectionsApiRequestCoordinateAndTimestamp()
-                            dispatch_after_delay(2.5) {
-                                self?.nextWorkOrderContextShouldBeRewound()
-                                self?.attemptSegueToValidWorkOrderContext()
-                            }
-                        }, onError: { error, statusCode, responseString in
-                            logWarn("Failed to set work order status to in_progress upon arrival (\(statusCode))")
-                            LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
-                        })
-                    } else if wo.status == "in_progress" {
-                        wo.complete(onSuccess: { [weak self] statusCode, responseString in
-                            logInfo("Completed work order")
-                            self?.nextWorkOrderContextShouldBeRewound()
-                            self?.attemptSegueToValidWorkOrderContext()
-                            LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
-                        }, onError: { error, statusCode, responseString in
-                            logWarn("Failed to set work order status to completed upon arrival (\(statusCode))")
-                            LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
-                        })
-                    }
-                }
-            }, onDidExitRegion: {
-                logInfo("Exited monitored work order region")
-            })
+            registerRegionMonitoringCallbacks()
 
             CheckinService.shared.enableNavigationAccuracy()
             LocationService.shared.enableNavigationAccuracy()
