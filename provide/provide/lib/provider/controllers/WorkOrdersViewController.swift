@@ -79,6 +79,14 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             }
         }
 
+        KTNotificationCenter.addObserver(forName: .WorkOrderChanged) { [weak self] notification in
+            if let workOrder = notification.object as? WorkOrder {
+                if WorkOrderService.shared.inProgressWorkOrder?.id == workOrder.id {
+                    self?.registerRegionMonitoringCallbacks()
+                }
+            }
+        }
+
         KTNotificationCenter.addObserver(forName: .WorkOrderContextShouldRefresh) { _ in
             if !self.updatingWorkOrderContext && (WorkOrderService.shared.inProgressWorkOrder == nil || self.canAttemptSegueToEnRouteWorkOrder || self.canAttemptSegueToPendingAcceptanceWorkOrder) {
                 if self.viewingDirections && WorkOrderService.shared.inProgressWorkOrder != nil {
@@ -89,7 +97,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                             self.loadWorkOrderContext()
                         } else {
                             log("not reloading context due to work order being routed to destination")
-                            self.registerRegionMonitoringCallbacks()
                             self.updatingWorkOrderContext = false
                         }
                     }, onError: { error, statusCode, responseString in
