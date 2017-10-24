@@ -395,7 +395,15 @@ class WorkOrder: Model {
     }
 
     var regionMonitoringRadius: CLLocationDistance {
-        return 10.0
+        if status == "in_progress" {
+            if let destination = config?["destination"] as? [String: Any], let radius = destination["radius"] as? Double {
+                return radius
+            }
+
+            return 30.0  // ~100ft
+        }
+
+        return 10.0  // ~30ft
     }
 
     override func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = []) -> [String: Any] {
