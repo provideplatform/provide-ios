@@ -19,6 +19,8 @@ class TripCompletionViewController: UIViewController {
     private var onConfirmTapped: ((Int) -> Void)!
 
     private var selectedButton: UIButton?
+
+    @IBOutlet private var tipButtons: [CircleButton]!
     @IBOutlet private weak var driverImageView: UIImageView!
     @IBOutlet private weak var driverNameLabel: UILabel!
     @IBOutlet private weak var customAmountButton: UIButton!
@@ -34,6 +36,18 @@ class TripCompletionViewController: UIViewController {
 
         driverNameLabel.text = "Add a tip for \(driver.name ?? "Unknown")"
         driverImageView.sd_setImage(with: driver.profileImageUrl)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        monkey("👨‍💼 Tap: Tip Button") {
+            self.anyButtonTapped(self.tipButtons.last!)
+
+            monkey("👨‍💼 Tap: CONFIRM") {
+                self.confirmButtonTapped(nil)
+            }
+        }
     }
 
     @IBAction private func customButtonTapped(_ sender: UIButton) {
@@ -59,7 +73,7 @@ class TripCompletionViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
 
-    @IBAction private func confirmButtonTapped(_ sender: UIButton) {
+    @IBAction private func confirmButtonTapped(_: UIButton?) {
         let tipAmount = selectedButton?.titleLabel?.text?.replacingOccurrences(of: "$", with: "") ?? "0"
         onConfirmTapped?(Int(tipAmount) ?? 0)
         dismiss(animated: true)

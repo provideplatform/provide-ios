@@ -648,6 +648,9 @@
                         <outlet property="customAmountButton" destination="5sU-V5-ypK" id="2OY-Kn-aAM"/>
                         <outlet property="driverImageView" destination="6qK-2c-HlU" id="xb3-To-kUT"/>
                         <outlet property="driverNameLabel" destination="wAk-yV-c3e" id="6xS-SE-77q"/>
+                        <outletCollection property="tipButtons" destination="kYd-OD-FGU" collectionClass="NSMutableArray" id="K4q-me-2nC"/>
+                        <outletCollection property="tipButtons" destination="xUP-AG-90N" collectionClass="NSMutableArray" id="VFX-Rc-opJ"/>
+                        <outletCollection property="tipButtons" destination="PPY-fr-jnp" collectionClass="NSMutableArray" id="umI-Bk-Yeh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RFA-3s-whF" sceneMemberID="firstResponder"/>
