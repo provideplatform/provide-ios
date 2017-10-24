@@ -15,26 +15,42 @@ class MenuItem: NSObject {
     var urlString: String?
     var actionString: String?
 
-    init(label: String, action: String? = nil, urlString: String? = nil, storyboard: String? = nil) {
-        self.label = label
-        self.actionString = action
-        self.urlString = urlString
-        self.storyboard = storyboard
-    }
-
-    convenience init(label: String, action: Selector, urlString: String? = nil) {
-        self.init(label: label, action: action.description, urlString: urlString)
-    }
-
-    convenience init(dict: [String: String]) {
-        self.init(label: dict["label"]!, action: dict["action"], urlString: dict["url"], storyboard: dict["storyboard"])
-    }
-
     var url: URL? {
         return urlString.flatMap { URL(string: $0) }
     }
 
     var selector: Selector? {
         return actionString.flatMap { Selector($0) }
+    }
+
+    private init(label: String) {
+        self.label = label
+    }
+
+    convenience init(label: String, action: Selector) {
+        self.init(label: label)
+        self.actionString = action.description
+    }
+
+    convenience init(label: String, action: String) {
+        self.init(label: label)
+        self.actionString = action
+    }
+
+    convenience init(label: String, urlString: String) {
+        self.init(label: label)
+        self.urlString = urlString
+    }
+
+    convenience init(label: String, storyboard: String) {
+        self.init(label: label)
+        self.storyboard = storyboard
+    }
+
+    convenience init(dict: [String: String]) {
+        self.init(label: dict["label"]!)
+        self.actionString = dict["action"]
+        self.urlString = dict["url"]
+        self.storyboard = dict["storyboard"]
     }
 }
