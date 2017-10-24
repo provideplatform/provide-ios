@@ -93,7 +93,7 @@ class WorkOrder: Model {
     }
 
     private var allowNewComments: Bool {
-        return status != nil && status != "awaiting_schedule"
+        return status != "none" && status != "awaiting_schedule"
     }
 
     var annotation: Annotation {
