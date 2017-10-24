@@ -48,7 +48,7 @@ class CheckinService: NSObject {
 
     func start() {
         restart()
-        logInfo("Started checkin service")
+        print("🚦 Started checkin service 🚦")
     }
 
     func stop() {
@@ -57,7 +57,7 @@ class CheckinService: NSObject {
             timer = nil
         }
 
-        logInfo("Stopped checkin service")
+        print("🛑 Stopped checkin service 🛑")
     }
 
     @objc func checkin() {

@@ -418,7 +418,7 @@ class ApiService: NSObject {
         }
 
         return checkin(params, onSuccess: { statusCode, mappingResult in
-            logInfo("Checkin succeeded")
+            print("📌 Checkin succeeded 📌")
         }, onError: { error, statusCode, responseString in
             logWarn("Checkin failed (\(statusCode))")
         })

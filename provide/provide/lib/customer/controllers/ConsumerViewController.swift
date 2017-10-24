@@ -61,7 +61,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         loadWorkOrderContext()
 
         LocationService.shared.resolveCurrentLocation { [weak self] (_) in
-            logInfo("Current location resolved for consumer view controller... refreshing context")
+            print("📍 Current location resolved for consumer view controller... refreshing context 📍")
             self?.loadCategoriesContext()
         }
 

@@ -101,7 +101,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
             startUpdatingLocation()
             startUpdatingHeading()
 
-            logInfo("Started location service updates")
+            print("✳️ Started location service updates ✳️")
         }
     }
 
@@ -114,7 +114,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
             locationServiceStartedDate = nil
 
-            logInfo("Stopped location service updates")
+            print("🛑 Stopped location service updates 🛑")
         }
     }
 
@@ -246,7 +246,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
     private func resolveCurrentHeading(_ onResolved: @escaping OnHeadingResolved, durableKey: String?, allowCachedHeading: Bool = false) {
         if isSimulator() {
-            logInfo("Returning simulated heading details; simulator does not support heading")
+            // logInfo("Returning simulated heading details; simulator does not support heading")
             onResolved(SimulatedHeading())
             return
         }
