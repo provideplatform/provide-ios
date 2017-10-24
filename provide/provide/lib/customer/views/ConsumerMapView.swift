@@ -58,7 +58,7 @@ class ConsumerMapView: MapView, UIGestureRecognizerDelegate {
     override func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         super.mapViewDidFinishRenderingMap(mapView, fullyRendered: true)
         if fullyRendered {
-            print("🗺 Consumer map view fully rendered 🗺")
+            logmoji("🗺", "Consumer map view fully rendered")
         }
     }
 

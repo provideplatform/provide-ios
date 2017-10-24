@@ -67,7 +67,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
     }
 
     func dispatchRemoteNotification(_ userInfo: [String: Any]) {
-        // print("📣 dispatchRemoteNotification: \(userInfo)")
+        // logmoji("📣", "dispatchRemoteNotification: \(userInfo)")
         let (notificationType, notificationValue) = PushNotificationType.typeAndValueFromUserInfo(userInfo)
 
         switch notificationType {
@@ -140,7 +140,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
 
     @objc func websocket(_ socket: JFRWebSocket, didReceiveMessage message: String) {
         if !(message =~ ".*websocket_rails.ping.*") {
-            // print("🔔 websocket:didReceiveMessage: \(prettyPrintedJson(message))")
+            // logmoji("🔔", "websocket:didReceiveMessage: \(prettyPrintedJson(message))")
         }
 
         if let token = KeyChainService.shared.token {
@@ -155,7 +155,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                     let payload = data["payload"] as? [String: Any]
 
                     if let message = message {
-                        print("✴️ \(message) ✴️")
+                        logmoji("✴️", message)
 
                         AnalyticsService.shared.track("Websocket Received Message", properties: ["message": message])
 
@@ -201,7 +201,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                             if WorkOrderService.shared.inProgressWorkOrder == nil {
                                 KTNotificationCenter.post(name: .WorkOrderContextShouldRefresh, object: workOrder)
                             }
-                            print("⚛️ status: \(workOrder.status) ⚛️")
+                            logmoji("⚛️", "status: \(workOrder.status)")
                         case "work_order_provider_changed":
                             let workOrderProviderJson = payload!.toJSONString()
                             let workOrderProvider = WorkOrderProvider(string: workOrderProviderJson)

@@ -95,7 +95,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
     // MARK: PinInputViewControllerDelegate
 
     func pinInputViewControllerDidComplete(_ pinInputViewController: PinInputViewController) {
-        print("completed PIN input view controller \(pinInputViewController)")
+        logmoji("🔢", "completed PIN input view controller \(pinInputViewController)")
     }
 
     func pinInputViewControllerDidExceedMaxAttempts(_ pinInputViewController: PinInputViewController) {

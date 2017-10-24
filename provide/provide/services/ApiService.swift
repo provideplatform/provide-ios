@@ -418,7 +418,7 @@ class ApiService: NSObject {
         }
 
         return checkin(params, onSuccess: { statusCode, mappingResult in
-            print("📌 Checkin succeeded 📌")
+            logmoji("📌", "Checkin succeeded")
         }, onError: { error, statusCode, responseString in
             logWarn("Checkin failed (\(statusCode))")
         })
@@ -684,10 +684,10 @@ class ApiService: NSObject {
             if let op = RKObjectRequestOperation(request: request as URLRequest!, responseDescriptors: [responseDescriptor]) {
                 let startDate = Date()
 
-                print("↗️ \(request.httpMethod): \(request.url!) ↗️")
+                logmoji("↗️", "\(request.httpMethod): \(request.url!)")
 
                 op.setCompletionBlockWithSuccess({ operation, mappingResult in
-                    print("✅ \(operation!.httpRequestOperation.response.statusCode): \(request.url!) ✅")
+                    logmoji("✅", "\(operation!.httpRequestOperation.response.statusCode): \(request.url!)")
 
                     AnalyticsService.shared.track("HTTP Request Succeeded", properties: [
                         "path": path,

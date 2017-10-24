@@ -61,7 +61,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         loadWorkOrderContext()
 
         LocationService.shared.resolveCurrentLocation { [weak self] (_) in
-            print("📍 Current location resolved for consumer view controller... refreshing context 📍")
+            logmoji("📍", "Current location resolved for consumer view controller... refreshing context")
             self?.loadCategoriesContext()
         }
 
@@ -109,7 +109,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             attemptSegueToValidWorkOrderContext()
         } else {
             if let status = WorkOrderService.shared.inProgressWorkOrder?.status {
-                print("📝 status: \(status) 📝")
+                logmoji("📝", "status: \(status)")
             }
         }
     }
@@ -142,7 +142,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             let tripCompletionVC = (segue.destination as! UINavigationController).topViewController as! TripCompletionViewController
             let workOrder = sender as! WorkOrder
             tripCompletionVC.configure(driver: workOrder.providers.last!) { tipAmount in
-                print("Tip amount is \(tipAmount). TODO: POST tip amount to server")
+                logmoji("💰", "Tip amount is \(tipAmount). TODO: POST tip amount to server")
             }
         default:
             break
@@ -201,7 +201,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     @objc private func cancelButtonTapped(_ sender: UIBarButtonItem) {
         LocationService.shared.background()
 
-        print("👱 Tapped: CANCEL 👱")
+        logmoji("👱", "Tapped: CANCEL")
 
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             workOrder.status = "canceled"  // HACK to allow immediate segue to empty work order context
@@ -390,14 +390,14 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
                     mapView.addAnnotation(provider.annotation)
                     return true
                 } else {
-                    print("🗑 Removing unavailable provider annotation from consumer map view 🗑")
+                    logmoji("🗑", "Removing unavailable provider annotation from consumer map view")
                     mapView.removeAnnotation(annotation)
                     return true
                 }
             }
             return false
         }) {
-            print("🚗 Added provider annotation: \(provider) 🚗")
+            logmoji("🚗", "Added provider annotation: \(provider)")
             mapView.addAnnotation(provider.annotation)
         }
     }

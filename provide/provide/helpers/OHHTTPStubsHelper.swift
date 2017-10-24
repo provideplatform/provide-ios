@@ -63,7 +63,7 @@ class OHHTTPStubsHelper {
         })
 
         OHHTTPStubs.onStubActivation { request, httpStubsDescriptor, httpStubsResponse in
-            print("🔔 Stubbing: \(request.url!) 🔔")
+            logmoji("🔔", "Stubbing: \(request.url!)")
         }
     }
 }

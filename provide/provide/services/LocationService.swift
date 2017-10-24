@@ -101,7 +101,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
             startUpdatingLocation()
             startUpdatingHeading()
 
-            print("✳️ Started location service updates ✳️")
+            logmoji("✳️", "Started location service updates")
         }
     }
 
@@ -114,7 +114,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
             locationServiceStartedDate = nil
 
-            print("🛑 Stopped location service updates 🛑")
+            logmoji("🛑", "Stopped location service updates")
         }
     }
 
@@ -201,7 +201,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     private func locationResolved(_ location: CLLocation) {
-        print("🌎 Location: \(location) 🌎")
+        logmoji("🌎", "Location: \(location)")
 
         currentLocation = location
 
@@ -348,8 +348,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-        print("⭕️ \(#function) ⭕️")
-        print("⭕️ Started monitoring region \(region) ⭕️")
+        logmoji("⭕️", "\(#function)")
+        logmoji("⭕️", "Started monitoring region \(region)")
     }
 
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {

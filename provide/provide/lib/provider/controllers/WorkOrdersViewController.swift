@@ -321,11 +321,11 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     private func registerRegionMonitoringCallbacks() {
         WorkOrderService.shared.setInProgressWorkOrderRegionMonitoringCallbacks({
-            print("⭕️ Entered monitored work order region ⭕️")
+            logmoji("⭕️", "Entered monitored work order region")
             if let wo = WorkOrderService.shared.inProgressWorkOrder {
                 if wo.canArrive {
                     wo.arrive(onSuccess: { [weak self] statusCode, responseString in
-                        print("⭕️ Work order marked as arriving ⭕️")
+                        logmoji("⭕️", "Work order marked as arriving")
                         LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
                         DirectionService.shared.resetLastDirectionsApiRequestCoordinateAndTimestamp()
                         dispatch_after_delay(2.5) {
@@ -338,7 +338,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                     })
                 } else if wo.status == "in_progress" {
                     wo.complete(onSuccess: { [weak self] statusCode, responseString in
-                        print("⭕️ Completed work order ⭕️")
+                        logmoji("⭕️", "Completed work order")
                         self?.nextWorkOrderContextShouldBeRewound()
                         self?.attemptSegueToValidWorkOrderContext()
                         LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)

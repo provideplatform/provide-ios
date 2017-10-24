@@ -32,6 +32,7 @@
 		5C41D2DF1F99CF4C0071937D /* CategorySelectionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C41D2DE1F99CF4C0071937D /* CategorySelectionControl.swift */; };
 		5C46AC641F886D8300989D0A /* OHHTTPStubsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */; };
 		5C47B4301F9B6DA20004F1A2 /* TripCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47B42F1F9B6DA20004F1A2 /* TripCompletionViewController.swift */; };
+		5C4D96401F9F628300AD564F /* Logmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4D963F1F9F628300AD564F /* Logmoji.swift */; };
 		5C51E8DD1F89B1A9001EABC4 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C51E8DC1F89B1A9001EABC4 /* UserTests.swift */; };
 		5C68C6BC1F867F9700BBD3B9 /* InboundMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6B61F867F9600BBD3B9 /* InboundMessageCell.xib */; };
 		5C68C6BD1F867F9700BBD3B9 /* MessagesTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6B71F867F9600BBD3B9 /* MessagesTitleView.swift */; };
@@ -226,6 +227,7 @@
 		5C41D2DE1F99CF4C0071937D /* CategorySelectionControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionControl.swift; sourceTree = "<group>"; };
 		5C47B42F1F9B6DA20004F1A2 /* TripCompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCompletionViewController.swift; sourceTree = "<group>"; };
 		5C4AF39E1B13A3ED00423B71 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		5C4D963F1F9F628300AD564F /* Logmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logmoji.swift; sourceTree = "<group>"; };
 		5C51E8DC1F89B1A9001EABC4 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OHHTTPStubsHelper.swift; sourceTree = "<group>"; };
 		5C68C6B61F867F9600BBD3B9 /* InboundMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InboundMessageCell.xib; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 				5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */,
 				5C3534331F9C77C0007EB828 /* Formatters.swift */,
 				5CED500A1F9C956F0007D19A /* Monkey.swift */,
+				5C4D963F1F9F628300AD564F /* Logmoji.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
@@ -1517,6 +1520,7 @@
 				68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */,
 				6855D0BD1F6EBCF3001A4D33 /* ProfileImageView.swift in Sources */,
 				6899CDE81F5D8D200074370C /* MessagesViewController.swift in Sources */,
+				5C4D96401F9F628300AD564F /* Logmoji.swift in Sources */,
 				6816FD3A1C3234A6005A18BB /* WorkOrderDetailsHeaderTableViewCell.swift in Sources */,
 				68F536ED1B834A5C0007F480 /* WorkOrderDetailsViewController.swift in Sources */,
 				6837AF931C8BB9300082F4EC /* AuthenticationCell.swift in Sources */,
