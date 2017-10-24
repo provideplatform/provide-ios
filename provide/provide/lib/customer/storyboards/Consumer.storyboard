@@ -339,12 +339,12 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13 miles / 20 minutes" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="SeR-ao-OhO">
-                                        <rect key="frame" x="16" y="17" width="134" height="16.5"/>
+                                        <rect key="frame" x="16" y="17" width="136" height="17"/>
                                         <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$12" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="xkL-Ur-DnX">
-                                        <rect key="frame" x="335" y="17" width="23.5" height="16.5"/>
+                                        <rect key="frame" x="337" y="17" width="21.5" height="17"/>
                                         <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -514,7 +514,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Confirm"/>
+                                <state key="normal" title="Confirm Tip"/>
                                 <connections>
                                     <action selector="confirmButtonTapped:" destination="aNT-5D-3ig" eventType="touchUpInside" id="Xxq-h4-EFf"/>
                                 </connections>
