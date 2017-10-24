@@ -101,6 +101,12 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if !expanded {
             expanded = true
+
+            monkey("👨‍💼 Input: destination address") {
+                self.destinationTextField.text = "888 N Quincy St"
+                self.search()
+            }
+
             return false
         }
         return true

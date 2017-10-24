@@ -30,6 +30,10 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
         if let minutesEta = WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes {
             self.minutesEta = minutesEta
         }
+
+        monkey("👨‍✈️ Tap: VIEW REQUEST") {
+            self.onConfirmationRequired()
+        }
     }
 
     func render() {

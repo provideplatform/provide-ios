@@ -44,6 +44,10 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         destinationInputViewController.view.alpha = 0
         mapView.onMapRevealed = {
             self.destinationInputViewController.view.alpha = 1
+
+            monkey("👨‍💼 Tap: SearchBar", after: 1.5) {
+                _ = self.destinationInputViewController.textFieldShouldBeginEditing(UITextField())
+            }
         }
 
         destinationInputViewControllerTopConstraint.constant = -destinationInputViewController.view.height

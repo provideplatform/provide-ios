@@ -26,6 +26,11 @@ class DestinationResultsViewController: ViewController, UITableViewDelegate, UIT
 
     func updateResults(_ results: [Contact]) {
         self.results = results
+        if !results.isEmpty {
+            monkey("👨‍💼 Select: first result") {
+                self.onResultSelected(results.first!)
+            }
+        }
     }
 
     func prepareForReuse() {

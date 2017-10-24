@@ -55,6 +55,14 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        monkey("👨‍✈️ Tap: \(confirmStartWorkOrderButton.titleLabel!.text!)", after: 2) {
+            self.onConfirmationReceived()
+        }
+    }
+
     private func refreshEta() {
         LocationService.shared.resolveCurrentLocation { [weak self] location in
             WorkOrderService.shared.fetchInProgressWorkOrderDrivingEtaFromCoordinate(location.coordinate) { [weak self] _, minutesEta in

@@ -64,6 +64,10 @@ class ConfirmWorkOrderViewController: ViewController {
 
                     // self.creditCardLastFour.text = "" // TODO
                     // self.capacity.text = "" // TODO
+
+                    monkey("👨‍💼 Tap: CONFIRM PRVD") {
+                        self.confirmButtonTapped(UIButton())
+                    }
                 } else if workOrder.status == "pending_acceptance" {
                     setViews(hidden: true)
                     activityIndicatorView.startAnimating()
