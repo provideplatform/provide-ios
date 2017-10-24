@@ -17,7 +17,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     static let shared = LocationService()
 
     let defaultAccuracy = kCLLocationAccuracyBest
-    let defaultDistanceFilter = kCLDistanceFilterNone
+    let defaultDistanceFilter: CLLocationDistance = 1
 
     private let regionMonitorModificationQueue = DispatchQueue(label: "api.regionMonitorModificationQueue", attributes: [])
 
@@ -121,7 +121,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     private func foreground() {
         if requireNavigationAccuracy {
             desiredAccuracy = kCLLocationAccuracyBestForNavigation
-            distanceFilter = kCLDistanceFilterNone
+            distanceFilter = defaultDistanceFilter
         } else {
             desiredAccuracy = defaultAccuracy
             distanceFilter = defaultDistanceFilter
