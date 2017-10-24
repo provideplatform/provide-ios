@@ -7,7 +7,9 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -98,6 +100,7 @@
                         <outlet property="confirmWorkOrderViewControllerBottomConstraint" destination="hnl-uV-YGP" id="SJT-mA-ig3"/>
                         <outlet property="destinationInputViewControllerTopConstraint" destination="D8Z-S8-vE7" id="o5R-Lk-PvW"/>
                         <outlet property="mapView" destination="Q4r-Uq-ubh" id="wTq-6o-sbU"/>
+                        <segue destination="aNT-5D-3ig" kind="presentation" identifier="TripCompletionViewControllerSegue" id="lJU-eQ-kt3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ix-H9-gBT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -494,6 +497,162 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oxr-B4-P27" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-476" y="1204"/>
+        </scene>
+        <!--Trip Completion View Controller-->
+        <scene sceneID="60l-PU-9Ym">
+            <objects>
+                <viewController id="aNT-5D-3ig" customClass="TripCompletionViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hP0-Wr-stO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bdj-R6-ZxK">
+                                <rect key="frame" x="16" y="607" width="343" height="40"/>
+                                <color key="backgroundColor" red="0.2258421779" green="0.51979070900000002" blue="0.94893640280000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="x49-E2-GGg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Confirm"/>
+                                <connections>
+                                    <action selector="confirmButtonTapped:" destination="aNT-5D-3ig" eventType="touchUpInside" id="Xxq-h4-EFf"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ozh-6g-MKY">
+                                <rect key="frame" x="16" y="477" width="223" height="110"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYd-OD-FGU" customClass="CircleButton" customModule="provide" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="25" width="60" height="60"/>
+                                        <color key="backgroundColor" red="0.53769487140000005" green="0.7112385631" blue="0.97082155940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="kYd-OD-FGU" secondAttribute="height" id="Y4V-Dt-ofx"/>
+                                            <constraint firstAttribute="height" constant="60" id="Zxd-lb-SQo"/>
+                                        </constraints>
+                                        <state key="normal" title="$1">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="anyButtonTapped:" destination="aNT-5D-3ig" eventType="touchUpInside" id="GKz-QL-V79"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xUP-AG-90N" customClass="CircleButton" customModule="provide" customModuleProvider="target">
+                                        <rect key="frame" x="81.5" y="25" width="60" height="60"/>
+                                        <color key="backgroundColor" red="0.53769487140000005" green="0.7112385631" blue="0.97082155940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="$2">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="anyButtonTapped:" destination="aNT-5D-3ig" eventType="touchUpInside" id="ulv-ZO-AAP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PPY-fr-jnp" customClass="CircleButton" customModule="provide" customModuleProvider="target">
+                                        <rect key="frame" x="163" y="25" width="60" height="60"/>
+                                        <color key="backgroundColor" red="0.53769487140000005" green="0.7112385631" blue="0.97082155940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="PPY-fr-jnp" secondAttribute="height" id="yq9-yk-EIp"/>
+                                        </constraints>
+                                        <state key="normal" title="$3">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="anyButtonTapped:" destination="aNT-5D-3ig" eventType="touchUpInside" id="GdW-dQ-Epb"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="kYd-OD-FGU" firstAttribute="height" secondItem="xUP-AG-90N" secondAttribute="height" id="Cdx-Pt-YEy"/>
+                                    <constraint firstItem="xUP-AG-90N" firstAttribute="width" secondItem="xUP-AG-90N" secondAttribute="height" id="Y6H-LE-eeQ"/>
+                                    <constraint firstItem="kYd-OD-FGU" firstAttribute="height" secondItem="PPY-fr-jnp" secondAttribute="height" id="dYS-uJ-qeq"/>
+                                    <constraint firstAttribute="height" constant="110" id="nM6-73-k2w"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yYq-Gv-EkN">
+                                <rect key="frame" x="16" y="356.5" width="343" height="100.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a tip for &lt;driver name&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wAk-yV-c3e">
+                                        <rect key="frame" x="0.0" y="40" width="243" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6qK-2c-HlU">
+                                        <rect key="frame" x="243" y="0.0" width="100" height="100.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="6qK-2c-HlU" secondAttribute="height" multiplier="1:1" id="YkS-Zl-cQq"/>
+                                            <constraint firstAttribute="height" constant="100" id="u88-kE-d8g"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sU-V5-ypK" customClass="CircleButton" customModule="provide" customModuleProvider="target">
+                                <rect key="frame" x="299" y="502" width="60" height="60"/>
+                                <color key="backgroundColor" red="0.53769487140000005" green="0.7112385631" blue="0.97082155940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="5sU-V5-ypK" secondAttribute="height" id="oNh-BE-IeS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Custom">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <state key="selected">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="anyButtonTapped:" destination="aNT-5D-3ig" eventType="touchUpInside" id="eXM-m5-pBd"/>
+                                    <action selector="customButtonTapped:" destination="aNT-5D-3ig" eventType="touchUpInside" id="pw4-2E-Tn6"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="kYd-OD-FGU" firstAttribute="height" secondItem="5sU-V5-ypK" secondAttribute="height" id="1EF-Fh-h72"/>
+                            <constraint firstItem="5sU-V5-ypK" firstAttribute="leading" secondItem="ozh-6g-MKY" secondAttribute="trailing" constant="60" id="3m9-1P-pD6"/>
+                            <constraint firstItem="ozh-6g-MKY" firstAttribute="top" secondItem="yYq-Gv-EkN" secondAttribute="bottom" constant="20" id="8Lc-AN-ulx"/>
+                            <constraint firstItem="gKq-tg-O5M" firstAttribute="trailing" secondItem="5sU-V5-ypK" secondAttribute="trailing" constant="16" id="CLh-LZ-Vb2"/>
+                            <constraint firstItem="gKq-tg-O5M" firstAttribute="bottom" secondItem="Bdj-R6-ZxK" secondAttribute="bottom" constant="20" id="Vb7-US-7hG"/>
+                            <constraint firstItem="gKq-tg-O5M" firstAttribute="trailing" secondItem="Bdj-R6-ZxK" secondAttribute="trailing" constant="16" id="WeB-LH-VmB"/>
+                            <constraint firstItem="gKq-tg-O5M" firstAttribute="trailing" secondItem="yYq-Gv-EkN" secondAttribute="trailing" constant="16" id="hV4-pb-WsR"/>
+                            <constraint firstItem="Bdj-R6-ZxK" firstAttribute="leading" secondItem="gKq-tg-O5M" secondAttribute="leading" constant="16" id="iTN-Wi-NPf"/>
+                            <constraint firstItem="yYq-Gv-EkN" firstAttribute="leading" secondItem="gKq-tg-O5M" secondAttribute="leading" constant="16" id="jwG-YE-Mzb"/>
+                            <constraint firstItem="ozh-6g-MKY" firstAttribute="leading" secondItem="gKq-tg-O5M" secondAttribute="leading" constant="16" id="ooX-8u-aYU"/>
+                            <constraint firstItem="PPY-fr-jnp" firstAttribute="centerY" secondItem="5sU-V5-ypK" secondAttribute="centerY" id="s2O-Cw-QJj"/>
+                            <constraint firstItem="Bdj-R6-ZxK" firstAttribute="top" secondItem="ozh-6g-MKY" secondAttribute="bottom" constant="20" id="yN3-DO-W84"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gKq-tg-O5M"/>
+                    </view>
+                    <connections>
+                        <outlet property="customAmountButton" destination="5sU-V5-ypK" id="2OY-Kn-aAM"/>
+                        <outlet property="driverImageView" destination="6qK-2c-HlU" id="xb3-To-kUT"/>
+                        <outlet property="driverNameLabel" destination="wAk-yV-c3e" id="6xS-SE-77q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RFA-3s-whF" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1268" y="576"/>
         </scene>
     </scenes>
     <resources>

@@ -86,6 +86,12 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             }
         }
 
+        KTNotificationCenter.addObserver(forName: .WorkOrderChanged, queue: .main) { [weak self] notification in
+            if let workOrder = notification.object as? WorkOrder, workOrder.status == "completed" {
+                self?.performSegue(withIdentifier: "TripCompletionViewControllerSegue", sender: workOrder)
+            }
+        }
+
         setupZeroStateView()
     }
 
@@ -132,6 +138,12 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         case "ProviderEnRouteViewControllerEmbedSegue":
             assert(segue.destination is ProviderEnRouteViewController)
             providerEnRouteViewController = segue.destination as! ProviderEnRouteViewController
+        case "TripCompletionViewControllerSegue":
+            let tripCompletionVC = segue.destination as! TripCompletionViewController
+            let workOrder = sender as! WorkOrder
+            tripCompletionVC.configure(driver: workOrder.providers.last!) { tipAmount in
+                print("Tip amount is \(tipAmount). TODO: POST tip amount to server")
+            }
         default:
             break
         }

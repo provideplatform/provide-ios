@@ -31,6 +31,7 @@
 		5C41C5931B21457800FA7783 /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C41C5921B21457800FA7783 /* MessageService.swift */; };
 		5C41D2DF1F99CF4C0071937D /* CategorySelectionControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C41D2DE1F99CF4C0071937D /* CategorySelectionControl.swift */; };
 		5C46AC641F886D8300989D0A /* OHHTTPStubsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */; };
+		5C47B4301F9B6DA20004F1A2 /* TripCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C47B42F1F9B6DA20004F1A2 /* TripCompletionViewController.swift */; };
 		5C51E8DD1F89B1A9001EABC4 /* UserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C51E8DC1F89B1A9001EABC4 /* UserTests.swift */; };
 		5C68C6BC1F867F9700BBD3B9 /* InboundMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6B61F867F9600BBD3B9 /* InboundMessageCell.xib */; };
 		5C68C6BD1F867F9700BBD3B9 /* MessagesTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C68C6B71F867F9600BBD3B9 /* MessagesTitleView.swift */; };
@@ -223,6 +224,7 @@
 		5C41C5921B21457800FA7783 /* MessageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
 		5C41C5961B2152A900FA7783 /* MessageServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageServiceTests.swift; sourceTree = "<group>"; };
 		5C41D2DE1F99CF4C0071937D /* CategorySelectionControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelectionControl.swift; sourceTree = "<group>"; };
+		5C47B42F1F9B6DA20004F1A2 /* TripCompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCompletionViewController.swift; sourceTree = "<group>"; };
 		5C4AF39E1B13A3ED00423B71 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		5C51E8DC1F89B1A9001EABC4 /* UserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTests.swift; sourceTree = "<group>"; };
 		5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OHHTTPStubsHelper.swift; sourceTree = "<group>"; };
@@ -460,6 +462,7 @@
 				5C68C6D31F86811F00BBD3B9 /* DestinationInputViewController.swift */,
 				5C68C6C51F86804300BBD3B9 /* DestinationResultsViewController.swift */,
 				5C68C6C31F86804300BBD3B9 /* ProviderEnRouteViewController.swift */,
+				5C47B42F1F9B6DA20004F1A2 /* TripCompletionViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -1468,6 +1471,7 @@
 				689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */,
 				68B412E01B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */,
 				68B412DD1B080E6D009A4C05 /* CameraView.swift in Sources */,
+				5C47B4301F9B6DA20004F1A2 /* TripCompletionViewController.swift in Sources */,
 				68B412A11B0804BC009A4C05 /* MenuViewController.swift in Sources */,
 				68F5371E1B834A9A0007F480 /* NameValueTableViewCell.swift in Sources */,
 				5C68C6CF1F86804300BBD3B9 /* ConfirmWorkOrderViewController.swift in Sources */,
