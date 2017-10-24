@@ -139,7 +139,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             assert(segue.destination is ProviderEnRouteViewController)
             providerEnRouteViewController = segue.destination as! ProviderEnRouteViewController
         case "TripCompletionViewControllerSegue":
-            let tripCompletionVC = segue.destination as! TripCompletionViewController
+            let tripCompletionVC = (segue.destination as! UINavigationController).topViewController as! TripCompletionViewController
             let workOrder = sender as! WorkOrder
             tripCompletionVC.configure(driver: workOrder.providers.last!) { tipAmount in
                 print("Tip amount is \(tipAmount). TODO: POST tip amount to server")
