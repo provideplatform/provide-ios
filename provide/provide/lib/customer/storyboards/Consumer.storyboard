@@ -646,6 +646,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Trip Complete" id="a34-3h-5Lw"/>
                     <connections>
+                        <outlet property="confirmButton" destination="Bdj-R6-ZxK" id="NAn-68-IOO"/>
                         <outlet property="customAmountButton" destination="5sU-V5-ypK" id="2OY-Kn-aAM"/>
                         <outlet property="driverImageView" destination="6qK-2c-HlU" id="xb3-To-kUT"/>
                         <outlet property="driverNameLabel" destination="wAk-yV-c3e" id="6xS-SE-77q"/>

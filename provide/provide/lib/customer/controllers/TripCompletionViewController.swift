@@ -24,11 +24,13 @@ class TripCompletionViewController: UIViewController {
     @IBOutlet private weak var driverImageView: UIImageView!
     @IBOutlet private weak var driverNameLabel: UILabel!
     @IBOutlet private weak var customAmountButton: UIButton!
+    @IBOutlet private weak var confirmButton: UIButton!
 
     @IBAction private func anyButtonTapped(_ sender: UIButton) {
         selectedButton?.isSelected = false
         sender.isSelected = true
         selectedButton = sender
+        confirmButton.isEnabled = true
     }
 
     override func viewDidLoad() {
@@ -36,6 +38,7 @@ class TripCompletionViewController: UIViewController {
 
         driverNameLabel.text = "Add a tip for \(driver.name ?? "Unknown")"
         driverImageView.sd_setImage(with: driver.profileImageUrl)
+        confirmButton.isEnabled = false
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -50,6 +53,8 @@ class TripCompletionViewController: UIViewController {
         }
     }
 
+    var okAction: UIAlertAction!
+
     @IBAction private func customButtonTapped(_ sender: UIButton) {
         let alertController = UIAlertController(title: "Tip", message: "Enter an amount", preferredStyle: .alert)
         alertController.addTextField { textField in
@@ -58,19 +63,29 @@ class TripCompletionViewController: UIViewController {
             textField.borderStyle = .none
             textField.keyboardType = .numberPad
             textField.delegate = self
+            textField.addTarget(self, action: #selector(self.textChanged), for: .editingChanged)
         }
 
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            sender.isSelected = false
+            self.selectedButton = nil
+            self.confirmButton.isEnabled = false
             alertController.dismiss(animated: true, completion: nil)
         })
 
-        alertController.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+        okAction = UIAlertAction(title: "OK", style: .default) { _ in
             let text = alertController.textFields?.first?.text
             sender.setTitle("$\(text!)", for: .normal)
             alertController.dismiss(animated: true, completion: nil)
-        })
+        }
+        okAction.isEnabled = false
+        alertController.addAction(okAction)
 
         present(alertController, animated: true, completion: nil)
+    }
+
+    @objc func textChanged(_ sender: UITextField) {
+        okAction.isEnabled = sender.text?.isEmpty == false
     }
 
     @IBAction private func confirmButtonTapped(_: UIButton?) {
