@@ -53,8 +53,8 @@ class WorkOrderMapView: MapView {
         return directionsViewControllerDelegate?.isPresentingDirections() ?? false
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    override func awakeFromNib() {
+        super.awakeFromNib()
 
         defaultAnnotationViewReuseIdentifier = "workOrderAnnotationViewReuseIdentifier"
         requireUserLocationBeforeRevealing = true

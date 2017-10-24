@@ -16,8 +16,8 @@ class RoundedButton: UIButton {
         }
     }
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    override func awakeFromNib() {
+        super.awakeFromNib()
 
         initialBackgroundColor = Color.darkBlueBackground()
 

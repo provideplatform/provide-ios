@@ -23,8 +23,8 @@ class MapView: MKMapView, MKMapViewDelegate {
     private var mapFullyRenderedOnce = false
     private var updatedUserLocationOnce = false
 
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    override func awakeFromNib() {
+        super.awakeFromNib()
 
         delegate = self
 
