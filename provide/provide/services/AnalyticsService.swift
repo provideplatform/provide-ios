@@ -22,7 +22,7 @@ class AnalyticsService: NSObject {
         swizzleMethodSelector("viewDidAppear:", withSelector: "swizzled_viewDidAppear:", forClass: UIViewController.self)
 
         if analyticsEnabled {
-            let configuration = SEGAnalyticsConfiguration(writeKey: "7c9wf6cpxb")
+            let configuration = SEGAnalyticsConfiguration(writeKey: "BsyhXoiZ05nMBittF2CKM2DEEpUfOExT")
             //SEGAnalytics.debug(true)
             configuration.flushAt = 1
             log("Segment.io enabled with version \(SEGAnalytics.version())")
