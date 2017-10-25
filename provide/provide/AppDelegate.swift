@@ -37,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NotificationService.shared.connectWebsocket()
         }
 
+        ReachabilityService.shared.start()
+
         if let jsonBaseDir = ProcessInfo.processInfo.environment["SERVE_JSON_RESPONSES"] {
             OHHTTPStubsHelper.serveJsonResponses(fromDir: jsonBaseDir)
         }
