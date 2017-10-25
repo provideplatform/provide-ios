@@ -199,7 +199,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                             WorkOrderService.shared.updateWorkOrder(workOrder)
                             KTNotificationCenter.post(name: .WorkOrderChanged, object: workOrder)
                             if WorkOrderService.shared.inProgressWorkOrder == nil {
-                                KTNotificationCenter.post(name: .WorkOrderContextShouldRefresh, object: workOrder)
+                                KTNotificationCenter.post(name: .WorkOrderContextShouldRefresh)
                             }
                             logmoji("⚛️", "status: \(workOrder.status)")
                         case "work_order_provider_changed":
