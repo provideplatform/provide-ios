@@ -138,6 +138,18 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
         connectWebsocket()
     }
 
+    private func pongMessage() -> String {
+        return """
+        ["websocket_rails.pong",{"data":{}}]
+        """
+    }
+
+    private func subscribeMessage(forUser user: User) -> String {
+        return """
+        ["websocket_rails.subscribe_private",{"data":{"channel":"user_\(user.id)"}}]
+        """
+    }
+
     @objc func websocket(_ socket: JFRWebSocket, didReceiveMessage websocketMessage: String) {
         if !(websocketMessage =~ ".*websocket_rails.ping.*") {
             // logmoji("🔔", "websocket:didReceiveMessage: \(prettyPrintedJson(message))")
@@ -145,9 +157,9 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
 
         if let token = KeyChainService.shared.token {
             if websocketMessage =~ ".*(client_connected).*" {
-                socket.write("[\"websocket_rails.subscribe_private\",{\"data\":{\"channel\":\"user_\(token.user.id)\"}}]")
+                socket.write(subscribeMessage(forUser: token.user))
             } else if websocketMessage =~ ".*(websocket_rails.ping).*" {
-                socket.write("[\"websocket_rails.pong\",{\"data\":{}}]")
+                socket.write(pongMessage())
             } else if websocketMessage =~ "^\\[\\[\"push\"" {
                 let context = JSContext()
                 if let value = context?.evaluateScript("eval('\(websocketMessage)')[0][1]")?.toDictionary(), let data = value["data"] as? [String: Any] {
