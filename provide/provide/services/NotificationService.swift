@@ -138,28 +138,28 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
         connectWebsocket()
     }
 
-    @objc func websocket(_ socket: JFRWebSocket, didReceiveMessage message: String) {
-        if !(message =~ ".*websocket_rails.ping.*") {
+    @objc func websocket(_ socket: JFRWebSocket, didReceiveMessage websocketMessage: String) {
+        if !(websocketMessage =~ ".*websocket_rails.ping.*") {
             // logmoji("🔔", "websocket:didReceiveMessage: \(prettyPrintedJson(message))")
         }
 
         if let token = KeyChainService.shared.token {
-            if message =~ ".*(client_connected).*" {
+            if websocketMessage =~ ".*(client_connected).*" {
                 socket.write("[\"websocket_rails.subscribe_private\",{\"data\":{\"channel\":\"user_\(token.user.id)\"}}]")
-            } else if message =~ ".*(websocket_rails.ping).*" {
+            } else if websocketMessage =~ ".*(websocket_rails.ping).*" {
                 socket.write("[\"websocket_rails.pong\",{\"data\":{}}]")
-            } else if message =~ "^\\[\\[\"push\"" {
+            } else if websocketMessage =~ "^\\[\\[\"push\"" {
                 let context = JSContext()
-                if let value = context?.evaluateScript("eval('\(message)')[0][1]")?.toDictionary(), let data = value["data"] as? [String: Any] {
-                    let message = data["message"] as? String
+                if let value = context?.evaluateScript("eval('\(websocketMessage)')[0][1]")?.toDictionary(), let data = value["data"] as? [String: Any] {
+                    let messageName = data["message"] as? String
                     let payload = data["payload"] as? [String: Any]
 
-                    if let message = message {
-                        logmoji("✴️", message)
+                    if let messageName = messageName {
+                        logmoji("✴️", messageName)
 
-                        AnalyticsService.shared.track("Websocket Received Message", properties: ["message": message])
+                        AnalyticsService.shared.track("Websocket Received Message", properties: ["message": messageName])
 
-                        switch message {
+                        switch messageName {
                         case "attachment_changed":
                             let attachment = Attachment(string: payload!.toJSONString())
                             if let url = payload!["url"] as? String {
