@@ -734,11 +734,12 @@ class ApiService: NSObject {
                             "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0),
                         ])
 
-                        DispatchQueue.global(qos: DispatchQoS.default.qosClass).asyncAfter(deadline: .now() + Double(Int64(self.backoffTimeout * Double(NSEC_PER_SEC)))) {
+                        let deadline = DispatchTime.now() + Double(Int64(self.backoffTimeout * Double(NSEC_PER_SEC)))
+                        self.backoffTimeout = self.backoffTimeout > 60.0 ? self.initialBackoffTimeout : self.backoffTimeout * 2
+
+                        DispatchQueue.global(qos: DispatchQoS.default.qosClass).asyncAfter(deadline: deadline) {
                             _ = self.dispatchOperationForURL(baseURL, path: path, method: method, params: params, onSuccess: onSuccess, onError: onError)
                         }
-
-                        self.backoffTimeout = self.backoffTimeout > 60.0 ? self.initialBackoffTimeout : self.backoffTimeout * 2
                     }
 
                     if self.requestOperations.contains(op) {
