@@ -44,11 +44,14 @@ class ReachabilityService {
         if reachability.isReachable() {
             if reachability.isReachableViaWiFi() {
                 logInfo("Internet is reachable via wifi radio")
+                AnalyticsService.shared.track("Internet Reachable via WiFi", properties: ["date": message])
             } else if reachability.isReachableViaWWAN() {
                 logInfo("Internet is reachable via cellular radio")
+                AnalyticsService.shared.track("Internet Reachable via WWAN", properties: ["date": message])
             }
         } else {
             logWarn("Internet is not reachable")
+            AnalyticsService.shared.track("Internet Unreachable", properties: ["date": message])
         }
     }
 }
