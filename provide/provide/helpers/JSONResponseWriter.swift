@@ -14,9 +14,15 @@ class JSONResponseWriter {
         guard let responseString = operation.httpRequestOperation.responseString else { return }
 
         let request = operation.httpRequestOperation.request!
-        let fullPath = pathForFile(withRequest: request, baseDir: jsonBaseDir)
+        var fullPath = pathForFile(withRequest: request, baseDir: jsonBaseDir)
         try! FileManager.default.createDirectory(atPath: (fullPath as NSString).deletingLastPathComponent, withIntermediateDirectories: true, attributes: nil)
         let prettyJson = prettyPrintedJson(responseString)
+
+        if FileManager.default.fileExists(atPath: fullPath) {
+            let timestamp = Date().format("yyyy-MM-dd_HH:mm:ss.SSS")
+            fullPath = fullPath.replacingOccurrences(of: ".json", with: ".\(timestamp).json")
+        }
+
         try! prettyJson.write(toFile: fullPath, atomically: true, encoding: .utf8)
     }
 
