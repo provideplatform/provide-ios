@@ -1,4 +1,4 @@
-- Enable the `WRITE_JSON_RESPONSES` environment variable in order to save the json resposes to the `HTTPResponses` dir
+- Enable the `WRITE_JSON_RESPONSES` environment variable in order to save the json resposes to the `JSON_RESPONSES` dir
 - Enable the `SERVE_JSON_RESPONSES` environment variable in order to stub the http requests with the save responses
 - Enable both to serve any existing responses from the folder, and to fetch and save any responses that don't exist yet
 - Delete the `provide.services` folder to clear the written files

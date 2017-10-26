@@ -16,7 +16,7 @@ DerivedData/*
 xcuserdata
 Snapshots
 Pods
-provide/HTTPResponses
+provide/JSON_RESPONSES
 
 # versioning
 InfoPlist.h

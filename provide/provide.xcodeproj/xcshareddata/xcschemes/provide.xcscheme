@@ -120,12 +120,12 @@
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "WRITE_JSON_RESPONSES"
-            value = "$PROJECT_DIR/HTTPResponses"
+            value = "$PROJECT_DIR/JSON_RESPONSES"
             isEnabled = "NO">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "SERVE_JSON_RESPONSES"
-            value = "$PROJECT_DIR/HTTPResponses"
+            value = "$PROJECT_DIR/JSON_RESPONSES"
             isEnabled = "NO">
          </EnvironmentVariable>
       </EnvironmentVariables>
