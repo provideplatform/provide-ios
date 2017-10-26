@@ -164,8 +164,8 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 let context = JSContext()
                 if let value = context?.evaluateScript("eval('\(websocketMessage)')[0][1]")?.toDictionary(),
                     let data = value["data"] as? [String: Any],
-                    let messageName = data["message"] as? String {
-                    let payload = data["payload"] as? [String: Any]
+                    let messageName = data["message"] as? String,
+                    let payload = data["payload"] as? [String: Any] {
 
                     logmoji("✴️", messageName)
 
@@ -177,8 +177,8 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
 
                     switch messageName {
                     case "attachment_changed":
-                        let attachment = Attachment(string: payload!.toJSONString())
-                        if let url = payload!["url"] as? String {
+                        let attachment = Attachment(string: payload.toJSONString())
+                        if let url = payload["url"] as? String {
                             attachment.urlString = url // FIXME-- marshall with proper mapping
                         }
 
@@ -187,7 +187,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                         }
                         KTNotificationCenter.post(name: .AttachmentChanged, object: attachment)
                     case "provider_became_available":
-                        let providerJson = payload!.toJSONString()
+                        let providerJson = payload.toJSONString()
                         let provider = Provider(string: providerJson)
                         if ProviderService.shared.containsProvider(provider) {
                             ProviderService.shared.updateProvider(provider)
@@ -196,12 +196,12 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                         }
                         KTNotificationCenter.post(name: .ProviderBecameAvailable, object: provider)
                     case "provider_became_unavailable":
-                        if let providerId = payload?["provider_id"] as? Int, let provider = ProviderService.shared.cachedProvider(providerId) {
+                        if let providerId = payload["provider_id"] as? Int, let provider = ProviderService.shared.cachedProvider(providerId) {
                             ProviderService.shared.removeProvider(providerId)
                             KTNotificationCenter.post(name: .ProviderBecameUnavailable, object: provider)
                         }
                     case "provider_location_changed":
-                        let providerJson = payload!.toJSONString()
+                        let providerJson = payload.toJSONString()
                         let provider = Provider(string: providerJson)
                         if ProviderService.shared.containsProvider(provider) {
                             ProviderService.shared.updateProvider(provider)
@@ -210,7 +210,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                         }
                         KTNotificationCenter.post(name: .ProviderLocationChanged, object: provider)
                     case "work_order_changed":
-                        let workOrderJson = payload!.toJSONString()
+                        let workOrderJson = payload.toJSONString()
                         let workOrder = WorkOrder(string: workOrderJson)
                         WorkOrderService.shared.updateWorkOrder(workOrder)
                         KTNotificationCenter.post(name: .WorkOrderChanged, object: workOrder)
@@ -219,7 +219,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                         }
                         logmoji("⚛️", "status: \(workOrder.status)")
                     case "work_order_provider_changed":
-                        let workOrderProviderJson = payload!.toJSONString()
+                        let workOrderProviderJson = payload.toJSONString()
                         let workOrderProvider = WorkOrderProvider(string: workOrderProviderJson)
                         KTNotificationCenter.post(name: .WorkOrderProviderChanged, object: workOrderProvider)
                         if WorkOrderService.shared.inProgressWorkOrder == nil {
