@@ -169,6 +169,10 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                     if let messageName = messageName {
                         logmoji("✴️", messageName)
 
+                        if ProcessInfo.processInfo.environment["WRITE_JSON_RESPONSES"] != nil {
+                            JSONResponseWriter.writeWebsocketMessageToFile(messageName, websocketMessage)
+                        }
+
                         AnalyticsService.shared.track("Websocket Received Message", properties: ["message": messageName])
 
                         switch messageName {

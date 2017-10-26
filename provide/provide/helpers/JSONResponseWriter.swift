@@ -14,16 +14,29 @@ class JSONResponseWriter {
         guard let responseString = operation.httpRequestOperation.responseString else { return }
 
         let request = operation.httpRequestOperation.request!
-        var fullPath = pathForFile(withRequest: request, baseDir: jsonBaseDir)
-        try! FileManager.default.createDirectory(atPath: (fullPath as NSString).deletingLastPathComponent, withIntermediateDirectories: true, attributes: nil)
-        let prettyJson = prettyPrintedJson(responseString)
+        let outputFilePath = pathForFile(withRequest: request, baseDir: jsonBaseDir)
+        writeString(responseString, toFile: outputFilePath)
+    }
 
-        if FileManager.default.fileExists(atPath: fullPath) {
+    static func writeWebsocketMessageToFile(_ messageName: String, _ fullMessage: String) {
+        guard let jsonBaseDir = ProcessInfo.processInfo.environment["WRITE_JSON_RESPONSES"], isSimulator() else { return }
+        let outputFilePath = "\(jsonBaseDir)/provide.services/websocket/\(messageName).json"
+        writeString(fullMessage, toFile: outputFilePath)
+    }
+
+    private static func writeString(_ jsonString: String, toFile filePath: String) {
+        try! FileManager.default.createDirectory(atPath: (filePath as NSString).deletingLastPathComponent, withIntermediateDirectories: true, attributes: nil)
+
+        let uniqueFilePath: String
+        if FileManager.default.fileExists(atPath: filePath) {
             let timestamp = Date().format("yyyy-MM-dd_HH:mm:ss.SSS")
-            fullPath = fullPath.replacingOccurrences(of: ".json", with: ".\(timestamp).json")
+            uniqueFilePath = filePath.replacingOccurrences(of: ".json", with: ".\(timestamp).json")
+        } else {
+            uniqueFilePath = filePath
         }
 
-        try! prettyJson.write(toFile: fullPath, atomically: true, encoding: .utf8)
+        let prettyJsonString = prettyPrintedJson(jsonString)
+        try! prettyJsonString.write(toFile: uniqueFilePath, atomically: true, encoding: .utf8)
     }
 
     static func pathForFile(withRequest request: URLRequest, baseDir: String) -> String {
