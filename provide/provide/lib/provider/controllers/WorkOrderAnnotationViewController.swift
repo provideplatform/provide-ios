@@ -58,16 +58,14 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "WorkOrderAnnotationViewTouchedUpInsideSegue":
-            assert(segue.source is WorkOrderAnnotationViewController)
-            assert(segue.destination is WorkOrdersViewController)
+            assert(segue.source is WorkOrderAnnotationViewController && segue.destination is WorkOrdersViewController)
 
             if let delegate = workOrdersViewControllerDelegate {
                 delegate.confirmationRequiredForWorkOrderViewController?(self)
                 delegate.removeMapAnnotationsForWorkOrderViewController?(self)
             }
         case "WorkOrderAnnotationViewControllerUnwindSegue":
-            assert(segue.source is WorkOrderAnnotationViewController)
-            assert(segue.destination is WorkOrdersViewController)
+            assert(segue.source is WorkOrderAnnotationViewController && segue.destination is WorkOrdersViewController)
             unwind()
         default:
             break

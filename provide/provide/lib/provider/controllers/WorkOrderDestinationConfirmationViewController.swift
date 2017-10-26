@@ -126,8 +126,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "WorkOrderDestinationConfirmationViewControllerUnwindSegue":
-            assert(segue.source is WorkOrderDestinationConfirmationViewController)
-            assert(segue.destination is WorkOrdersViewController)
+            assert(segue.source is WorkOrderDestinationConfirmationViewController && segue.destination is WorkOrdersViewController)
             unwind()
         default:
             break

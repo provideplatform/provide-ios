@@ -110,8 +110,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "WorkOrderDestinationHeaderViewControllerUnwindSegue":
-            assert(segue.source is WorkOrderDestinationHeaderViewController)
-            assert(segue.destination is WorkOrdersViewController)
+            assert(segue.source is WorkOrderDestinationHeaderViewController && segue.destination is WorkOrdersViewController)
             unwind()
         default:
             break
