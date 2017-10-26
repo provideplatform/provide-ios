@@ -81,9 +81,7 @@ class AnnotationView: MKAnnotationView {
 
         override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
             if selected {
-                if let callback = annotationView.onConfirmationRequired {
-                    callback()
-                }
+                annotationView.onConfirmationRequired?()
             }
 
             initialTouch = nil

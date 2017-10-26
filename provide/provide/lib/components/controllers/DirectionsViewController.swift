@@ -74,10 +74,6 @@ class DirectionsViewController: ViewController {
         return directionsViewControllerDelegate!.targetViewForViewController(self)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
     // MARK: Rendering
 
     func render() {
