@@ -9,17 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-@objc
-protocol WebViewControllerDelegate {
-    @objc optional func webViewController(_ viewController: WebViewController, shouldStartLoadWithRequest request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool
-    @objc optional func webViewController(_ viewController: WebViewController, webViewDidFinishLoad webView: UIWebView)
-    @objc optional func webViewController(_ viewController: WebViewController, webViewDidFailWithError error: NSError)
-    @objc optional func webViewControllerDismissed(_ viewController: WebViewController)
-}
-
 class WebViewController: ViewController, UIWebViewDelegate {
-
-    weak var webViewControllerDelegate: WebViewControllerDelegate?
 
     @IBOutlet private weak var webView: UIWebView! {
         didSet {
@@ -73,12 +63,8 @@ class WebViewController: ViewController, UIWebViewDelegate {
     }
 
     @objc func dismiss() {
-        if let fn = webViewControllerDelegate?.webViewControllerDismissed {
-            fn(self)
-        } else {
-            if let navigationController = navigationController {
-                navigationController.popViewController(animated: true)
-            }
+        if let navigationController = navigationController {
+            navigationController.popViewController(animated: true)
         }
     }
 
@@ -92,20 +78,15 @@ class WebViewController: ViewController, UIWebViewDelegate {
     // MARK: UIWebViewDelegate
 
     func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        if let shouldStartLoad = webViewControllerDelegate?.webViewController?(self, shouldStartLoadWithRequest: request, navigationType: navigationType) {
-            return shouldStartLoad
-        }
         return true
     }
 
     func webViewDidFinishLoad(_ webView: UIWebView) {
         navigationItem.title = webView.stringByEvaluatingJavaScript(from: "window.document.title")
         MBProgressHUD.hide(for: view, animated: true)
-        webViewControllerDelegate?.webViewController?(self, webViewDidFinishLoad: webView)
     }
 
     func webViewDidFailLoadWithError(_ error: NSError!) {
         MBProgressHUD.hide(for: view, animated: true)
-        webViewControllerDelegate?.webViewController?(self, webViewDidFailWithError: error)
     }
 }
