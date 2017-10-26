@@ -175,7 +175,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     private var canAttemptSegueToInProgressWorkOrder: Bool {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            return workOrder.status == "in_progress" || workOrder.status == "rejected"
+            return workOrder.status == "in_progress"
         }
         return false
     }

@@ -101,7 +101,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         let params: [String: Any] = [
             "page": page,
             "rpp": rpp,
-            "status": "awaiting_schedule,scheduled,delayed,en_route,in_progress,rejected,pending_approval,paused,completed",
+            "status": "awaiting_schedule,scheduled,en_route,in_progress,pending_approval,paused,completed",
             "sort_priority_and_due_at_asc": "true",
             "include_products": "false",
             "include_work_order_providers": "false",

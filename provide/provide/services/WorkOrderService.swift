@@ -40,7 +40,7 @@ class WorkOrderService: NSObject {
                 }
             }
 
-            if Set(["pending_acceptance", "en_route", "arriving", "in_progress", "rejected"]).contains(wo.status) {
+            if Set(["pending_acceptance", "en_route", "arriving", "in_progress"]).contains(wo.status) {
                 for provider in wo.providers where provider.userId == currentUser.id && !wo.isCurrentProviderTimedOut {
                     return wo
                 }

@@ -34,7 +34,6 @@ class WorkOrderTests: XCTestCase {
         XCTAssertEqual(object.jobId, 994)
         XCTAssertEqual(object.priority, 0)
         XCTAssertEqual(object.providerRating, 0)
-        // XCTAssertEqual(object.rejectedAt, nil)
         XCTAssertEqual(object.scheduledEndAt, nil)
         XCTAssertEqual(object.scheduledStartAt, nil)
         XCTAssertEqual(object.startedAt, "2017-10-09T00:53:56Z")

@@ -228,8 +228,6 @@ class WorkOrder: Model {
             return Color.awaitingScheduleStatusColor()
         } else if status == "scheduled" {
             return Color.scheduledStatusColor()
-        } else if status == "delayed" {
-            return Color.enRouteStatusColor()
         } else if status == "en_route" {
             return Color.enRouteStatusColor()
         } else if status == "in_progress" {
@@ -240,8 +238,6 @@ class WorkOrder: Model {
             return Color.completedStatusColor()
         } else if status == "pending_approval" {
             return Color.pendingCompletionStatusColor()
-        } else if status == "rejected" {
-            return Color.canceledStatusColor()
         }
 
         return .clear
@@ -600,10 +596,6 @@ class WorkOrder: Model {
 
     private func approve(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         complete(onSuccess: onSuccess, onError: onError)
-    }
-
-    private func reject(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkOrderWithStatus("rejected", onSuccess: onSuccess, onError: onError)
     }
 
     func complete(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
