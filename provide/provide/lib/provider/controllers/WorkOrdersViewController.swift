@@ -58,7 +58,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     @IBOutlet private weak var mapView: WorkOrderMapView!
 
-    private var zeroStateViewController: ZeroStateViewController!
+    private var zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
 
     private var availabilityBarButtonItem: UIBarButtonItem!
 
@@ -116,12 +116,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
         setupMenuBarButtonItem()
         setupAvailabilityBarButtonItem()
-
-        setupZeroStateView()
-    }
-
-    private func setupZeroStateView() {
-        zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
     }
 
     private func setupMenuBarButtonItem() {
@@ -358,7 +352,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if managedViewControllerSegues.index(of: segue.identifier!) != nil {
             managedViewControllers.append(segue.destination as! ViewController)
-            zeroStateViewController?.dismiss()
+            zeroStateViewController.dismiss()
         }
 
         switch segue.identifier! {

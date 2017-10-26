@@ -19,7 +19,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     private var confirmWorkOrderViewController: ConfirmWorkOrderViewController!
     private var providerEnRouteViewController: ProviderEnRouteViewController!
 
-    private var zeroStateViewController: ZeroStateViewController!
+    private var zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
 
     private var updatingWorkOrderContext = false
     private var categories = [Category]() {
@@ -91,12 +91,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
                 self?.performSegue(withIdentifier: "TripCompletionViewControllerSegue", sender: workOrder)
             }
         }
-
-        setupZeroStateView()
-    }
-
-    private func setupZeroStateView() {
-        zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
     }
 
     private func handleInProgressWorkOrderStateChange() {
@@ -223,8 +217,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             if let locality = placemark.locality {
                 msg = "\(msg) in \(locality)"
             }
-            self?.zeroStateViewController?.setMessage(msg)
-            self?.zeroStateViewController?.render(self!.view)
+            self?.zeroStateViewController.setMessage(msg)
+            self?.zeroStateViewController.render(self!.view)
         }
     }
 
@@ -237,7 +231,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
                 if categories.count == 0 {
                     self?.presentServiceAvailabilityZeroState()
                 } else {
-                    self?.zeroStateViewController?.dismiss()
+                    self?.zeroStateViewController.dismiss()
                     self?.loadProviderContext()
                 }
             }, onError: { error, statusCode, response in

@@ -30,7 +30,8 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
 
     private weak var selectedWorkOrder: WorkOrder!
 
-    private var zeroStateViewController: ZeroStateViewController!
+    private var zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
+
 
     private var isColumnedLayout: Bool {
         return view.width > 414.0
@@ -63,18 +64,12 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         return workOrders[workOrderIndexAtIndexPath(indexPath)]
     }
 
-    private func setupZeroStateView() {
-        zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationItem.title = "HISTORY"
 
         setupPullToRefresh()
-
-        setupZeroStateView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
