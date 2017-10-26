@@ -149,7 +149,6 @@
 		68B412DD1B080E6D009A4C05 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D51B080E6D009A4C05 /* CameraView.swift */; };
 		68B412E01B080E6D009A4C05 /* DirectionsInstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */; };
 		68B412FA1B08153D009A4C05 /* WorkOrderAnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F21B08153D009A4C05 /* WorkOrderAnnotationViewController.swift */; };
-		68B412FD1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F31B08153D009A4C05 /* WorkOrderComponentViewController.swift */; };
 		68B413001B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */; };
 		68B413031B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */; };
 		68B413061B08153D009A4C05 /* WorkOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */; };
@@ -339,7 +338,6 @@
 		68B412D51B080E6D009A4C05 /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		68B412D61B080E6D009A4C05 /* DirectionsInstructionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsInstructionView.swift; sourceTree = "<group>"; };
 		68B412F21B08153D009A4C05 /* WorkOrderAnnotationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderAnnotationViewController.swift; sourceTree = "<group>"; };
-		68B412F31B08153D009A4C05 /* WorkOrderComponentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderComponentViewController.swift; sourceTree = "<group>"; };
 		68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDestinationConfirmationViewController.swift; sourceTree = "<group>"; };
 		68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDestinationHeaderViewController.swift; sourceTree = "<group>"; };
 		68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrdersViewController.swift; sourceTree = "<group>"; };
@@ -729,7 +727,6 @@
 			children = (
 				68B978C91B085A6C00863E21 /* segues */,
 				68B412F21B08153D009A4C05 /* WorkOrderAnnotationViewController.swift */,
-				68B412F31B08153D009A4C05 /* WorkOrderComponentViewController.swift */,
 				68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */,
 				68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */,
 				68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */,
@@ -1525,7 +1522,6 @@
 				5C68C6BD1F867F9700BBD3B9 /* MessagesTitleView.swift in Sources */,
 				5C41D2DF1F99CF4C0071937D /* CategorySelectionControl.swift in Sources */,
 				681416F51B8457870076BFBD /* Token.swift in Sources */,
-				68B412FD1B08153D009A4C05 /* WorkOrderComponentViewController.swift in Sources */,
 				681416F61B8457870076BFBD /* User.swift in Sources */,
 				68F537011B834A720007F480 /* WorkOrderTableViewCell.swift in Sources */,
 				68F536FB1B834A720007F480 /* WorkOrderDetailsHeaderView.swift in Sources */,

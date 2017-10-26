@@ -35,12 +35,11 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
     @objc optional func confirmationReceivedForWorkOrderViewController(_ viewController: UIViewController)
 }
 
-class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, WorkOrdersViewControllerDelegate, DirectionsViewControllerDelegate, WorkOrderComponentViewControllerDelegate {
+class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, WorkOrdersViewControllerDelegate, DirectionsViewControllerDelegate {
 
     private let managedViewControllerSegues = [
         "DirectionsViewControllerSegue",
         "WorkOrderAnnotationViewControllerSegue",
-        "WorkOrderComponentViewControllerSegue",
         "WorkOrderDestinationHeaderViewControllerSegue",
         "WorkOrderDestinationConfirmationViewControllerSegue",
     ]
@@ -280,10 +279,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             let workOrder = WorkOrderService.shared.inProgressWorkOrder
             if workOrder?.user != nil {
                 performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self)
-            } else {
-                performSegue(withIdentifier: "WorkOrderComponentViewControllerSegue", sender: self)
             }
-
             availabilityBarButtonItemEnabled = false
         } else if canAttemptSegueToNextWorkOrder {
             performSegue(withIdentifier: "WorkOrderAnnotationViewControllerSegue", sender: self)
@@ -360,11 +356,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             (segue.destination as! DirectionsViewController).directionsViewControllerDelegate = self
         case "WorkOrderAnnotationViewControllerSegue":
             (segue.destination as! WorkOrderAnnotationViewController).workOrdersViewControllerDelegate = self
-        case "WorkOrderComponentViewControllerSegue":
-            (segue.destination as! WorkOrderComponentViewController).delegate = self
-            (segue.destination as! WorkOrderComponentViewController).workOrdersViewControllerDelegate = self
-
-            refreshAnnotations()
         case "WorkOrderDestinationHeaderViewControllerSegue":
             (segue.destination as! WorkOrderDestinationHeaderViewController).workOrdersViewControllerDelegate = self
         case "WorkOrderDestinationConfirmationViewControllerSegue":
@@ -502,7 +493,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             "WorkOrderAnnotationViewControllerUnwindSegue",
             "WorkOrderDestinationHeaderViewControllerUnwindSegue",
             "WorkOrderDestinationConfirmationViewControllerUnwindSegue",
-            "WorkOrderComponentViewControllerUnwindSegue",
         ].index(of: segueIdentifier)
 
         if index != nil {
@@ -575,22 +565,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     func navbarPromptForDirectionsViewController(_ viewController: UIViewController) -> String? {
         return nil
-    }
-
-    // MARK: WorkOrderComponentViewControllerDelegate
-
-    func workOrderComponentViewControllerForParentViewController(_ viewController: WorkOrderComponentViewController) -> WorkOrderComponentViewController {
-        var vc: WorkOrderComponentViewController!
-        if let componentIdentifier = WorkOrderService.shared.inProgressWorkOrder.currentComponentIdentifier {
-            let initialViewController: UIViewController = UIStoryboard(componentIdentifier).instantiateInitialViewController()!
-            if initialViewController is UINavigationController {
-                managedViewControllers.append(initialViewController)
-                vc = (initialViewController as! UINavigationController).viewControllers.first as! WorkOrderComponentViewController
-            } else {
-                vc = initialViewController as! WorkOrderComponentViewController
-            }
-        }
-        return vc
     }
 
     private func attemptCompletionOfInProgressWorkOrder() {

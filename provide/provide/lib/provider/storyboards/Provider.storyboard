@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -200,34 +200,12 @@
                         <segue destination="yQd-Wz-48G" kind="custom" identifier="WorkOrderAnnotationViewControllerSegue" customClass="RenderComponentStoryboardSegue" customModule="provide" customModuleProvider="target" id="vW2-GH-KBk"/>
                         <segue destination="mb7-X8-f0h" kind="custom" identifier="WorkOrderDestinationHeaderViewControllerSegue" customClass="RenderComponentStoryboardSegue" customModule="provide" customModuleProvider="target" id="3Wt-Cm-qPJ"/>
                         <segue destination="MA2-QH-nQX" kind="custom" identifier="DirectionsViewControllerSegue" customClass="RenderComponentStoryboardSegue" customModule="provide" customModuleProvider="target" id="MiJ-YI-L7r"/>
-                        <segue destination="jXg-51-56R" kind="custom" identifier="WorkOrderComponentViewControllerSegue" customClass="RenderComponentStoryboardSegue" customModule="provide" customModuleProvider="target" id="pC3-sD-UC4"/>
                         <segue destination="jaQ-Tq-Id1" kind="show" identifier="WorkOrderHistoryViewControllerSegue" id="OLb-DH-gpG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHU-6G-z65" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-322.39999999999998" y="798.35082458770626"/>
-        </scene>
-        <!--Work Order Component View Controller-->
-        <scene sceneID="Hex-5K-2Np">
-            <objects>
-                <viewController id="jXg-51-56R" customClass="WorkOrderComponentViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="BQv-F8-7xC"/>
-                        <viewControllerLayoutGuide type="bottom" id="xSQ-fu-eX5"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="GL3-bs-LmP">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <connections>
-                        <segue destination="ZLI-P7-Mie" kind="custom" identifier="WorkOrderComponentViewControllerUnwindSegue" customClass="RenderComponentStoryboardSegue" customModule="provide" customModuleProvider="target" id="GRf-tG-gHK"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wcI-Q1-Akd" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-322" y="1610"/>
         </scene>
         <!--Work Order Destination Confirmation View Controller-->
         <scene sceneID="FK1-ch-8aL">
@@ -441,6 +419,6 @@
         <image name="uturn-left" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GRf-tG-gHK"/>
+        <segue reference="HQt-zs-LbY"/>
     </inferredMetricsTieBreakers>
 </document>
