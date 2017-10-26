@@ -37,10 +37,6 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
     @objc optional func confirmationRequiredForWorkOrderViewController(_ viewController: UIViewController)
     @objc optional func confirmationCanceledForWorkOrderViewController(_ viewController: UIViewController)
     @objc optional func confirmationReceivedForWorkOrderViewController(_ viewController: UIViewController)
-
-    // net promoter
-    @objc optional func netPromoterScoreReceived(_ netPromoterScore: Double, forWorkOrderViewController: ViewController)
-    @objc optional func netPromoterScoreDeclinedForWorkOrderViewController(_ viewController: ViewController)
 }
 
 class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, WorkOrdersViewControllerDelegate, DirectionsViewControllerDelegate, WorkOrderComponentViewControllerDelegate {
@@ -580,38 +576,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }, onError: { error, statusCode, responseString in
             logWarn("Failed to abandon work order (\(statusCode))")
         })
-    }
-
-    func netPromoterScoreReceived(_ netPromoterScore: Double, forWorkOrderViewController: ViewController) {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            nextWorkOrderContextShouldBeRewound()
-            if workOrder.components.count > 0 {
-                var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSRange(location: 1, length: components.count - 1)))
-                workOrder.setComponents(components)
-            }
-            attemptSegueToValidWorkOrderContext()
-
-            workOrder.scoreProvider(netPromoterScore, onSuccess: { [weak self] statusCode, responseString in
-                self?.attemptCompletionOfInProgressWorkOrder()
-            }, onError: { error, statusCode, responseString in
-                logError(error)
-            })
-        }
-    }
-
-    func netPromoterScoreDeclinedForWorkOrderViewController(_ viewController: ViewController) {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            nextWorkOrderContextShouldBeRewound()
-            if workOrder.components.count > 0 {
-                var components = workOrder.components
-                components = components.count == 1 ? [] : NSMutableArray(array: components.subarray(with: NSRange(location: 1, length: components.count - 1)))
-                workOrder.setComponents(components)
-            }
-            attemptSegueToValidWorkOrderContext()
-
-            attemptCompletionOfInProgressWorkOrder()
-        }
     }
 
     func removeMapAnnotationsForWorkOrderViewController(_ viewController: UIViewController) {
