@@ -559,10 +559,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         return mapView
     }
 
-    func finalDestinationForDirectionsViewController(_ directionsViewController: DirectionsViewController) -> CLLocationCoordinate2D {
-        return WorkOrderService.shared.inProgressWorkOrder.coordinate
-    }
-
     func navbarPromptForDirectionsViewController(_ viewController: UIViewController) -> String? {
         return nil
     }
