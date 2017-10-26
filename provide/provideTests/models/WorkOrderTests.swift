@@ -16,7 +16,6 @@ class WorkOrderTests: XCTestCase {
 
     func testObjectMapping() {
         let object = WorkOrder.from(file: "HTTPStubs/api/work_orders/work_order.json")
-        XCTAssertEqual(object.abandonedAt, nil)
         // XCTAssertEqual(object.approvedAt, nil)
         // XCTAssertEqual(object.arrivedAt, "2017-10-09T00:53:41Z")
         XCTAssertEqual(object.canceledAt, nil)

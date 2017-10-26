@@ -70,10 +70,6 @@ class Color {
         return UIColor("#ff0000")
     }
 
-    class func abandonedStatusColor() -> UIColor {
-        return UIColor("#ff0000")
-    }
-
     class func pendingCompletionStatusColor() -> UIColor {
         return UIColor("#ffff00")
     }

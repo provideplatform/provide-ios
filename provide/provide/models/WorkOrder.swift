@@ -25,7 +25,6 @@ class WorkOrder: Model {
     var startedAt: String!
     var dueAt: String!
     var endedAt: String!
-    var abandonedAt: String!
     var canceledAt: String!
     var duration: Double = 0
     var estimatedCost = -1.0
@@ -69,7 +68,6 @@ class WorkOrder: Model {
             "started_at": "startedAt",
             "due_at": "dueAt",
             "ended_at": "endedAt",
-            "abandoned_at": "abandonedAt",
             "canceled_at": "canceledAt",
             "duration": "duration",
             "estimated_cost": "estimatedCost",
@@ -145,13 +143,6 @@ class WorkOrder: Model {
         return nil
     }
 
-    private var abandonedAtDate: Date! {
-        if let abandonedAt = abandonedAt {
-            return Date.fromString(abandonedAt)
-        }
-        return nil
-    }
-
     private var canceledAtDate: Date! {
         if let canceledAt = canceledAt {
             return Date.fromString(canceledAt)
@@ -174,8 +165,6 @@ class WorkOrder: Model {
         var endedAtDate = self.endedAtDate
 
         if let date = endedAtDate {
-            endedAtDate = date
-        } else if let date = abandonedAtDate {
             endedAtDate = date
         } else if let date = canceledAtDate {
             endedAtDate = date
@@ -249,19 +238,13 @@ class WorkOrder: Model {
             return Color.canceledStatusColor()
         } else if status == "completed" {
             return Color.completedStatusColor()
-        } else if status == "abandoned" {
-            return Color.abandonedStatusColor()
         } else if status == "pending_approval" {
             return Color.pendingCompletionStatusColor()
         } else if status == "rejected" {
-            return Color.abandonedStatusColor()
+            return Color.canceledStatusColor()
         }
 
         return .clear
-    }
-
-    private var canBeAbandoned: Bool {
-        return true
     }
 
     private var contact: Contact! {
@@ -609,10 +592,6 @@ class WorkOrder: Model {
             self.pendingArrival = false
             onError(error, statusCode, responseString)
         })
-    }
-
-    func abandon(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkOrderWithStatus("abandoned", onSuccess: onSuccess, onError: onError)
     }
 
     private func cancel(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {

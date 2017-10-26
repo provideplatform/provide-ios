@@ -546,15 +546,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
-    private func workOrderAbandonedForViewController(_ viewController: ViewController) {
-        nextWorkOrderContextShouldBeRewound()
-        WorkOrderService.shared.inProgressWorkOrder.abandon(onSuccess: { [weak self] statusCode, responseString in
-            self?.attemptSegueToValidWorkOrderContext()
-        }, onError: { error, statusCode, responseString in
-            logWarn("Failed to abandon work order (\(statusCode))")
-        })
-    }
-
     func removeMapAnnotationsForWorkOrderViewController(_ viewController: UIViewController) {
         mapView.removeAnnotations()
     }
