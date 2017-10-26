@@ -8,10 +8,9 @@
 
 import UIKit
 
-@objc
-protocol WorkOrderComponentViewControllerDelegate: NSObjectProtocol {
+@objc protocol WorkOrderComponentViewControllerDelegate: NSObjectProtocol {
     func workOrderComponentViewControllerForParentViewController(_ viewController: WorkOrderComponentViewController) -> WorkOrderComponentViewController
-    @objc optional func targetViewForViewController(_ viewController: UIViewController) -> UIView
+    func targetViewForViewController(_ viewController: UIViewController) -> UIView
 }
 
 class WorkOrderComponentViewController: ViewController {
@@ -24,7 +23,7 @@ class WorkOrderComponentViewController: ViewController {
     private var suspendedTopViewGestureRecognizers: [UIGestureRecognizer]!
 
     var targetView: UIView! {
-        return delegate?.targetViewForViewController?(self)
+        return delegate?.targetViewForViewController(self)
     }
 
     func render() {

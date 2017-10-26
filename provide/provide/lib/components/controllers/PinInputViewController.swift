@@ -8,12 +8,11 @@
 
 import UIKit
 
-@objc
-protocol PinInputViewControllerDelegate {
+@objc protocol PinInputViewControllerDelegate {
     func pinInputViewControllerDidComplete(_ pinInputViewController: PinInputViewController)
-    @objc optional func pinInputViewControllerDidExceedMaxAttempts(_ pinInputViewController: PinInputViewController)
-    @objc optional func isInviteRedeptionPinInputViewController(_ pinInputViewController: PinInputViewController) -> Bool
-    @objc optional func pinInputViewController(_ pinInputViewController: PinInputViewController, shouldAttemptInviteRedemptionWithPin pin: String)
+    func pinInputViewControllerDidExceedMaxAttempts(_ pinInputViewController: PinInputViewController)
+    func isInviteRedeptionPinInputViewController(_ pinInputViewController: PinInputViewController) -> Bool
+    func pinInputViewController(_ pinInputViewController: PinInputViewController, shouldAttemptInviteRedemptionWithPin pin: String)
 }
 
 class PinInputViewController: UIViewController {
@@ -35,7 +34,7 @@ class PinInputViewController: UIViewController {
 
     var delegate: PinInputViewControllerDelegate! {
         didSet {
-            if let isInviteRedemption = delegate?.isInviteRedeptionPinInputViewController?(self), isInviteRedemption == true {
+            if let isInviteRedemption = delegate?.isInviteRedeptionPinInputViewController(self), isInviteRedemption == true {
                 type = .redeemPinController
                 state = .input
             }
@@ -101,7 +100,7 @@ class PinInputViewController: UIViewController {
                 resetWithMessage(getMessage(type, state))
             } else {
                 pinInputControl.resignFirstResponder()
-                delegate?.pinInputViewController?(self, shouldAttemptInviteRedemptionWithPin: pin)
+                delegate?.pinInputViewController(self, shouldAttemptInviteRedemptionWithPin: pin)
             }
         case .reInput:
             if firstPinInput == pin { // both match
@@ -116,7 +115,7 @@ class PinInputViewController: UIViewController {
                 resetWithMessage("Invalid Pin. Please try again")
                 failedAttempts += 1
                 if failedAttempts >= maxAllowedAttempts {
-                    delegate.pinInputViewControllerDidExceedMaxAttempts?(self)
+                    delegate.pinInputViewControllerDidExceedMaxAttempts(self)
                 }
             } else {
                 dispatch_after_delay(fadeDuration) {
