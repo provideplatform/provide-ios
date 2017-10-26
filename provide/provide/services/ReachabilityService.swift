@@ -20,20 +20,13 @@ class ReachabilityService {
     }
 
     func start() {
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(ReachabilityService.reachabilityChanged(_:)),
-                                               name: NSNotification.Name.reachabilityChanged,
-                                               object: nil)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: .reachabilityChanged, object: nil)
         reachability.startNotifier()
     }
 
     func stop() {
         reachability.stopNotifier()
-
-        NotificationCenter.default.removeObserver(self,
-                                                  name: NSNotification.Name.reachabilityChanged,
-                                                  object: nil)
+        NotificationCenter.default.removeObserver(self, name: .reachabilityChanged, object: nil)
     }
 
     @objc private func reachabilityChanged(_ notification: NSNotification) {
