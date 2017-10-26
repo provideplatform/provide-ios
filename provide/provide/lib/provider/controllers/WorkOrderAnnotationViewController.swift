@@ -40,7 +40,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
         if let mapView = workOrdersViewControllerDelegate?.mapViewForViewController?(nil) {
             mapView.workOrdersViewControllerDelegate = workOrdersViewControllerDelegate
 
-            workOrdersViewControllerDelegate?.shouldRemoveMapAnnotationsForWorkOrderViewController?(self)
+            workOrdersViewControllerDelegate?.removeMapAnnotationsForWorkOrderViewController?(self)
 
             mapView.addAnnotation(WorkOrderService.shared.nextWorkOrder.annotation)
         }
@@ -50,7 +50,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
 
     private func unwind() {
         (view as! WorkOrderAnnotationView).removeGestureRecognizers()
-        workOrdersViewControllerDelegate?.shouldRemoveMapAnnotationsForWorkOrderViewController?(self)
+        workOrdersViewControllerDelegate?.removeMapAnnotationsForWorkOrderViewController?(self)
     }
 
     // MARK: - Navigation
@@ -63,7 +63,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
 
             if let delegate = workOrdersViewControllerDelegate {
                 delegate.confirmationRequiredForWorkOrderViewController?(self)
-                delegate.shouldRemoveMapAnnotationsForWorkOrderViewController?(self)
+                delegate.removeMapAnnotationsForWorkOrderViewController?(self)
             }
         case "WorkOrderAnnotationViewControllerUnwindSegue":
             assert(segue.source is WorkOrderAnnotationViewController)

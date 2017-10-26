@@ -22,7 +22,7 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
     @objc optional func annotationViewForMapView(_ mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView!
     @objc optional func mapViewForViewController(_ viewController: UIViewController!) -> WorkOrderMapView!
     @objc optional func mapViewShouldRefreshVisibleMapRect(_ mapView: MKMapView, animated: Bool)
-    @objc optional func shouldRemoveMapAnnotationsForWorkOrderViewController(_ viewController: UIViewController)
+    @objc optional func removeMapAnnotationsForWorkOrderViewController(_ viewController: UIViewController)
 
     // eta and driving directions callbacks
     @objc optional func drivingEtaToNextWorkOrderChanged(_ minutesEta: Int)
@@ -305,7 +305,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     private func refreshAnnotations() {
         DispatchQueue.main.async {
-            self.shouldRemoveMapAnnotationsForWorkOrderViewController(self)
+            self.removeMapAnnotationsForWorkOrderViewController(self)
 
             if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
                 self.mapView.addAnnotation(workOrder.annotation)
@@ -517,7 +517,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     func nextWorkOrderContextShouldBeRewoundForViewController(_ viewController: UIViewController) {
         if let i = managedViewControllers.index(of: viewController) {
             if viewController is WorkOrderAnnotationViewController {
-                shouldRemoveMapAnnotationsForWorkOrderViewController(viewController as! WorkOrderAnnotationViewController)
+                removeMapAnnotationsForWorkOrderViewController(viewController as! WorkOrderAnnotationViewController)
             } else {
                 unwindManagedViewController(viewController)
             }
@@ -614,7 +614,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
-    func shouldRemoveMapAnnotationsForWorkOrderViewController(_ viewController: UIViewController) {
+    func removeMapAnnotationsForWorkOrderViewController(_ viewController: UIViewController) {
         mapView.removeAnnotations()
     }
 
