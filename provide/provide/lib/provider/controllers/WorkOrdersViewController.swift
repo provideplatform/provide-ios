@@ -18,7 +18,6 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
     @objc optional func targetViewForViewController(_ viewController: UIViewController) -> UIView!
 
     // mapping-related callbacks
-    @objc optional func annotationsForMapView(_ mapView: MKMapView, workOrder: WorkOrder) -> [MKAnnotation]
     @objc optional func annotationViewForMapView(_ mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView!
     @objc optional func mapViewForViewController(_ viewController: UIViewController!) -> WorkOrderMapView!
     @objc optional func mapViewShouldRefreshVisibleMapRect(_ mapView: MKMapView, animated: Bool)
@@ -26,9 +25,6 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
 
     // eta and driving directions callbacks
     @objc optional func drivingEtaToNextWorkOrderChanged(_ minutesEta: Int)
-    @objc optional func drivingEtaToNextWorkOrderForViewController(_ viewController: UIViewController) -> Int
-    @objc optional func drivingEtaToInProgressWorkOrderChanged(_ minutesEta: Int)
-    @objc optional func drivingDirectionsToNextWorkOrderForViewController(_ viewController: UIViewController) -> Directions!
 
     // next work order context and related segue callbacks
     @objc optional func managedViewControllersForViewController(_ viewController: UIViewController!) -> [UIViewController]
@@ -432,17 +428,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     // MARK: WorkOrdersViewControllerDelegate
 
-    func annotationsForMapView(_ mapView: MKMapView, workOrder: WorkOrder) -> [MKAnnotation] {
-        var annotations = [MKAnnotation]()
-        if let user = workOrder.user {
-            annotations.append(user.annotation)
-        } else {
-            annotations.append(workOrder.annotation)
-        }
-
-        return annotations
-    }
-
     func annotationViewForMapView(_ mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView? {
         var annotationView: MKAnnotationView!
 
@@ -455,14 +440,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
 
         return annotationView
-    }
-
-    func drivingEtaToNextWorkOrderForViewController(_ viewController: UIViewController) -> Int {
-        return WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes
-    }
-
-    func drivingDirectionsToNextWorkOrderForViewController(_ viewController: UIViewController) -> Directions? {
-        return nil
     }
 
     func managedViewControllersForViewController(_ viewController: UIViewController!) -> [UIViewController] {

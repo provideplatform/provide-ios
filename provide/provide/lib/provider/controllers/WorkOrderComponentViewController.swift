@@ -11,7 +11,6 @@ import UIKit
 @objc
 protocol WorkOrderComponentViewControllerDelegate: NSObjectProtocol {
     func workOrderComponentViewControllerForParentViewController(_ viewController: WorkOrderComponentViewController) -> WorkOrderComponentViewController
-    @objc optional func mapViewForWorkOrderViewController(_ viewController: UIViewController) -> MapView
     @objc optional func targetViewForViewController(_ viewController: UIViewController) -> UIView
 }
 
@@ -29,11 +28,6 @@ class WorkOrderComponentViewController: ViewController {
     }
 
     func render() {
-        if let mapView = delegate?.mapViewForWorkOrderViewController?(self), mapView.alpha == 0 {
-            (mapView as! WorkOrderMapView).workOrdersViewControllerDelegate = workOrdersViewControllerDelegate
-            mapView.revealMap()
-        }
-
         childViewController = delegate?.workOrderComponentViewControllerForParentViewController(self)
 
         if let vc = childViewController {
