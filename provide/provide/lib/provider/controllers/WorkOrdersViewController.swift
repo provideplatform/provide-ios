@@ -359,19 +359,15 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
             (segue.destination as! DirectionsViewController).directionsViewControllerDelegate = self
         case "WorkOrderAnnotationViewControllerSegue":
-            assert(segue.destination is WorkOrderAnnotationViewController)
             (segue.destination as! WorkOrderAnnotationViewController).workOrdersViewControllerDelegate = self
         case "WorkOrderComponentViewControllerSegue":
-            assert(segue.destination is WorkOrderComponentViewController)
             (segue.destination as! WorkOrderComponentViewController).delegate = self
             (segue.destination as! WorkOrderComponentViewController).workOrdersViewControllerDelegate = self
 
             refreshAnnotations()
         case "WorkOrderDestinationHeaderViewControllerSegue":
-            assert(segue.destination is WorkOrderDestinationHeaderViewController)
             (segue.destination as! WorkOrderDestinationHeaderViewController).workOrdersViewControllerDelegate = self
         case "WorkOrderDestinationConfirmationViewControllerSegue":
-            assert(segue.destination is WorkOrderDestinationConfirmationViewController)
             (segue.destination as! WorkOrderDestinationConfirmationViewController).workOrdersViewControllerDelegate = self
         default:
             break

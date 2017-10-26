@@ -111,26 +111,22 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "DestinationInputViewControllerEmbedSegue":
-            assert(segue.destination is DestinationInputViewController)
             destinationInputViewController = segue.destination as! DestinationInputViewController
             if let destinationResultsViewController = destinationResultsViewController {
                 destinationInputViewController.destinationResultsViewController = destinationResultsViewController
             }
         case "DestinationResultsViewControllerEmbedSegue":
-            assert(segue.destination is DestinationResultsViewController)
             destinationResultsViewController = segue.destination as! DestinationResultsViewController
             destinationResultsViewController.configure(results: [], onResultSelected: onResultSelected)
             if let destinationInputViewController = destinationInputViewController {
                 destinationInputViewController.destinationResultsViewController = destinationResultsViewController
             }
         case "ConfirmWorkOrderViewControllerEmbedSegue":
-            assert(segue.destination is ConfirmWorkOrderViewController)
             confirmWorkOrderViewController = segue.destination as! ConfirmWorkOrderViewController
             confirmWorkOrderViewController.configure(workOrder: nil, categories: categories) { _ in
                 self.setupCancelWorkOrderBarButtonItem()
             }
         case "ProviderEnRouteViewControllerEmbedSegue":
-            assert(segue.destination is ProviderEnRouteViewController)
             providerEnRouteViewController = segue.destination as! ProviderEnRouteViewController
         case "TripCompletionViewControllerSegue":
             let tripCompletionVC = (segue.destination as! UINavigationController).topViewController as! TripCompletionViewController

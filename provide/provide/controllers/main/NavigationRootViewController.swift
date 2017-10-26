@@ -76,10 +76,8 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         case "AuthenticationViewControllerSegue":
             assert(segue.destination is AuthenticationViewController)
         case "PinInputViewControllerSegue":
-            assert(segue.destination is PinInputViewController)
             (segue.destination as! PinInputViewController).delegate = self
         case "SetPasswordViewControllerSegue":
-            assert(segue.destination is SetPasswordViewController)
             (segue.destination as! SetPasswordViewController).configure(onPasswordSet: onPasswordSet)
         default:
             break
