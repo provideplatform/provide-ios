@@ -20,7 +20,6 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
     // mapping-related callbacks
     @objc optional func annotationViewForMapView(_ mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView!
     @objc optional func mapViewForViewController(_ viewController: UIViewController!) -> WorkOrderMapView!
-    @objc optional func mapViewShouldRefreshVisibleMapRect(_ mapView: MKMapView, animated: Bool)
     @objc optional func removeMapAnnotationsForWorkOrderViewController(_ viewController: UIViewController)
 
     // eta and driving directions callbacks
@@ -28,7 +27,6 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
 
     // next work order context and related segue callbacks
     @objc optional func managedViewControllersForViewController(_ viewController: UIViewController!) -> [UIViewController]
-    @objc optional func nextWorkOrderContextShouldBeRewound()
     @objc optional func nextWorkOrderContextShouldBeRewoundForViewController(_ viewController: UIViewController)
     @objc optional func confirmationRequiredForWorkOrderViewController(_ viewController: UIViewController)
     @objc optional func confirmationCanceledForWorkOrderViewController(_ viewController: UIViewController)
