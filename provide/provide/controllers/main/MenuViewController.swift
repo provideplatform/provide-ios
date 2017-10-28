@@ -162,7 +162,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     // MARK: Private Methods
 
     private func navigationControllerContains(_ clazz: AnyClass) -> Bool {
-        for viewController in (delegate?.navigationControllerForMenuViewController(self)?.viewControllers)! {
+        for viewController in delegate?.navigationControllerForMenuViewController(self)?.viewControllers ?? [] {
             if viewController.isKind(of: clazz) {
                 return true
             }

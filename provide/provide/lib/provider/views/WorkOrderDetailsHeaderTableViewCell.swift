@@ -97,10 +97,8 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
 
     @IBOutlet private weak var previewImageView: UIImageView! {
         didSet {
-            if let previewImageView = previewImageView {
-                previewImageView.superview?.backgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
-                previewImageView.superview?.roundCorners(2.0)
-            }
+            previewImageView?.superview?.backgroundColor = UIColor(red: 0.11, green: 0.29, blue: 0.565, alpha: 0.45)
+            previewImageView?.superview?.roundCorners(2.0)
         }
     }
 

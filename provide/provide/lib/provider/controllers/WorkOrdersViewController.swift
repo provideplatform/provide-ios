@@ -452,7 +452,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     private func navigationControllerContains(_ clazz: AnyClass) -> Bool {
-        for viewController in (navigationController?.viewControllers)! {
+        for viewController in navigationController?.viewControllers ?? [] {
             if viewController.isKind(of: clazz) {
                 return true
             }

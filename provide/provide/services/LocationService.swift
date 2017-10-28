@@ -206,7 +206,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         currentLocation = location
 
         DispatchQueue.global(qos: DispatchQoS.default.qosClass).async { [weak self] in
-            for region in (self?.regions)! {
+            for region in self?.regions ?? [] {
                 if region.contains(location.coordinate) {
                     if let callbacks = self?.geofenceCallbacks[region.identifier], let callback = callbacks["didEnterRegion"] {
                         if let callbackCounts = self?.geofenceCallbackCounts[region.identifier] {
