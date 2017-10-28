@@ -30,6 +30,5 @@ extension NSNotification.Name {
     static let ProviderLocationChanged = Notification.Name("ProviderLocationChanged")
     static let WorkOrderChanged = Notification.Name("WorkOrderChanged")
     static let WorkOrderContextShouldRefresh = NSNotification.Name("WorkOrderContextShouldRefresh")
-    static let WorkOrderProviderChanged = Notification.Name("WorkOrderProviderChanged")
     static let WorkOrderStatusChanged = NSNotification.Name("WorkOrderStatusChanged")
 }
