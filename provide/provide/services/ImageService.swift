@@ -55,9 +55,7 @@ class ImageService {
                         let downloader = SDWebImageDownloader.shared()
                         downloader?.shouldDecompressImages = false
                         _ = downloader?.downloadImage(with: url, options: downloadOptions, progress: { receivedSize, expectedSize in
-                            if let onDownloadProgress = onDownloadProgress {
-                                onDownloadProgress(receivedSize, expectedSize)
-                            }
+                            onDownloadProgress?(receivedSize, expectedSize)
                         }, completed: { image, data, error, finished in
                             if image != nil && finished {
                                 dispatch_async_global_queue(DispatchQoS.default.qosClass) {

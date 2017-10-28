@@ -55,10 +55,7 @@ class Contact: Model {
     }
 
     private var address: String {
-        var address = ""
-        if let address1 = address1 {
-            address += address1
-        }
+        var address = address1 ?? ""
         if let address2 = address2 {
             address += "\n\(address2)"
         }
@@ -68,9 +65,8 @@ class Contact: Model {
         if let state = state {
             address += "\(state) "
         }
-        if let zip = zip {
-            address += "\(zip)"
-        }
+
+        address += zip ?? ""
         return address
     }
 

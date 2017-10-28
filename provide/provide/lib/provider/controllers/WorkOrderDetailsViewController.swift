@@ -94,9 +94,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
             //     }
             // )
 
-            if let headerView = headerView {
-                headerView.workOrder = workOrder
-            }
+            headerView?.workOrder = workOrder
 
             if let headerTableViewController = headerTableViewController {
                 headerTableViewController.workOrderDetailsHeaderTableViewControllerDelegate = self

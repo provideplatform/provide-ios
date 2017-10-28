@@ -63,9 +63,7 @@ class WebViewController: ViewController, UIWebViewDelegate {
     }
 
     @objc func dismiss() {
-        if let navigationController = navigationController {
-            navigationController.popViewController(animated: true)
-        }
+        navigationController?.popViewController(animated: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {

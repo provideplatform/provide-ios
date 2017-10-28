@@ -118,9 +118,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         case "DestinationResultsViewControllerEmbedSegue":
             destinationResultsViewController = segue.destination as! DestinationResultsViewController
             destinationResultsViewController.configure(results: [], onResultSelected: onResultSelected)
-            if let destinationInputViewController = destinationInputViewController {
-                destinationInputViewController.destinationResultsViewController = destinationResultsViewController
-            }
+            destinationInputViewController?.destinationResultsViewController = destinationResultsViewController
         case "ConfirmWorkOrderViewControllerEmbedSegue":
             confirmWorkOrderViewController = segue.destination as! ConfirmWorkOrderViewController
             confirmWorkOrderViewController.configure(workOrder: nil, categories: categories) { _ in

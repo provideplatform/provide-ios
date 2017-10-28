@@ -445,9 +445,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
     }
 
     private func clearDetectedMetadataObjects() {
-        if let codeDetectionLayer = codeDetectionLayer {
-            codeDetectionLayer.sublayers = nil
-        }
+        codeDetectionLayer?.sublayers = nil
     }
 
     private func showDetectedMetadataObjects(_ metadataObjects: [Any]!) {

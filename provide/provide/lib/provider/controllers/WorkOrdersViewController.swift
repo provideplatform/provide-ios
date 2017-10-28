@@ -254,9 +254,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 
             if workOrders.count == 0 || WorkOrderService.shared.inProgressWorkOrder == nil {
-                if let zeroStateViewController = self?.zeroStateViewController {
-                    zeroStateViewController.render(self!.view)
-                }
+                self?.zeroStateViewController.render(self!.view)
             }
 
             self?.nextWorkOrderContextShouldBeRewound()

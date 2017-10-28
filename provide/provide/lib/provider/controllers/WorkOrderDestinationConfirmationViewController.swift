@@ -12,9 +12,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
     var onConfirmationReceived: VoidBlock! {
         didSet {
-            if let confirmButton = confirmStartWorkOrderButton {
-                confirmButton.onTouchUpInsideCallback = onConfirmationReceived
-            }
+            confirmStartWorkOrderButton?.onTouchUpInsideCallback = onConfirmationReceived
         }
     }
 

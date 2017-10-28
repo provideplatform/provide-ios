@@ -178,9 +178,7 @@ class WorkOrderMapView: MapView {
         if let workOrdersViewControllerDelegate = workOrdersViewControllerDelegate {
             let onEtaFetched: (WorkOrder, Int) -> Void = { _, minutesEta in
                 for vc in workOrdersViewControllerDelegate.managedViewControllersForViewController!(nil) {
-                    if let delegate = vc as? WorkOrdersViewControllerDelegate {
-                        delegate.drivingEtaToNextWorkOrderChanged?(minutesEta)
-                    }
+                    (vc as? WorkOrdersViewControllerDelegate)?.drivingEtaToNextWorkOrderChanged?(minutesEta)
                 }
             }
 

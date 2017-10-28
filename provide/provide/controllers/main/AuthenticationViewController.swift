@@ -29,9 +29,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     }
 
     func setupNavigationItem() {
-        if let navigationController = navigationController {
-            navigationController.isNavigationBarHidden = false
-        }
+        navigationController?.isNavigationBarHidden = false
 
         navigationItem.title = "SIGN IN"
         navigationItem.hidesBackButton = true
@@ -180,9 +178,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView[indexPath.row] as! AuthenticationCell
-        if let textField = cell.textField {
-            textField.becomeFirstResponder()
-        }
+        cell.textField?.becomeFirstResponder()
     }
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -42,9 +42,7 @@ class SetPasswordViewController: ViewController, UITableViewDelegate, UITableVie
     }
 
     func setupNavigationItem() {
-        if let navigationController = navigationController {
-            navigationController.isNavigationBarHidden = false
-        }
+        navigationController?.isNavigationBarHidden = false
 
         navigationItem.title = "SET PASSWORD"
         navigationItem.hidesBackButton = true

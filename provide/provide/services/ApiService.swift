@@ -413,9 +413,7 @@ class ApiService: NSObject {
             "checkin_at": checkinDate,
         ]
 
-        if let heading = heading {
-            params["heading"] = heading.magneticHeading
-        }
+        params["heading"] = heading?.magneticHeading
 
         return checkin(params, onSuccess: { statusCode, mappingResult in
             logmoji("📌", "Checkin succeeded")
