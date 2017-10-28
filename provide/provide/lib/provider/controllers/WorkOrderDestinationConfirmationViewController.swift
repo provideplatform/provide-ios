@@ -10,11 +10,12 @@ import UIKit
 
 class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrdersViewControllerDelegate {
 
-    var onConfirmationReceived: VoidBlock! {
-        didSet {
-            confirmStartWorkOrderButton?.onTouchUpInsideCallback = onConfirmationReceived
-        }
+    func configure(onConfirm: @escaping VoidBlock) {
+        onConfirmationReceived = onConfirm
+        confirmStartWorkOrderButton?.onTouchUpInsideCallback = onConfirm
     }
+
+    private var onConfirmationReceived: VoidBlock!
 
     private var targetView: UIView! {
         return workOrdersViewControllerDelegate?.targetViewForViewController?(self)

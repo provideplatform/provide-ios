@@ -34,7 +34,7 @@ class RenderComponentStoryboardSegue: UIStoryboardSegue {
             assert(source is WorkOrdersViewController && destination is WorkOrderDestinationConfirmationViewController)
             let destinationConfirmationViewController = destination as! WorkOrderDestinationConfirmationViewController
             destinationConfirmationViewController.render()
-            destinationConfirmationViewController.onConfirmationReceived = {
+            destinationConfirmationViewController.configure(onConfirm: {
                 var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
                 if let delegate = destinationConfirmationViewController.workOrdersViewControllerDelegate {
                     workOrdersViewControllerDelegate = delegate
@@ -45,7 +45,7 @@ class RenderComponentStoryboardSegue: UIStoryboardSegue {
 
                 destinationConfirmationViewController.showProgressIndicator()
                 workOrdersViewControllerDelegate?.confirmationReceivedForWorkOrderViewController?(destinationConfirmationViewController)
-            }
+            })
         default:
             break
         }
