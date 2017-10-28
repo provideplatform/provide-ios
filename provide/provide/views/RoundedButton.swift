@@ -10,11 +10,7 @@ import UIKit
 
 class RoundedButton: UIButton {
 
-    var initialBackgroundColor: UIColor! {
-        didSet {
-            backgroundColor = initialBackgroundColor
-        }
-    }
+    private var initialBackgroundColor: UIColor!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,12 +20,6 @@ class RoundedButton: UIButton {
         roundCorners(5.0)
 
         addTarget(self, action: #selector(onTouchUpInside(_:)), for: .touchUpInside)
-    }
-
-    private var titleText: String = "" {
-        didSet {
-            titleLabel!.text = titleText
-        }
     }
 
     override var isHighlighted: Bool {

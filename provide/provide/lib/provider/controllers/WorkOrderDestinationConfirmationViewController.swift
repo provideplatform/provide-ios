@@ -42,8 +42,6 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
         minutesEta = nil
 
-        confirmStartWorkOrderButton.initialBackgroundColor = confirmStartWorkOrderButton.backgroundColor
-
         if WorkOrderService.shared.nextWorkOrder != nil {
             confirmStartWorkOrderButton.setTitle("ACCEPT REQUEST", for: .normal) // FIXME
             minutesEta = WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes
