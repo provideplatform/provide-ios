@@ -17,7 +17,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
         )
     }
 
-    private var targetView: UIView! {
+    private var targetView: UIView? {
         return workOrdersViewControllerDelegate!.targetViewForViewController?(self)
     }
 
@@ -37,8 +37,8 @@ class WorkOrderDestinationHeaderViewController: ViewController {
         view.removeFromSuperview()
         view.alpha = 0
 
-        targetView.addSubview(view)
-        targetView.bringSubview(toFront: view)
+        targetView?.addSubview(view)
+        targetView?.bringSubview(toFront: view)
 
         titleLabel.text = ""
         addressTextView.text = ""
@@ -66,9 +66,9 @@ class WorkOrderDestinationHeaderViewController: ViewController {
 
         //var frame = initialFrame
         var frame = CGRect(
-            x: 0.0,
-            y: targetView.height,
-            width: targetView.width,
+            x: 0,
+            y: targetView?.height ?? 0,
+            width: targetView?.width ?? 0,
             height: view.height
         )
 

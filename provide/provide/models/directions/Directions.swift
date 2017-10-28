@@ -25,7 +25,7 @@ class Directions: Model {
         return mapping!
     }
 
-    var selectedRoute: Route! {
+    var selectedRoute: Route? {
         guard routes.count > 0 else { return nil }
 
         if selectedRouteIndex == nil {

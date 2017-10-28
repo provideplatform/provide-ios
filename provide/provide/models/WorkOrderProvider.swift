@@ -44,7 +44,7 @@ class WorkOrderProvider: Model {
         return timedOutAt != nil
     }
 
-    var checkinsPolyline: MKPolyline! {
+    var checkinsPolyline: MKPolyline? {
         var coords = [CLLocationCoordinate2D]()
         if !checkinCoordinates.isEmpty {
             for checkinCoordinate in checkinCoordinates {

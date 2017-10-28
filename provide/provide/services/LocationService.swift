@@ -24,7 +24,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     private var currentHeading: CLHeading!
     private(set) var currentLocation: CLLocation!
 
-    private var intervalSinceLastAccurateLocation: TimeInterval! {
+    private var intervalSinceLastAccurateLocation: TimeInterval? {
         if let locationServiceStartedDate = locationServiceStartedDate, let lastAccurateLocationDate = lastAccurateLocationDate {
             return lastAccurateLocationDate.timeIntervalSince(locationServiceStartedDate)
         }
@@ -52,7 +52,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     private var regions = [CLCircularRegion]()
 
     private var staleLocation: Bool {
-        if intervalSinceLastAccurateLocation != nil && abs(intervalSinceLastAccurateLocation) >= 15.0 {
+        if intervalSinceLastAccurateLocation != nil && abs(intervalSinceLastAccurateLocation!) >= 15.0 {
             return true
         } else if locationServiceStartedDate != nil && abs(locationServiceStartedDate.timeIntervalSinceNow) >= 15.0 {
             return true

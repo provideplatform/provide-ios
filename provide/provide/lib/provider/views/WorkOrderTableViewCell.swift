@@ -41,7 +41,7 @@ class WorkOrderTableViewCell: UITableViewCell {
                 timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(refresh), userInfo: nil, repeats: true)
                 timer.fire()
             } else if workOrder.status == "scheduled" {
-                durationLabel.text = workOrder.scheduledStartAtDate.timeString
+                durationLabel.text = workOrder.scheduledStartAtDate?.timeString
                 durationLabel.alpha = 1.0
             }
         }

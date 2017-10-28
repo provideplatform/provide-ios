@@ -45,7 +45,7 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                         if checkinsPolyline.pointCount > 0 {
                             mapView.setVisibleMapRect(checkinsPolyline.boundingMapRect, edgePadding: edgePadding, animated: false)
                         } else {
-                            mapView.setCenterCoordinate(workOrder.coordinate, zoomLevel: 12, animated: false)
+                            mapView.setCenterCoordinate(workOrder.coordinate!, zoomLevel: 12, animated: false)
                         }
                     }
                 }
@@ -98,7 +98,7 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(refresh), userInfo: nil, repeats: true)
                         timer.fire()
                     } else if workOrder.status == "scheduled" {
-                        durationLabel.text = workOrder.scheduledStartAtDate.timeString
+                        durationLabel.text = workOrder.scheduledStartAtDate?.timeString
                     }
                 } else {
                     statusLabel.text = ""

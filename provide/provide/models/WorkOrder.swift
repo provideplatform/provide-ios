@@ -104,21 +104,21 @@ class WorkOrder: Model {
         return !pendingArrival && status == "en_route"
     }
 
-    var scheduledStartAtDate: Date! {
+    var scheduledStartAtDate: Date? {
         if let scheduledStartAt = scheduledStartAt {
             return Date.fromString(scheduledStartAt)
         }
         return nil
     }
 
-    private var dueAtDate: Date! {
+    private var dueAtDate: Date? {
         if let dueAt = dueAt {
             return Date.fromString(dueAt)
         }
         return nil
     }
 
-    private var scheduledEndAtDate: Date! {
+    private var scheduledEndAtDate: Date? {
         if let scheduledEndAt = scheduledEndAt {
             return Date.fromString(scheduledEndAt)
         }
@@ -129,35 +129,35 @@ class WorkOrder: Model {
         return scheduledEndAtDate
     }
 
-    private var startedAtDate: Date! {
+    private var startedAtDate: Date? {
         if let startedAt = startedAt {
             return Date.fromString(startedAt)
         }
         return nil
     }
 
-    private var endedAtDate: Date! {
+    private var endedAtDate: Date? {
         if let endedAt = endedAt {
             return Date.fromString(endedAt)
         }
         return nil
     }
 
-    private var canceledAtDate: Date! {
+    private var canceledAtDate: Date? {
         if let canceledAt = canceledAt {
             return Date.fromString(canceledAt)
         }
         return nil
     }
 
-    private var humanReadableEstimatedCost: String! {
+    private var humanReadableEstimatedCost: String? {
         if estimatedCost > -1.0 {
             return "$\(NSString(format: "%.02f", estimatedCost))"
         }
         return nil
     }
 
-    var humanReadableDuration: String! {
+    var humanReadableDuration: String? {
         guard let startedAtDate = startedAtDate else { return nil }
 
         var seconds = 0.0
@@ -187,7 +187,7 @@ class WorkOrder: Model {
         return "\(hoursString)\(minutesString):\(secondsString)"
     }
 
-    var humanReadableDueAtTimestamp: String! {
+    var humanReadableDueAtTimestamp: String? {
         if let dueAtDate = dueAtDate {
             if isIPad() {
                 return "\(dueAtDate.dayOfWeek), \(dueAtDate.monthName) \(dueAtDate.dayOfMonth) @ \(dueAtDate.timeString!)"
@@ -198,7 +198,7 @@ class WorkOrder: Model {
         return nil
     }
 
-    var humanReadableScheduledStartAtTimestamp: String! {
+    var humanReadableScheduledStartAtTimestamp: String? {
         guard let scheduledStartAtDate = scheduledStartAtDate else { return nil }
 
         if isIPad() {
@@ -208,7 +208,7 @@ class WorkOrder: Model {
         }
     }
 
-    private var humanReadableScheduledEndAtTimestamp: String! {
+    private var humanReadableScheduledEndAtTimestamp: String? {
         guard let scheduledEndAtDate = scheduledEndAtDate else { return nil }
 
         if isIPad() {
@@ -218,7 +218,7 @@ class WorkOrder: Model {
         }
     }
 
-    var humanReadableStartedAtTimestamp: String! {
+    var humanReadableStartedAtTimestamp: String? {
         guard let startedAtDate = startedAtDate else { return nil }
         return "\(startedAtDate.dayOfWeek), \(startedAtDate.monthName) \(startedAtDate.dayOfMonth) @ \(startedAtDate.timeString!)"
     }
@@ -247,7 +247,7 @@ class WorkOrder: Model {
         return user.contact
     }
 
-    var coordinate: CLLocationCoordinate2D! {
+    var coordinate: CLLocationCoordinate2D? {
         if let config = config {
             if status == "in_progress" {
                 if let destination = config["destination"] as? [String: Any],
@@ -280,7 +280,7 @@ class WorkOrder: Model {
         return nil
     }
 
-    var etaCoordinate: CLLocationCoordinate2D! {
+    var etaCoordinate: CLLocationCoordinate2D? {
         if let config = config {
             if status == "in_progress" || status == "arriving" {
                 if let destination = config["destination"] as? [String: Any],
@@ -634,7 +634,7 @@ class WorkOrder: Model {
         }
 
         @objc var coordinate: CLLocationCoordinate2D {
-            return workOrder.coordinate
+            return workOrder.coordinate!
         }
 
         // Title and subtitle for use by selection UI.

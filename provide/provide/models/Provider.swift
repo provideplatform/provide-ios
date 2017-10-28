@@ -34,7 +34,7 @@ class Provider: Model {
         return URL(string: profileImageUrlString)
     }
 
-    private var initialsLabel: UILabel! {
+    private var initialsLabel: UILabel? {
         if name != nil {
             let initialsLabel = UILabel()
             initialsLabel.text = ""

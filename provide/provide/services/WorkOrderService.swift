@@ -18,7 +18,7 @@ class WorkOrderService: NSObject {
 
     private(set) var inProgressWorkOrderDrivingEtaMinutes: Int!
 
-    weak var nextWorkOrder: WorkOrder! {
+    weak var nextWorkOrder: WorkOrder? {
         for wo in workOrders {
             if wo.status == "scheduled" || wo.status == "pending_acceptance" {
                 if wo.userId == currentUser.id {
@@ -32,7 +32,7 @@ class WorkOrderService: NSObject {
         return nil
     }
 
-    weak var inProgressWorkOrder: WorkOrder! {
+    weak var inProgressWorkOrder: WorkOrder? {
         for wo in workOrders {
             if wo.userId == currentUser.id {
                 if Set(["awaiting_schedule", "pending_acceptance", "en_route", "arriving", "in_progress", "timed_out"]).contains(wo.status) {
@@ -108,7 +108,7 @@ class WorkOrderService: NSObject {
                                                     onWorkOrderEtaFetched: @escaping OnWorkOrderEtaFetched) {
         guard let workOrder = nextWorkOrder else { return }
 
-        DirectionService.shared.fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.etaCoordinate) { [weak self] minutesEta in
+        DirectionService.shared.fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.etaCoordinate!) { [weak self] minutesEta in
             self?.nextWorkOrderDrivingEtaMinutes = minutesEta
             onWorkOrderEtaFetched(workOrder, minutesEta)
         }
@@ -119,7 +119,7 @@ class WorkOrderService: NSObject {
         guard let workOrder = inProgressWorkOrder else { return }
         nextWorkOrderDrivingEtaMinutes = nil
 
-        DirectionService.shared.fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.etaCoordinate) { [weak self] minutesEta in
+        DirectionService.shared.fetchDrivingEtaFromCoordinate(coordinate, toCoordinate: workOrder.etaCoordinate!) { [weak self] minutesEta in
             self?.inProgressWorkOrderDrivingEtaMinutes = minutesEta
             onWorkOrderEtaFetched(workOrder, minutesEta)
         }
@@ -129,7 +129,7 @@ class WorkOrderService: NSObject {
                                                                  onDrivingDirectionsFetched: @escaping OnDrivingDirectionsFetched) {
         guard let workOrder = inProgressWorkOrder else { return }
         DirectionService.shared.fetchDrivingDirectionsFromCoordinate(coordinate,
-                                                                     toCoordinate: workOrder.coordinate,
+                                                                     toCoordinate: workOrder.coordinate!,
                                                                      onDrivingDirectionsFetched: onDrivingDirectionsFetched)
     }
 
@@ -137,7 +137,7 @@ class WorkOrderService: NSObject {
                                                          onDidExitRegion: @escaping VoidBlock) {
         guard let workOrder = inProgressWorkOrder else { return }
         LocationService.shared.unregisterRegionMonitor(workOrder.regionIdentifier)
-        let overlay = MKCircle(center: workOrder.coordinate, radius: workOrder.regionMonitoringRadius)
+        let overlay = MKCircle(center: workOrder.coordinate!, radius: workOrder.regionMonitoringRadius)
         LocationService.shared.monitorRegionWithCircularOverlay(overlay,
                                                                 identifier: workOrder.regionIdentifier,
                                                                 onDidEnterRegion: onDidEnterRegion,

@@ -82,18 +82,18 @@ class Maneuver: Model {
         return mapping!
     }
 
-    var maneuverIcon: UIImage! {
+    var maneuverIcon: UIImage? {
         if let iconName = maneuverIcons[action] {
             return UIImage(iconName)
         }
         return nil
     }
 
-    private var feet: Double! {
+    private var feet: Double {
         return miles * 5820.0
     }
 
-    var remainingDistanceString: String! {
+    var remainingDistanceString: String {
         if let shapes = shapes, shapes.count > 0 {
             let miles = self.miles - (self.miles * (Double(currentShapeIndex) / Double(shapes.count)))
             if miles > 0.1 {
@@ -126,14 +126,14 @@ class Maneuver: Model {
         return 25.0
     }
 
-    private var regionOverlay: MKCircle! {
+    private var regionOverlay: MKCircle? {
         if let endCoordinate = endCoordinate {
             return MKCircle(center: endCoordinate, radius: regionMonitoringRadius)
         }
         return nil
     }
 
-    var currentShapeCoordinate: CLLocationCoordinate2D! {
+    var currentShapeCoordinate: CLLocationCoordinate2D? {
         let currentShapeIndex = self.currentShapeIndex
         if currentShapeIndex < shapeCoordinates.count - 1 {
             return shapeCoordinates[currentShapeIndex]
@@ -153,7 +153,7 @@ class Maneuver: Model {
         return coords
     }
 
-    var startCoordinate: CLLocationCoordinate2D! {
+    var startCoordinate: CLLocationCoordinate2D? {
         if let shapes = shapes {
             if shapes.count == 0 {
                 return nil
@@ -170,7 +170,7 @@ class Maneuver: Model {
         return nil
     }
 
-    var endCoordinate: CLLocationCoordinate2D! {
+    var endCoordinate: CLLocationCoordinate2D? {
         if let shapes = shapes {
             if shapes.count == 0 {
                 return nil

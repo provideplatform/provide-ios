@@ -62,11 +62,11 @@ class Attachment: Model {
         return mapping
     }
 
-    private var filename: String! {
+    private var filename: String? {
         return metadata?["filename"] as? String
     }
 
-    var url: URL! {
+    var url: URL? {
         if let status = status, status == "pending" {
             return nil
         } else if let displayUrlString = displayUrlString {
@@ -78,15 +78,15 @@ class Attachment: Model {
         }
     }
 
-    private var thumbnailUrl: URL! {
+    private var thumbnailUrl: URL? {
         return (metadata?["thumbnail_url"] as? String).flatMap { URL(string: $0) }
     }
 
-    private var maxZoomLevel: Int! {
+    private var maxZoomLevel: Int? {
         return metadata?["max_zoom_level"] as? Int
     }
 
-    private var tilingBaseUrl: URL! {
+    private var tilingBaseUrl: URL? {
         return (metadata?["tiling_base_url"] as? String).flatMap { URL(string: $0) }
     }
 
@@ -95,7 +95,7 @@ class Attachment: Model {
     }
 
     private func fetch(_ onURLFetched: @escaping OnURLFetched, onError: @escaping OnError) {
-        ApiService.shared.fetchURL(url, onURLFetched: { statusCode, response in
+        ApiService.shared.fetchURL(url!, onURLFetched: { statusCode, response in
             self.data = response
             onURLFetched(statusCode, response)
         }, onError: onError)

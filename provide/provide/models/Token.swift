@@ -28,7 +28,7 @@ class Token: Model {
         return mapping!
     }
 
-    var authorizationHeaderString: String! {
+    var authorizationHeaderString: String? {
         if let token = token, let uuid = uuid {
             return "Basic " + "\(token):\(uuid)".base64EncodedString
         }

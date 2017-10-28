@@ -41,7 +41,7 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
             addressLabel.sizeToFit()
             bringSubview(toFront: addressLabel)
 
-            mapView.setCenterCoordinate(workOrder.coordinate, zoomLevel: 12, animated: false)
+            mapView.setCenterCoordinate(workOrder.coordinate!, zoomLevel: 12, animated: false)
             mapView.addAnnotation(workOrder.annotation)
 
             DispatchQueue.main.async {

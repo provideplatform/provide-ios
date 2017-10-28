@@ -151,15 +151,15 @@ class DirectionsViewController: ViewController {
             if sufficientDelta {
                 if let directions = directions {
                     let distance = MKMetersBetweenMapPoints(MKMapPointForCoordinate(location.coordinate),
-                                                            MKMapPointForCoordinate(directions.selectedRoute.currentLeg.currentManeuver.startCoordinate))
+                                                            MKMapPointForCoordinate(directions.selectedRoute!.currentLeg.currentManeuver.startCoordinate!))
 
                     let cameraAltitude = distance / tan(Double.pi*(15 / 180.0))
 
                     mapView.setCenterCoordinate(location.coordinate,
-                                                fromEyeCoordinate: directions.selectedRoute.currentLeg.currentManeuver.startCoordinate,
+                                                fromEyeCoordinate: directions.selectedRoute!.currentLeg.currentManeuver.startCoordinate!,
                                                 eyeAltitude: cameraAltitude,
                                                 pitch: CGFloat(defaultMapCameraPitch),
-                                                heading: calculateBearing(directions.selectedRoute.currentLeg.currentManeuver.startCoordinate),
+                                                heading: calculateBearing(directions.selectedRoute!.currentLeg.currentManeuver.startCoordinate!),
                                                 animated: false)
                 }
             }
@@ -172,7 +172,7 @@ class DirectionsViewController: ViewController {
 
             self.setCenterCoordinate(location)
 
-            for leg in directions.selectedRoute.legs {
+            for leg in directions.selectedRoute?.legs ?? [] {
                 for step in [leg.currentManeuver] {
                     for coordinate in (step?.shapeCoordinates)! {
                         let overlay = MKCircle(center: coordinate, radius: 5.0)
@@ -188,7 +188,7 @@ class DirectionsViewController: ViewController {
                             self.regions.removeObject(region)
                             LocationService.shared.unregisterRegionMonitor(region.identifier)
 
-                            if let currentLeg = self.directions?.selectedRoute.currentLeg, let currentManeuver = currentLeg.currentManeuver {
+                            if let currentLeg = self.directions?.selectedRoute?.currentLeg, let currentManeuver = currentLeg.currentManeuver {
                                 var identifier = ""
                                 if let currentShapeCoordinate = currentManeuver.currentShapeCoordinate, let currentManeuverIdentifier = currentManeuver.id {
                                     identifier = currentManeuverIdentifier + "_\(currentShapeCoordinate.latitude),\(currentShapeCoordinate.longitude)"
@@ -200,7 +200,7 @@ class DirectionsViewController: ViewController {
                                     if currentManeuver.isFinished {
                                         currentLeg.currentManeuverIndex += 1
                                     }
-                                } else if self.lastRegionCrossed.center.latitude == currentManeuver.endCoordinate.latitude && self.lastRegionCrossed.center.longitude == currentManeuver.endCoordinate.longitude {
+                                } else if self.lastRegionCrossed.center.latitude == currentManeuver.endCoordinate!.latitude && self.lastRegionCrossed.center.longitude == currentManeuver.endCoordinate!.longitude {
                                     currentLeg.currentManeuverIndex += 1
                                 } else {
                                     var shapeIndex = currentManeuver.shapes.count - 1
@@ -265,7 +265,7 @@ class DirectionsViewController: ViewController {
             mapView.removeOverlays(mapView.overlays)
 
             if let directions = directions {
-                mapView.add(directions.selectedRoute.overviewPolyline, level: .aboveRoads)
+                mapView.add(directions.selectedRoute!.overviewPolyline, level: .aboveRoads)
             }
         }
     }

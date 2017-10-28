@@ -33,14 +33,14 @@ class User: Model {
         return Annotation(user: self)
     }
 
-    private var coordinate: CLLocationCoordinate2D! {
+    private var coordinate: CLLocationCoordinate2D? {
         if lastCheckinLatitude != 0 && lastCheckinLongitude != 0 {
             return CLLocationCoordinate2D(latitude: lastCheckinLatitude, longitude: lastCheckinLatitude)
         }
         return nil
     }
 
-    var profileImageUrl: URL! {
+    var profileImageUrl: URL? {
         if let profileImageUrlString = profileImageUrlString {
             return URL(string: profileImageUrlString)
         }
@@ -110,7 +110,7 @@ class User: Model {
         }
 
         @objc var coordinate: CLLocationCoordinate2D {
-            return user.coordinate
+            return user.coordinate!
         }
 
         @objc var title: String? {
