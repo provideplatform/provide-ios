@@ -337,18 +337,14 @@ class DirectionsViewController: ViewController {
     }
 
     private func routeLegAtIndex(_ i: Int) -> RouteLeg? {
-        var routeLeg: RouteLeg!
-        if let selectedRoute = directions?.selectedRoute {
-            routeLeg = selectedRoute.legs[i]
-        }
-        return routeLeg
+        return directions?.selectedRoute?.legs[i]
     }
 
     private func maneuverAtIndexPath(_ indexPath: IndexPath) -> Maneuver? {
-        var Maneuver: Maneuver?
         if let routeLeg = routeLegAtIndex(indexPath.section), indexPath.row < routeLeg.maneuvers.count {
-            Maneuver = routeLeg.maneuvers[indexPath.row]
+            return routeLeg.maneuvers[indexPath.row]
+        } else {
+            return nil
         }
-        return Maneuver
     }
 }

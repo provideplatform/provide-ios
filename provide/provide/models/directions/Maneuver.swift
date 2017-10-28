@@ -83,10 +83,7 @@ class Maneuver: Model {
     }
 
     var maneuverIcon: UIImage? {
-        if let iconName = maneuverIcons[action] {
-            return UIImage(iconName)
-        }
-        return nil
+        return maneuverIcons[action].flatMap { UIImage(named: $0) }
     }
 
     private var feet: Double {

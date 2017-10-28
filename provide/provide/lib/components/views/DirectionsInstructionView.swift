@@ -37,11 +37,7 @@ class DirectionsInstructionView: UIView {
                     etaLabel.text = "\(time) arrival"
                 }
 
-                if let icon = routeLeg.currentManeuver?.maneuverIcon {
-                    self.icon.image = icon
-                } else {
-                    icon.image = nil
-                }
+                icon.image = routeLeg.currentManeuver?.maneuverIcon
 
                 if let distance = routeLeg.currentManeuver?.remainingDistanceString {
                     stepDistanceLabel.text = distance
@@ -52,11 +48,7 @@ class DirectionsInstructionView: UIView {
                 }
             } else {
                 icon.image = nil
-                stepDistanceLabel.text = ""
-                etaLabel.text = ""
-                instructionLabel.text = ""
-                remainingDistanceLabel.text = ""
-                remainingTimeLabel.text = ""
+                [stepDistanceLabel, etaLabel, instructionLabel, remainingDistanceLabel, remainingTimeLabel].forEach { $0.text = "" }
             }
         }
     }
