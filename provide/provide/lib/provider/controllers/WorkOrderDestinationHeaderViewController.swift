@@ -27,8 +27,6 @@ class WorkOrderDestinationHeaderViewController: ViewController {
 
     weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
 
-    private let rendered = false
-
     @IBOutlet private weak var titleImageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var addressTextView: UITextView!

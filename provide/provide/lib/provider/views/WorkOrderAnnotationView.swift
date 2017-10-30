@@ -10,8 +10,6 @@ import Foundation
 
 class WorkOrderAnnotationView: AnnotationView {
 
-    private let defaultPadding = UIEdgeInsets(top: 5, left: 0, bottom: 100, right: 0)
-
     var minutesEta: Int! {
         didSet {
             if let eta = minutesEta, eta > -1 {

@@ -43,7 +43,6 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
 
     weak var delegate: CameraViewDelegate?
 
-    private let avAudioOutputQueue = DispatchQueue(label: "api.avAudioOutputQueue", attributes: [])
     private let avCameraOutputQueue = DispatchQueue(label: "api.avCameraOutputQueue", attributes: [])
     private let avMetadataOutputQueue = DispatchQueue(label: "api.avMetadataOutputQueue", attributes: [])
     private let avVideoOutputQueue = DispatchQueue(label: "api.avVideoOutputQueue", attributes: [])
