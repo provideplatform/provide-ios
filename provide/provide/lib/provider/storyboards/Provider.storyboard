@@ -22,7 +22,6 @@
         </array>
         <array key="HelveticaNeueExtras.ttc">
             <string>HelveticaNeue-CondensedBlack</string>
-            <string>HelveticaNeue-CondensedBold</string>
         </array>
         <array key="HelveticaNeueLights.ttc">
             <string>HelveticaNeue-Light</string>
@@ -227,12 +226,6 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="XX0-JC-R2c">
                                 <rect key="frame" x="150" y="35" width="20" height="20"/>
                             </activityIndicatorView>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="status" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="i9L-Ot-6Gh">
-                                <rect key="frame" x="20" y="13" width="281" height="21"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vc0-9E-VYf" customClass="RoundedButton" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="19" y="20" width="282" height="50"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -246,19 +239,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Vc0-9E-VYf" firstAttribute="leading" secondItem="c9M-qb-bHW" secondAttribute="leadingMargin" constant="3" id="037-yV-Xu8"/>
-                            <constraint firstItem="i9L-Ot-6Gh" firstAttribute="trailing" secondItem="Vc0-9E-VYf" secondAttribute="trailing" id="42P-7H-3GM"/>
                             <constraint firstItem="Vc0-9E-VYf" firstAttribute="centerX" secondItem="XX0-JC-R2c" secondAttribute="centerX" id="6nh-bM-j60"/>
                             <constraint firstItem="XX0-JC-R2c" firstAttribute="centerY" secondItem="Vc0-9E-VYf" secondAttribute="centerY" id="7hy-jV-2rc"/>
                             <constraint firstItem="4h1-EW-dKe" firstAttribute="top" secondItem="Fea-dB-aXz" secondAttribute="bottom" constant="7" id="KpE-eG-ie3"/>
                             <constraint firstItem="Fea-dB-aXz" firstAttribute="leading" secondItem="c9M-qb-bHW" secondAttribute="leadingMargin" constant="-2" id="Lhs-8Q-NzY"/>
-                            <constraint firstItem="XX0-JC-R2c" firstAttribute="top" secondItem="i9L-Ot-6Gh" secondAttribute="bottom" constant="1" id="PDZ-xG-gyp"/>
                             <constraint firstItem="Fea-dB-aXz" firstAttribute="centerX" secondItem="XX0-JC-R2c" secondAttribute="centerX" id="Z3c-ek-Twk"/>
                             <constraint firstItem="Fea-dB-aXz" firstAttribute="top" secondItem="XX0-JC-R2c" secondAttribute="bottom" constant="14" id="bW3-xU-zEy"/>
                             <constraint firstItem="XX0-JC-R2c" firstAttribute="centerX" secondItem="c9M-qb-bHW" secondAttribute="centerX" id="bjE-79-C0c"/>
-                            <constraint firstItem="i9L-Ot-6Gh" firstAttribute="top" secondItem="F2X-co-KVE" secondAttribute="bottom" constant="13" id="cEf-Gf-1AW"/>
                             <constraint firstItem="Vc0-9E-VYf" firstAttribute="top" secondItem="c9M-qb-bHW" secondAttribute="top" constant="20" symbolic="YES" id="dQM-0N-uyi"/>
                             <constraint firstItem="4h1-EW-dKe" firstAttribute="top" secondItem="Vc0-9E-VYf" secondAttribute="bottom" constant="30" id="h35-LU-tlY"/>
-                            <constraint firstItem="i9L-Ot-6Gh" firstAttribute="centerX" secondItem="XX0-JC-R2c" secondAttribute="centerX" id="sUm-u3-xtY"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -268,7 +257,6 @@
                         <outlet property="activityIndicator" destination="XX0-JC-R2c" id="Isp-aB-Qkf"/>
                         <outlet property="arrivalEtaEstimateLabel" destination="Fea-dB-aXz" id="gpe-aN-awZ"/>
                         <outlet property="confirmStartWorkOrderButton" destination="Vc0-9E-VYf" id="Qx9-52-xkc"/>
-                        <outlet property="statusLabel" destination="i9L-Ot-6Gh" id="Dc9-yu-ppc"/>
                         <segue destination="ZLI-P7-Mie" kind="custom" identifier="WorkOrderDestinationConfirmationViewControllerUnwindSegue" customClass="RenderComponentStoryboardSegue" customModule="provide" customModuleProvider="target" id="e4f-A0-qEi"/>
                     </connections>
                 </viewController>
@@ -296,7 +284,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:15 pm arrival" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXb-OR-d0V">
-                                        <rect key="frame" x="277.5" y="8" width="106.5" height="19"/>
+                                        <rect key="frame" x="279" y="8" width="105" height="19"/>
                                         <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -419,6 +407,6 @@
         <image name="uturn-left" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="HQt-zs-LbY"/>
+        <segue reference="e4f-A0-qEi"/>
     </inferredMetricsTieBreakers>
 </document>
