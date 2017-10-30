@@ -25,14 +25,13 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
     private var minutesEta: Int! {
         didSet {
-            if let eta = minutesEta {
-                arrivalEtaEstimateLabel.text = "ARRIVAL TIME IS APPROXIMATELY \(eta) MIN"
-                arrivalEtaEstimateLabel.alpha = 1
-            } else {
-                arrivalEtaEstimateLabel.alpha = 0
-                arrivalEtaEstimateLabel.text = ""
-            }
+            updateEtaLabel(eta: minutesEta)
         }
+    }
+
+    private func updateEtaLabel(eta: Int?) {
+        arrivalEtaEstimateLabel.text = eta.map { "ARRIVAL TIME IS APPROXIMATELY \($0) MIN" } ?? ""
+        arrivalEtaEstimateLabel.alpha = eta == nil ? 0 : 1
     }
 
     @IBOutlet private weak var arrivalEtaEstimateLabel: UILabel!
