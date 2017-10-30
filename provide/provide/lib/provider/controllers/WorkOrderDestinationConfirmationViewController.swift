@@ -23,7 +23,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
     weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
 
-    private var minutesEta: Int! {
+    private var minutesEta: Int? {
         didSet {
             updateEtaLabel(eta: minutesEta)
         }
