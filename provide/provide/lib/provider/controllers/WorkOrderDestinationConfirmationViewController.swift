@@ -47,7 +47,13 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
             minutesEta = WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes
         } else if WorkOrderService.shared.inProgressWorkOrder != nil {
             confirmStartWorkOrderButton.setTitle("CONFIRM DESTINATION", for: .normal) // FIXME
-            refreshEta()
+
+            // refresh eta
+            LocationService.shared.resolveCurrentLocation { [weak self] location in
+                WorkOrderService.shared.fetchInProgressWorkOrderDrivingEtaFromCoordinate(location.coordinate) { [weak self] _, minutesEta in
+                    self?.minutesEta = minutesEta
+                }
+            }
         }
     }
 
@@ -56,14 +62,6 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
         monkey("👨‍✈️ Tap: \(confirmStartWorkOrderButton.titleLabel!.text!)", after: 2) {
             self.onConfirmationReceived()
-        }
-    }
-
-    private func refreshEta() {
-        LocationService.shared.resolveCurrentLocation { [weak self] location in
-            WorkOrderService.shared.fetchInProgressWorkOrderDrivingEtaFromCoordinate(location.coordinate) { [weak self] _, minutesEta in
-                self?.minutesEta = minutesEta
-            }
         }
     }
 
@@ -84,7 +82,11 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
         targetView.addSubview(view)
 
-        setupNavigationItem()
+        // setup navigation item
+        if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+            navigationItem.title = "CONFIRMATION"
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel(_:)))
+        }
 
         UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseIn, animations: {
             self.view.alpha = 1
@@ -142,13 +144,6 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
             self.view.removeFromSuperview()
             self.clearNavigationItem()
         })
-    }
-
-    private func setupNavigationItem() {
-        if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
-            navigationItem.title = "CONFIRMATION"
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel(_:)))
-        }
     }
 
     private func clearNavigationItem() {
