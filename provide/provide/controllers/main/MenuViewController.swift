@@ -65,8 +65,8 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
                     if responds(to: selector) {
                         perform(selector)
                     } else if let delegate = delegate {
-                        if let tvc = delegate as? TopViewController, tvc.rootViewController.responds(to: selector) {
-                            tvc.rootViewController.perform(selector)
+                        if let tvc = delegate as? TopViewController, tvc.rootViewController!.responds(to: selector) {
+                            tvc.rootViewController!.perform(selector)
                         }
 
                         if delegate.responds(to: selector) {

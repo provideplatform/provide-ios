@@ -12,7 +12,7 @@ class DestinationResultTableViewCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var subtitleLabel: UILabel!
 
-    var result: Contact! {
+    var result: Contact? {
         didSet {
             if let result = result {
                 icon.image = #imageLiteral(resourceName: "provide-pin")

@@ -8,7 +8,7 @@
 
 class TopViewController: ViewController, MenuViewControllerDelegate {
 
-    private(set) var rootViewController: UIViewController!
+    private(set) var rootViewController: UIViewController?
 
     private var topStoryboard: UIStoryboard {
         guard let mode = KeyChainService.shared.mode else { return UIStoryboard("Consumer") } // Should never happen
@@ -34,7 +34,7 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
 
         rootViewController = topStoryboard.instantiateInitialViewController()
 
-        navigationController?.pushViewController(rootViewController, animated: false)
+        navigationController?.pushViewController(rootViewController!, animated: false)
 
         navigationItem.hidesBackButton = true
         navigationController?.setNavigationBarHidden(false, animated: false)

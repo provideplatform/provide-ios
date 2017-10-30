@@ -30,7 +30,7 @@ class DirectionsViewController: ViewController {
 
     private var regions: [CLCircularRegion]!
     private var lastRegionCrossed: CLCircularRegion!
-    private var lastRegionCrossing: Date!
+    private var lastRegionCrossing: Date?
 
     @IBOutlet private weak var directionsInstructionView: DirectionsInstructionView!
 

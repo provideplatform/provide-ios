@@ -49,7 +49,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     private var zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
 
-    private var availabilityBarButtonItem: UIBarButtonItem!
+    private var availabilityBarButtonItem: UIBarButtonItem?
 
     override func viewDidLoad() {
         super.viewDidLoad()

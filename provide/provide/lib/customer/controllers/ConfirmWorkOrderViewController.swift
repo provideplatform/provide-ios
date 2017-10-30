@@ -33,9 +33,9 @@ class ConfirmWorkOrderViewController: ViewController {
 
     @IBAction func categoryChanged(_ sender: CategorySelectionControl) {
         let categoryId = sender.selectedIndex + 1 // TODO: Make robust
-        let price = workOrder.estimatedPriceForCategory(categoryId) ?? 0
+        let price = workOrder?.estimatedPriceForCategory(categoryId) ?? 0
         fareEstimateLabel.text = Formatters.currencyFormatter.string(from: price as NSNumber)
-        workOrder.categoryId = categoryId
+        workOrder?.categoryId = categoryId
         KTNotificationCenter.post(name: .CategorySelectionChanged, object: categoryId)
     }
 
@@ -45,7 +45,7 @@ class ConfirmWorkOrderViewController: ViewController {
         }
     }
 
-    private(set) var workOrder: WorkOrder! {
+    private(set) var workOrder: WorkOrder? {
         didSet {
             if workOrder == nil {
                 if oldValue != nil {
@@ -54,11 +54,11 @@ class ConfirmWorkOrderViewController: ViewController {
                     self.setViews(hidden: false)
                 }
             } else {
-                if workOrder.status == "awaiting_schedule" {
-                    distanceEstimateLabel.text = "\(workOrder.estimatedDistance) miles / \(workOrder.estimatedDuration) minutes"
+                if workOrder!.status == "awaiting_schedule" {
+                    distanceEstimateLabel.text = "\(workOrder!.estimatedDistance) miles / \(workOrder!.estimatedDuration) minutes"
                     distanceEstimateLabel.isHidden = false
 
-                    let price = workOrder.estimatedPriceForCategory(1) ?? 0
+                    let price = workOrder!.estimatedPriceForCategory(1) ?? 0
                     fareEstimateLabel.text = Formatters.currencyFormatter.string(from: price as NSNumber)
                     fareEstimateLabel.isHidden = false
 
@@ -68,7 +68,7 @@ class ConfirmWorkOrderViewController: ViewController {
                     monkey("👨‍💼 Tap: CONFIRM PRVD") {
                         self.confirmButtonTapped(UIButton())
                     }
-                } else if workOrder.status == "pending_acceptance" {
+                } else if workOrder!.status == "pending_acceptance" {
                     setViews(hidden: true)
                     activityIndicatorView.startAnimating()
                 }
@@ -101,14 +101,14 @@ class ConfirmWorkOrderViewController: ViewController {
         logmoji("👱", "Tapped: CONFIRM PRVD")
         logInfo("Waiting for a provider to accept the request")
 
-        workOrder.status = "pending_acceptance"
+        workOrder?.status = "pending_acceptance"
         saveWorkOrder()
     }
 
     private func saveWorkOrder() {
         // TODO: show progress HUD
 
-        workOrder.save(onSuccess: { [weak self] statusCode, mappingResult in
+        workOrder?.save(onSuccess: { [weak self] statusCode, mappingResult in
             if statusCode == 201 {
                 if let workOrder = mappingResult?.firstObject as? WorkOrder {
                     logInfo("Created work order for hire: \(workOrder)")

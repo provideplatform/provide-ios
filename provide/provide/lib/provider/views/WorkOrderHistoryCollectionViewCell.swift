@@ -19,9 +19,9 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
     @IBOutlet private weak var durationLabel: UILabel!
     @IBOutlet private weak var statusLabel: UILabel!
 
-    private var gravatarImageView: UIImageView!
+    private var gravatarImageView: UIImageView?
 
-    private var timer: Timer!
+    private var timer: Timer?
 
     var workOrder: WorkOrder! {
         didSet {
@@ -96,7 +96,7 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
 
                     if status == "en_route" || status == "in_progress" {
                         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(refresh), userInfo: nil, repeats: true)
-                        timer.fire()
+                        timer?.fire()
                     } else if workOrder.status == "scheduled" {
                         durationLabel.text = workOrder.scheduledStartAtDate?.timeString
                     }

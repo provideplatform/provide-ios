@@ -24,7 +24,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         }
     }
 
-    private weak var selectedWorkOrder: WorkOrder!
+    private weak var selectedWorkOrder: WorkOrder?
 
     private var zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
 

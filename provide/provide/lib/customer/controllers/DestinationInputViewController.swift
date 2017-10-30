@@ -15,7 +15,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
 
     private var initialDestinationResultsViewFrame: CGRect!
 
-    private var timer: Timer!
+    private var timer: Timer?
     private var pendingSearch = false
 
     var placemark: CLPlacemark!

@@ -16,7 +16,7 @@ class MessagesViewController: JSQMessagesViewController {
     private var pendingFetch = false
     private var shouldPage = true
 
-    private var selectedImage: UIImage!
+    private var selectedImage: UIImage?
 
     private var recipientId: String!
 
