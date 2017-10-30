@@ -53,12 +53,12 @@ class ConfirmWorkOrderViewController: ViewController {
                     self.activityIndicatorView.stopAnimating()
                     self.setViews(hidden: false)
                 }
-            } else {
-                if workOrder!.status == "awaiting_schedule" {
-                    distanceEstimateLabel.text = "\(workOrder!.estimatedDistance) miles / \(workOrder!.estimatedDuration) minutes"
+            } else if let workOrder = workOrder {
+                if workOrder.status == "awaiting_schedule" {
+                    distanceEstimateLabel.text = "\(workOrder.estimatedDistance) miles / \(workOrder.estimatedDuration) minutes"
                     distanceEstimateLabel.isHidden = false
 
-                    let price = workOrder!.estimatedPriceForCategory(1) ?? 0
+                    let price = workOrder.estimatedPriceForCategory(1) ?? 0
                     fareEstimateLabel.text = Formatters.currencyFormatter.string(from: price as NSNumber)
                     fareEstimateLabel.isHidden = false
 
@@ -68,7 +68,7 @@ class ConfirmWorkOrderViewController: ViewController {
                     monkey("👨‍💼 Tap: CONFIRM PRVD") {
                         self.confirmButtonTapped(UIButton())
                     }
-                } else if workOrder!.status == "pending_acceptance" {
+                } else if workOrder.status == "pending_acceptance" {
                     setViews(hidden: true)
                     activityIndicatorView.startAnimating()
                 }
