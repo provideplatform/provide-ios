@@ -38,7 +38,7 @@
                         <viewControllerLayoutGuide type="bottom" id="rgQ-wU-gLf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Sae-LN-jQO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view alpha="0.80000001192092896" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="edd-zO-nGE">
@@ -69,18 +69,15 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="75"/>
                     <connections>
                         <outlet property="addressTextView" destination="0mN-WJ-N7Q" id="eea-bW-sQi"/>
                         <outlet property="titleImageView" destination="BTY-l8-tA9" id="wfF-GM-1dK"/>
                         <outlet property="titleLabel" destination="bU2-hX-Sww" id="Oey-O1-kCG"/>
-                        <segue destination="ZLI-P7-Mie" kind="custom" identifier="WorkOrderDestinationHeaderViewControllerUnwindSegue" customClass="RenderComponentStoryboardSegue" customModule="provide" customModuleProvider="target" id="AbM-fQ-MfU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a7c-mL-nGz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="297.60000000000002" y="228.93553223388307"/>
+            <point key="canvasLocation" x="-323" y="181"/>
         </scene>
         <!--Work Order Annotation View Controller-->
         <scene sceneID="pCR-jE-I1i">
@@ -184,20 +181,32 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rux-3S-Dfa" customClass="WorkOrderMapView" customModule="provide" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </mapView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3nf-IJ-AWu">
+                                <rect key="frame" x="0.0" y="113" width="375" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="Gma-S2-oka"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="mb7-X8-f0h" kind="embed" identifier="WorkOrderDestinationHeaderViewControllerEmbedSegue" id="Vqx-Ee-xt8"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="rux-3S-Dfa" firstAttribute="leading" secondItem="dOc-tC-XPP" secondAttribute="leading" id="EKl-3y-7Rh"/>
                             <constraint firstItem="rux-3S-Dfa" firstAttribute="top" secondItem="539-BZ-ZYt" secondAttribute="bottom" id="Jq1-mS-FZu"/>
+                            <constraint firstItem="3nf-IJ-AWu" firstAttribute="leading" secondItem="dOc-tC-XPP" secondAttribute="leading" id="RhV-iJ-b14"/>
                             <constraint firstAttribute="trailing" secondItem="rux-3S-Dfa" secondAttribute="trailing" id="aXB-tT-pyO"/>
                             <constraint firstItem="rux-3S-Dfa" firstAttribute="bottom" secondItem="urM-pc-Y9e" secondAttribute="top" id="fav-5t-iZu"/>
+                            <constraint firstAttribute="trailing" secondItem="3nf-IJ-AWu" secondAttribute="trailing" id="k3M-0I-kVh"/>
+                            <constraint firstItem="3nf-IJ-AWu" firstAttribute="top" secondItem="539-BZ-ZYt" secondAttribute="bottom" constant="93" id="pUK-DE-cs0"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="headerViewControllerTopConstraint" destination="pUK-DE-cs0" id="1BA-Dg-pU5"/>
                         <outlet property="mapView" destination="rux-3S-Dfa" id="DCB-UB-At2"/>
                         <segue destination="4Ye-TD-wVA" kind="custom" identifier="WorkOrderDestinationConfirmationViewControllerSegue" customClass="RenderComponentStoryboardSegue" customModule="provide" customModuleProvider="target" id="xeT-sO-EvV"/>
                         <segue destination="yQd-Wz-48G" kind="custom" identifier="WorkOrderAnnotationViewControllerSegue" customClass="RenderComponentStoryboardSegue" customModule="provide" customModuleProvider="target" id="vW2-GH-KBk"/>
-                        <segue destination="mb7-X8-f0h" kind="custom" identifier="WorkOrderDestinationHeaderViewControllerSegue" customClass="RenderComponentStoryboardSegue" customModule="provide" customModuleProvider="target" id="3Wt-Cm-qPJ"/>
                         <segue destination="MA2-QH-nQX" kind="custom" identifier="DirectionsViewControllerSegue" customClass="RenderComponentStoryboardSegue" customModule="provide" customModuleProvider="target" id="MiJ-YI-L7r"/>
                         <segue destination="jaQ-Tq-Id1" kind="show" identifier="WorkOrderHistoryViewControllerSegue" id="OLb-DH-gpG"/>
                     </connections>
@@ -286,7 +295,7 @@
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:15 pm arrival" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXb-OR-d0V">
-                                        <rect key="frame" x="279" y="8" width="105" height="19"/>
+                                        <rect key="frame" x="277.5" y="8" width="106.5" height="19"/>
                                         <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>

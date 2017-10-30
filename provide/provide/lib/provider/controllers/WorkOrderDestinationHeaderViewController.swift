@@ -8,36 +8,17 @@
 
 class WorkOrderDestinationHeaderViewController: ViewController {
 
-    private var initialFrame: CGRect {
-        return CGRect(
-            x: view.frame.origin.x,
-            y: view.height * -2,
-            width: view.width,
-            height: view.height
-        )
-    }
-
-    private var targetView: UIView? {
-        return workOrdersViewControllerDelegate!.targetViewForViewController?(self)
-    }
-
-    weak var workOrder: WorkOrder! {
-        return WorkOrderService.shared.nextWorkOrder ?? WorkOrderService.shared.inProgressWorkOrder
-    }
-
-    weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
-
     @IBOutlet private weak var titleImageView: UIImageView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var addressTextView: UITextView!
 
-    func render() {
-        view.removeFromSuperview()
-        view.alpha = 0
+    override func awakeFromNib() {
+        super.awakeFromNib()
 
-        targetView?.addSubview(view)
-        targetView?.bringSubview(toFront: view)
+        view.addDropShadow(CGSize(width: 1.0, height: 1.25), radius: 2.0, opacity: 0.3)
+    }
 
+    func configure(workOrder: WorkOrder?) {
         titleLabel.text = ""
         addressTextView.text = ""
 
@@ -60,58 +41,6 @@ class WorkOrderDestinationHeaderViewController: ViewController {
             }
 
             addressTextView.sizeToFit()
-        }
-
-        //var frame = initialFrame
-        var frame = CGRect(
-            x: 0,
-            y: targetView?.height ?? 0,
-            width: targetView?.width ?? 0,
-            height: view.height
-        )
-
-        if let navigationController = workOrdersViewControllerDelegate?.navigationControllerForViewController?(self) {
-            frame = CGRect(
-                x: frame.origin.x,
-                y: navigationController.navigationBar.height + navigationController.navigationBar.frame.origin.y,
-                width: navigationController.navigationBar.width,
-                height: frame.height
-            )
-        }
-
-        view.frame = frame
-
-        view.addDropShadow(CGSize(width: 1.0, height: 1.25), radius: 2.0, opacity: 0.3)
-
-        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: {
-            self.view.alpha = 1
-            self.view.frame = CGRect(
-                x: frame.origin.x,
-                y: frame.origin.y,
-                width: frame.width,
-                height: frame.height
-            )
-        })
-    }
-
-    private func unwind() {
-        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: {
-            self.view.alpha = 0
-            self.view.frame = self.initialFrame
-        }, completion: { complete in
-            self.view.removeFromSuperview()
-        })
-    }
-
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier! {
-        case "WorkOrderDestinationHeaderViewControllerUnwindSegue":
-            assert(segue.source is WorkOrderDestinationHeaderViewController && segue.destination is WorkOrdersViewController)
-            unwind()
-        default:
-            break
         }
     }
 }

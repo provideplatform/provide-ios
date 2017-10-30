@@ -38,10 +38,10 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     private let managedViewControllerSegues = [
         "DirectionsViewControllerSegue",
         "WorkOrderAnnotationViewControllerSegue",
-        "WorkOrderDestinationHeaderViewControllerSegue",
         "WorkOrderDestinationConfirmationViewControllerSegue",
     ]
 
+    @IBOutlet private weak var headerViewControllerTopConstraint: NSLayoutConstraint!
     private var managedViewControllers = [UIViewController]()
     private var updatingWorkOrderContext = false
 
@@ -51,8 +51,14 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     private var availabilityBarButtonItem: UIBarButtonItem?
 
+    private var headerView: UIView? {
+        return (childViewControllers.first as? WorkOrderDestinationHeaderViewController)?.view
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        headerView!.alpha = 0
 
         navigationItem.hidesBackButton = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: nil, action: nil)
@@ -105,6 +111,12 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
         setupMenuBarButtonItem()
         setupAvailabilityBarButtonItem()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        hideHeaderView()
     }
 
     private func setupMenuBarButtonItem() {
@@ -352,8 +364,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             (segue.destination as! DirectionsViewController).directionsViewControllerDelegate = self
         case "WorkOrderAnnotationViewControllerSegue":
             (segue.destination as! WorkOrderAnnotationViewController).workOrdersViewControllerDelegate = self
-        case "WorkOrderDestinationHeaderViewControllerSegue":
-            (segue.destination as! WorkOrderDestinationHeaderViewController).workOrdersViewControllerDelegate = self
         case "WorkOrderDestinationConfirmationViewControllerSegue":
             (segue.destination as! WorkOrderDestinationConfirmationViewController).workOrdersViewControllerDelegate = self
         default:
@@ -487,17 +497,40 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         let managedSegues = [
             "DirectionsViewControllerUnwindSegue",
             "WorkOrderAnnotationViewControllerUnwindSegue",
-            "WorkOrderDestinationHeaderViewControllerUnwindSegue",
             "WorkOrderDestinationConfirmationViewControllerUnwindSegue",
         ]
 
         if managedSegues.contains(segueIdentifier) {
             viewController.performSegue(withIdentifier: segueIdentifier, sender: self)
         }
+
+        hideHeaderView()
+    }
+
+    private func showHeaderView() {
+        let workOrder = WorkOrderService.shared.nextWorkOrder ?? WorkOrderService.shared.inProgressWorkOrder
+        let headerViewController = childViewControllers.first as? WorkOrderDestinationHeaderViewController
+        headerViewController?.configure(workOrder: workOrder)
+
+        view.layoutIfNeeded()
+        headerViewControllerTopConstraint.constant = 0
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+            self.headerView?.alpha = 1
+        }
+    }
+
+    private func hideHeaderView() {
+        view.layoutIfNeeded()
+        headerViewControllerTopConstraint.constant = -(topLayoutGuide.length + (headerView?.height ?? 0))
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+            self.headerView?.alpha = 0
+        }
     }
 
     func confirmationRequiredForWorkOrderViewController(_ viewController: UIViewController) {
-        performSegue(withIdentifier: "WorkOrderDestinationHeaderViewControllerSegue", sender: self)
+        showHeaderView()
         performSegue(withIdentifier: "WorkOrderDestinationConfirmationViewControllerSegue", sender: self)
     }
 

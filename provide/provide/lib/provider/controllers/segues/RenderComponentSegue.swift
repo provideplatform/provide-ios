@@ -27,9 +27,6 @@ class RenderComponentStoryboardSegue: UIStoryboardSegue {
         case "WorkOrderAnnotationViewTouchedUpInsideSegue":
             assert(source is WorkOrderAnnotationViewController && destination is WorkOrdersViewController)
             source.performSegue(withIdentifier: "WorkOrderAnnotationViewControllerUnwindSegue", sender: self)
-        case "WorkOrderDestinationHeaderViewControllerSegue":
-            assert(source is WorkOrdersViewController && destination is WorkOrderDestinationHeaderViewController)
-            (destination as! WorkOrderDestinationHeaderViewController).render()
         case "WorkOrderDestinationConfirmationViewControllerSegue":
             assert(source is WorkOrdersViewController && destination is WorkOrderDestinationConfirmationViewController)
             let destinationConfirmationViewController = destination as! WorkOrderDestinationConfirmationViewController
