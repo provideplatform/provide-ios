@@ -85,14 +85,14 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
         if workOrder == nil {
             return false
         }
-        return showsCancelButton && !showsSubmitForApprovalButton && ["scheduled"].index(of: workOrder.status) != nil
+        return showsCancelButton && !showsSubmitForApprovalButton && ["scheduled"].contains(workOrder.status)
     }
 
     private var showsRestartButton: Bool {
         if workOrder == nil {
             return false
         }
-        return isResponsibleProvider && ["rejected"].index(of: workOrder.status) != nil
+        return isResponsibleProvider && ["rejected"].contains(workOrder.status)
     }
 
     @IBOutlet private weak var previewImageView: UIImageView! {

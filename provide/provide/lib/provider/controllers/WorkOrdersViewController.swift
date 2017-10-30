@@ -334,8 +334,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if managedViewControllerSegues.index(of: segue.identifier!) != nil {
-            managedViewControllers.append(segue.destination as! ViewController)
+        if managedViewControllerSegues.contains(segue.identifier!) {
+            managedViewControllers.append(segue.destination)
             zeroStateViewController.dismiss()
         }
 
@@ -484,14 +484,14 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     private func unwindManagedViewController(_ viewController: UIViewController) {
         let segueIdentifier = ("\(NSStringFromClass(type(of: viewController)))UnwindSegue" as String).components(separatedBy: ".").last!
-        let index = [
+        let managedSegues = [
             "DirectionsViewControllerUnwindSegue",
             "WorkOrderAnnotationViewControllerUnwindSegue",
             "WorkOrderDestinationHeaderViewControllerUnwindSegue",
             "WorkOrderDestinationConfirmationViewControllerUnwindSegue",
-        ].index(of: segueIdentifier)
+        ]
 
-        if index != nil {
+        if managedSegues.contains(segueIdentifier) {
             viewController.performSegue(withIdentifier: segueIdentifier, sender: self)
         }
     }

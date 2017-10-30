@@ -97,7 +97,7 @@ class Model: NSObject {
             var key = ivar
             var value: Any = NSNull()
 
-            if ignoreKeys.index(of: key) == nil {
+            if !ignoreKeys.contains(key) {
                 if let unwrappedValue = self.value(forKey: key) {
                     value = unwrappedValue
                     if value is Model {

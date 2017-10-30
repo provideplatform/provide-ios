@@ -174,7 +174,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         KTNotificationCenter.post(name: .MenuContainerShouldReset)
 
         var storyboardPath: String!
-        if storyboardPaths.keys.index(of: storyboardName) != nil {
+        if storyboardPaths.keys.contains(storyboardName) {
             if storyboardPaths[storyboardName] != nil {
                 storyboardPath = storyboardPaths[storyboardName]
             }
