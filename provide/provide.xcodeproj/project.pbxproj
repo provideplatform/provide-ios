@@ -444,14 +444,14 @@
 			path = services;
 			sourceTree = "<group>";
 		};
-		5C4797ED1FA8A65300D7FEBD /* CustomHeightModalTransitioning */ = {
+		5C4797ED1FA8A65300D7FEBD /* transitions */ = {
 			isa = PBXGroup;
 			children = (
 				5C879E051FA6FAB90066805C /* CustomHeightModalTransitioningDelegate.swift */,
 				5C879E071FA6FAED0066805C /* CustomHeightModalScreenPresentationController.swift */,
 				5C879E091FA6FB170066805C /* CustomHeightModalTouchForwardingView.swift */,
 			);
-			path = CustomHeightModalTransitioning;
+			path = transitions;
 			sourceTree = "<group>";
 		};
 		5C51E8DB1F89B195001EABC4 /* models */ = {
@@ -524,6 +524,7 @@
 			isa = PBXGroup;
 			children = (
 				5C68C6C21F86804300BBD3B9 /* controllers */,
+				5C4797ED1FA8A65300D7FEBD /* transitions */,
 				5C68C6C91F86804300BBD3B9 /* views */,
 				5C68C6C71F86804300BBD3B9 /* storyboards */,
 			);
@@ -752,7 +753,6 @@
 				6816FD3D1C32485E005A18BB /* WorkOrderDetailsHeaderTableViewController.swift */,
 				68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */,
 				68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */,
-				5C4797ED1FA8A65300D7FEBD /* CustomHeightModalTransitioning */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
