@@ -223,7 +223,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     private func loadCategoriesContext() {
         if let coordinate = LocationService.shared.currentLocation?.coordinate {
-            Category.nearby(coordinate: coordinate, radius: 50.0, onSuccess: { [weak self] categories in
+            CategoryService.shared.nearby(coordinate: coordinate, radius: 50.0, onSuccess: { [weak self] categories in
                 logInfo("Found \(categories.count) categories: \(categories)")
                 self?.categories = categories
 

@@ -144,6 +144,13 @@ class Provider: Model {
             self.provider = provider
         }
 
+        @objc var icon: UIImage? {
+            if provider.categoryId > 0 {
+                return CategoryService.shared.iconForCategoryId(provider.categoryId)
+            }
+            return #imageLiteral(resourceName: "prvdX")
+        }
+
         @objc var profileImageUrl: URL? {
             return provider.profileImageUrl
         }

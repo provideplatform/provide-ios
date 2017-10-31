@@ -74,14 +74,13 @@ class ConsumerMapView: MapView, UIGestureRecognizerDelegate {
             view = mapView.dequeueReusableAnnotationView(withIdentifier: defaultAnnotationViewReuseIdentifier)
             if view == nil {
                 if view == nil && annotation is Provider.Annotation {
-                    // let icon = FAKFontAwesome.carIcon(withSize: 25.0)!
-                    // let imageView = UIImageView(image: icon.image(with: CGSize(width: 25.0, height: 25.0)))
-                    let icon = #imageLiteral(resourceName: "prvd-reg")
-                    let imageView = UIImageView(image: icon)
+                    if let icon = (annotation as! Provider.Annotation).icon {
+                        let imageView = UIImageView(image: icon)
 
-                    view = MKAnnotationView(annotation: annotation, reuseIdentifier: defaultAnnotationViewReuseIdentifier)
-                    view?.centerOffset = CGPoint(x: 0, y: (imageView.height / 2.0) * -1.0)
-                    view?.addSubview(imageView)
+                        view = MKAnnotationView(annotation: annotation, reuseIdentifier: defaultAnnotationViewReuseIdentifier)
+                        view?.centerOffset = CGPoint(x: 0, y: (imageView.height / 2.0) * -1.0)
+                        view?.addSubview(imageView)
+                    }
                 }
             }
         }

@@ -25,17 +25,4 @@ class Category: Model {
         ])
         return mapping!
     }
-
-    static func nearby(coordinate: CLLocationCoordinate2D, radius: Double, onSuccess: @escaping ([Category]) -> Void, onError: @escaping OnError) {
-        let params: [String: Any] = [
-            "latitude": coordinate.latitude,
-            "longitude": coordinate.longitude,
-            "radius": radius,
-        ]
-
-        ApiService.shared.fetchCategories(params, onSuccess: { statusCode, mappingResult in
-            let categories = mappingResult?.array() as! [Category]
-            onSuccess(categories)
-        }, onError: onError)
-    }
 }

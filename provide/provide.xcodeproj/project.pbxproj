@@ -158,6 +158,7 @@
 		68B413091B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F81B08153D009A4C05 /* WorkOrderAnnotationView.swift */; };
 		68B4130C1B08153D009A4C05 /* WorkOrderMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */; };
 		68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B413291B083161009A4C05 /* Selfie.storyboard */; };
+		68B84F1A1FA8F8A2004264CD /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B84F191FA8F8A2004264CD /* CategoryService.swift */; };
 		68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978C51B084E0E00863E21 /* RoundedButton.swift */; };
 		68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
 		68BA45651FA13FED00322B7C /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BA45641FA13FED00322B7C /* ReachabilityService.swift */; };
@@ -350,6 +351,7 @@
 		68B412F81B08153D009A4C05 /* WorkOrderAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderAnnotationView.swift; sourceTree = "<group>"; };
 		68B412F91B08153D009A4C05 /* WorkOrderMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderMapView.swift; sourceTree = "<group>"; };
 		68B413291B083161009A4C05 /* Selfie.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Selfie.storyboard; sourceTree = "<group>"; };
+		68B84F191FA8F8A2004264CD /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
 		68B978C51B084E0E00863E21 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponentSegue.swift; sourceTree = "<group>"; };
 		68BA45641FA13FED00322B7C /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
@@ -578,6 +580,7 @@
 			children = (
 				686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */,
 				689B0CB11B07DFE3005694B7 /* ApiService.swift */,
+				68B84F191FA8F8A2004264CD /* CategoryService.swift */,
 				6846D99A1F3ED90B004532BD /* CheckinService.swift */,
 				687CB58E1B07F6020048B692 /* DirectionService.swift */,
 				6889951C1C9D3AEF00F7D25F /* ImageService.swift */,
@@ -1543,6 +1546,7 @@
 				681416F61B8457870076BFBD /* User.swift in Sources */,
 				68F537011B834A720007F480 /* WorkOrderTableViewCell.swift in Sources */,
 				68F536FB1B834A720007F480 /* WorkOrderDetailsHeaderView.swift in Sources */,
+				68B84F1A1FA8F8A2004264CD /* CategoryService.swift in Sources */,
 				5C46AC641F886D8300989D0A /* OHHTTPStubsHelper.swift in Sources */,
 				5C879E081FA6FAED0066805C /* CustomHeightModalScreenPresentationController.swift in Sources */,
 				68B412A41B0804BC009A4C05 /* NavigationRootViewController.swift in Sources */,
