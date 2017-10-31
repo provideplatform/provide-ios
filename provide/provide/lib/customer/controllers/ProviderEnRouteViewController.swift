@@ -52,17 +52,7 @@ class ProviderEnRouteViewController: ViewController {
 
                 refreshStatus()
 
-                nameLabel.text = workOrder.providers.last!.firstName!.uppercased()
-                nameLabel.isHidden = false
-
-                categoryLabel.text = workOrder.category?.abbreviation ?? ""
-                categoryLabel.isHidden = false
-
-                makeLabel.text = ""
-                makeLabel.isHidden = false
-
-                modelLabel.text = ""
-                modelLabel.isHidden = false
+                configureUI()
 
                 refreshProvider()
 
@@ -79,6 +69,20 @@ class ProviderEnRouteViewController: ViewController {
         }
     }
 
+    private func configureUI() {
+        nameLabel?.text = workOrder?.providers.last?.firstName?.uppercased() ?? "Name Unknown"
+        nameLabel?.isHidden = false
+
+        categoryLabel?.text = workOrder.category?.abbreviation ?? ""
+        categoryLabel?.isHidden = false
+
+        makeLabel?.text = ""
+        makeLabel?.isHidden = false
+
+        modelLabel?.text = ""
+        modelLabel?.isHidden = false
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -87,6 +91,12 @@ class ProviderEnRouteViewController: ViewController {
                 self?.refreshStatus()
             }
         }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        configureUI()
     }
 
     private func refreshProvider() {
