@@ -520,7 +520,7 @@
 			path = storyboards;
 			sourceTree = "<group>";
 		};
-		6846D9901F3EB35C004532BD /* customer */ = {
+		6846D9901F3EB35C004532BD /* consumer */ = {
 			isa = PBXGroup;
 			children = (
 				5C68C6C21F86804300BBD3B9 /* controllers */,
@@ -528,7 +528,7 @@
 				5C68C6C91F86804300BBD3B9 /* views */,
 				5C68C6C71F86804300BBD3B9 /* storyboards */,
 			);
-			path = customer;
+			path = consumer;
 			sourceTree = "<group>";
 		};
 		687CB5871B07EEF00048B692 /* helpers */ = {
@@ -691,7 +691,7 @@
 			children = (
 				68B412B51B080D41009A4C05 /* components */,
 				68B412F01B08153D009A4C05 /* provider */,
-				6846D9901F3EB35C004532BD /* customer */,
+				6846D9901F3EB35C004532BD /* consumer */,
 			);
 			path = lib;
 			sourceTree = "<group>";
