@@ -73,13 +73,6 @@
                                     <segue destination="wcE-do-F58" kind="embed" identifier="ConfirmWorkOrderViewControllerEmbedSegue" id="Hzd-8A-MYa"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="93D-pT-NDh" userLabel="provider-en-route-vc">
-                                <rect key="frame" x="0.0" y="667" width="375" height="150"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <connections>
-                                    <segue destination="zk4-0m-Dt4" kind="embed" identifier="ProviderEnRouteViewControllerEmbedSegue" id="gdp-g1-zL6"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -101,6 +94,7 @@
                         <outlet property="destinationInputViewControllerTopConstraint" destination="D8Z-S8-vE7" id="o5R-Lk-PvW"/>
                         <outlet property="mapView" destination="Q4r-Uq-ubh" id="wTq-6o-sbU"/>
                         <segue destination="FNp-tj-7th" kind="presentation" identifier="TripCompletionViewControllerSegue" id="lJU-eQ-kt3"/>
+                        <segue destination="zk4-0m-Dt4" kind="presentation" identifier="ProviderEnRouteViewControllerSegue" id="yqE-m5-YWN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ix-H9-gBT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -423,7 +417,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UcH-Qq-h5l" customClass="ProfileImageView" customModule="provide" customModuleProvider="target">
-                                <rect key="frame" x="150.5" y="38" width="75" height="75"/>
+                                <rect key="frame" x="150.5" y="37" width="75" height="76"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PAULO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1c-NC-gGu">
                                 <rect key="frame" x="11" y="55" width="131.5" height="20"/>
@@ -453,7 +447,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="c1T-nx-Lxe">
-                                <rect key="frame" x="177.5" y="61" width="20" height="28"/>
+                                <rect key="frame" x="177.5" y="61" width="20" height="27"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -484,6 +478,7 @@
                             <constraint firstItem="Q1c-NC-gGu" firstAttribute="leading" secondItem="IQ7-lL-A5U" secondAttribute="leading" id="yDP-qu-HTN"/>
                         </constraints>
                     </view>
+                    <size key="freeformSize" width="375" height="150"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="c1T-nx-Lxe" id="Yno-fz-2Kj"/>
                         <outlet property="categoryLabel" destination="IQ7-lL-A5U" id="cFc-Eb-tmu"/>

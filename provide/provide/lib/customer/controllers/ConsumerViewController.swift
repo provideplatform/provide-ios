@@ -17,7 +17,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     private var destinationInputViewController: DestinationInputViewController!
     private var destinationResultsViewController: DestinationResultsViewController!
     private var confirmWorkOrderViewController: ConfirmWorkOrderViewController!
-    private var providerEnRouteViewController: ProviderEnRouteViewController!
+    private var providerEnRouteViewController: ProviderEnRouteViewController?
+    private let providerEnRouteTransitioningDelegate = CustomHeightModalTransitioningDelegate(height: 150) // swiftlint:disable:this weak_delegate (needs to be strong)
 
     private var zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
 
@@ -110,6 +111,12 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
+        case "ProviderEnRouteViewControllerSegue":
+            providerEnRouteViewController = segue.destination as? ProviderEnRouteViewController
+            providerEnRouteViewController?.transitioningDelegate = providerEnRouteTransitioningDelegate
+            providerEnRouteViewController?.modalPresentationStyle = .custom
+            let workOrder = WorkOrderService.shared.inProgressWorkOrder!
+            providerEnRouteViewController?.configure(workOrder: workOrder)
         case "DestinationInputViewControllerEmbedSegue":
             destinationInputViewController = segue.destination as! DestinationInputViewController
             if let destinationResultsViewController = destinationResultsViewController {
@@ -124,8 +131,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             confirmWorkOrderViewController.configure(workOrder: nil, categories: categories) { _ in
                 self.setupCancelWorkOrderBarButtonItem()
             }
-        case "ProviderEnRouteViewControllerEmbedSegue":
-            providerEnRouteViewController = segue.destination as! ProviderEnRouteViewController
         case "TripCompletionViewControllerSegue":
             let tripCompletionVC = (segue.destination as! UINavigationController).topViewController as! TripCompletionViewController
             let workOrder = sender as! WorkOrder
@@ -277,8 +282,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             if ["en_route", "arriving", "in_progress"].contains(workOrder.status) {
                 setupCancelWorkOrderBarButtonItem()
                 setupMessagesBarButtonItem()
-                presentProviderEnRouteViewController()
-                providerEnRouteViewController?.configure(workOrder: workOrder)
+                performSegue(withIdentifier: "ProviderEnRouteViewControllerSegue", sender: self)
             } else if ["awaiting_schedule", "pending_acceptance"].contains(workOrder.status) {
                 setupCancelWorkOrderBarButtonItem()
                 confirmWorkOrderViewController.configure(workOrder: workOrder, categories: categories) { _ in
@@ -288,7 +292,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         } else {
             setupMenuBarButtonItem()
 
-            providerEnRouteViewController?.prepareForReuse()
+            providerEnRouteViewController?.dismiss(animated: true)
             confirmWorkOrderViewController?.prepareForReuse()
             destinationResultsViewController?.prepareForReuse()
 
@@ -312,18 +316,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             }
 
             destinationResultsView.isHidden = false
-        }
-    }
-
-    private func presentProviderEnRouteViewController() {
-        if let providerEnRouteView = providerEnRouteViewController.view {
-            providerEnRouteView.isHidden = true
-            providerEnRouteView.removeFromSuperview()
-            mapView.addSubview(providerEnRouteView)
-
-            providerEnRouteView.frame.size.width = mapView.width
-            providerEnRouteView.frame.origin.y = mapView.height
-            providerEnRouteView.isHidden = false
         }
     }
 

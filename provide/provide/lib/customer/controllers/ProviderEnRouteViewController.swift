@@ -28,22 +28,6 @@ class ProviderEnRouteViewController: ViewController {
                 if oldValue != nil {
                     LocationService.shared.background()
                 }
-
-                if oldValue != nil {
-                    UIView.animate(withDuration: 0.25, animations: {
-                        self.view.frame.origin.y += self.view.height
-                    }, completion: { completed in
-                        if self.workOrder == nil {
-                            self.activityIndicatorView.startAnimating()
-                            self.providerStatusLabel.isHidden = true
-                            self.nameLabel.isHidden = true
-                            self.categoryLabel.isHidden = true
-                            self.makeLabel.isHidden = true
-                            self.modelLabel.isHidden = true
-                            self.profileImageView.isHidden = true
-                        }
-                    })
-                }
             } else {
                 LocationService.shared.start()
                 LocationService.shared.enableNavigationAccuracy(disableIdleTimer: false)
@@ -55,16 +39,6 @@ class ProviderEnRouteViewController: ViewController {
                 configureUI()
 
                 refreshProvider()
-
-                if oldValue == nil {
-                    UIView.animate(withDuration: 0.25, animations: {
-                        self.view.frame.origin.y -= self.view.height
-                    }, completion: { [weak self] completed in
-                        if let workOrder = self?.workOrder {
-                            logInfo("Presented provider en route for work order: \(workOrder)")
-                        }
-                    })
-                }
             }
         }
     }
@@ -146,9 +120,5 @@ class ProviderEnRouteViewController: ViewController {
             }
             providerStatusLabel?.isHidden = false
         }
-    }
-
-    func prepareForReuse() {
-        workOrder = nil
     }
 }
