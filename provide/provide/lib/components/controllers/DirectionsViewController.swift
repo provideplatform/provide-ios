@@ -15,7 +15,6 @@ protocol DirectionsViewControllerDelegate: class {
     func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController?
     func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem?
     func mapViewUserTrackingMode(_ mapView: MKMapView) -> MKUserTrackingMode
-    func targetViewForViewController(_ viewController: UIViewController) -> UIView
 }
 
 class DirectionsViewController: ViewController {
@@ -31,6 +30,8 @@ class DirectionsViewController: ViewController {
     private var regions: [CLCircularRegion]!
     private var lastRegionCrossed: CLCircularRegion!
     private var lastRegionCrossing: Date?
+
+    private weak var targetView: UIView?
 
     @IBOutlet private weak var directionsInstructionView: DirectionsInstructionView!
 
@@ -69,8 +70,8 @@ class DirectionsViewController: ViewController {
 
     weak var directionsViewControllerDelegate: DirectionsViewControllerDelegate?
 
-    private var targetView: UIView {
-        return directionsViewControllerDelegate!.targetViewForViewController(self)
+    func configure(targetView: UIView) {
+        self.targetView = targetView
     }
 
     // MARK: Rendering
@@ -86,17 +87,17 @@ class DirectionsViewController: ViewController {
             mapView.directionsViewControllerDelegate = directionsViewControllerDelegate
         }
 
-        let frame = CGRect(x: 0, y: targetView.height, width: targetView.width, height: view.height)
+        let frame = CGRect(x: 0, y: targetView?.height ?? 0, width: targetView?.width ?? 0, height: view.height)
 
         view.alpha = 0.0
         view.frame = frame
 
-        targetView.addSubview(view)
+        targetView?.addSubview(view)
 
         directionsInstructionView.frame = CGRect(
             x: directionsInstructionView.frame.origin.x,
             y: directionsInstructionView.frame.origin.y,
-            width: targetView.width,
+            width: targetView?.width ?? 0,
             height: directionsInstructionView.height
         )
 

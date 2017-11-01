@@ -15,7 +15,6 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
     @objc optional func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController?
     @objc optional func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem?
     @objc optional func navigationControllerNavBarButtonItemsShouldBeResetForViewController(_ viewController: UIViewController!)
-    @objc optional func targetViewForViewController(_ viewController: UIViewController) -> UIView!
 
     // mapping-related callbacks
     @objc optional func annotationViewForMapView(_ mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView!
@@ -362,6 +361,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             LocationService.shared.enableNavigationAccuracy()
 
             (segue.destination as! DirectionsViewController).directionsViewControllerDelegate = self
+            (segue.destination as! DirectionsViewController).configure(targetView: view)
         case "WorkOrderAnnotationViewControllerSegue":
             let workOrderAnnotationViewController = segue.destination as! WorkOrderAnnotationViewController
             workOrderAnnotationViewController.workOrdersViewControllerDelegate = self
@@ -373,7 +373,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         case "WorkOrderDestinationConfirmationViewControllerSegue":
             let destinationConfirmationViewController = segue.destination as! WorkOrderDestinationConfirmationViewController
             destinationConfirmationViewController.workOrdersViewControllerDelegate = self
-            destinationConfirmationViewController.configure(onConfirm: {
+            destinationConfirmationViewController.configure(targetView: view, onConfirm: {
                 var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
                 if let delegate = destinationConfirmationViewController.workOrdersViewControllerDelegate {
                     workOrdersViewControllerDelegate = delegate
@@ -467,10 +467,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             return .followWithHeading
         }
         return .none
-    }
-
-    func targetViewForViewController(_ viewController: UIViewController) -> UIView {
-        return view
     }
 
     private func popManagedNavigationController() -> UINavigationController? {

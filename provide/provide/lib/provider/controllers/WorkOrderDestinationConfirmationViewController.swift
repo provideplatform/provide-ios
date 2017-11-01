@@ -10,15 +10,14 @@ import UIKit
 
 class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrdersViewControllerDelegate {
 
-    func configure(onConfirm: @escaping VoidBlock) {
+    private weak var targetView: UIView?
+
+    func configure(targetView: UIView, onConfirm: @escaping VoidBlock) {
+        self.targetView = targetView
         onConfirmationReceived = onConfirm
     }
 
     private var onConfirmationReceived: VoidBlock!
-
-    private var targetView: UIView! {
-        return workOrdersViewControllerDelegate?.targetViewForViewController?(self)
-    }
 
     weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
 
@@ -70,8 +69,8 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     func render() {
         let frame = CGRect(
             x: 0.0,
-            y: targetView.height,
-            width: targetView.width,
+            y: targetView?.height ?? 0,
+            width: targetView?.width ?? 0,
             height: view.height
         )
 
@@ -80,7 +79,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
         view.addDropShadow(CGSize(width: 1.0, height: 1.0), radius: 2.5, opacity: 1.0)
 
-        targetView.addSubview(view)
+        targetView?.addSubview(view)
 
         // setup navigation item
         if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
