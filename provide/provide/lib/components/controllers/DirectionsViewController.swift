@@ -15,6 +15,16 @@ protocol DirectionsViewControllerDelegate: class {
 
 class DirectionsViewController: ViewController {
 
+    private weak var targetView: UIView?
+    private weak var workOrderMapView: WorkOrderMapView?
+    private weak var directionsViewControllerDelegate: DirectionsViewControllerDelegate?
+
+    func configure(targetView: UIView, mapView: WorkOrderMapView, delegate: DirectionsViewControllerDelegate) {
+        self.targetView = targetView
+        self.workOrderMapView = mapView
+        self.directionsViewControllerDelegate = delegate
+    }
+
     private let monitoredRegionsQueue = DispatchQueue(label: "api.amonitoredRegionsQueue", attributes: [])
 
     private let defaultMapCameraPitch: CGFloat = 60
@@ -26,9 +36,6 @@ class DirectionsViewController: ViewController {
     private var regions: [CLCircularRegion]!
     private var lastRegionCrossed: CLCircularRegion!
     private var lastRegionCrossing: Date?
-
-    private weak var targetView: UIView?
-    private weak var workOrderMapView: WorkOrderMapView?
 
     @IBOutlet private weak var directionsInstructionView: DirectionsInstructionView!
 
@@ -55,13 +62,6 @@ class DirectionsViewController: ViewController {
             leg.currentManeuver.instruction = nextManeuver.instruction
             leg.currentManeuver.action = nextManeuver.action  // FIXME-- is this a bug?
         }
-    }
-
-    weak var directionsViewControllerDelegate: DirectionsViewControllerDelegate?
-
-    func configure(targetView: UIView, mapView: WorkOrderMapView) {
-        self.targetView = targetView
-        self.workOrderMapView = mapView
     }
 
     // MARK: Rendering

@@ -358,8 +358,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             CheckinService.shared.enableNavigationAccuracy()
             LocationService.shared.enableNavigationAccuracy()
 
-            (segue.destination as! DirectionsViewController).directionsViewControllerDelegate = self
-            (segue.destination as! DirectionsViewController).configure(targetView: view, mapView: mapView)
+            (segue.destination as! DirectionsViewController).configure(targetView: view, mapView: mapView, delegate: self)
         case "WorkOrderAnnotationViewControllerSegue":
             let workOrderAnnotationViewController = segue.destination as! WorkOrderAnnotationViewController
             workOrderAnnotationViewController.workOrdersViewControllerDelegate = self
