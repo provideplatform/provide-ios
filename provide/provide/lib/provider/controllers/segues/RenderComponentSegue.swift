@@ -13,10 +13,10 @@ class RenderComponentStoryboardSegue: UIStoryboardSegue {
     override func perform() {
         switch identifier! {
         case "DirectionsViewControllerSegue":
-            assert(source is WorkOrdersViewController && destination is DirectionsViewController)
+            assert(source is WorkOrdersViewController)
             (destination as! DirectionsViewController).render()
         case "WorkOrderAnnotationViewControllerSegue":
-            assert(source is WorkOrdersViewController && destination is WorkOrderAnnotationViewController)
+            assert(source is WorkOrdersViewController)
             (destination as! WorkOrderAnnotationViewController).render()
             (destination as! WorkOrderAnnotationViewController).onConfirmationRequired = {
                 self.destination.performSegue(withIdentifier: "WorkOrderAnnotationViewTouchedUpInsideSegue", sender: self.source)
@@ -28,7 +28,7 @@ class RenderComponentStoryboardSegue: UIStoryboardSegue {
             assert(source is WorkOrderAnnotationViewController && destination is WorkOrdersViewController)
             source.performSegue(withIdentifier: "WorkOrderAnnotationViewControllerUnwindSegue", sender: self)
         case "WorkOrderDestinationConfirmationViewControllerSegue":
-            assert(source is WorkOrdersViewController && destination is WorkOrderDestinationConfirmationViewController)
+            assert(source is WorkOrdersViewController)
             let destinationConfirmationViewController = destination as! WorkOrderDestinationConfirmationViewController
             destinationConfirmationViewController.render()
             destinationConfirmationViewController.configure(onConfirm: {
