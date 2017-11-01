@@ -11,7 +11,6 @@ import Foundation
 protocol DirectionsViewControllerDelegate: class {
     func isPresentingDirections() -> Bool
     func mapViewForDirectionsViewController(_ directionsViewController: DirectionsViewController) -> MKMapView
-    func navbarPromptForDirectionsViewController(_ viewController: UIViewController) -> String?
     func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController?
     func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem?
     func mapViewUserTrackingMode(_ mapView: MKMapView) -> MKUserTrackingMode
@@ -49,14 +48,6 @@ class DirectionsViewController: ViewController {
                 resolveCurrentManeuver()
                 refreshInstructions()
                 renderRouteOverview()
-
-                if let navigationItem = directionsViewControllerDelegate?.navigationControllerNavigationItemForViewController(self),
-                    let prompt = directionsViewControllerDelegate?.navbarPromptForDirectionsViewController(self) {
-
-                    navigationItem.prompt = prompt
-                } else {
-                    navigationItem.prompt = nil
-                }
             }
         }
     }
@@ -313,10 +304,6 @@ class DirectionsViewController: ViewController {
         if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) as? WorkOrderMapView {
             mapView.removeAnnotations()
             mapView.setCenterCoordinate(mapView.userLocation.coordinate, fromEyeCoordinate: mapView.userLocation.coordinate, eyeAltitude: 0.0, pitch: 60.0, animated: true)
-        }
-
-        if let navigationItem = directionsViewControllerDelegate?.navigationControllerNavigationItemForViewController(self) {
-            navigationItem.prompt = nil
         }
 
         UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {

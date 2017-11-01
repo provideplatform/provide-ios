@@ -603,10 +603,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         return mapView
     }
 
-    func navbarPromptForDirectionsViewController(_ viewController: UIViewController) -> String? {
-        return nil
-    }
-
     private func attemptCompletionOfInProgressWorkOrder() {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder, workOrder.components.count == 0 {
             workOrder.complete(onSuccess: { [weak self] statusCode, responseString in
