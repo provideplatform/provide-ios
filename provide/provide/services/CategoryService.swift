@@ -14,12 +14,8 @@ class CategoryService {
     private var categories = [Category]()
 
     func iconForCategoryId(_ categoryId: Int) -> UIImage? {
-        for category in categories {
-            if category.id == categoryId {
-                return UIImage(category.abbreviation)
-            }
-        }
-        return nil
+        let category = categories.first { $0.id == categoryId }
+        return category.flatMap { UIImage(named: $0.abbreviation) }
     }
 
     func nearby(coordinate: CLLocationCoordinate2D, radius: Double, onSuccess: @escaping ([Category]) -> Void, onError: @escaping OnError) {
