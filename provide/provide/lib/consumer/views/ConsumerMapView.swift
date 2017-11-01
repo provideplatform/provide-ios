@@ -6,7 +6,7 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
-class ConsumerMapView: MapView, UIGestureRecognizerDelegate {
+class ConsumerMapView: MapView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,12 +45,6 @@ class ConsumerMapView: MapView, UIGestureRecognizerDelegate {
                 }
             }
         }
-    }
-
-    // MARK: UIGestureRecognizerDelegate
-
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
     }
 
     // MARK: MKMapViewDelegate
@@ -128,5 +122,13 @@ class ConsumerMapView: MapView, UIGestureRecognizerDelegate {
     func mapViewShouldRefreshVisibleMapRect(_ mapView: MKMapView, animated: Bool = false) {
         mapView.showAnnotations(mapView.annotations, animated: animated)
         mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), animated: animated)
+    }
+}
+
+// MARK: - UIGestureRecognizerDelegate
+extension ConsumerMapView: UIGestureRecognizerDelegate {
+
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }
