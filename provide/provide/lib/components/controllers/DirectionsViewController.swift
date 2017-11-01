@@ -11,7 +11,6 @@ import Foundation
 protocol DirectionsViewControllerDelegate: class {
     func isPresentingDirections() -> Bool
     func mapViewForDirectionsViewController(_ directionsViewController: DirectionsViewController) -> MKMapView
-    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController?
     func mapViewUserTrackingMode(_ mapView: MKMapView) -> MKUserTrackingMode
 }
 

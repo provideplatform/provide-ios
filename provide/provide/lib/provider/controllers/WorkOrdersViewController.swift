@@ -12,7 +12,6 @@ import FontAwesomeKit
 @objc
 protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this is not named correctly. need an abstract WorkOrderComponent class and repurpose this hack as that delegate.
     // general UIKit callbacks
-    @objc optional func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController?
     @objc optional func navigationControllerNavBarButtonItemsShouldBeResetForViewController(_ viewController: UIViewController!)
 
     // mapping-related callbacks
@@ -577,10 +576,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     func removeMapAnnotationsForWorkOrderViewController(_ viewController: UIViewController) {
         mapView.removeAnnotations()
-    }
-
-    func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController? {
-        return navigationController
     }
 
     func navigationControllerNavBarButtonItemsShouldBeResetForViewController(_ viewController: UIViewController) {
