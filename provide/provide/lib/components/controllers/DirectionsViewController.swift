@@ -17,7 +17,7 @@ class DirectionsViewController: ViewController {
 
     private let monitoredRegionsQueue = DispatchQueue(label: "api.amonitoredRegionsQueue", attributes: [])
 
-    private let defaultMapCameraPitch = 60.0
+    private let defaultMapCameraPitch: CGFloat = 60
     private let defaultMapCameraAltitude = 500.0
 
     private let defaultLocationResolvedDurableCallbackKey = "directionsLocationDurableCallback"
@@ -73,7 +73,7 @@ class DirectionsViewController: ViewController {
             }
 
             mapView.disableUserInteraction()
-            mapView.setCenterCoordinate(mapView.userLocation.coordinate, fromEyeCoordinate: mapView.userLocation.coordinate, eyeAltitude: defaultMapCameraAltitude, pitch: CGFloat(defaultMapCameraPitch), animated: true)
+            mapView.setCenterCoordinate(mapView.userLocation.coordinate, fromEyeCoordinate: mapView.userLocation.coordinate, eyeAltitude: defaultMapCameraAltitude, pitch: defaultMapCameraPitch, animated: true)
             mapView.directionsViewControllerDelegate = directionsViewControllerDelegate
         }
 
@@ -149,7 +149,7 @@ class DirectionsViewController: ViewController {
                     mapView.setCenterCoordinate(location.coordinate,
                                                 fromEyeCoordinate: directions.selectedRoute!.currentLeg.currentManeuver.startCoordinate!,
                                                 eyeAltitude: cameraAltitude,
-                                                pitch: CGFloat(defaultMapCameraPitch),
+                                                pitch: defaultMapCameraPitch,
                                                 heading: calculateBearing(directions.selectedRoute!.currentLeg.currentManeuver.startCoordinate!),
                                                 animated: false)
                 }
