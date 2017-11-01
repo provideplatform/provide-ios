@@ -11,6 +11,7 @@ import UIKit
 class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControllerDelegate {
 
     private weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
+    private weak var workOrderMapView: WorkOrderMapView?
 
     private var onConfirmationRequired: VoidBlock! {
         didSet {
@@ -18,8 +19,9 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
         }
     }
 
-    func configure(delegate: WorkOrdersViewControllerDelegate, onConfirmationRequired: @escaping VoidBlock) {
+    func configure(delegate: WorkOrdersViewControllerDelegate, mapView: WorkOrderMapView, onConfirmationRequired: @escaping VoidBlock) {
         self.workOrdersViewControllerDelegate = delegate
+        self.workOrderMapView = mapView
         self.onConfirmationRequired = onConfirmationRequired
     }
 
@@ -42,7 +44,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
     }
 
     func render() {
-        if let mapView = workOrdersViewControllerDelegate?.mapViewForViewController?(nil) {
+        if let mapView = workOrderMapView {
             mapView.workOrdersViewControllerDelegate = workOrdersViewControllerDelegate
 
             workOrdersViewControllerDelegate?.removeMapAnnotationsForWorkOrderViewController?(self)

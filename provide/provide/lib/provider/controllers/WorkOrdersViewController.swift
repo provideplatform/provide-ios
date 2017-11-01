@@ -16,7 +16,6 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
 
     // mapping-related callbacks
     @objc optional func annotationViewForMapView(_ mapView: MKMapView, annotation: MKAnnotation) -> MKAnnotationView!
-    @objc optional func mapViewForViewController(_ viewController: UIViewController!) -> WorkOrderMapView!
     @objc optional func removeMapAnnotationsForWorkOrderViewController(_ viewController: UIViewController)
 
     // eta and driving directions callbacks
@@ -358,7 +357,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
             (segue.destination as! DirectionsViewController).configure(targetView: view, mapView: mapView, delegate: self)
         case "WorkOrderAnnotationViewControllerSegue":
-            (segue.destination as! WorkOrderAnnotationViewController).configure(delegate: self, onConfirmationRequired: {
+            (segue.destination as! WorkOrderAnnotationViewController).configure(delegate: self, mapView: mapView, onConfirmationRequired: {
                 segue.destination.performSegue(withIdentifier: "WorkOrderAnnotationViewTouchedUpInsideSegue", sender: self)
             })
             mapView.mapViewShouldRefreshVisibleMapRect(mapView, animated: true)
@@ -447,10 +446,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     func managedViewControllersForViewController(_ viewController: UIViewController!) -> [UIViewController] {
         return managedViewControllers
-    }
-
-    func mapViewForViewController(_ viewController: UIViewController) -> WorkOrderMapView {
-        return mapView
     }
 
     func mapViewUserTrackingMode(_ mapView: MKMapView) -> MKUserTrackingMode {
