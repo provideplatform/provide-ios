@@ -13,7 +13,6 @@ import FontAwesomeKit
 protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this is not named correctly. need an abstract WorkOrderComponent class and repurpose this hack as that delegate.
     // general UIKit callbacks
     @objc optional func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController?
-    @objc optional func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem?
     @objc optional func navigationControllerNavBarButtonItemsShouldBeResetForViewController(_ viewController: UIViewController!)
 
     // mapping-related callbacks
@@ -373,7 +372,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         case "WorkOrderDestinationConfirmationViewControllerSegue":
             let destinationConfirmationViewController = segue.destination as! WorkOrderDestinationConfirmationViewController
             destinationConfirmationViewController.workOrdersViewControllerDelegate = self
-            destinationConfirmationViewController.configure(targetView: view, onConfirm: {
+            destinationConfirmationViewController.configure(targetView: view, sourceNavigationItem: navigationItem, onConfirm: {
                 var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
                 if let delegate = destinationConfirmationViewController.workOrdersViewControllerDelegate {
                     workOrdersViewControllerDelegate = delegate
@@ -582,10 +581,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     func navigationControllerForViewController(_ viewController: UIViewController) -> UINavigationController? {
         return navigationController
-    }
-
-    func navigationControllerNavigationItemForViewController(_ viewController: UIViewController) -> UINavigationItem? {
-        return navigationItem
     }
 
     func navigationControllerNavBarButtonItemsShouldBeResetForViewController(_ viewController: UIViewController) {

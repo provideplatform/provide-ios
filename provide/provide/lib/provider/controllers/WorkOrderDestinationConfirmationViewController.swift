@@ -11,8 +11,10 @@ import UIKit
 class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrdersViewControllerDelegate {
 
     private weak var targetView: UIView?
+    private var sourceNavigationItem: UINavigationItem!
 
-    func configure(targetView: UIView, onConfirm: @escaping VoidBlock) {
+    func configure(targetView: UIView, sourceNavigationItem: UINavigationItem, onConfirm: @escaping VoidBlock) {
+        self.sourceNavigationItem = sourceNavigationItem
         self.targetView = targetView
         onConfirmationReceived = onConfirm
     }
@@ -82,7 +84,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         targetView?.addSubview(view)
 
         // setup navigation item
-        if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+        if let navigationItem = sourceNavigationItem {
             navigationItem.title = "CONFIRMATION"
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel(_:)))
         }
@@ -146,7 +148,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     }
 
     private func clearNavigationItem() {
-        if let navigationItem = workOrdersViewControllerDelegate?.navigationControllerNavigationItemForViewController?(self) {
+        if let navigationItem = sourceNavigationItem {
             navigationItem.title = nil
 
             navigationItem.leftBarButtonItems = []
