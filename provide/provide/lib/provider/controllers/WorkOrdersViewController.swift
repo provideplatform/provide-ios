@@ -28,7 +28,7 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
     // next work order context and related segue callbacks
     @objc optional func managedViewControllersForViewController(_ viewController: UIViewController!) -> [UIViewController]
     @objc optional func nextWorkOrderContextShouldBeRewoundForViewController(_ viewController: UIViewController)
-    @objc optional func confirmationRequiredForWorkOrderViewController(_ viewController: UIViewController)
+    @objc optional func segueToWorkOrderDestinationConfirmationViewController(_ viewController: UIViewController)
     @objc optional func confirmationCanceledForWorkOrderViewController(_ viewController: UIViewController)
     @objc optional func confirmationReceivedForWorkOrderViewController(_ viewController: UIViewController)
 }
@@ -282,7 +282,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self)
             availabilityBarButtonItemEnabled = false
         } else if canAttemptSegueToArrivingWorkOrder {
-            confirmationRequiredForWorkOrderViewController(self)
+            segueToWorkOrderDestinationConfirmationViewController(self)
         } else if canAttemptSegueToInProgressWorkOrder {
             let workOrder = WorkOrderService.shared.inProgressWorkOrder
             if workOrder?.user != nil {
@@ -529,7 +529,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
-    func confirmationRequiredForWorkOrderViewController(_ viewController: UIViewController) {
+    func segueToWorkOrderDestinationConfirmationViewController(_ viewController: UIViewController) {
         showHeaderView()
         performSegue(withIdentifier: "WorkOrderDestinationConfirmationViewControllerSegue", sender: self)
     }

@@ -61,7 +61,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
             assert(segue.source is WorkOrderAnnotationViewController && segue.destination is WorkOrdersViewController)
 
             if let delegate = workOrdersViewControllerDelegate {
-                delegate.confirmationRequiredForWorkOrderViewController?(self)
+                delegate.segueToWorkOrderDestinationConfirmationViewController?(self)
                 delegate.removeMapAnnotationsForWorkOrderViewController?(self)
             }
         case "WorkOrderAnnotationViewControllerUnwindSegue":
