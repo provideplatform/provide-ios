@@ -27,6 +27,8 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
     private func configureWebsocket() {
         disconnectWebsocket()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: .reachabilityChanged, object: nil)
+
         socket = JFRWebSocket(url: URL(string: CurrentEnvironment.websocketBaseUrlString), protocols: [])
         socket.queue = socketQueue
         socket.delegate = self
@@ -48,6 +50,8 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
     }
 
     func disconnectWebsocket() {
+        NotificationCenter.default.removeObserver(self, name: .reachabilityChanged, object: nil)
+
         if let socket = socket {
             socket.disconnect()
 
@@ -63,6 +67,14 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             if !socketConnected {
                 connectWebsocket()
             }
+        }
+    }
+
+    @objc private func reachabilityChanged(_ notification: NSNotification) {
+        logInfo("Attempting to reconnect websocket due to reachability change")
+        disconnectWebsocket()
+        if ReachabilityService.shared.reachability.isReachable() {
+            connectWebsocket()
         }
     }
 
