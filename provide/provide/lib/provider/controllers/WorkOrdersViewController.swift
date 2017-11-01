@@ -366,8 +366,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             mapView.mapViewShouldRefreshVisibleMapRect(mapView, animated: true)
         case "WorkOrderDestinationConfirmationViewControllerSegue":
             let destinationConfirmationViewController = segue.destination as! WorkOrderDestinationConfirmationViewController
-            destinationConfirmationViewController.workOrdersViewControllerDelegate = self
-            destinationConfirmationViewController.configure(targetView: view, sourceNavigationItem: navigationItem, onConfirm: {
+            destinationConfirmationViewController.configure(delegate: self, targetView: view, sourceNavigationItem: navigationItem, onConfirm: {
                 var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
                 if let delegate = destinationConfirmationViewController.workOrdersViewControllerDelegate {
                     workOrdersViewControllerDelegate = delegate

@@ -11,17 +11,16 @@ import UIKit
 class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrdersViewControllerDelegate {
 
     private weak var targetView: UIView?
+    private(set) weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
+    private var onConfirmationReceived: VoidBlock!
     private var sourceNavigationItem: UINavigationItem!
 
-    func configure(targetView: UIView, sourceNavigationItem: UINavigationItem, onConfirm: @escaping VoidBlock) {
+    func configure(delegate: WorkOrdersViewControllerDelegate, targetView: UIView, sourceNavigationItem: UINavigationItem, onConfirm: @escaping VoidBlock) {
+        self.workOrdersViewControllerDelegate = delegate
         self.sourceNavigationItem = sourceNavigationItem
         self.targetView = targetView
-        onConfirmationReceived = onConfirm
+        self.onConfirmationReceived = onConfirm
     }
-
-    private var onConfirmationReceived: VoidBlock!
-
-    weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
 
     private var minutesEta: Int? {
         didSet {
