@@ -12,7 +12,6 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
     func configure(onConfirm: @escaping VoidBlock) {
         onConfirmationReceived = onConfirm
-        confirmStartWorkOrderButton?.onTouchUpInsideCallback = onConfirm
     }
 
     private var onConfirmationReceived: VoidBlock!
@@ -41,6 +40,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         super.viewWillAppear(animated)
 
         minutesEta = nil
+        confirmStartWorkOrderButton?.onTouchUpInsideCallback = onConfirmationReceived
 
         if WorkOrderService.shared.nextWorkOrder != nil {
             confirmStartWorkOrderButton.setTitle("ACCEPT REQUEST", for: .normal) // FIXME

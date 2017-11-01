@@ -18,12 +18,6 @@ class RenderComponentStoryboardSegue: UIStoryboardSegue {
         case "WorkOrderAnnotationViewControllerSegue":
             assert(source is WorkOrdersViewController)
             (destination as! WorkOrderAnnotationViewController).render()
-            (destination as! WorkOrderAnnotationViewController).onConfirmationRequired = {
-                self.destination.performSegue(withIdentifier: "WorkOrderAnnotationViewTouchedUpInsideSegue", sender: self.source)
-            }
-            if let mapView = (source as! WorkOrdersViewControllerDelegate).mapViewForViewController?(source as! ViewController) {
-                mapView.mapViewShouldRefreshVisibleMapRect(mapView, animated: true)
-            }
         case "WorkOrderAnnotationViewTouchedUpInsideSegue":
             assert(source is WorkOrderAnnotationViewController && destination is WorkOrdersViewController)
             source.performSegue(withIdentifier: "WorkOrderAnnotationViewControllerUnwindSegue", sender: self)
@@ -31,18 +25,6 @@ class RenderComponentStoryboardSegue: UIStoryboardSegue {
             assert(source is WorkOrdersViewController)
             let destinationConfirmationViewController = destination as! WorkOrderDestinationConfirmationViewController
             destinationConfirmationViewController.render()
-            destinationConfirmationViewController.configure(onConfirm: {
-                var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
-                if let delegate = destinationConfirmationViewController.workOrdersViewControllerDelegate {
-                    workOrdersViewControllerDelegate = delegate
-                    for vc in delegate.managedViewControllersForViewController!(destinationConfirmationViewController) where vc != destinationConfirmationViewController {
-                        delegate.nextWorkOrderContextShouldBeRewoundForViewController?(vc)
-                    }
-                }
-
-                destinationConfirmationViewController.showProgressIndicator()
-                workOrdersViewControllerDelegate?.confirmationReceivedForWorkOrderViewController?(destinationConfirmationViewController)
-            })
         default:
             break
         }

@@ -363,9 +363,28 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
             (segue.destination as! DirectionsViewController).directionsViewControllerDelegate = self
         case "WorkOrderAnnotationViewControllerSegue":
-            (segue.destination as! WorkOrderAnnotationViewController).workOrdersViewControllerDelegate = self
+            let workOrderAnnotationViewController = segue.destination as! WorkOrderAnnotationViewController
+            workOrderAnnotationViewController.workOrdersViewControllerDelegate = self
+
+            workOrderAnnotationViewController.onConfirmationRequired = {
+                segue.destination.performSegue(withIdentifier: "WorkOrderAnnotationViewTouchedUpInsideSegue", sender: self)
+            }
+            mapView.mapViewShouldRefreshVisibleMapRect(mapView, animated: true)
         case "WorkOrderDestinationConfirmationViewControllerSegue":
-            (segue.destination as! WorkOrderDestinationConfirmationViewController).workOrdersViewControllerDelegate = self
+            let destinationConfirmationViewController = segue.destination as! WorkOrderDestinationConfirmationViewController
+            destinationConfirmationViewController.workOrdersViewControllerDelegate = self
+            destinationConfirmationViewController.configure(onConfirm: {
+                var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
+                if let delegate = destinationConfirmationViewController.workOrdersViewControllerDelegate {
+                    workOrdersViewControllerDelegate = delegate
+                    for vc in delegate.managedViewControllersForViewController!(destinationConfirmationViewController) where vc != destinationConfirmationViewController {
+                        delegate.nextWorkOrderContextShouldBeRewoundForViewController?(vc)
+                    }
+                }
+
+                destinationConfirmationViewController.showProgressIndicator()
+                workOrdersViewControllerDelegate?.confirmationReceivedForWorkOrderViewController?(destinationConfirmationViewController)
+            })
         default:
             break
         }
