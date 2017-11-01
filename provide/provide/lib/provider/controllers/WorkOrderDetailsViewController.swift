@@ -8,11 +8,6 @@
 
 import UIKit
 
-protocol WorkOrderDetailsViewControllerDelegate: class {
-    func workOrderDetailsViewController(_ viewController: WorkOrderDetailsViewController, tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    func workOrderDetailsViewController(_ viewController: WorkOrderDetailsViewController, cellForTableView tableView: UITableView, atIndexPath indexPath: IndexPath) -> UITableViewCell!
-}
-
 class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, WorkOrderDetailsHeaderTableViewControllerDelegate {
 
     var workOrder: WorkOrder! {
