@@ -350,8 +350,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
         switch segue.identifier! {
         case "DirectionsViewControllerSegue":
-            assert(segue.destination is DirectionsViewController)
-
             refreshAnnotations()
             registerRegionMonitoringCallbacks()
 

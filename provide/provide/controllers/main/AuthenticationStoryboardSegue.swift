@@ -13,7 +13,7 @@ class AuthenticationStoryboardSegue: UIStoryboardSegue {
     override func perform() {
         switch identifier! {
         case "AuthenticationViewControllerSegue":
-            assert(source is NavigationRootViewController && destination is AuthenticationViewController)
+            assert(source is NavigationRootViewController)
 
             if let navigationController = source.navigationController {
                 destination.view.alpha = 0.0
@@ -27,7 +27,7 @@ class AuthenticationStoryboardSegue: UIStoryboardSegue {
                 })
             }
         case "AuthenticationViewControllerUnwindSegue":
-            assert(source is AuthenticationViewController && destination is NavigationRootViewController)
+            assert(destination is NavigationRootViewController)
 
             if let navigationController = source.navigationController {
                 UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: {
@@ -41,7 +41,7 @@ class AuthenticationStoryboardSegue: UIStoryboardSegue {
                 })
             }
         case "SetPasswordViewControllerSegue":
-            assert(source is NavigationRootViewController && destination is SetPasswordViewController)
+            assert(source is NavigationRootViewController)
 
             if let navigationController = source.navigationController {
                 destination.view.alpha = 0.0
@@ -55,7 +55,7 @@ class AuthenticationStoryboardSegue: UIStoryboardSegue {
                 })
             }
         case "SetPasswordViewControllerUnwindSegue":
-            assert(source is SetPasswordViewController && destination is NavigationRootViewController)
+            assert(destination is NavigationRootViewController)
 
             if let navigationController = source.navigationController {
                 UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: {
