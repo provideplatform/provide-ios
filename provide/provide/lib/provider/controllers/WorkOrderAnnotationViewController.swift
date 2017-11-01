@@ -10,10 +10,17 @@ import UIKit
 
 class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControllerDelegate {
 
-    var onConfirmationRequired: VoidBlock! {
+    private weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
+
+    private var onConfirmationRequired: VoidBlock! {
         didSet {
             (view as! WorkOrderAnnotationView).onConfirmationRequired = onConfirmationRequired
         }
+    }
+
+    func configure(delegate: WorkOrdersViewControllerDelegate, onConfirmationRequired: @escaping VoidBlock) {
+        self.workOrdersViewControllerDelegate = delegate
+        self.onConfirmationRequired = onConfirmationRequired
     }
 
     private var minutesEta: Int! {
@@ -21,8 +28,6 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
             (view as! WorkOrderAnnotationView).minutesEta = minutesEta
         }
     }
-
-    weak var workOrdersViewControllerDelegate: WorkOrdersViewControllerDelegate?
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

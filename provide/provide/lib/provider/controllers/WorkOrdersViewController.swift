@@ -360,12 +360,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
             (segue.destination as! DirectionsViewController).configure(targetView: view, mapView: mapView, delegate: self)
         case "WorkOrderAnnotationViewControllerSegue":
-            let workOrderAnnotationViewController = segue.destination as! WorkOrderAnnotationViewController
-            workOrderAnnotationViewController.workOrdersViewControllerDelegate = self
-
-            workOrderAnnotationViewController.onConfirmationRequired = {
+            (segue.destination as! WorkOrderAnnotationViewController).configure(delegate: self, onConfirmationRequired: {
                 segue.destination.performSegue(withIdentifier: "WorkOrderAnnotationViewTouchedUpInsideSegue", sender: self)
-            }
+            })
             mapView.mapViewShouldRefreshVisibleMapRect(mapView, animated: true)
         case "WorkOrderDestinationConfirmationViewControllerSegue":
             let destinationConfirmationViewController = segue.destination as! WorkOrderDestinationConfirmationViewController
