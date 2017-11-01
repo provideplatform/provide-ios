@@ -8,7 +8,7 @@
 
 import Foundation
 
-class MapView: MKMapView, MKMapViewDelegate {
+class MapView: MKMapView {
 
     var defaultAnnotationViewReuseIdentifier = "defaultAnnotationViewReuseIdentifier"
     let userLocationAnnotationViewReuseIdentifier = "userLocationAnnotationViewReuseIdentifier"
@@ -60,8 +60,10 @@ class MapView: MKMapView, MKMapViewDelegate {
             })
         }
     }
+}
 
-    // MARK: MKMapViewDelegate
+// MARK: - MKMapViewDelegate
+extension MapView: MKMapViewDelegate {
 
     func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         if fullyRendered {
