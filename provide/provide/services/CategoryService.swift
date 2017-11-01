@@ -27,7 +27,7 @@ class CategoryService {
             "latitude": coordinate.latitude,
             "longitude": coordinate.longitude,
             "radius": radius,
-            ]
+        ]
 
         ApiService.shared.fetchCategories(params, onSuccess: { [weak self] statusCode, mappingResult in
             if let strongSelf = self {
