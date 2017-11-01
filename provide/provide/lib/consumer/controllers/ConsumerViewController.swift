@@ -83,13 +83,21 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             if let workOrder = notification.object as? WorkOrder {
                 if WorkOrderService.shared.inProgressWorkOrder?.id == workOrder.id {
                     self?.handleInProgressWorkOrderStateChange()
+                } else if workOrder.status == "completed" {
+                    self?.performTripCompletionViewControllerSegue(sender: workOrder)
                 }
             }
         }
+    }
 
-        KTNotificationCenter.addObserver(forName: .WorkOrderChanged, queue: .main) { [weak self] notification in
-            if let workOrder = notification.object as? WorkOrder, workOrder.status == "completed" {
-                self?.performSegue(withIdentifier: "TripCompletionViewControllerSegue", sender: workOrder)
+    private func performTripCompletionViewControllerSegue(sender: WorkOrder) {
+        DispatchQueue.main.async { [weak self] in
+            if let vc = self?.presentedViewController {
+                vc.dismiss(animated: true) {
+                    self?.performSegue(withIdentifier: "TripCompletionViewControllerSegue", sender: sender)
+                }
+            } else {
+                self?.performSegue(withIdentifier: "TripCompletionViewControllerSegue", sender: sender)
             }
         }
     }
@@ -132,8 +140,10 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
                 self.setupCancelWorkOrderBarButtonItem()
             }
         case "TripCompletionViewControllerSegue":
-            let tripCompletionVC = (segue.destination as! UINavigationController).topViewController as! TripCompletionViewController
+            let tripCompletionNVC = segue.destination as! UINavigationController
+            let tripCompletionVC = tripCompletionNVC.topViewController as! TripCompletionViewController
             let workOrder = sender as! WorkOrder
+            tripCompletionNVC.modalPresentationStyle = .overCurrentContext
             tripCompletionVC.configure(driver: workOrder.providers.last!) { tipAmount in
                 logmoji("💰", "Tip amount is \(tipAmount). TODO: POST tip amount to server")
             }
