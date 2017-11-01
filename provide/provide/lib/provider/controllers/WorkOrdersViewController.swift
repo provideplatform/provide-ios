@@ -359,7 +359,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             LocationService.shared.enableNavigationAccuracy()
 
             (segue.destination as! DirectionsViewController).directionsViewControllerDelegate = self
-            (segue.destination as! DirectionsViewController).configure(targetView: view)
+            (segue.destination as! DirectionsViewController).configure(targetView: view, mapView: mapView)
         case "WorkOrderAnnotationViewControllerSegue":
             let workOrderAnnotationViewController = segue.destination as! WorkOrderAnnotationViewController
             workOrderAnnotationViewController.workOrdersViewControllerDelegate = self
@@ -587,10 +587,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     func isPresentingDirections() -> Bool {
         return viewingDirections
-    }
-
-    @nonobjc func mapViewForDirectionsViewController(_ directionsViewController: DirectionsViewController) -> MKMapView {
-        return mapView
     }
 
     private func attemptCompletionOfInProgressWorkOrder() {

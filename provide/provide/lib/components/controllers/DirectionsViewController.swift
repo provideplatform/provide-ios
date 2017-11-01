@@ -10,7 +10,6 @@ import Foundation
 
 protocol DirectionsViewControllerDelegate: class {
     func isPresentingDirections() -> Bool
-    func mapViewForDirectionsViewController(_ directionsViewController: DirectionsViewController) -> MKMapView
     func mapViewUserTrackingMode(_ mapView: MKMapView) -> MKUserTrackingMode
 }
 
@@ -29,6 +28,7 @@ class DirectionsViewController: ViewController {
     private var lastRegionCrossing: Date?
 
     private weak var targetView: UIView?
+    private weak var workOrderMapView: WorkOrderMapView?
 
     @IBOutlet private weak var directionsInstructionView: DirectionsInstructionView!
 
@@ -59,14 +59,15 @@ class DirectionsViewController: ViewController {
 
     weak var directionsViewControllerDelegate: DirectionsViewControllerDelegate?
 
-    func configure(targetView: UIView) {
+    func configure(targetView: UIView, mapView: WorkOrderMapView) {
         self.targetView = targetView
+        self.workOrderMapView = mapView
     }
 
     // MARK: Rendering
 
     func render() {
-        if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) as? WorkOrderMapView {
+        if let mapView = workOrderMapView {
             if let inProgressWorkOrder = WorkOrderService.shared.inProgressWorkOrder {
                 mapView.addAnnotation(inProgressWorkOrder.annotation)
             }
@@ -128,7 +129,7 @@ class DirectionsViewController: ViewController {
     }
 
     private func setCenterCoordinate(_ location: CLLocation) {
-        if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) {
+        if let mapView = workOrderMapView {
             var sufficientDelta = false
             if let lastLocation = LocationService.shared.currentLocation {
                 let lastCoordinate = lastLocation.coordinate
@@ -251,7 +252,7 @@ class DirectionsViewController: ViewController {
     }
 
     private func renderRouteOverview() {
-        if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) {
+        if let mapView = workOrderMapView {
             mapView.removeOverlays(mapView.overlays)
 
             if let directions = directions {
@@ -299,7 +300,7 @@ class DirectionsViewController: ViewController {
         CheckinService.shared.disableNavigationAccuracy()
         LocationService.shared.disableNavigationAccuracy()
 
-        if let mapView = directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) as? WorkOrderMapView {
+        if let mapView = workOrderMapView {
             mapView.removeAnnotations()
             mapView.setCenterCoordinate(mapView.userLocation.coordinate, fromEyeCoordinate: mapView.userLocation.coordinate, eyeAltitude: 0.0, pitch: 60.0, animated: true)
         }
@@ -314,7 +315,7 @@ class DirectionsViewController: ViewController {
             )
         }, completion: { completed in
             self.view.removeFromSuperview()
-            if let mapView = self.directionsViewControllerDelegate?.mapViewForDirectionsViewController(self) {
+            if let mapView = self.workOrderMapView {
                 mapView.removeOverlays(mapView.overlays)
                 mapView.enableUserInteraction()
                 mapView.camera.pitch = 0.0
