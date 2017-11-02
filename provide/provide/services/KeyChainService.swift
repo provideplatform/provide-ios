@@ -60,7 +60,7 @@ class KeyChainService {
             if let token = cachedToken {
                 return token
             } else if let tokenJsonString = self["token"] {
-                cachedToken = Token(string: tokenJsonString)
+                cachedToken = Token(json: tokenJsonString)
                 return cachedToken
             } else {
                 return nil

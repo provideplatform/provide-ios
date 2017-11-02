@@ -48,10 +48,13 @@ class Model: NSObject {
         super.init()
     }
 
-    required init(string: String) {
+    required init(json: String) {
         super.init()
+        fromJSON(json)
+    }
 
-        let data = string.data(using: .utf8)!
+    func fromJSON(_ json: String) {
+        let data = json.data(using: .utf8)!
         let dictionary = decodeJSON(data)
 
         for (key, var value) in dictionary {
@@ -64,7 +67,7 @@ class Model: NSObject {
 
             if value is NSDictionary {
                 if let clazz = clazz {
-                    value = clazz.init(string: ((value as! NSDictionary) as Dictionary).toJSONString())
+                    value = clazz.init(json: ((value as! NSDictionary) as Dictionary).toJSONString())
                 } else {
                     value = value as! NSDictionary
                 }
@@ -72,7 +75,7 @@ class Model: NSObject {
                 if let clazz = clazz {
                     var newValue = [Model]()
                     for v in value as! NSArray {
-                        newValue.append(clazz.init(string: ((v as! NSDictionary) as Dictionary).toJSONString()))
+                        newValue.append(clazz.init(json: ((v as! NSDictionary) as Dictionary).toJSONString()))
                     }
                     value = newValue
                 } else {

@@ -15,6 +15,7 @@ extension NSNotification.Name {
     static let ApplicationUserLoggedOut = NSNotification.Name("ApplicationUserLoggedOut")
     static let ApplicationUserShouldLogout = NSNotification.Name("ApplicationUserShouldLogout")
     static let ApplicationUserWasAuthenticated = NSNotification.Name("ApplicationUserWasAuthenticated")
+    static let ApplicationShouldForceLogout = NSNotification.Name("ApplicationShouldForceLogout")
     static let ApplicationWillRegisterUserNotificationSettings = NSNotification.Name("ApplicationWillRegisterUserNotificationSettings")
     static let ApplicationWillRequestLocationAuthorization = NSNotification.Name("ApplicationWillRequestLocationAuthorization")
     static let ApplicationWillRequestMediaAuthorization = NSNotification.Name("ApplicationWillRequestMediaAuthorization")

@@ -9,11 +9,9 @@
 import Foundation
 
 class JSONResponseWriter {
-    static func writeResponseToFile(_ operation: RKObjectRequestOperation) {
+    static func writeResponseToFile(_ responseString: String, for request: URLRequest) {
         guard let jsonBaseDir = ProcessInfo.processInfo.environment["WRITE_JSON_RESPONSES"], isSimulator() else { return }
-        guard let responseString = operation.httpRequestOperation.responseString else { return }
 
-        let request = operation.httpRequestOperation.request!
         let outputFilePath = pathForFile(withRequest: request, baseDir: jsonBaseDir)
         writeString(responseString, toFile: outputFilePath)
     }

@@ -54,16 +54,35 @@ class ApiService: NSObject {
 
     private var headers = [String: String]()
 
-    private var requestOperations = [RKObjectRequestOperation]()
+    private var opDispatchQueue: DispatchQueue!
+    private var opQueue: OperationQueue!
+    private var ops = [ApiOperation]()
+    private var urlSession: URLSession!
 
     override init() {
         super.init()
+
+        configureUrlSession()
 
         backoffTimeout = initialBackoffTimeout
 
         if let token = KeyChainService.shared.token {
             headers["X-API-Authorization"] = token.authorizationHeaderString
         }
+    }
+
+    private func configureUrlSession() {
+        opDispatchQueue = DispatchQueue(label: "urlOperationsQueue", attributes: .concurrent)
+
+        opQueue = OperationQueue()
+        opQueue.underlyingQueue = opDispatchQueue
+
+        let sessionConfig = URLSessionConfiguration.ephemeral
+        if #available(iOS 11.0, *) {
+            sessionConfig.multipathServiceType = .interactive
+        }
+
+        urlSession = URLSession(configuration: sessionConfig, delegate: self, delegateQueue: opQueue)
     }
 
     // MARK: Token API
@@ -366,12 +385,12 @@ class ApiService: NSObject {
     // MARK: Provider API
 
     @discardableResult
-    private func countProviders(_ params: [String: Any], onTotalResultsCount: @escaping OnTotalResultsCount) -> RKObjectRequestOperation? {
+    private func countProviders(_ params: [String: Any], onTotalResultsCount: @escaping OnTotalResultsCount) -> ApiOperation? {
         return countTotalResultsForPath("providers", params: params, onTotalResultsCount: onTotalResultsCount)
     }
 
     @discardableResult
-    func fetchProviders(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation? {
+    func fetchProviders(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> ApiOperation? {
         return dispatchApiOperationForPath("providers", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
@@ -538,7 +557,7 @@ class ApiService: NSObject {
     }
 
     @discardableResult
-    func autocompletePlaces(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation? {
+    func autocompletePlaces(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> ApiOperation? {
         return dispatchApiOperationForPath("directions/places", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
     }
 
@@ -565,53 +584,32 @@ class ApiService: NSObject {
     // MARK: Private methods
 
     @discardableResult
-    private func countTotalResultsForPath(_ path: String, params: [String: Any], onTotalResultsCount: @escaping OnTotalResultsCount) -> RKObjectRequestOperation? {
+    private func countTotalResultsForPath(_ path: String, params: [String: Any], onTotalResultsCount: @escaping OnTotalResultsCount) -> ApiOperation? {
         var params = params
 
         params["page"] = 1
         params["rpp"] = 0
 
-        let op = dispatchApiOperationForPath(path, method: .GET, params: params, startOperation: false, onSuccess: { statusCode, mappingResult in
-            // TODO
+        var op: ApiOperation?
+        op = dispatchApiOperationForPath(path, method: .GET, params: params, startOperation: false, onSuccess: { statusCode, mappingResult in
+            if let headers = op?.responseHeaders, let totalResultsCountString = headers["X-Total-Results-Count"] as? String, let totalResultsCount = Int(totalResultsCountString) {
+                onTotalResultsCount(totalResultsCount, nil)
+            }
         }, onError: { error, statusCode, responseString in
-            logError(error)
+            onTotalResultsCount(-1, error as NSError?)
         })
 
-        if let op = op {
-            op.setCompletionBlockWithSuccess({ operation, mappingResult in
-                if self.requestOperations.contains(op) {
-                    self.requestOperations.removeObject(op)
-                }
-
-                let headers = operation?.httpRequestOperation.response.allHeaderFields
-                if let totalResultsCountString = headers?["X-Total-Results-Count"] as? String, let totalResultsCount = Int(totalResultsCountString) {
-                    onTotalResultsCount(totalResultsCount, nil)
-                }
-            }, failure: { operation, error in
-                if self.requestOperations.contains(op) {
-                    self.requestOperations.removeObject(op)
-                }
-
-                onTotalResultsCount(-1, error as NSError?)
-            })
-
-            op.start()
-            requestOperations.append(op)
-
-            return op
-        }
-
-        return nil
+        return op
     }
 
     @discardableResult
-    private func dispatchApiOperationForPath(_ path: String, method: RKRequestMethod! = .GET, params: [String: Any]?, startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation? {
+    private func dispatchApiOperationForPath(_ path: String, method: RKRequestMethod! = .GET, params: [String: Any]?, startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> ApiOperation? {
         return dispatchOperationForURL(URL(string: CurrentEnvironment.baseUrlString)!, path: "api/\(path)", method: method, params: params, contentType: "application/json", startOperation: startOperation, onSuccess: onSuccess, onError: onError)
     }
 
     private func objectMappingForPath(_ path: String, method: String) -> RKObjectMapping? {
         var path = path
-        let parts = path.characters.split(separator: "/").map { String($0) }
+        let parts = path.split(separator: "/").map { String($0) }
         if parts.count > 5 {
             path = [parts[3], parts[5]].joined(separator: "/")
             path = path.components(separatedBy: "/").last!
@@ -647,115 +645,74 @@ class ApiService: NSObject {
     }
 
     @discardableResult
-    private func dispatchOperationForURL(_ baseURL: URL, path: String, method: RKRequestMethod = .GET, params: [String: Any]?, contentType: String = "application/json", startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> RKObjectRequestOperation? {
+    private func dispatchOperationForURL(_ baseURL: URL, path: String, method: RKRequestMethod = .GET, params: [String: Any]?, contentType: String = "application/json", startOperation: Bool = true, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> ApiOperation? {
         var responseMapping = objectMappingForPath(path, method: RKStringFromRequestMethod(method).lowercased())
         if responseMapping == nil {
             responseMapping = RKObjectMapping(for: nil)
         }
 
-        if let responseDescriptor = RKResponseDescriptor(mapping: responseMapping, method: method, pathPattern: nil, keyPath: nil, statusCodes: nil) {
+        if let descriptor = RKResponseDescriptor(mapping: responseMapping, method: method, pathPattern: nil, keyPath: nil, statusCodes: nil) {
             var urlComponents = URLComponents(url: baseURL.appendingPathComponent(path), resolvingAgainstBaseURL: false)!
-            if method == .GET && params?.isEmpty == false {
+            if [.GET, .HEAD].contains(method) && params?.isEmpty == false {
                 urlComponents.query = params?.toQueryString()
             }
 
-            let request = NSMutableURLRequest(url: urlComponents.url!)
-            request.httpMethod = RKStringFromRequestMethod(method)
-            request.httpShouldHandleCookies = false
-            request.setValue("application/json", forHTTPHeaderField: "accept")
+            let request = requestFactory(url: urlComponents.url!,
+                                         httpMethod: RKStringFromRequestMethod(method),
+                                         headers: nil,
+                                         contentType: contentType,
+                                         entity: params?.toJSONString().data(using: .utf8))
 
-            for (name, value) in headers {
-                request.setValue(value, forHTTPHeaderField: name)
-            }
+            let op = ApiOperation(session: urlSession!, request: request, responseDescriptor: descriptor, onSuccess: onSuccess, onError: onError)
+            opQueue.addOperation(op)
 
-            var jsonParams = "{}"
-
-            if [.POST, .PUT].contains(method) {
-                request.setValue(contentType, forHTTPHeaderField: "content-type")
-
-                if let params = params, contentType.lowercased() == "application/json" {
-                    jsonParams = params.toJSONString()
-                    request.httpBody = jsonParams.data(using: .utf8)
-                }
-            }
-
-            if let op = RKObjectRequestOperation(request: request as URLRequest!, responseDescriptors: [responseDescriptor]) {
-                let startDate = Date()
-
-                logmoji("↗️", "\(request.httpMethod): \(request.url!)")
-
-                op.setCompletionBlockWithSuccess({ operation, mappingResult in
-                    logmoji("✅", "\(operation!.httpRequestOperation.response.statusCode): \(request.url!)")
-
-                    AnalyticsService.shared.track("HTTP Request Succeeded", properties: [
-                        "path": path,
-                        "statusCode": (operation?.httpRequestOperation.response.statusCode)!,
-                        "params": jsonParams,
-                        "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0),
-                    ])
-
-                    if self.requestOperations.contains(op) {
-                        self.requestOperations.removeObject(op)
-                    }
-
-                    if ProcessInfo.processInfo.environment["WRITE_JSON_RESPONSES"] != nil {
-                        JSONResponseWriter.writeResponseToFile(operation!)
-                    }
-
-                    onSuccess((operation?.httpRequestOperation.response.statusCode)!, mappingResult)
-                }, failure: { operation, error in
-                    let receivedResponse = operation?.httpRequestOperation.response != nil
-                    let responseString = receivedResponse ? (operation?.httpRequestOperation.responseString)! : "{}"
-                    let statusCode = receivedResponse ? (operation?.httpRequestOperation.response.statusCode)! : -1
-
-                    if receivedResponse {
-                        self.backoffTimeout = self.initialBackoffTimeout
-
-                        AnalyticsService.shared.track("HTTP Request Failed", properties: [
-                            "path": path,
-                            "statusCode": statusCode,
-                            "params": jsonParams,
-                            "responseString": responseString,
-                            "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0),
-                        ])
-
-                        if statusCode == 401 {
-                            if baseURL.absoluteString == CurrentEnvironment.baseUrlString {
-                                self.forceLogout()
-                            }
-                        }
-                    } else if let err = error as NSError? {
-                        AnalyticsService.shared.track("HTTP Request Failed", properties: [
-                            "error": err.localizedDescription,
-                            "code": err.code,
-                            "params": jsonParams,
-                            "execTimeMillis": (NSDate().timeIntervalSince(startDate) * 1000.0),
-                        ])
-
-                        let deadline = DispatchTime.now() + Double(Int64(self.backoffTimeout * Double(NSEC_PER_SEC)))
-                        self.backoffTimeout = self.backoffTimeout > 60.0 ? self.initialBackoffTimeout : self.backoffTimeout * 2
-
-                        DispatchQueue.global(qos: DispatchQoS.default.qosClass).asyncAfter(deadline: deadline) {
-                            _ = self.dispatchOperationForURL(baseURL, path: path, method: method, params: params, onSuccess: onSuccess, onError: onError)
-                        }
-                    }
-
-                    if self.requestOperations.contains(op) {
-                        self.requestOperations.removeObject(op)
-                    }
-
-                    onError(error! as NSError, statusCode, responseString)
-                })
-
-                if startOperation {
-                    op.start()
-                    requestOperations.append(op)
-                }
-
-                return op
-            }
+            return op
         }
 
         return nil
+    }
+
+    @discardableResult
+    private func requestFactory(url: URL, httpMethod: String, headers: [String: String]?, contentType: String?, entity: Data?) -> URLRequest {
+        var request = URLRequest(url: url)
+        request.httpMethod = httpMethod
+        request.httpShouldHandleCookies = false
+        request.setValue("application/json", forHTTPHeaderField: "accept")
+
+        for (name, value) in self.headers {
+            request.setValue(value, forHTTPHeaderField: name)
+        }
+
+        if let headers = headers {
+            for (name, value) in headers {
+                request.setValue(value, forHTTPHeaderField: name)
+            }
+        }
+
+        if ["PATCH", "POST", "PUT"].contains(httpMethod) {
+            let _contentType = contentType ?? "application/json"
+            request.setValue(_contentType, forHTTPHeaderField: "content-type")
+
+            if let entity = entity, _contentType.lowercased() == "application/json" {
+                request.httpBody = entity
+            } else {
+                logWarn("Request factory encountered unimplemented content-type: \(_contentType)")
+            }
+        }
+
+        return request
+    }
+}
+
+extension ApiService: URLSessionDelegate {
+
+}
+
+extension ApiService: URLSessionTaskDelegate {
+
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        if let error = error {
+            
+        }
     }
 }

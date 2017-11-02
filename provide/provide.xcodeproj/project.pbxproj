@@ -163,6 +163,7 @@
 		68B978D61B085A6C00863E21 /* RenderComponentSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */; };
 		68BA45651FA13FED00322B7C /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BA45641FA13FED00322B7C /* ReachabilityService.swift */; };
 		68C0E6511D56D09800157123 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0E6501D56D09800157123 /* MobileCoreServices.framework */; };
+		68C16A111FAB021E001DAF90 /* ApiOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C16A101FAB021E001DAF90 /* ApiOperation.swift */; };
 		68CD56051F6C8C3B007E66CE /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CD56041F6C8C3B007E66CE /* PaymentMethod.swift */; };
 		68D843C11BFAA73800DE7400 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C01BFAA73800DE7400 /* NotificationService.swift */; };
 		68DCAE461BEC6BB3009B383E /* WorkOrderHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */; };
@@ -356,6 +357,7 @@
 		68B978CC1B085A6C00863E21 /* RenderComponentSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponentSegue.swift; sourceTree = "<group>"; };
 		68BA45641FA13FED00322B7C /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
 		68C0E6501D56D09800157123 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		68C16A101FAB021E001DAF90 /* ApiOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiOperation.swift; sourceTree = "<group>"; };
 		68CD56041F6C8C3B007E66CE /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		68D843C01BFAA73800DE7400 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderHistoryViewController.swift; sourceTree = "<group>"; };
@@ -580,6 +582,7 @@
 			isa = PBXGroup;
 			children = (
 				686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */,
+				68C16A101FAB021E001DAF90 /* ApiOperation.swift */,
 				689B0CB11B07DFE3005694B7 /* ApiService.swift */,
 				68B84F191FA8F8A2004264CD /* CategoryService.swift */,
 				6846D99A1F3ED90B004532BD /* CheckinService.swift */,
@@ -1509,6 +1512,7 @@
 				681416F31B8457870076BFBD /* RouteLeg.swift in Sources */,
 				682BE8BE1B43E11A00DDBC3D /* ZeroStateViewController.swift in Sources */,
 				687B650E1C2431800088E539 /* MenuItem.swift in Sources */,
+				68C16A111FAB021E001DAF90 /* ApiOperation.swift in Sources */,
 				6837AF951C8BBD9B0082F4EC /* UserToken.swift in Sources */,
 				5C41C5931B21457800FA7783 /* MessageService.swift in Sources */,
 				68B978C61B084E0E00863E21 /* RoundedButton.swift in Sources */,

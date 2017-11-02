@@ -97,7 +97,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             }
         case .message:
             let jsonString = (notificationValue as! [String: Any]).toJSONString()
-            let message = Message(string: jsonString)
+            let message = Message(json: jsonString)
             KTNotificationCenter.post(name: .NewMessageReceivedNotification, object: message)
 
         case .workOrder:
@@ -196,7 +196,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
     static func handleWebsocketMessage(_ messageName: String, payload: [String: Any]) {
         switch messageName {
         case "attachment_changed":
-            let attachment = Attachment(string: payload.toJSONString())
+            let attachment = Attachment(json: payload.toJSONString())
             if let url = payload["url"] as? String {
                 attachment.urlString = url // FIXME-- marshall with proper mapping
             }
@@ -207,7 +207,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             KTNotificationCenter.post(name: .AttachmentChanged, object: attachment)
         case "provider_became_available":
             let providerJson = payload.toJSONString()
-            let provider = Provider(string: providerJson)
+            let provider = Provider(json: providerJson)
             if ProviderService.shared.containsProvider(provider) {
                 ProviderService.shared.updateProvider(provider)
             } else {
@@ -221,7 +221,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             }
         case "provider_location_changed":
             let providerJson = payload.toJSONString()
-            let provider = Provider(string: providerJson)
+            let provider = Provider(json: providerJson)
             if ProviderService.shared.containsProvider(provider) {
                 ProviderService.shared.updateProvider(provider)
             } else {
@@ -230,7 +230,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             KTNotificationCenter.post(name: .ProviderLocationChanged, object: provider)
         case "work_order_changed":
             let workOrderJson = payload.toJSONString()
-            let workOrder = WorkOrder(string: workOrderJson)
+            let workOrder = WorkOrder(json: workOrderJson)
             WorkOrderService.shared.updateWorkOrder(workOrder)
             KTNotificationCenter.post(name: .WorkOrderChanged, object: workOrder)
             if WorkOrderService.shared.inProgressWorkOrder == nil {
