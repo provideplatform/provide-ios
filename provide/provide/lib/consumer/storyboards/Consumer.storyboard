@@ -43,7 +43,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yuA-CY-FCD" userLabel="destination-input-vc">
-                                <rect key="frame" x="0.0" y="100" width="375" height="100"/>
+                                <rect key="frame" x="0.0" y="80" width="375" height="100"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Yx6-g0-wrR"/>
@@ -65,7 +65,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uRj-tW-oAL" userLabel="confirm-work-order-vc">
-                                <rect key="frame" x="0.0" y="367" width="375" height="250"/>
+                                <rect key="frame" x="0.0" y="407" width="375" height="250"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="250" id="cyn-NP-g5t"/>
                                 </constraints>
@@ -73,16 +73,28 @@
                                     <segue destination="wcE-do-F58" kind="embed" identifier="ConfirmWorkOrderViewControllerEmbedSegue" id="Hzd-8A-MYa"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HEj-dW-59K">
+                                <rect key="frame" x="0.0" y="210" width="375" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="FZA-fr-AE3"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="zk4-0m-Dt4" kind="embed" identifier="ProviderEnRouteViewControllerEmbedSegue" id="uP8-2c-5ZX"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Q4r-Uq-ubh" secondAttribute="trailing" id="7ao-JB-r5r"/>
-                            <constraint firstItem="yuA-CY-FCD" firstAttribute="top" secondItem="u6f-jT-dJR" secondAttribute="top" constant="100" id="D8Z-S8-vE7"/>
+                            <constraint firstItem="yuA-CY-FCD" firstAttribute="top" secondItem="u6f-jT-dJR" secondAttribute="top" constant="80" id="D8Z-S8-vE7"/>
                             <constraint firstItem="Q4r-Uq-ubh" firstAttribute="bottom" secondItem="XKs-fz-a12" secondAttribute="top" id="DS7-EG-ZMR"/>
                             <constraint firstItem="Q4r-Uq-ubh" firstAttribute="leading" secondItem="u6f-jT-dJR" secondAttribute="leading" id="FA2-EL-1l0"/>
+                            <constraint firstItem="HEj-dW-59K" firstAttribute="leading" secondItem="u6f-jT-dJR" secondAttribute="leading" id="MaK-bv-Xea"/>
+                            <constraint firstItem="XKs-fz-a12" firstAttribute="top" secondItem="HEj-dW-59K" secondAttribute="bottom" constant="307" id="Oyf-jm-67V"/>
                             <constraint firstAttribute="trailing" secondItem="yuA-CY-FCD" secondAttribute="trailing" id="VPQ-ls-jwe"/>
                             <constraint firstAttribute="trailing" secondItem="uRj-tW-oAL" secondAttribute="trailing" id="ezm-2v-21d"/>
-                            <constraint firstItem="XKs-fz-a12" firstAttribute="top" secondItem="uRj-tW-oAL" secondAttribute="bottom" constant="50" id="hnl-uV-YGP"/>
+                            <constraint firstItem="XKs-fz-a12" firstAttribute="top" secondItem="uRj-tW-oAL" secondAttribute="bottom" constant="10" id="hnl-uV-YGP"/>
+                            <constraint firstAttribute="trailing" secondItem="HEj-dW-59K" secondAttribute="trailing" id="l9X-fh-nuT"/>
                             <constraint firstItem="uRj-tW-oAL" firstAttribute="leading" secondItem="u6f-jT-dJR" secondAttribute="leading" id="oTS-2e-amS"/>
                             <constraint firstItem="Q4r-Uq-ubh" firstAttribute="top" secondItem="u6f-jT-dJR" secondAttribute="top" id="vRT-2K-k0Y"/>
                             <constraint firstItem="yuA-CY-FCD" firstAttribute="leading" secondItem="u6f-jT-dJR" secondAttribute="leading" id="xlc-tB-y5u"/>
@@ -93,8 +105,8 @@
                         <outlet property="confirmWorkOrderViewControllerBottomConstraint" destination="hnl-uV-YGP" id="SJT-mA-ig3"/>
                         <outlet property="destinationInputViewControllerTopConstraint" destination="D8Z-S8-vE7" id="o5R-Lk-PvW"/>
                         <outlet property="mapView" destination="Q4r-Uq-ubh" id="wTq-6o-sbU"/>
+                        <outlet property="providerEnRouteViewControllerBottomConstaint" destination="Oyf-jm-67V" id="8DV-YX-AW7"/>
                         <segue destination="FNp-tj-7th" kind="presentation" identifier="TripCompletionViewControllerSegue" id="lJU-eQ-kt3"/>
-                        <segue destination="zk4-0m-Dt4" kind="presentation" identifier="ProviderEnRouteViewControllerSegue" id="yqE-m5-YWN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ix-H9-gBT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -333,12 +345,12 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13 miles / 20 minutes" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="SeR-ao-OhO">
-                                        <rect key="frame" x="16" y="17" width="136" height="17"/>
+                                        <rect key="frame" x="16" y="17" width="134" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$12" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="xkL-Ur-DnX">
-                                        <rect key="frame" x="337" y="17" width="21.5" height="17"/>
+                                        <rect key="frame" x="335" y="17" width="23.5" height="16.5"/>
                                         <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -491,7 +503,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oxr-B4-P27" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-476" y="1204"/>
+            <point key="canvasLocation" x="-511" y="1236"/>
         </scene>
         <!--Trip Complete-->
         <scene sceneID="60l-PU-9Ym">
@@ -657,6 +669,7 @@
         <!--Navigation Controller-->
         <scene sceneID="6YY-b8-653">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AlI-HI-ULp" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FNp-tj-7th" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="h60-Kv-3US">
@@ -668,7 +681,6 @@
                         <segue destination="aNT-5D-3ig" kind="relationship" relationship="rootViewController" id="bCb-zl-0Vx"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="AlI-HI-ULp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1267.2" y="575.71214392803597"/>
         </scene>

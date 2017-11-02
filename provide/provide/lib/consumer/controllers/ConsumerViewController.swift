@@ -12,13 +12,13 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     @IBOutlet private weak var mapView: ConsumerMapView!
     @IBOutlet private weak var destinationInputViewControllerTopConstraint: NSLayoutConstraint!
-    @IBOutlet var confirmWorkOrderViewControllerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private var confirmWorkOrderViewControllerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var providerEnRouteViewControllerBottomConstaint: NSLayoutConstraint!
 
     private var destinationInputViewController: DestinationInputViewController!
     private var destinationResultsViewController: DestinationResultsViewController!
     private var confirmWorkOrderViewController: ConfirmWorkOrderViewController!
-    private var providerEnRouteViewController: ProviderEnRouteViewController?
-    private let providerEnRouteTransitioningDelegate = CustomHeightModalTransitioningDelegate(height: 150) // swiftlint:disable:this weak_delegate (needs to be strong)
+    private var providerEnRouteViewController: ProviderEnRouteViewController!
 
     private var zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
 
@@ -53,6 +53,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
         destinationInputViewControllerTopConstraint.constant = -destinationInputViewController.view.height
         confirmWorkOrderViewControllerBottomConstraint.constant = -confirmWorkOrderViewController.view.height
+        providerEnRouteViewControllerBottomConstaint.constant = -providerEnRouteViewController.view.height
 
         destinationInputViewController.destinationTextField.addTarget(self, action: #selector(destinationTextFieldEditingDidBegin), for: .editingDidBegin)
         navigationItem.hidesBackButton = true
@@ -119,12 +120,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
-        case "ProviderEnRouteViewControllerSegue":
+        case "ProviderEnRouteViewControllerEmbedSegue":
             providerEnRouteViewController = segue.destination as? ProviderEnRouteViewController
-            providerEnRouteViewController?.transitioningDelegate = providerEnRouteTransitioningDelegate
-            providerEnRouteViewController?.modalPresentationStyle = .custom
-            let workOrder = WorkOrderService.shared.inProgressWorkOrder!
-            providerEnRouteViewController?.configure(workOrder: workOrder)
         case "DestinationInputViewControllerEmbedSegue":
             destinationInputViewController = segue.destination as! DestinationInputViewController
             if let destinationResultsViewController = destinationResultsViewController {
@@ -292,7 +289,9 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             if ["en_route", "arriving", "in_progress"].contains(workOrder.status) {
                 setupCancelWorkOrderBarButtonItem()
                 setupMessagesBarButtonItem()
-                performSegue(withIdentifier: "ProviderEnRouteViewControllerSegue", sender: self)
+                let workOrder = WorkOrderService.shared.inProgressWorkOrder!
+                providerEnRouteViewController?.configure(workOrder: workOrder)
+                animateProviderEnRouteViewController(toHidden: false)
             } else if ["awaiting_schedule", "pending_acceptance"].contains(workOrder.status) {
                 setupCancelWorkOrderBarButtonItem()
                 confirmWorkOrderViewController.configure(workOrder: workOrder, categories: categories) { _ in
@@ -302,7 +301,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         } else {
             setupMenuBarButtonItem()
 
-            providerEnRouteViewController?.dismiss(animated: true)
+            animateProviderEnRouteViewController(toHidden: true)
+            providerEnRouteViewController?.prepareForReuse()
             confirmWorkOrderViewController?.prepareForReuse()
             destinationResultsViewController?.prepareForReuse()
 
@@ -464,6 +464,14 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     func animateConfirmWorkOrderView(toHidden hidden: Bool) {
         view.layoutIfNeeded()
         confirmWorkOrderViewControllerBottomConstraint.constant = hidden ? -confirmWorkOrderViewController.view.height : 0
+        UIView.animate(withDuration: 0.25) {
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    func animateProviderEnRouteViewController(toHidden hidden: Bool) {
+        view.layoutIfNeeded()
+        providerEnRouteViewControllerBottomConstaint.constant = hidden ? -providerEnRouteViewController.view.height : 0
         UIView.animate(withDuration: 0.25) {
             self.view.layoutIfNeeded()
         }

@@ -47,7 +47,7 @@ class ProviderEnRouteViewController: ViewController {
         nameLabel?.text = workOrder?.providers.last?.firstName?.uppercased() ?? "Name Unknown"
         nameLabel?.isHidden = false
 
-        categoryLabel?.text = workOrder.category?.abbreviation ?? ""
+        categoryLabel?.text = workOrder?.category?.abbreviation ?? ""
         categoryLabel?.isHidden = false
 
         makeLabel?.text = ""
@@ -71,6 +71,10 @@ class ProviderEnRouteViewController: ViewController {
         super.viewWillAppear(animated)
 
         configureUI()
+    }
+
+    func prepareForReuse() {
+        workOrder = nil
     }
 
     private func refreshProvider() {
