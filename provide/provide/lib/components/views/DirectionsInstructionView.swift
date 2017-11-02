@@ -22,7 +22,7 @@ class DirectionsInstructionView: UIView {
     override var frame: CGRect {
         didSet {
             backgroundView?.frame.size.width = frame.width
-            backgroundView?.addDropShadow(CGSize(width: 1.0, height: 1.0), radius: 2.5, opacity: 0.9)
+            backgroundView?.addDropShadow(radius: 2.5, opacity: 0.9)
         }
     }
 

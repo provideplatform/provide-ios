@@ -78,7 +78,7 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         view.alpha = 0.0
         view.frame = frame
 
-        view.addDropShadow(CGSize(width: 1.0, height: 1.0), radius: 2.5, opacity: 1.0)
+        view.addDropShadow(radius: 2.5, opacity: 1.0)
 
         targetView?.addSubview(view)
 
