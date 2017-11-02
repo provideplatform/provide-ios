@@ -80,6 +80,12 @@ class ConfirmWorkOrderViewController: ViewController {
         }
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.addDropShadow()
+    }
+
     private func setViews(hidden: Bool) {
         let views: [UIView] = [
             categorySelectionControl,

@@ -65,6 +65,8 @@ class ProviderEnRouteViewController: ViewController {
                 self?.refreshStatus()
             }
         }
+
+        view.addDropShadow()
     }
 
     override func viewWillAppear(_ animated: Bool) {
