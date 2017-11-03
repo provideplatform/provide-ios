@@ -21,7 +21,7 @@ class ApiOperation: Operation {
         return request.httpMethod!
     }
 
-    private var idempotent: Bool {
+    var isIdempotent: Bool {
         return ["GET", "HEAD", "PATCH", "PUT"].contains(httpMethod)
     }
 
@@ -79,17 +79,43 @@ class ApiOperation: Operation {
         return true
     }
 
-    private var _executing = false
+    private var isCancelledObserver: NSKeyValueObservation!
+
+    private var _executing = false {
+        willSet {
+            willChangeValue(forKey: "isExecuting")
+        }
+        didSet {
+            didChangeValue(forKey: "isExecuting")
+        }
+    }
+
     override var isExecuting: Bool {
         return _executing
     }
 
-    private var _finished = false
+    private var _finished = false {
+        willSet {
+            willChangeValue(forKey: "isFinished")
+        }
+        didSet {
+            didChangeValue(forKey: "isFinished")
+        }
+    }
+
     override var isFinished: Bool {
         return _finished
     }
 
-    private var _ready = true
+    private var _ready = true {
+        willSet {
+            willChangeValue(forKey: "isReady")
+        }
+        didSet {
+            didChangeValue(forKey: "isReady")
+        }
+    }
+
     override var isReady: Bool {
         return _ready
     }
@@ -112,11 +138,16 @@ class ApiOperation: Operation {
         withUnsafePointer(to: &mutableSelf) {
             mutableSelf.name = "ApiOperation[\($0)]"
         }
+
+        isCancelledObserver = observe(\.isCancelled, options: [.new]) { [weak self] _, change in
+            if change.newValue ?? false {
+                self?.task?.cancel()
+                self?.finish()
+            }
+        }
     }
 
     override func start() {
-        super.start()
-
         if !isExecuting {
             _ready = false
             _executing = true
@@ -126,8 +157,17 @@ class ApiOperation: Operation {
             return
         }
 
+        apiCall()
+    }
+
+    private func apiCall() {
+        if isCancelled {
+            finish()
+            return
+        }
+
         attempts += 1
-        logInfo("Dispatching queued API operation \(self) (attempt #\(attempts)")
+        logInfo("Dispatching API operation \(self) (attempt #\(attempts)")
 
         let startDate = Date()
         task = session.dataTask(with: request) { [weak self] data, response, error in
@@ -148,9 +188,11 @@ class ApiOperation: Operation {
     }
 
     private func finish() {
-        if isExecuting {
+        if isExecuting || isCancelled {
             _executing = false
             _finished = true
+
+            isCancelledObserver?.invalidate()
 
             logInfo("API operation finished executing: \(self)")
         }
@@ -158,8 +200,11 @@ class ApiOperation: Operation {
 
     override func cancel() {
         super.cancel()
-        self.finish()
 
+        task?.cancel()
+        finish()
+
+        logInfo("API operation canceled: \(self)")
         AnalyticsService.shared.track("API Operation Canceled", properties: [
             "operation": self,
             "attempts": attempts,
@@ -175,7 +220,6 @@ class ApiOperation: Operation {
         let contentLength = Int64(responseEntity?.count ?? 0)
 
         logmoji("✅", "\(statusCode): \(request.url!) (\(contentLength)-byte response); took \(execTimeMillis)ms")
-
         AnalyticsService.shared.track("API Operation Succeeded", properties: [
             "operation": self,
             "attempts": attempts,
@@ -243,7 +287,8 @@ class ApiOperation: Operation {
             self.backoffTimeout = self.backoffTimeout > self.maximumBackoffTimeout ? self.initialBackoffTimeout : self.backoffTimeout * 2
             DispatchQueue.global(qos: DispatchQoS.default.qosClass).asyncAfter(deadline: deadline) { [weak self] in
                 self?.responseEntity = nil
-                self?.task?.resume()
+                self?.task = nil
+                self?.apiCall()
             }
 
             DispatchQueue.main.async { [weak self] in

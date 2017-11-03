@@ -56,10 +56,24 @@ class ApiService: NSObject {
     private var ops = [ApiOperation]()
     private var urlSession: URLSession!
 
+    private var multipathTcpEnabled: Bool {
+        if #available(iOS 11.0, *) {
+            return true
+        }
+        return false
+    }
+
     override init() {
         super.init()
 
         configureUrlSession()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(reachabilityChanged), name: .reachabilityChanged, object: nil)
+
+        KTNotificationCenter.addObserver(forName: .ApplicationShouldForceLogout) { [weak self] notification in
+            logInfo("Received ApplicationShouldForceLogout notification")
+            self?.forceLogout()
+        }
 
         if let token = KeyChainService.shared.token {
             headers["X-API-Authorization"] = token.authorizationHeaderString
@@ -188,7 +202,30 @@ class ApiService: NSObject {
         AnalyticsService.shared.logout()
         ImageService.shared.clearCache()
 
+        opQueue.cancelAllOperations()
+
         currentUser = nil
+    }
+
+    @objc private func reachabilityChanged(_ notification: NSNotification) {
+        if !ReachabilityService.shared.reachability.isReachable() {
+            logInfo("Suspending API operations due to reachability change")
+            opDispatchQueue?.suspend()
+
+            if !multipathTcpEnabled {
+                logInfo("Canceling all inflight API operations due to reachability change")
+                let idempotentOperations = opQueue?.operations.filter({ ($0 as! ApiOperation).isIdempotent })
+                opQueue?.cancelAllOperations()
+
+                if let idempotentOperations = idempotentOperations {
+                    logInfo("Requeueing \(idempotentOperations.count) cancelled idempotent API operations")
+                    opQueue?.addOperations(idempotentOperations, waitUntilFinished: false)
+                }
+            }
+        } else if !multipathTcpEnabled {
+            logInfo("Resuming API operations due to reachability change")
+            opDispatchQueue?.resume()
+        }
     }
 
     // MARK: Fetch images
