@@ -15,7 +15,7 @@ class ApiOperation: Operation {
 
     private var attempts = 0
 
-    private var backoffTimeout: TimeInterval!
+    private var backoffTimeout = initialBackoffTimeout
 
     private var httpMethod: String {
         return request.httpMethod!
