@@ -15,7 +15,7 @@ class ApiOperation: Operation {
 
     private var attempts = 0
 
-    private var backoffTimeout = initialBackoffTimeout
+    private var backoffTimeout: TimeInterval!
 
     private var httpMethod: String {
         return request.httpMethod!
@@ -109,6 +109,8 @@ class ApiOperation: Operation {
         self.url = self.request.url
         self.onSuccess = onSuccess
         self.onError = onError
+
+        backoffTimeout = initialBackoffTimeout
 
         var mutableSelf = self
         withUnsafePointer(to: &mutableSelf) {
