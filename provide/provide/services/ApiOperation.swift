@@ -27,11 +27,8 @@ class ApiOperation: Operation {
 
     private var params: [String: Any]? {
         if ["PATCH", "POST", "PUT"].contains(httpMethod) {
-            if let body = request.httpBody {
-                let params = try? JSONSerialization.jsonObject(with: body, options: [])
-                if let params = params as? [String: Any] {
-                    return params
-                }
+            if let body = request.httpBody, let params = try? JSONSerialization.jsonObject(with: body, options: []) as? [String: Any] {
+                return params
             }
         }
         return nil
@@ -56,19 +53,13 @@ class ApiOperation: Operation {
     private var responseEntity: Data?
 
     private var responseString: String? {
-        if let responseEntity = responseEntity {
-            return String(data: responseEntity, encoding: .utf8)
-        }
-        return nil
+        return responseEntity.flatMap { String(data: $0, encoding: .utf8) }
     }
 
     private var url: URL!
 
     private var statusCode: Int {
-        if let response = response {
-            return response.statusCode
-        }
-        return -1
+        return response?.statusCode ?? -1
     }
 
     private var task: URLSessionDataTask!
@@ -106,7 +97,7 @@ class ApiOperation: Operation {
         self.session = session
         self.request = request
         self.responseDescriptor = responseDescriptor
-        self.url = self.request.url
+        self.url = request.url
         self.onSuccess = onSuccess
         self.onError = onError
 
@@ -230,7 +221,7 @@ class ApiOperation: Operation {
         let contentLength = Int64(responseEntity?.count ?? 0)
 
         if receivedResponse {
-            self.backoffTimeout = self.initialBackoffTimeout
+            backoffTimeout = initialBackoffTimeout
 
             AnalyticsService.shared.track("API Operation Failed", properties: [
                 "operation": self,
@@ -261,8 +252,8 @@ class ApiOperation: Operation {
                 "execTimeMillis": execTimeMillis,
             ])
 
-            let deadline = DispatchTime.now() + Double(Int64(self.backoffTimeout * Double(NSEC_PER_SEC)))
-            self.backoffTimeout = self.backoffTimeout > self.maximumBackoffTimeout ? self.initialBackoffTimeout : self.backoffTimeout * 2
+            let deadline = DispatchTime.now() + Double(Int64(backoffTimeout * Double(NSEC_PER_SEC)))
+            backoffTimeout = backoffTimeout > maximumBackoffTimeout ? initialBackoffTimeout : backoffTimeout * 2
             DispatchQueue.global(qos: DispatchQoS.default.qosClass).asyncAfter(deadline: deadline) { [weak self] in
                 self?.responseEntity = nil
                 self?.task = nil
@@ -270,15 +261,13 @@ class ApiOperation: Operation {
             }
 
             DispatchQueue.main.async { [weak self] in
-                if let strongSelf = self {
-                    strongSelf.onError?(err, strongSelf.statusCode, strongSelf.responseString ?? "{}")
-                }
+                guard let strongSelf = self else { return }
+                strongSelf.onError?(err, strongSelf.statusCode, strongSelf.responseString ?? "{}")
             }
         } else {
             DispatchQueue.main.async { [weak self] in
-                if let strongSelf = self {
-                    strongSelf.onError?(NSError(), strongSelf.statusCode, strongSelf.responseString ?? "{}")
-                }
+                guard let strongSelf = self else { return }
+                strongSelf.onError?(NSError(), strongSelf.statusCode, strongSelf.responseString ?? "{}")
             }
         }
     }

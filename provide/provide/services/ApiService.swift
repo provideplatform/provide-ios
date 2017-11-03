@@ -214,7 +214,7 @@ class ApiService: NSObject {
 
             if !multipathTcpEnabled {
                 logInfo("Canceling all inflight API operations due to reachability change")
-                let idempotentOperations = opQueue?.operations.filter({ ($0 as! ApiOperation).isIdempotent })
+                let idempotentOperations = opQueue?.operations.filter { ($0 as! ApiOperation).isIdempotent }
                 opQueue?.cancelAllOperations()
 
                 if let idempotentOperations = idempotentOperations {
