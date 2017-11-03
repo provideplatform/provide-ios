@@ -22,7 +22,7 @@ class ApiOperation: Operation {
     }
 
     var isIdempotent: Bool {
-        return ["GET", "HEAD", "PATCH", "PUT"].contains(httpMethod)
+        return ["DELETE", "GET", "HEAD", "PATCH", "PUT"].contains(httpMethod)
     }
 
     private var params: [String: Any]? {
