@@ -81,41 +81,17 @@ class ApiOperation: Operation {
 
     private var isCancelledObserver: NSKeyValueObservation!
 
-    private var _executing = false {
-        willSet {
-            willChangeValue(forKey: "isExecuting")
-        }
-        didSet {
-            didChangeValue(forKey: "isExecuting")
-        }
-    }
-
+    private var _executing = false
     override var isExecuting: Bool {
         return _executing
     }
 
-    private var _finished = false {
-        willSet {
-            willChangeValue(forKey: "isFinished")
-        }
-        didSet {
-            didChangeValue(forKey: "isFinished")
-        }
-    }
-
+    private var _finished = false
     override var isFinished: Bool {
         return _finished
     }
 
-    private var _ready = true {
-        willSet {
-            willChangeValue(forKey: "isReady")
-        }
-        didSet {
-            didChangeValue(forKey: "isReady")
-        }
-    }
-
+    private var _ready = true
     override var isReady: Bool {
         return _ready
     }
