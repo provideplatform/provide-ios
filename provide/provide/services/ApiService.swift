@@ -49,9 +49,6 @@ class ApiService: NSObject {
         "messages": Message.mapping(),
     ]
 
-    private let initialBackoffTimeout: TimeInterval = 0.1
-    private var backoffTimeout: TimeInterval!
-
     private var headers = [String: String]()
 
     private var opDispatchQueue: DispatchQueue!
@@ -63,8 +60,6 @@ class ApiService: NSObject {
         super.init()
 
         configureUrlSession()
-
-        backoffTimeout = initialBackoffTimeout
 
         if let token = KeyChainService.shared.token {
             headers["X-API-Authorization"] = token.authorizationHeaderString
@@ -194,7 +189,6 @@ class ApiService: NSObject {
         ImageService.shared.clearCache()
 
         currentUser = nil
-        backoffTimeout = nil
     }
 
     // MARK: Fetch images
