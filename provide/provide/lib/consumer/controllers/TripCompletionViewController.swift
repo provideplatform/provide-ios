@@ -99,7 +99,7 @@ extension TripCompletionViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentText = textField.text ?? ""
         let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
-        return (Int(updatedText) != nil && updatedText.characters.count <= 3) || updatedText.isEmpty
+        return (Int(updatedText) != nil && updatedText.count <= 3) || updatedText.isEmpty
     }
 }
 
