@@ -13,6 +13,8 @@ class ApiOperation: Operation {
     private let initialBackoffTimeout: TimeInterval = 0.1
     private let maximumBackoffTimeout: TimeInterval = 60.0
 
+    private var attempts = 0
+
     private var backoffTimeout: TimeInterval!
 
     private var httpMethod: String {
@@ -119,9 +121,13 @@ class ApiOperation: Operation {
             _ready = false
             _executing = true
             _finished = false
+        } else {
+            logWarn("Attempted to start API operation \(self) while it was executing")
+            return
         }
 
-        logInfo("Dispatching queued API operation \(self)")
+        attempts += 1
+        logInfo("Dispatching queued API operation \(self) (attempt #\(attempts)")
 
         let startDate = Date()
         task = session.dataTask(with: request) { [weak self] data, response, error in
@@ -156,11 +162,11 @@ class ApiOperation: Operation {
 
         AnalyticsService.shared.track("API Operation Canceled", properties: [
             "operation": self,
+            "attempts": attempts,
             "path": url.path,
             "query": url.query ?? "",
             "statusCode": statusCode,
             "params": params as Any,
-            "backoffTimeout": backoffTimeout,
         ])
     }
 
@@ -172,6 +178,7 @@ class ApiOperation: Operation {
 
         AnalyticsService.shared.track("API Operation Succeeded", properties: [
             "operation": self,
+            "attempts": attempts,
             "path": url.path,
             "query": url.query ?? "",
             "statusCode": statusCode,
@@ -205,6 +212,7 @@ class ApiOperation: Operation {
 
             AnalyticsService.shared.track("API Operation Failed", properties: [
                 "operation": self,
+                "attempts": attempts,
                 "path": url.path,
                 "query": url.query ?? "",
                 "statusCode": statusCode,
@@ -222,6 +230,7 @@ class ApiOperation: Operation {
             logError(err)
             AnalyticsService.shared.track("API Operation Failed", properties: [
                 "operation": self,
+                "attempts": attempts,
                 "path": url.path,
                 "query": url.query ?? "",
                 "error": err.localizedDescription,
