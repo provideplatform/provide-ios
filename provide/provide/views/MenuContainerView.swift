@@ -90,7 +90,7 @@ class MenuContainerView: UIView {
         KTNotificationCenter.addObserver(observer: self, selector: #selector(openMenu), name: .MenuContainerShouldOpen)
         KTNotificationCenter.addObserver(observer: self, selector: #selector(closeMenu), name: .MenuContainerShouldReset)
 
-        addDropShadow(CGSize(width: 2.0, height: 2.0), radius: CGFloat(10.0), opacity: CGFloat(0.75))
+        addDropShadow(width: 2.5, height: 2, radius: 10, opacity: 0.75)
         layer.shadowOpacity = 0.0
 
         if let targetView = targetView {

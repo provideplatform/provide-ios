@@ -15,7 +15,7 @@ class WorkOrderDestinationHeaderViewController: ViewController {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        view.addDropShadow(CGSize(width: 0.0, height: 1.25), radius: CGFloat(2.0), opacity: CGFloat(0.3))
+        view.addDropShadow(height: 1.25, radius: 2.0, opacity: 0.3)
     }
 
     func configure(workOrder: WorkOrder?) {
