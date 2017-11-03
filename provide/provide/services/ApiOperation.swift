@@ -240,7 +240,7 @@ class ApiOperation: Operation {
             ])
 
             let deadline = DispatchTime.now() + Double(Int64(self.backoffTimeout * Double(NSEC_PER_SEC)))
-            self.backoffTimeout = self.backoffTimeout > 60.0 ? self.initialBackoffTimeout : self.backoffTimeout * 2
+            self.backoffTimeout = self.backoffTimeout > self.maximumBackoffTimeout ? self.initialBackoffTimeout : self.backoffTimeout * 2
             DispatchQueue.global(qos: DispatchQoS.default.qosClass).asyncAfter(deadline: deadline) { [weak self] in
                 self?.responseEntity = nil
                 self?.task?.resume()
