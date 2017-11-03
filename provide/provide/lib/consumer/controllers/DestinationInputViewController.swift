@@ -8,34 +8,27 @@
 
 class DestinationInputViewController: ViewController, UITextFieldDelegate {
 
-    weak var destinationResultsViewController: DestinationResultsViewController!
-
     @IBOutlet weak var destinationTextField: UITextField!
     @IBOutlet weak var destinationTextFieldTopConstraint: NSLayoutConstraint!
-
-    private var initialDestinationResultsViewFrame: CGRect!
 
     private var timer: Timer?
     private var pendingSearch = false
 
     var placemark: CLPlacemark!
 
+    private var destinationResultsViewController: DestinationResultsViewController {
+        return (parent as! ConsumerViewController).destinationResultsViewController
+    }
+
     private var expanded = false {
         didSet {
             if expanded {
-                initialDestinationResultsViewFrame = destinationResultsViewController?.view.frame
-
                 placemark = nil
 
                 navigationController?.setNavigationBarHidden(true, animated: true)
 
                 UIView.animate(withDuration: 0.25) {
                     self.destinationTextField.becomeFirstResponder()
-                }
-
-                UIView.animate(withDuration: 0.3) {
-                    self.destinationResultsViewController.view.frame.origin.y = self.view.height
-                    self.destinationResultsViewController.view.frame.size.height = self.parent!.view.height - self.view.height
                 }
             } else {
                 if destinationTextField.isFirstResponder {
@@ -45,10 +38,6 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                 destinationTextField.text = ""
 
                 navigationController?.setNavigationBarHidden(false, animated: true)
-
-                UIView.animate(withDuration: 0.25) {
-                    self.destinationResultsViewController.view.frame = self.initialDestinationResultsViewFrame
-                }
             }
         }
     }

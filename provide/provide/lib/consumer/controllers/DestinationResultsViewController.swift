@@ -24,6 +24,13 @@ class DestinationResultsViewController: ViewController, UITableViewDelegate, UIT
         self.onResultSelected = onResultSelected
     }
 
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.addDropShadow()
+    }
+
     func updateResults(_ results: [Contact]) {
         self.results = results
         if !results.isEmpty {

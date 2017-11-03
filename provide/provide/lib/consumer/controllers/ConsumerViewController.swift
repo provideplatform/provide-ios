@@ -14,9 +14,10 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     @IBOutlet private weak var destinationInputViewControllerTopConstraint: NSLayoutConstraint!
     @IBOutlet private var confirmWorkOrderViewControllerBottomConstraint: NSLayoutConstraint!
     @IBOutlet private weak var providerEnRouteViewControllerBottomConstaint: NSLayoutConstraint!
+    private var providerEnRouteTransitioningDelegate = CustomHeightModalTransitioningDelegate(height: 500) // swiftlint:disable:this weak_delegate (needs to be strong)
 
     private var destinationInputViewController: DestinationInputViewController!
-    private var destinationResultsViewController: DestinationResultsViewController!
+    var destinationResultsViewController: DestinationResultsViewController!
     private var confirmWorkOrderViewController: ConfirmWorkOrderViewController!
     private var providerEnRouteViewController: ProviderEnRouteViewController!
 
@@ -124,13 +125,14 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             providerEnRouteViewController = segue.destination as? ProviderEnRouteViewController
         case "DestinationInputViewControllerEmbedSegue":
             destinationInputViewController = segue.destination as! DestinationInputViewController
-            if let destinationResultsViewController = destinationResultsViewController {
-                destinationInputViewController.destinationResultsViewController = destinationResultsViewController
-            }
-        case "DestinationResultsViewControllerEmbedSegue":
+        case "DestinationResultsViewControllerSegue":
+            let extraSpace: CGFloat = 50 // visible map amount
+            let destinationResultsViewControllerHeight = UIScreen.main.bounds.height - destinationInputViewController.view.height - extraSpace
+            providerEnRouteTransitioningDelegate = CustomHeightModalTransitioningDelegate(height: destinationResultsViewControllerHeight)
             destinationResultsViewController = segue.destination as! DestinationResultsViewController
+            destinationResultsViewController?.transitioningDelegate = providerEnRouteTransitioningDelegate
+            destinationResultsViewController?.modalPresentationStyle = .custom
             destinationResultsViewController.configure(results: [], onResultSelected: onResultSelected)
-            destinationInputViewController?.destinationResultsViewController = destinationResultsViewController
         case "ConfirmWorkOrderViewControllerEmbedSegue":
             confirmWorkOrderViewController = segue.destination as! ConfirmWorkOrderViewController
             confirmWorkOrderViewController.configure(workOrder: nil, categories: categories) { _ in
@@ -305,27 +307,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             providerEnRouteViewController?.prepareForReuse()
             confirmWorkOrderViewController?.prepareForReuse()
             destinationResultsViewController?.prepareForReuse()
-
-            presentDestinationInputViewController()
-
             animateDestinationInputView(toState: .normal)
-        }
-    }
-
-    private func presentDestinationInputViewController() {
-
-        if let destinationResultsView = destinationResultsViewController.view {
-            destinationResultsView.isHidden = true
-            destinationResultsView.removeFromSuperview()
-            mapView.addSubview(destinationResultsView)
-
-            destinationResultsView.frame.origin.y = mapView.height
-            destinationResultsView.frame.size.width = mapView.width
-            if let destinationResultsTableView = destinationResultsView.subviews.first as? UITableView {
-                destinationResultsTableView.frame.size.width = destinationResultsView.width
-            }
-
-            destinationResultsView.isHidden = false
         }
     }
 
@@ -478,6 +460,12 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     }
 
     func animateDestinationInputView(toState state: DestinationInputViewState) {
+        if state == .active {
+            performSegue(withIdentifier: "DestinationResultsViewControllerSegue", sender: self)
+        } else {
+            destinationResultsViewController?.dismiss(animated: true)
+        }
+
         view.layoutIfNeeded()
         destinationInputViewControllerTopConstraint.constant = state.config.topConstraint
         UIView.animate(withDuration: 0.25) {
