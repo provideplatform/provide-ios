@@ -23,3 +23,9 @@ InfoPlist.h
 
 .pki/
 timeline.xctimeline
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
