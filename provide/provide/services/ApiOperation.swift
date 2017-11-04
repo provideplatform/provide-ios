@@ -252,6 +252,12 @@ class ApiOperation: Operation {
                 "execTimeMillis": execTimeMillis,
             ])
 
+            if ReachabilityService.shared.reachability.isReachable() {
+                DispatchQueue.main.async {
+                    NotificationService.shared.presentStatusBarNotificationWithTitle("API request failed... (\(err.localizedDescription))")
+                }
+            }
+
             let deadline = DispatchTime.now() + Double(Int64(backoffTimeout * Double(NSEC_PER_SEC)))
             backoffTimeout = backoffTimeout > maximumBackoffTimeout ? initialBackoffTimeout : backoffTimeout * 2
             DispatchQueue.global(qos: DispatchQoS.default.qosClass).asyncAfter(deadline: deadline) { [weak self] in
