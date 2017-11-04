@@ -53,7 +53,6 @@ class ApiService: NSObject {
 
     private var opDispatchQueue: DispatchQueue!
     private var opQueue: OperationQueue!
-    private var ops = [ApiOperation]()
     private var urlSession: URLSession!
 
     private var multipathTcpEnabled: Bool {
