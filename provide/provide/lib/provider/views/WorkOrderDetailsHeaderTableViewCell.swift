@@ -243,7 +243,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
             if matches.count > 0 {
                 let match = matches[0]
                 let range = specificProviders.index(specificProviders.startIndex, offsetBy: match.range.length)..<specificProviders.endIndex
-                specificProviders = specificProviders.substring(with: range)
+                specificProviders = String(specificProviders[range])
             }
             var providers = "\(specificProviders)"
             if workOrder.providers.count > detailDisplayCount {
