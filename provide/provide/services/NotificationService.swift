@@ -10,6 +10,7 @@ import Foundation
 import JavaScriptCore
 import jetfire
 import KTSwiftExtensions
+import NotificationBannerSwift
 
 class NotificationService: NSObject, JFRWebSocketDelegate {
     static let shared = NotificationService()
@@ -23,6 +24,8 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
     }
 
     private var socketTimer: Timer!
+
+    private var reachabilityBanner: StatusBarNotificationBanner?
 
     private func configureWebsocket() {
         disconnectWebsocket()
@@ -74,7 +77,14 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
         logInfo("Attempting to reconnect websocket due to reachability change")
         disconnectWebsocket()
         if ReachabilityService.shared.reachability.isReachable() {
+            reachabilityBanner?.dismiss()
+            reachabilityBanner = nil
+
             connectWebsocket()
+        } else {
+            if reachabilityBanner == nil {
+                reachabilityBanner = presentStatusBarNotificationWithTitle("No internet connection", style: .danger, autoDismiss: false)
+            }
         }
     }
 
@@ -137,6 +147,14 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
         default:
             break
         }
+    }
+
+    @discardableResult
+    func presentStatusBarNotificationWithTitle(_ title: String, style: BannerStyle = .none, autoDismiss: Bool = true) -> StatusBarNotificationBanner {
+        let banner = StatusBarNotificationBanner(title: title, style: style)
+        banner.autoDismiss = autoDismiss
+        banner.show()
+        return banner
     }
 
     // MARK: JFRWebSocketDelegate
