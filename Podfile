@@ -15,6 +15,7 @@ def shared_pods
   pod 'jetfire'
   pod 'JSQMessagesViewController', '~> 7.3.4'
   pod 'KTSwiftExtensions', path: 'KTSwiftExtensions'
+  pod 'NotificationBannerSwift'
   pod 'OHHTTPStubs'
   pod 'PDTSimpleCalendar'
   pod 'Reachability'

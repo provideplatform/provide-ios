@@ -47,12 +47,16 @@ PODS:
     - JWTDecode (~> 2.0)
     - MBProgressHUD (~> 1.0)
     - ObjectMapper (~> 3.0)
+  - MarqueeLabel/Swift (3.1.3)
   - MBProgressHUD (1.0.0)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - NotificationBannerSwift (1.5.1):
+    - MarqueeLabel/Swift
+    - SnapKit (~> 4.0)
   - ObjectMapper (3.0.0)
   - OHHTTPStubs (6.0.0):
     - OHHTTPStubs/Default (= 6.0.0)
@@ -94,6 +98,7 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
+  - SnapKit (4.0.0)
   - SOCKit (1.1)
   - SwiftLint (0.23.1)
   - SWTableViewCell (0.3.7)
@@ -109,6 +114,7 @@ DEPENDENCIES:
   - jetfire
   - JSQMessagesViewController (~> 7.3.4)
   - KTSwiftExtensions (from `KTSwiftExtensions`)
+  - NotificationBannerSwift
   - OHHTTPStubs
   - PDTSimpleCalendar
   - Reachability
@@ -153,8 +159,10 @@ SPEC CHECKSUMS:
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JWTDecode: 83e8b381aafe27158d9f692cbdca2b12d61d460c
   KTSwiftExtensions: 74653550d254cf655d1d14051b0b6724f4934490
+  MarqueeLabel: baa5753dcbd36dca080e1f5c589a665aa5c906f1
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  NotificationBannerSwift: 666e6c392238561c17a52db4c50e6f00d9942e0d
   ObjectMapper: 92230db59bf8f341a5c3a3cf0b9fbdde3cf0d87f
   OHHTTPStubs: 752f9b11fd810a15162d50f11c06ff94f8e012eb
   PDTSimpleCalendar: d1c03387678422715dc021aa1a85d70f4d1014f2
@@ -164,12 +172,13 @@ SPEC CHECKSUMS:
   RFGravatarImageView: ac2dee5d2b2c01f312eb67fe7d6917d94564c920
   RKValueTransformers: e5ed67e3811229b616fe01bddeeafe3bb337b1b9
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SOCKit: c7376ac262bea9115b8f749358f762522a47d392
   SwiftLint: 1b670ce79284c76520f84060e87d645078fd32fa
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
   UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
 
-PODFILE CHECKSUM: c74a32799dc6c72f0b93c622536e0b7199cd3d4b
+PODFILE CHECKSUM: 8d862c57e0e864279e45e6100557f3a8948926d8
 
 COCOAPODS: 1.3.1
