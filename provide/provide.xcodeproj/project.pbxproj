@@ -1253,17 +1253,18 @@
 		};
 		68B01C351FAE787F0019FC76 /* Upload Symbol Files */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/.provide-1503754249681-firebase-crashreporting-rrfb0-d1d2d50402.json",
 			);
 			name = "Upload Symbol Files";
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "FIREBASE_PRIVATE_KEY=\"./.provide-1503754249681-firebase-crashreporting-rrfb0-d1d2d50402.json\"\n# when changing, reset OAuth credentials: `rm $HOME/Library/Preferences/com.google.SymbolUpload*`\n\nif [ -f \"${FIREBASE_PRIVATE_KEY}\" ]; then\n  GOOGLE_APP_ID=1:618633099810:ios:bd096ad57911440e\n\n  # Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n  \"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${FIREBASE_PRIVATE_KEY}\"\nelse\n  echo \"Not uploading symbol files to Firebase; obtain and install a valid private key.\"\nfi";
+			shellScript = "FIREBASE_PRIVATE_KEY=$SCRIPT_INPUT_FILE_0\n# when changing, reset OAuth credentials: `rm $HOME/Library/Preferences/com.google.SymbolUpload*`\n\nif [ -f $FIREBASE_PRIVATE_KEY ]; then\n  GOOGLE_APP_ID=1:618633099810:ios:bd096ad57911440e\n\n  # Replace the /Path/To/ServiceAccount.json with the path to the key you just downloaded\n  \"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${FIREBASE_PRIVATE_KEY}\"\nelse\n  echo \"Not uploading symbol files to Firebase; obtain and install a valid private key.\"\nfi";
 		};
 		7A8FC02C8F39891AE2A25D0A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -29,8 +29,9 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 fastlane/test_output
+
 *.ipa
+*.app.dSYM.zip
 
 # firebase
 *-firebase-crashreporting-*.json
-*.app.dSYM.zip
