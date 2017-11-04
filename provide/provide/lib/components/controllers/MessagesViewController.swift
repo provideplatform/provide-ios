@@ -393,20 +393,6 @@ class MessagesViewController: JSQMessagesViewController {
                                                                        height: navigationController?.navigationBar.height ?? 64.0)
         }
     }
-
-    private func isFromCurrentUser(_ message: Message) -> Bool {
-        return message.senderID == currentUser.id
-    }
-
-    private func isFromPreviousSender(_ message: Message, atIndex messageIndex: Int) -> Bool {
-        if messageIndex > 0 {
-            let previousMessage = messages[messageIndex - 1]
-            if message.senderID == previousMessage.senderID {
-                return true
-            }
-        }
-        return false
-    }
 }
 
 // MARK: - UIImagePickerControllerDelegate

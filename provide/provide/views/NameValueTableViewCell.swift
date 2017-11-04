@@ -43,7 +43,7 @@ class NameValueTableViewCell: UITableViewCell {
         valueLabel?.isHidden = false
     }
 
-    private func showActivity(_ resetName: Bool = true) {
+    private func _showActivity(_ resetName: Bool = true) {
         let name = resetName ? "" : nameLabel?.text
         setName(name!, value: "")
         activityIndicatorView?.startAnimating()

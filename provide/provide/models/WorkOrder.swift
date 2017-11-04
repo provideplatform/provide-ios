@@ -609,27 +609,11 @@ class WorkOrder: Model {
         updateWorkOrderWithStatus("completed", onSuccess: onSuccess, onError: onError)
     }
 
-    private func submitForApproval(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        updateWorkOrderWithStatus("pending_approval", onSuccess: onSuccess, onError: onError)
-    }
-
     func updateWorkOrderWithStatus(_ status: String, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         self.status = status
         ApiService.shared.updateWorkOrderWithId(String(id), params: ["status": status], onSuccess: { statusCode, mappingResult in
             WorkOrderService.shared.updateWorkOrder(self)
             onSuccess(statusCode, mappingResult)
-        }, onError: onError)
-    }
-
-    private func attach( _ image: UIImage, params: [String: Any], onSuccess: @escaping KTApiSuccessHandler, onError: @escaping KTApiFailureHandler) {
-        let data = UIImageJPEGRepresentation(image, 1.0)!
-
-        ApiService.shared.addAttachment(data, withMimeType: "image/jpg", toWorkOrderWithId: String(id), params: params, onSuccess: { response in
-            if self.attachments == nil {
-                self.attachments = []
-            }
-            self.attachments.append(response?.firstObject as! Attachment)
-            onSuccess(response)
         }, onError: onError)
     }
 

@@ -240,7 +240,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         resolveCurrentHeading(onResolved, durableKey: nil)
     }
 
-    private func resolveCurrentHeading(_ onResolved: @escaping OnHeadingResolved, allowCachedHeading: Bool) {
+    private func _resolveCurrentHeading(_ onResolved: @escaping OnHeadingResolved, allowCachedHeading: Bool) {
         resolveCurrentHeading(onResolved, durableKey: nil, allowCachedHeading: allowCachedHeading)
     }
 
@@ -337,7 +337,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         }
     }
 
-    private func unregisterRegionMonitors() {
+    private func _unregisterRegionMonitors() {
         if regions.count > 0 {
             for region in regions {
                 geofenceCallbacks.removeValue(forKey: region.identifier)
