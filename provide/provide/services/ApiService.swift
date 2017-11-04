@@ -206,24 +206,34 @@ class ApiService: NSObject {
         currentUser = nil
     }
 
+    private func cancelAllOperations() {
+        DispatchQueue.global(qos: DispatchQoS.default.qosClass).async { [weak self] in
+            logInfo("Canceling all inflight API operations due to reachability change")
+            let idempotentOperations = self?.opQueue?.operations.filter { ($0 as! ApiOperation).isIdempotent }
+            self?.opQueue?.cancelAllOperations()
+            self?.opQueue?.waitUntilAllOperationsAreFinished()
+
+            logInfo("Suspending API operations due to reachability change")
+            self?.opDispatchQueue?.suspend()
+
+            if let idempotentOperations = idempotentOperations {
+                logInfo("Requeueing \(idempotentOperations.count) cancelled idempotent API operations")
+                idempotentOperations.forEach({ self?.dispatchApiOperation($0 as! ApiOperation) })
+                self?.opQueue?.addOperations(idempotentOperations, waitUntilFinished: false)
+            }
+        }
+    }
+
     @objc private func reachabilityChanged(_ notification: NSNotification) {
         if !ReachabilityService.shared.reachability.isReachable() {
-            logInfo("Suspending API operations due to reachability change")
-            opDispatchQueue?.suspend()
-
             if !multipathTcpEnabled {
-                logInfo("Canceling all inflight API operations due to reachability change")
-                let idempotentOperations = opQueue?.operations.filter { ($0 as! ApiOperation).isIdempotent }
-                opQueue?.cancelAllOperations()
-
-                if let idempotentOperations = idempotentOperations {
-                    logInfo("Requeueing \(idempotentOperations.count) cancelled idempotent API operations")
-                    opQueue?.addOperations(idempotentOperations, waitUntilFinished: false)
-                }
+                cancelAllOperations()
             }
         } else if !multipathTcpEnabled {
             logInfo("Resuming API operations due to reachability change")
-            opDispatchQueue?.resume()
+            if opQueue?.isSuspended ?? false {
+                opDispatchQueue?.resume()
+            }
         }
     }
 
@@ -694,12 +704,19 @@ class ApiService: NSObject {
                                          entity: params?.toJSONString().data(using: .utf8))
 
             let op = ApiOperation(session: urlSession!, request: request, responseDescriptor: descriptor, onSuccess: onSuccess, onError: onError)
-            opQueue.addOperation(op)
+            dispatchApiOperation(op)
 
             return op
         }
 
         return nil
+    }
+
+    private func dispatchApiOperation(_ operation: ApiOperation) {
+        if operation.isCancelled {
+            logWarn("Attempted to dispatch a canceled API operation: \(operation)")
+        }
+        opQueue.addOperation(operation)
     }
 
     @discardableResult
