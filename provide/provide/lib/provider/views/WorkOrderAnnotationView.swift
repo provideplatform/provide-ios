@@ -21,6 +21,14 @@ class WorkOrderAnnotationView: AnnotationView {
         }
     }
 
+    var timeoutAt: Date! {
+        didSet {
+            if timeoutAt != nil {
+                animateTimeoutIndicatorToCompletion()
+            }
+        }
+    }
+
     @IBOutlet private weak var pinPointerView: UIView!
 
     @IBOutlet private weak var titleLabel: UILabel!
@@ -28,6 +36,10 @@ class WorkOrderAnnotationView: AnnotationView {
     @IBOutlet private weak var travelMinutesLabel: UILabel!
     @IBOutlet private weak var travelTimeUnitsLabel: UILabel!
     @IBOutlet private weak var travelEtaActivityIndicatorView: UIActivityIndicatorView!
+
+    private var timeoutIndicatorLayer: CAShapeLayer!
+
+    private var timeoutIndicatorIsAnimated = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -52,15 +64,70 @@ class WorkOrderAnnotationView: AnnotationView {
         travelMinutesLabel.alpha = 0
 
         selectableViews = [containerView, pinPointerView]
+
+        drawTimeoutIndicatorLayer()
     }
 
     override func prepareForReuse() {
         super.prepareForReuse()
 
+        removeGestureRecognizers()
+
         travelMinutesLabel.alpha = 0
         travelMinutesLabel.text = ""
         travelTimeUnitsLabel.alpha = 0
         travelEtaActivityIndicatorView.startAnimating()
+
+        resetTimeoutIndicatorLayer()
+        drawTimeoutIndicatorLayer()
+    }
+
+    private func drawTimeoutIndicatorLayer() {
+        timeoutIndicatorLayer = CAShapeLayer()
+        timeoutIndicatorLayer.path = UIBezierPath(arcCenter: travelEtaActivityIndicatorView.center,
+                                                  radius: travelEtaActivityIndicatorView.frame.width / 1.1,
+                                                  startAngle: .pi,
+                                                  endAngle: .pi * 2.0 + .pi,
+                                                  clockwise: true).cgPath
+        timeoutIndicatorLayer.backgroundColor = UIColor.clear.cgColor
+        timeoutIndicatorLayer.fillColor = nil
+        timeoutIndicatorLayer.strokeColor = UIColor.white.cgColor
+        timeoutIndicatorLayer.lineWidth = 2.0
+        layer.addSublayer(timeoutIndicatorLayer)
+
+        let dashedLayer = CAShapeLayer()
+        dashedLayer.strokeColor = UIColor(white: 1.0, alpha: 0.75).cgColor
+        dashedLayer.fillColor = nil
+        dashedLayer.lineDashPattern = [2, 3]
+        dashedLayer.lineJoin = "round"
+        dashedLayer.lineWidth = 1.5
+        dashedLayer.path = timeoutIndicatorLayer.path
+        layer.insertSublayer(dashedLayer, below: timeoutIndicatorLayer)
+    }
+
+    private func resetTimeoutIndicatorLayer() {
+        timeoutIndicatorLayer?.removeFromSuperlayer()
+        timeoutIndicatorLayer = nil
+        timeoutIndicatorIsAnimated = false
+    }
+
+    private func animateTimeoutIndicatorToCompletion() {
+        if timeoutIndicatorIsAnimated {
+            return
+        }
+
+        timeoutIndicatorIsAnimated = true
+        let duration = timeoutAt.timeIntervalSinceNow
+
+        DispatchQueue.main.async(qos: .userInteractive) { [weak self] in
+            if let strongSelf = self, let timeoutIndicatorLayer = strongSelf.timeoutIndicatorLayer {
+                let animation = CABasicAnimation(keyPath: "strokeEnd")
+                animation.fromValue = 0.0
+                animation.duration = duration
+                animation.fillMode = kCAFillModeForwards
+                timeoutIndicatorLayer.add(animation, forKey: "animation")
+            }
+        }
     }
 
     private func backgroundImageForRect(_ rect: CGRect) -> UIImage {

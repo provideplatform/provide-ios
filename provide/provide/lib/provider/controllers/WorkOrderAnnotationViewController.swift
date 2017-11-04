@@ -38,6 +38,15 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
             self.minutesEta = minutesEta
         }
 
+        if let timeoutAt = WorkOrderService.shared.nextWorkOrder?.nextTimeoutAtDate {
+            (view as! WorkOrderAnnotationView).timeoutAt = timeoutAt
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + timeoutAt.timeIntervalSinceNow) { [weak self] in
+                logInfo("Preemptively timing out unaccepted work order prior to receiving notification")
+                self?.performSegue(withIdentifier: "WorkOrderAnnotationViewControllerUnwindSegue", sender: nil)
+            }
+        }
+
         monkey("👨‍✈️ Tap: VIEW REQUEST") {
             self.onConfirmationRequired()
         }
@@ -56,7 +65,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
     }
 
     private func unwind() {
-        (view as! WorkOrderAnnotationView).removeGestureRecognizers()
+        (view as! WorkOrderAnnotationView).prepareForReuse()
         workOrdersViewControllerDelegate?.removeMapAnnotationsForWorkOrderViewController?(self)
     }
 

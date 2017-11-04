@@ -111,6 +111,13 @@ class WorkOrder: Model {
         return nil
     }
 
+    var nextTimeoutAtDate: Date? {
+        if let timeoutAt = config["timeout_at"] as? String {
+            return Date.fromString(timeoutAt)
+        }
+        return nil
+    }
+
     private var dueAtDate: Date? {
         if let dueAt = dueAt {
             return Date.fromString(dueAt)
