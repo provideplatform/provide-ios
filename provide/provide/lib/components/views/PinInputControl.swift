@@ -93,7 +93,7 @@ class PinInputControl: UIControl, UIKeyInput, UIInputViewAudioFeedback, UITextIn
 
     func deleteBackward() {
         if !pin.isEmpty {
-            pin = pin.substring(to: pin.characters.index(before: pin.endIndex))
+            pin = pin.substring(to: pin.index(before: pin.endIndex))
             textChanged()
         }
     }
