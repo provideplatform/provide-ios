@@ -6,6 +6,7 @@
 //  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
+import NotificationBannerSwift
 import Reachability
 
 @objcMembers
@@ -13,6 +14,8 @@ class ReachabilityService {
     static let shared = ReachabilityService()
 
     private(set) var reachability: Reachability!
+
+    private var reachabilityBanner: StatusBarNotificationBanner?
 
     private init() {
         reachability = Reachability.forInternetConnection()
@@ -31,6 +34,18 @@ class ReachabilityService {
 
     @objc private func reachabilityChanged(_ notification: NSNotification) {
         log()
+
+        reachabilityBanner?.dismiss()
+        reachabilityBanner = nil
+
+        if ReachabilityService.shared.reachability.isReachable() {
+            reachabilityBanner?.dismiss()
+            reachabilityBanner = nil
+        } else {
+            if reachabilityBanner == nil {
+                reachabilityBanner = NotificationService.shared.presentStatusBarNotificationWithTitle("No internet connection", style: .danger, autoDismiss: false)
+            }
+        }
     }
 
     private func log() {
