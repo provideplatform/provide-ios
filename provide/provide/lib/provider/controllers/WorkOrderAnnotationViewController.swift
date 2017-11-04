@@ -46,10 +46,10 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
     func render() {
         if let mapView = workOrderMapView {
             mapView.workOrdersViewControllerDelegate = workOrdersViewControllerDelegate
-
             workOrdersViewControllerDelegate?.removeMapAnnotationsForWorkOrderViewController?(self)
-
-            mapView.addAnnotation(WorkOrderService.shared.nextWorkOrder!.annotation)
+            if let annotation = WorkOrderService.shared.nextWorkOrder?.annotation {
+                mapView.addAnnotation(annotation)
+            }
         }
 
         (view as! WorkOrderAnnotationView).attachGestureRecognizers()
