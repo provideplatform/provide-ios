@@ -254,7 +254,7 @@ class ApiOperation: Operation {
 
             if ReachabilityService.shared.reachability.isReachable() {
                 DispatchQueue.main.async {
-                    NotificationService.shared.presentStatusBarNotificationWithTitle("API request failed... (\(err.localizedDescription))")
+                    NotificationService.shared.presentStatusBarNotificationWithTitle("API request failed... (\(err.localizedDescription))", style: .warning)
                 }
             }
 
