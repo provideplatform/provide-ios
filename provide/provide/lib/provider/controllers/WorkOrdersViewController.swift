@@ -594,7 +594,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                 setupMessagesBarButtonItem()
             }
         }
-        
     }
 
     // MARK: DirectionsViewControllerDelegate
