@@ -106,13 +106,25 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
 
         setupMenuBarButtonItem()
-        setupAvailabilityBarButtonItem()
+        setupRightBarButtonItem()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
         hideHeaderView()
+    }
+    
+    private func setupRightBarButtonItem() {
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
+            if ["en_route", "in_progress"].contains(workOrder.status) {
+                setupMessagesBarButtonItem()
+            } else {
+                setupAvailabilityBarButtonItem()
+            }
+        } else {
+            setupAvailabilityBarButtonItem()
+        }
     }
 
     private func setupMenuBarButtonItem() {
@@ -252,7 +264,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                         logInfo("Fetched provider context for user: \(provider)")
                         currentProvider = provider
 
-                        self?.setupAvailabilityBarButtonItem()
+                        self?.setupRightBarButtonItem()
 
                         if currentProvider.isAvailable {
                             CheckinService.shared.start()
@@ -303,7 +315,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             performSegue(withIdentifier: "WorkOrderAnnotationViewControllerSegue", sender: self)
             availabilityBarButtonItemEnabled = false
         } else {
-            setupAvailabilityBarButtonItem()
+            setupRightBarButtonItem()
         }
 
         availabilityBarButtonItem?.isEnabled = availabilityBarButtonItemEnabled
@@ -587,13 +599,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     func navigationControllerNavBarButtonItemsShouldBeResetForViewController(_ viewController: UIViewController) {
         setupMenuBarButtonItem()
-        setupAvailabilityBarButtonItem()
-
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            if ["en_route", "in_progress"].contains(workOrder.status) {
-                setupMessagesBarButtonItem()
-            }
-        }
+        setupRightBarButtonItem()
     }
 
     // MARK: DirectionsViewControllerDelegate
