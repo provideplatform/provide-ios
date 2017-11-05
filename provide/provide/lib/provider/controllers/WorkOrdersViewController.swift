@@ -130,8 +130,23 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     @objc private func messageButtonTapped(_ sender: UIBarButtonItem) {
-        let messagesNavCon = UIStoryboard("Messages").instantiateInitialViewController() as? UINavigationController
-        present(messagesNavCon!, animated: true)
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
+            let messagesNavCon = UIStoryboard("Messages").instantiateInitialViewController() as? UINavigationController
+            if let messagesVC = messagesNavCon?.viewControllers.first as? MessagesViewController {
+                if let user = workOrder.user {
+                    messagesVC.recipient = user
+                }
+                let dismissItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(dismissMessagesButtonTapped(_:)))
+                dismissItem.tintColor = .white
+                messagesVC.navigationItem.leftBarButtonItem = dismissItem
+            }
+            messagesNavCon?.modalPresentationStyle = .overCurrentContext
+            present(messagesNavCon!, animated: true)
+        }
+    }
+
+    @objc private func dismissMessagesButtonTapped(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
     }
 
     @IBAction private func toggleAvailability(_ sender: UISwitch) {
@@ -276,15 +291,16 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
         if canAttemptSegueToEnRouteWorkOrder {
             performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self)
-            availabilityBarButtonItemEnabled = false
+            setupMessagesBarButtonItem()
         } else if canAttemptSegueToArrivingWorkOrder {
             segueToWorkOrderDestinationConfirmationViewController(self)
+            setupMessagesBarButtonItem()
         } else if canAttemptSegueToInProgressWorkOrder {
             let workOrder = WorkOrderService.shared.inProgressWorkOrder
             if workOrder?.user != nil {
                 performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self)
             }
-            availabilityBarButtonItemEnabled = false
+            setupMessagesBarButtonItem()
         } else if canAttemptSegueToNextWorkOrder {
             performSegue(withIdentifier: "WorkOrderAnnotationViewControllerSegue", sender: self)
             availabilityBarButtonItemEnabled = false
@@ -472,6 +488,10 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     func nextWorkOrderContextShouldBeRewound() {
+        if presentedViewController != nil {
+            dismiss(animated: true)
+        }
+
         while managedViewControllers.count > 0 {
             _ = popManagedNavigationController()
             let viewController = managedViewControllers.removeLast()
