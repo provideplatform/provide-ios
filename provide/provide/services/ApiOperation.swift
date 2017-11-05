@@ -239,6 +239,11 @@ class ApiOperation: Operation {
                     KTNotificationCenter.post(name: .ApplicationShouldForceLogout)
                 }
             }
+
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+                strongSelf.onError?((error as NSError?) ?? NSError(), strongSelf.statusCode, strongSelf.responseString ?? "{}")
+            }
         } else if let err = error as NSError? {
             logError(err)
             AnalyticsService.shared.track("API Operation Failed", properties: [
@@ -266,15 +271,7 @@ class ApiOperation: Operation {
                 self?.apiCall()
             }
 
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.onError?(err, strongSelf.statusCode, strongSelf.responseString ?? "{}")
-            }
-        } else {
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.onError?(NSError(), strongSelf.statusCode, strongSelf.responseString ?? "{}")
-            }
+
         }
     }
 }
