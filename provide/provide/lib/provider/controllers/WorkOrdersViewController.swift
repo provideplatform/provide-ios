@@ -291,7 +291,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
         if canAttemptSegueToEnRouteWorkOrder {
             performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self)
-            setupMessagesBarButtonItem()
         } else if canAttemptSegueToArrivingWorkOrder {
             segueToWorkOrderDestinationConfirmationViewController(self)
             setupMessagesBarButtonItem()
@@ -300,7 +299,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             if workOrder?.user != nil {
                 performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self)
             }
-            setupMessagesBarButtonItem()
         } else if canAttemptSegueToNextWorkOrder {
             performSegue(withIdentifier: "WorkOrderAnnotationViewControllerSegue", sender: self)
             availabilityBarButtonItemEnabled = false
@@ -365,6 +363,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
         switch segue.identifier! {
         case "DirectionsViewControllerSegue":
+            setupMessagesBarButtonItem()
             refreshAnnotations()
             registerRegionMonitoringCallbacks()
 
