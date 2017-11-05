@@ -588,6 +588,13 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     func navigationControllerNavBarButtonItemsShouldBeResetForViewController(_ viewController: UIViewController) {
         setupMenuBarButtonItem()
         setupAvailabilityBarButtonItem()
+
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
+            if ["en_route", "in_progress"].contains(workOrder.status) {
+                setupMessagesBarButtonItem()
+            }
+        }
+        
     }
 
     // MARK: DirectionsViewControllerDelegate
