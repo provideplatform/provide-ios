@@ -35,6 +35,7 @@ class ConfirmWorkOrderViewController: ViewController {
         let categoryId = sender.selectedIndex + 1 // TODO: Make robust
         let price = workOrder?.estimatedPriceForCategory(categoryId) ?? 0
         fareEstimateLabel.text = Formatters.currencyFormatter.string(from: price as NSNumber)
+        capacityLabel.text = "1-\(CategoryService.shared.capacityForCategoryId(categoryId))"
         workOrder?.categoryId = categoryId
         KTNotificationCenter.post(name: .CategorySelectionChanged, object: categoryId)
     }

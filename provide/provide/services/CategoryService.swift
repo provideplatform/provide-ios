@@ -13,6 +13,11 @@ class CategoryService {
 
     private var categories = [Category]()
 
+    func capacityForCategoryId(_ categoryId: Int) -> Int {
+        let category = categories.first { $0.id == categoryId }
+        return category?.capacity ?? 0
+    }
+
     func iconForCategoryId(_ categoryId: Int) -> UIImage? {
         let category = categories.first { $0.id == categoryId }
         return category.flatMap { UIImage(named: $0.abbreviation) }

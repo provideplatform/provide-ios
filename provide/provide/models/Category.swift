@@ -15,6 +15,7 @@ class Category: Model {
     var id = 0
     var name = ""
     var abbreviation = ""
+    var capacity = 0
 
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
@@ -22,6 +23,7 @@ class Category: Model {
             "id",
             "name",
             "abbreviation",
+            "capacity",
         ])
         return mapping!
     }
