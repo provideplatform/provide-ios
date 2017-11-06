@@ -214,6 +214,21 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 workOrder.mergeAttachment(attachment)
             }
             KTNotificationCenter.post(name: .AttachmentChanged, object: attachment)
+        case "message_received":
+            var msg = payload // HACK!!!
+            let createdAt = msg["created_at"] as? String
+            msg.removeValue(forKey: "created_at")
+            let senderProfileImageUrl = msg["sender_profile_image_url"] as? String
+            msg.removeValue(forKey: "sender_profile_image_url")
+            let messageJson = msg.toJSONString()
+            let message = Message(json: messageJson)
+            if let createdAt = createdAt {
+                message.createdAt = Date.fromString(createdAt)
+            }
+            if let senderProfileImageUrl = senderProfileImageUrl {
+                message.senderProfileImageUrl = URL(string: senderProfileImageUrl)!
+            }
+            KTNotificationCenter.post(name: .NewMessageReceivedNotification, object: message)
         case "provider_became_available":
             let providerJson = payload.toJSONString()
             let provider = Provider(json: providerJson)

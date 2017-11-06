@@ -153,7 +153,9 @@ class MessagesViewController: JSQMessagesViewController {
         super.viewWillAppear(animated)
 
         KTNotificationCenter.addObserver(forName: .NewMessageReceivedNotification) { [weak self] notification in
-            self?.newMessageReceived(notification)
+            DispatchQueue.main.async { [weak self] in
+                self?.newMessageReceived(notification)
+            }
         }
     }
 
