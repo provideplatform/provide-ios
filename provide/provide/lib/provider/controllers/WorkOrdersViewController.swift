@@ -74,6 +74,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             if let workOrder = notification.object as? WorkOrder {
                 if WorkOrderService.shared.inProgressWorkOrder?.id == workOrder.id {
                     self?.registerRegionMonitoringCallbacks()
+                } else if workOrder.status == "canceled" {
+                    LocationService.shared.unregisterRegionMonitor(workOrder.regionIdentifier)
                 }
             }
         }
