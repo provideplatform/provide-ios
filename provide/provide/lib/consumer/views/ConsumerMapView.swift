@@ -82,6 +82,17 @@ class ConsumerMapView: MapView {
         return view
     }
 
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        for view in views {
+            if view.annotation is MKUserLocation {
+                view.isEnabled = false
+            } else if let annotation = view.annotation as? Provider.Annotation {
+                let rotationAngle = CGFloat(annotation.provider.lastCheckinHeading)
+                view.transform = CGAffineTransform(rotationAngle: rotationAngle)
+            }
+        }
+    }
+
     override func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         assert(self == mapView)
         super.mapView(mapView, didUpdate: userLocation)
@@ -101,22 +112,20 @@ class ConsumerMapView: MapView {
     }
 
     func mapViewDidUpdateUserLocation(_ mapView: MapView, location: CLLocation) {
-        log("Map view updated user location: \(location)")
+        logmoji("🗺", "Consumer map view updated user location: \(location)")
 
         if mapView.alpha == 0 {
-            log("Adjusting visible map rect based on location: \(location)")
-
+            logmoji("🗺", "Adjusting visible consumer map rect based on location: \(location)")
             mapViewShouldRefreshVisibleMapRect(mapView)
-
             mapView.revealMap()
-        }
 
-        mapView.setCenterCoordinate(location.coordinate,
-                                    fromEyeCoordinate: mapView.centerCoordinate,
-                                    eyeAltitude: 20000.0,
-                                    pitch: mapView.camera.pitch,
-                                    heading: mapView.camera.heading,
-                                    animated: false)
+            mapView.setCenterCoordinate(location.coordinate,
+                                        fromEyeCoordinate: mapView.centerCoordinate,
+                                        eyeAltitude: 20000.0,
+                                        pitch: mapView.camera.pitch,
+                                        heading: mapView.camera.heading,
+                                        animated: false)
+        }
     }
 
     func mapViewShouldRefreshVisibleMapRect(_ mapView: MKMapView, animated: Bool = false) {

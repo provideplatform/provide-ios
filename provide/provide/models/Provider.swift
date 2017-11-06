@@ -58,7 +58,7 @@ class Provider: Model {
         return Annotation(provider: self)
     }
 
-    private var coordinate: CLLocationCoordinate2D {
+    var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: lastCheckinLatitude, longitude: lastCheckinLongitude)
     }
 
@@ -130,19 +130,9 @@ class Provider: Model {
     }
 
     class Annotation: NSObject, MKAnnotation {
-        var provider: Provider!
-
-        func matches(_ otherProvider: Provider) -> Bool {
-            return otherProvider.id == provider.id
-        }
-
-        func matchesCategory(_ category: Category) -> Bool {
-            return category.id == provider.categoryId
-        }
-
-        required init(provider: Provider) {
-            self.provider = provider
-        }
+        @objc dynamic var coordinate: CLLocationCoordinate2D
+        @objc dynamic var title: String?
+        @objc dynamic var subtitle: String?
 
         @objc var icon: UIImage? {
             if provider.categoryId > 0 {
@@ -155,16 +145,19 @@ class Provider: Model {
             return provider.profileImageUrl
         }
 
-        @objc var coordinate: CLLocationCoordinate2D {
-            return provider.coordinate
+        var provider: Provider!
+
+        func matches(_ otherProvider: Provider) -> Bool {
+            return otherProvider.id == provider.id
         }
 
-        @objc var title: String? {
-            return nil
+        func matchesCategory(_ category: Category) -> Bool {
+            return category.id == provider.categoryId
         }
 
-        @objc var subtitle: String? {
-            return nil
+        required init(provider: Provider) {
+            self.provider = provider
+            self.coordinate = provider.coordinate
         }
     }
 }

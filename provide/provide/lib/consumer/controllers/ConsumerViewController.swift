@@ -353,9 +353,15 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         if !mapView.annotations.contains(where: { annotation -> Bool in
             if let providerAnnotation = annotation as? Provider.Annotation, providerAnnotation.matches(provider) {
                 if ProviderService.shared.containsProvider(provider) {
-                    logWarn("Animated provider annotation movement not yet implemented")
-                    mapView.removeAnnotation(annotation)
-                    mapView.addAnnotation(provider.annotation)
+                    UIView.animate(withDuration: 0.25) { [weak self] in
+                        providerAnnotation.coordinate = provider.coordinate
+
+                        if let annotationView = self?.mapView.view(for: providerAnnotation) {
+                            let rotationAngle: CGFloat = CGFloat(provider.lastCheckinHeading) / 180.0 * .pi
+                            annotationView.transform = CGAffineTransform(rotationAngle: rotationAngle)
+                        }
+                    }
+
                     return true
                 } else {
                     logmoji("🗑", "Removing unavailable provider annotation from consumer map view")

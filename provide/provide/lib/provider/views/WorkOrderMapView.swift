@@ -124,6 +124,14 @@ class WorkOrderMapView: MapView {
         return view
     }
 
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        for view in views {
+            if view.annotation is MKUserLocation {
+                view.isEnabled = false
+            }
+        }
+    }
+
     override func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
         assert(self == mapView)
         super.mapView(mapView, didUpdate: userLocation)
