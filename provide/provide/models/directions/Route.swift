@@ -25,9 +25,9 @@ class Route: Model {
         var coords = [CLLocationCoordinate2D]()
         for leg in legs {
             for maneuver in leg.maneuvers {
-                if let shapes = maneuver.shape {
-                    for shape in shapes {
-                        let shapeCoords = shape.components(separatedBy: ",")
+                if let shape = maneuver.shape {
+                    for shpe in shape {
+                        let shapeCoords = shpe.components(separatedBy: ",")
                         let latitude = shapeCoords.count > 0 ? (shapeCoords.first! as NSString).doubleValue : 0.0
                         let longitude = shapeCoords.count > 1 ? (shapeCoords.last! as NSString).doubleValue : 0.0
                         coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
