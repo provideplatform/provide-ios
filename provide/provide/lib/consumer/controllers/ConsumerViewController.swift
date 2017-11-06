@@ -86,6 +86,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
                 if WorkOrderService.shared.inProgressWorkOrder?.id == workOrder.id {
                     self?.handleInProgressWorkOrderStateChange()
                 } else if workOrder.status == "completed" {
+                    NotificationService.shared.presentStatusBarNotificationWithTitle("You have arrived", style: .info)
                     self?.performTripCompletionViewControllerSegue(sender: workOrder)
                 }
             }
