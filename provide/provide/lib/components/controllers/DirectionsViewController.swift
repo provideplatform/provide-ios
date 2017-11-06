@@ -194,7 +194,7 @@ class DirectionsViewController: ViewController {
                                 } else if self.lastRegionCrossed.center.latitude == currentManeuver.endCoordinate!.latitude && self.lastRegionCrossed.center.longitude == currentManeuver.endCoordinate!.longitude {
                                     currentLeg.currentManeuverIndex += 1
                                 } else {
-                                    var shapeIndex = currentManeuver.shapes.count - 1
+                                    var shapeIndex = currentManeuver.shape.count - 1
                                     for shapeCoord in Array(currentManeuver.shapeCoordinates.reversed()) {
                                         if self.lastRegionCrossed.center.latitude == shapeCoord.latitude && self.lastRegionCrossed.center.longitude == shapeCoord.longitude {
                                             currentManeuver.currentShapeIndex = shapeIndex

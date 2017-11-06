@@ -27,7 +27,7 @@
     "notes": null,
     "road_name": null,
     "shape_quality": "exact",
-    "shapes": [
+    "shape": [
         "33.7488602,-84.3874652",
         "33.7490559,-84.3873918"
     ],

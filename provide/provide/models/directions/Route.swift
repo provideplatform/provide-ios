@@ -25,7 +25,7 @@ class Route: Model {
         var coords = [CLLocationCoordinate2D]()
         for leg in legs {
             for maneuver in leg.maneuvers {
-                if let shapes = maneuver.shapes {
+                if let shapes = maneuver.shape {
                     for shape in shapes {
                         let shapeCoords = shape.components(separatedBy: ",")
                         let latitude = shapeCoords.count > 0 ? (shapeCoords.first! as NSString).doubleValue : 0.0

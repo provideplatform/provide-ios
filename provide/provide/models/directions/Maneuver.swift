@@ -56,7 +56,7 @@ class Maneuver: Model {
     var miles: Double = 0
     var minutes: Double = 0
     var nextManeuver: String!
-    var shapes: [String]!
+    var shape: [String]!
     var time: String!
     var toLink: String!
 
@@ -75,7 +75,7 @@ class Maneuver: Model {
             "miles",
             "minutes",
             "next_maneuver",
-            "shapes",
+            "shape",
             "time",
             "to_link",
         ])
@@ -91,12 +91,12 @@ class Maneuver: Model {
     }
 
     var remainingDistanceString: String {
-        if let shapes = shapes, shapes.count > 0 {
-            let miles = self.miles - (self.miles * (Double(currentShapeIndex) / Double(shapes.count)))
+        if let shape = shape, shape.count > 0 {
+            let miles = self.miles - (self.miles * (Double(currentShapeIndex) / Double(shape.count)))
             if miles > 0.1 {
                 return String(format: "%.1f", miles) + " mi"
             } else {
-                let distanceInFeet = self.feet - (self.feet * (Double(currentShapeIndex) / Double(shapes.count)))
+                let distanceInFeet = self.feet - (self.feet * (Double(currentShapeIndex) / Double(shape.count)))
                 return String(format: "%.0f", ceil(distanceInFeet)) + " ft"
             }
         }
@@ -112,7 +112,7 @@ class Maneuver: Model {
     }
 
     var isFinished: Bool {
-        return currentShapeIndex == shapes.count - 1
+        return currentShapeIndex == shape.count - 1
     }
 
     private var regionIdentifier: String {
@@ -140,7 +140,7 @@ class Maneuver: Model {
 
     var shapeCoordinates: [CLLocationCoordinate2D] {
         var coords = [CLLocationCoordinate2D]()
-        for str in shapes {
+        for str in shape {
             let shapeCoords = str.components(separatedBy: ",")
 
             if let latitude = Double(shapeCoords.first!), let longitude = Double(shapeCoords.last!) {
@@ -151,12 +151,12 @@ class Maneuver: Model {
     }
 
     var startCoordinate: CLLocationCoordinate2D? {
-        if let shapes = shapes {
-            if shapes.count == 0 {
+        if let shape = shape {
+            if shape.count == 0 {
                 return nil
             }
 
-            if let startLocation = shapes.first {
+            if let startLocation = shape.first {
                 let startCoords = startLocation.components(separatedBy: ",")
                 let latitude = (startCoords.first! as NSString).doubleValue
                 let longitude = (startCoords.last! as NSString).doubleValue
@@ -168,12 +168,12 @@ class Maneuver: Model {
     }
 
     var endCoordinate: CLLocationCoordinate2D? {
-        if let shapes = shapes {
-            if shapes.count == 0 {
+        if let shape = shape {
+            if shape.count == 0 {
                 return nil
             }
 
-            if let endLocation = shapes.last {
+            if let endLocation = shape.last {
                 let endCoords = endLocation.components(separatedBy: ",")
                 let latitude = (endCoords.first! as NSString).doubleValue
                 let longitude = (endCoords.last! as NSString).doubleValue

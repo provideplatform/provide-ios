@@ -27,7 +27,7 @@ class ManeuverTests: XCTestCase {
         let expectedInstruction = "Head north on Capitol Ave SE. Go for 23 m."
         XCTAssertEqual(object.instruction, expectedInstruction)
         XCTAssertEqual(object.nextManeuver, "M2")
-        XCTAssertEqual(object.shapes.count, 2)
+        XCTAssertEqual(object.shape.count, 2)
         XCTAssertEqual(object.time, "2017-10-17T20:44:28-04:00")
         XCTAssertEqual(object.toLink, "+723646681")
     }

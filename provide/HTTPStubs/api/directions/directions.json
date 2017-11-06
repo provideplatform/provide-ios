@@ -60,7 +60,7 @@
                             "notes": null,
                             "road_name": null,
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "33.7488602,-84.3874652",
                                 "33.7490559,-84.3873918"
                             ],
@@ -96,7 +96,7 @@
                             "notes": null,
                             "road_name": "Capitol Ave SE",
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "33.7490559,-84.3873918",
                                 "33.7491095,-84.3871665",
                                 "33.7490451,-84.3868232"
@@ -133,7 +133,7 @@
                             "notes": null,
                             "road_name": null,
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "33.7490451,-84.3868232",
                                 "33.7489271,-84.3866515",
                                 "33.7486696,-84.3862867",
@@ -175,7 +175,7 @@
                             "notes": null,
                             "road_name": "Martin Luther King Jr Dr SE",
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "33.7480259,-84.3843234",
                                 "33.7484229,-84.3836904",
                                 "33.7486589,-84.3832505",
@@ -300,7 +300,7 @@
                             "notes": null,
                             "road_name": "Honorable Rodney Mims Cook Memorial Hwy",
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "33.7901044,-84.390825",
                                 "33.7911129,-84.3909752",
                                 "33.7914562,-84.3910503",
@@ -1312,7 +1312,7 @@
                             ],
                             "road_name": "Ernest Vandiver Hwy",
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "34.4838095,-83.028338",
                                 "34.4841313,-83.0280912",
                                 "34.4845176,-83.0277586",
@@ -2394,7 +2394,7 @@
                             ],
                             "road_name": "Veterans Memorial Hwy",
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "35.167923,-81.4428949",
                                 "35.1679981,-81.4425945",
                                 "35.1680946,-81.4421225",
@@ -4264,7 +4264,7 @@
                             "notes": null,
                             "road_name": null,
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "36.0605729,-79.133234",
                                 "36.0598004,-79.1315174",
                                 "36.0595644,-79.1309595",
@@ -5021,7 +5021,7 @@
                             ],
                             "road_name": null,
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "36.5441215,-78.1840754",
                                 "36.5442395,-78.1840324",
                                 "36.5448081,-78.1837535",
@@ -5606,7 +5606,7 @@
                             "notes": null,
                             "road_name": null,
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "37.2175598,-77.3914611",
                                 "37.2180748,-77.3907852",
                                 "37.2183967,-77.3904634",
@@ -6137,7 +6137,7 @@
                             "notes": null,
                             "road_name": "Richmond-Petersburg Tpke",
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "37.5814605,-77.4693632",
                                 "37.5817287,-77.4695027",
                                 "37.5822008,-77.4696743",
@@ -6957,7 +6957,7 @@
                             "notes": null,
                             "road_name": null,
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "38.4862447,-77.3909354",
                                 "38.4881651,-77.3891652",
                                 "38.4925103,-77.3852062",
@@ -7296,7 +7296,7 @@
                             "notes": null,
                             "road_name": "Henry G Shirley Memorial Hwy",
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "38.7741852,-77.1812189",
                                 "38.7748718,-77.1809292",
                                 "38.7759554,-77.1804249",
@@ -7345,7 +7345,7 @@
                             "notes": null,
                             "road_name": null,
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "38.7828434,-77.1787727",
                                 "38.7833154,-77.1786118",
                                 "38.7852359,-77.1779251",
@@ -7497,7 +7497,7 @@
                             "notes": null,
                             "road_name": "Henry G Shirley Memorial Hwy",
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "38.8589537,-77.0700681",
                                 "38.8592756,-77.0697355",
                                 "38.8597798,-77.0694351",
@@ -7584,7 +7584,7 @@
                             "notes": null,
                             "road_name": "Washington Blvd",
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "38.8754654,-77.0837903",
                                 "38.8756156,-77.0839405",
                                 "38.8758731,-77.0842409",
@@ -7657,7 +7657,7 @@
                             "notes": null,
                             "road_name": "Arlington Blvd",
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "38.8712919,-77.0983708",
                                 "38.8712597,-77.098875",
                                 "38.8711846,-77.0995939",
@@ -7696,7 +7696,7 @@
                             "notes": null,
                             "road_name": null,
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "38.870852,-77.1009135",
                                 "38.8714528,-77.1017182",
                                 "38.8723218,-77.1029305",
@@ -7747,7 +7747,7 @@
                             "notes": null,
                             "road_name": "N Glebe Rd",
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "38.8761628,-77.1082735",
                                 "38.8763452,-77.1081233",
                                 "38.8764095,-77.1080911",
@@ -7792,7 +7792,7 @@
                             "notes": null,
                             "road_name": "N Quincy St",
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "38.8798964,-77.1075761",
                                 "38.8802075,-77.1075869",
                                 "38.8805401,-77.1076083",
@@ -7842,7 +7842,7 @@
                             ],
                             "road_name": "N Quincy St",
                             "shape_quality": "exact",
-                            "shapes": [
+                            "shape": [
                                 "38.8808971,-77.1076604"
                             ],
                             "start_angle": 353,
