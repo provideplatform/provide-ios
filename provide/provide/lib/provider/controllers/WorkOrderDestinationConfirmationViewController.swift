@@ -28,6 +28,14 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         }
     }
 
+    var timeoutAt: Date! {
+        didSet {
+            if timeoutAt != nil {
+                animateTimeoutIndicatorToCompletion()
+            }
+        }
+    }
+
     private func updateEtaLabel(eta: Int?) {
         arrivalEtaEstimateLabel.text = eta.map { "ARRIVAL TIME IS APPROXIMATELY \($0) MIN" } ?? ""
         arrivalEtaEstimateLabel.alpha = eta == nil ? 0 : 1
@@ -36,11 +44,16 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     @IBOutlet private weak var arrivalEtaEstimateLabel: UILabel!
     @IBOutlet private weak var confirmStartWorkOrderButton: RoundedButton!
 
+    private var timeoutIndicatorLayer: CAShapeLayer!
+    private var timeoutIndicatorIsAnimated = false
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
         minutesEta = nil
         confirmStartWorkOrderButton?.onTouchUpInsideCallback = onConfirmationReceived
+
+        timeoutAt = nil
 
         if WorkOrderService.shared.nextWorkOrder != nil {
             confirmStartWorkOrderButton.setTitle("ACCEPT REQUEST", for: .normal) // FIXME
@@ -59,6 +72,16 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        drawTimeoutIndicatorLayer()
+        if let timeoutAt = WorkOrderService.shared.nextWorkOrder?.nextTimeoutAtDate {
+            self.timeoutAt = timeoutAt
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + timeoutAt.timeIntervalSinceNow) { [weak self] in
+                logInfo("Preemptively timing out unaccepted work order prior to receiving notification")
+                self?.cancel(nil)
+            }
+        }
 
         monkey("👨‍✈️ Tap: \(confirmStartWorkOrderButton.titleLabel!.text!)", after: 2) {
             self.onConfirmationReceived()
@@ -157,9 +180,49 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         workOrdersViewControllerDelegate?.navigationControllerNavBarButtonItemsShouldBeResetForViewController?(self)
     }
 
+    // MARK: Timeout indicator
+
+    private func drawTimeoutIndicatorLayer() {
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: confirmStartWorkOrderButton.width, y: 0.0))
+        path.addLine(to: CGPoint(x: 0.0, y: 0.0))
+
+        timeoutIndicatorLayer = CAShapeLayer()
+        timeoutIndicatorLayer.path = path.reversing().cgPath
+        timeoutIndicatorLayer.backgroundColor = nil
+        timeoutIndicatorLayer.fillColor = UIColor.clear.cgColor
+        timeoutIndicatorLayer.strokeColor = UIColor.white.cgColor
+        timeoutIndicatorLayer.lineWidth = confirmStartWorkOrderButton.height * 10.0
+        timeoutIndicatorLayer.cornerRadius = confirmStartWorkOrderButton.layer.cornerRadius
+        timeoutIndicatorLayer.opacity = 0.35
+
+        confirmStartWorkOrderButton.layer.masksToBounds = true
+        confirmStartWorkOrderButton.layer.addSublayer(timeoutIndicatorLayer)
+    }
+
+    private func animateTimeoutIndicatorToCompletion() {
+        if timeoutIndicatorIsAnimated {
+            return
+        }
+
+        timeoutIndicatorIsAnimated = true
+        let duration = timeoutAt.timeIntervalSinceNow
+
+        DispatchQueue.main.async(qos: .userInteractive) { [weak self] in
+            if let strongSelf = self, let timeoutIndicatorLayer = strongSelf.timeoutIndicatorLayer {
+                let animation = CABasicAnimation(keyPath: "strokeStart")
+                animation.fromValue = 1.0
+                animation.toValue = 0.0
+                animation.duration = duration
+                animation.fillMode = kCAFillModeForwards
+                timeoutIndicatorLayer.add(animation, forKey: "animation")
+            }
+        }
+    }
+
     // MARK: Actions
 
-    @objc private func cancel(_: UIBarButtonItem) {
+    @objc private func cancel(_: UIBarButtonItem?) {
         clearNavigationItem()
         workOrdersViewControllerDelegate?.confirmationCanceledForWorkOrderViewController?(self)
     }
