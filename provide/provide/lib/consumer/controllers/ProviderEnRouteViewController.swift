@@ -13,6 +13,7 @@ class ProviderEnRouteViewController: ViewController {
     }
 
     @IBOutlet private weak var providerStatusLabel: UILabel!
+    @IBOutlet private weak var providerSubStatusLabel: UILabel!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var categoryLabel: UILabel!
     @IBOutlet private weak var makeLabel: UILabel!
@@ -105,6 +106,8 @@ class ProviderEnRouteViewController: ViewController {
             if workOrder.status == "none" {
                 providerStatusLabel?.text = ""
                 providerStatusLabel?.isHidden = false
+                providerSubStatusLabel?.text = ""
+                providerSubStatusLabel?.isHidden = false
                 return
             }
 
@@ -125,6 +128,16 @@ class ProviderEnRouteViewController: ViewController {
                 providerStatusLabel?.text = "YOU HAVE ARRIVED"
             }
             providerStatusLabel?.isHidden = false
+
+            if ["en_route", "in_progress"].contains(workOrder.status) {
+                if let eta = workOrder.config["eta"] as? [String: Double], let minutes = eta["minutes"], let time = Date().addingTimeInterval(minutes).timeString {
+                    providerSubStatusLabel?.text = "\(time) arrival"
+                    providerSubStatusLabel?.isHidden = false
+                }
+            } else {
+                providerSubStatusLabel?.text = ""
+                providerSubStatusLabel?.isHidden = true
+            }
         }
     }
 }
