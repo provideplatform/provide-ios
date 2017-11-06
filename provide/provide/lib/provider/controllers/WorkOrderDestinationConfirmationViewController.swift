@@ -73,13 +73,15 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        drawTimeoutIndicatorLayer()
-        if let timeoutAt = WorkOrderService.shared.nextWorkOrder?.nextTimeoutAtDate {
-            self.timeoutAt = timeoutAt
+        if WorkOrderService.shared.nextWorkOrder != nil {
+            drawTimeoutIndicatorLayer()
+            if let timeoutAt = WorkOrderService.shared.nextWorkOrder?.nextTimeoutAtDate {
+                self.timeoutAt = timeoutAt
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + timeoutAt.timeIntervalSinceNow) { [weak self] in
-                logInfo("Preemptively timing out unaccepted work order prior to receiving notification")
-                self?.cancel(nil)
+                DispatchQueue.main.asyncAfter(deadline: .now() + timeoutAt.timeIntervalSinceNow) { [weak self] in
+                    logInfo("Preemptively timing out unaccepted work order prior to receiving notification")
+                    self?.cancel(nil)
+                }
             }
         }
 
