@@ -29,11 +29,11 @@ class ImageService {
     }
 
     private func _fetchImage(_ url: URL,
-                            cacheOnDisk: Bool = false,
-                            downloadOptions: SDWebImageDownloaderOptions = .continueInBackground,
-                            onDownloadSuccess: @escaping OnImageDownloadSuccess,
-                            onDownloadFailure: OnImageDownloadFailure!,
-                            onDownloadProgress: OnDownloadProgress!) {
+                             cacheOnDisk: Bool = false,
+                             downloadOptions: SDWebImageDownloaderOptions = .continueInBackground,
+                             onDownloadSuccess: @escaping OnImageDownloadSuccess,
+                             onDownloadFailure: OnImageDownloadFailure!,
+                             onDownloadProgress: OnDownloadProgress!) {
 
         var urlComponents = URLComponents()
         urlComponents.scheme = url.scheme

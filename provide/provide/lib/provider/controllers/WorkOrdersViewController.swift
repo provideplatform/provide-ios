@@ -114,7 +114,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
         hideHeaderView()
     }
-    
+
     private func setupRightBarButtonItem() {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
             if ["en_route", "in_progress"].contains(workOrder.status) {
