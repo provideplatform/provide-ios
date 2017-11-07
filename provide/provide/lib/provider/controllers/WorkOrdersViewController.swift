@@ -569,8 +569,19 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     func confirmationCanceledForWorkOrderViewController(_ viewController: UIViewController) {
-        nextWorkOrderContextShouldBeRewound()
-        attemptSegueToValidWorkOrderContext()
+        if WorkOrderService.shared.nextWorkOrder != nil && WorkOrderService.shared.nextWorkOrder != WorkOrderService.shared.inProgressWorkOrder {
+            nextWorkOrderContextShouldBeRewound()
+            attemptSegueToValidWorkOrderContext()
+        } else if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
+            workOrder.status = "canceled"
+            workOrder.save(onSuccess: { [weak self] statusCode, workOrder in
+                logInfo("Work order canceled by provider")
+                self?.nextWorkOrderContextShouldBeRewound()
+                self?.attemptSegueToValidWorkOrderContext()
+            }, onError: { err, status, responseString in
+                logWarn("Provider attempt to cancel work order failed")
+            })
+        }
     }
 
     func confirmationReceivedForWorkOrderViewController(_ viewController: UIViewController) {

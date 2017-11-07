@@ -110,7 +110,11 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         // setup navigation item
         if let navigationItem = sourceNavigationItem {
             navigationItem.title = "CONFIRMATION"
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel(_:)))
+
+            let cancelItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(cancel(_:)))
+            cancelItem.setTitleTextAttributes(AppearenceProxy.barButtonItemTitleTextAttributes(), for: UIControlState())
+
+            navigationItem.leftBarButtonItem = cancelItem
         }
 
         UIView.animate(withDuration: 0.1, delay: 0.0, options: .curveEaseIn, animations: {
@@ -225,8 +229,32 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     // MARK: Actions
 
     @objc private func cancel(_: UIBarButtonItem?) {
-        clearNavigationItem()
-        workOrdersViewControllerDelegate?.confirmationCanceledForWorkOrderViewController?(self)
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
+            cancelWorkOrder(workOrder)
+        } else {
+            clearNavigationItem()
+            workOrdersViewControllerDelegate?.confirmationCanceledForWorkOrderViewController?(self)
+        }
+    }
+
+    private func cancelWorkOrder(_ workOrder: WorkOrder) {
+        let preferredStyle: UIAlertControllerStyle = isIPad() ? .alert : .actionSheet
+        let alertController = UIAlertController(title: "Confirmation", message: "Are you sure you want to cancel?", preferredStyle: preferredStyle)
+
+        let cancelAction = UIAlertAction(title: "No, don't cancel", style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+
+        let cancelWorkOrderAction = UIAlertAction(title: "Cancel", style: .destructive) { [weak self] action in
+            if let strongSelf = self {
+                strongSelf.clearNavigationItem()
+                strongSelf.workOrdersViewControllerDelegate?.confirmationCanceledForWorkOrderViewController?(strongSelf)
+            }
+        }
+
+        alertController.addAction(cancelAction)
+        alertController.addAction(cancelWorkOrderAction)
+
+        alertController.show()
     }
 
     // MARK: WorkOrdersViewControllerDelegate
