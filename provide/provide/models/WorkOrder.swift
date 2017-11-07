@@ -370,23 +370,10 @@ class WorkOrder: Model {
         return nil
     }
 
-    var overviewPolyline: MKPolyline? {
-        if let overview = overview {
-            var coords = [CLLocationCoordinate2D]()
-            if isCurrentUserProvider {
-                logWarn("Not yet showing provider to trip origin part of polyline")
-            }
-            if let shape = overview["shape"] as? [String] {
-                for shpe in shape {
-                    let shapeCoords = shpe.components(separatedBy: ",")
-                    let latitude = shapeCoords.count > 0 ? (shapeCoords.first! as NSString).doubleValue : 0.0
-                    let longitude = shapeCoords.count > 1 ? (shapeCoords.last! as NSString).doubleValue : 0.0
-                    coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-                }
-            }
-            return MKPolyline(coordinates: &coords, count: coords.count)
+    var overviewPolyline: OverviewPolyline? {
+        if overview != nil {
+            return OverviewPolyline(workOrder: self)
         }
-
         return nil
     }
 
@@ -669,6 +656,38 @@ class WorkOrder: Model {
 
         @objc var subtitle: String? {
             return nil //workOrder.subtitle
+        }
+
+        func matches(_ otherWorkOrder: WorkOrder) -> Bool {
+            return otherWorkOrder.id == workOrder.id
+        }
+    }
+
+    class OverviewPolyline: MKPolyline {
+        var workOrder: WorkOrder!
+
+        required convenience init(workOrder: WorkOrder) {
+            var coords = [CLLocationCoordinate2D]()
+            if let overview = workOrder.overview {
+                if workOrder.isCurrentUserProvider {
+                    logWarn("Not yet showing provider to trip origin part of polyline")
+                }
+                if let shape = overview["shape"] as? [String] {
+                    for shpe in shape {
+                        let shapeCoords = shpe.components(separatedBy: ",")
+                        let latitude = shapeCoords.count > 0 ? (shapeCoords.first! as NSString).doubleValue : 0.0
+                        let longitude = shapeCoords.count > 1 ? (shapeCoords.last! as NSString).doubleValue : 0.0
+                        coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                    }
+                }
+            }
+
+            self.init(coordinates: &coords, count: coords.count)
+            self.workOrder = workOrder
+        }
+
+        func matches(_ other: OverviewPolyline) -> Bool {
+            return other.workOrder.id == workOrder.id
         }
     }
 }

@@ -48,8 +48,6 @@ class ConsumerMapView: MapView {
     }
 
     func renderOverviewPolylineForWorkOrder(_ workOrder: WorkOrder) {
-        removeOverlays()
-
         DispatchQueue.main.async { [weak self] in
             if let overviewPolyline = workOrder.overviewPolyline {
                 if let strongSelf = self {

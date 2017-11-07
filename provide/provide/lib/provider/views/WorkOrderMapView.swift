@@ -81,16 +81,20 @@ class WorkOrderMapView: MapView {
     }
 
     func renderOverviewPolylineForWorkOrder(_ workOrder: WorkOrder) {
-        removeOverlays()
-
         DispatchQueue.main.async { [weak self] in
             if let overviewPolyline = workOrder.overviewPolyline {
                 if let strongSelf = self {
-                    strongSelf.add(overviewPolyline, level: .aboveRoads)
-                    strongSelf.visibleMapRect = strongSelf.mapRectThatFits(overviewPolyline.boundingMapRect,
-                                                                           edgePadding: UIEdgeInsets(top: 50.0, left: 20.0, bottom: 100.0, right: 20.0))
+                    if !strongSelf.overlays.contains(where: { overlay -> Bool in
+                        if let overlay = overlay as? WorkOrder.OverviewPolyline {
+                            return overlay.matches(overviewPolyline)
+                        }
+                        return false
+                    }) {
+                        strongSelf.add(overviewPolyline, level: .aboveRoads)
+                        strongSelf.visibleMapRect = strongSelf.mapRectThatFits(overviewPolyline.boundingMapRect,
+                                                                               edgePadding: UIEdgeInsets(top: 50.0, left: 20.0, bottom: 100.0, right: 20.0))
+                    }
                 }
-                
             }
         }
     }
@@ -161,8 +165,9 @@ class WorkOrderMapView: MapView {
 
         if let route = overlay as? MKPolyline {
             renderer = MKPolylineRenderer(polyline: route)
-            (renderer as! MKPolylineRenderer).strokeColor = Color.polylineStrokeColor()
-            //(renderer as! MKPolylineRenderer).lineWidth = 3.0
+            (renderer as! MKPolylineRenderer).fillColor = UIColor.black.withAlphaComponent(0.75)
+            (renderer as! MKPolylineRenderer).strokeColor = .black
+            (renderer as! MKPolylineRenderer).lineWidth = 1.8
         }
 
         return renderer
@@ -175,23 +180,34 @@ class WorkOrderMapView: MapView {
             logmoji("🗺", "Adjusting visible map rect based on location: \(location)")
             mapViewShouldRefreshVisibleMapRect(mapView)
             mapView.revealMap()
+
+            if mapView.overlays.count == 0 {
+                centerOnUserLocation()
+            }
+            //else if mapView.overlays.count == 1, let polyline = mapView.overlays.first as? MKPolyline {
+            //    mapView.visibleMapRect = mapView.mapRectThatFits(polyline.boundingMapRect, edgePadding: UIEdgeInsets(top: 55.0, left: 25.0, bottom: 55.0, right: 25.0))
+            //}
         }
 
         if !viewingDirections && WorkOrderService.shared.nextWorkOrder != nil {
             refreshEta(from: location.coordinate)
         } else if viewingDirections {
-            mapView.setCenterCoordinate(location.coordinate,
-                                        fromEyeCoordinate: mapView.centerCoordinate,
-                                        eyeAltitude: mapView.camera.altitude,
-                                        pitch: mapView.camera.pitch,
-                                        heading: mapView.camera.heading,
-                                        animated: false)
+            centerOnUserLocation()
         }
     }
 
     func mapViewShouldRefreshVisibleMapRect(_ mapView: MKMapView, animated: Bool = false) {
         mapView.showAnnotations(mapView.annotations, animated: animated)
-        mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), animated: animated)
+        //mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), animated: animated)
+    }
+
+    func centerOnUserLocation() {
+        setCenterCoordinate(userLocation.coordinate,
+                            fromEyeCoordinate: centerCoordinate,
+                            eyeAltitude: camera.altitude,
+                            pitch: camera.pitch,
+                            heading: camera.heading,
+                            animated: false)
     }
 
     private func refreshEta(from coordinate: CLLocationCoordinate2D) {

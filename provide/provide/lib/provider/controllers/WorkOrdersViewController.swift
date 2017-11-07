@@ -389,7 +389,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             (segue.destination as! WorkOrderAnnotationViewController).configure(delegate: self, mapView: mapView, onConfirmationRequired: {
                 segue.destination.performSegue(withIdentifier: "WorkOrderAnnotationViewTouchedUpInsideSegue", sender: self)
             })
-            mapView.mapViewShouldRefreshVisibleMapRect(mapView, animated: true)
         case "WorkOrderDestinationConfirmationViewControllerSegue":
             let destinationConfirmationViewController = segue.destination as! WorkOrderDestinationConfirmationViewController
             destinationConfirmationViewController.configure(delegate: self, targetView: view, sourceNavigationItem: navigationItem, onConfirm: {
@@ -548,7 +547,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
         view.layoutIfNeeded()
         headerViewControllerTopConstraint.constant = 0
-        UIView.animate(withDuration: 0.25) {
+        UIView.animate(withDuration: 0.15) {
             self.view.layoutIfNeeded()
             self.headerView?.alpha = 1
         }
@@ -569,7 +568,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     func confirmationCanceledForWorkOrderViewController(_ viewController: UIViewController) {
-        if WorkOrderService.shared.nextWorkOrder != nil && WorkOrderService.shared.nextWorkOrder != WorkOrderService.shared.inProgressWorkOrder {
+        if WorkOrderService.shared.nextWorkOrder != nil {
             nextWorkOrderContextShouldBeRewound()
             attemptSegueToValidWorkOrderContext()
         } else if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
@@ -608,6 +607,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     func removeMapAnnotationsForWorkOrderViewController(_ viewController: UIViewController) {
         mapView.removeAnnotations()
+        mapView.removeOverlays()
     }
 
     func navigationControllerNavBarButtonItemsShouldBeResetForViewController(_ viewController: UIViewController) {

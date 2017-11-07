@@ -34,10 +34,12 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let workOrder = WorkOrderService.shared.nextWorkOrder {
-            workOrderMapView?.renderOverviewPolylineForWorkOrder(workOrder)
+        monkey("👨‍✈️ Tap: VIEW REQUEST") {
+            self.onConfirmationRequired()
         }
+    }
 
+    func render() {
         if let minutesEta = WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes {
             self.minutesEta = minutesEta
         }
@@ -46,23 +48,30 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
             (view as! WorkOrderAnnotationView).timeoutAt = timeoutAt
 
             DispatchQueue.main.asyncAfter(deadline: .now() + timeoutAt.timeIntervalSinceNow) { [weak self] in
-                logInfo("Preemptively timing out unaccepted work order prior to receiving notification")
-                self?.performSegue(withIdentifier: "WorkOrderAnnotationViewControllerUnwindSegue", sender: nil)
+                if WorkOrderService.shared.nextWorkOrder != nil {
+                    logInfo("Preemptively timing out unaccepted work order prior to receiving notification")
+                    if let strongSelf = self {
+                        strongSelf.workOrdersViewControllerDelegate?.removeMapAnnotationsForWorkOrderViewController?(strongSelf)
+                        strongSelf.performSegue(withIdentifier: "WorkOrderAnnotationViewControllerUnwindSegue", sender: nil)
+                    }
+                }
             }
         }
 
-        monkey("👨‍✈️ Tap: VIEW REQUEST") {
-            self.onConfirmationRequired()
-        }
-    }
-
-    func render() {
         if let mapView = workOrderMapView {
             mapView.workOrdersViewControllerDelegate = workOrdersViewControllerDelegate
-            workOrdersViewControllerDelegate?.removeMapAnnotationsForWorkOrderViewController?(self)
+
             if let annotation = WorkOrderService.shared.nextWorkOrder?.annotation {
-                mapView.addAnnotation(annotation)
+                if !mapView.annotations.contains(where: { ($0 as? WorkOrder.Annotation)?.matches(annotation.workOrder) == true }) {
+                    mapView.addAnnotation(annotation)
+                }
             }
+
+            if let workOrder = WorkOrderService.shared.nextWorkOrder {
+                mapView.renderOverviewPolylineForWorkOrder(workOrder)
+            }
+
+            mapView.mapViewShouldRefreshVisibleMapRect(mapView, animated: true)
         }
 
         (view as! WorkOrderAnnotationView).attachGestureRecognizers()
@@ -70,7 +79,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
 
     private func unwind() {
         (view as! WorkOrderAnnotationView).prepareForReuse()
-        workOrdersViewControllerDelegate?.removeMapAnnotationsForWorkOrderViewController?(self)
+        workOrderMapView?.removeAnnotations()
     }
 
     // MARK: - Navigation
@@ -81,8 +90,8 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
             assert(segue.source is WorkOrderAnnotationViewController && segue.destination is WorkOrdersViewController)
 
             if let delegate = workOrdersViewControllerDelegate {
+                workOrderMapView?.removeAnnotations()
                 delegate.segueToWorkOrderDestinationConfirmationViewController?(self)
-                delegate.removeMapAnnotationsForWorkOrderViewController?(self)
             }
         case "WorkOrderAnnotationViewControllerUnwindSegue":
             assert(segue.source is WorkOrderAnnotationViewController && segue.destination is WorkOrdersViewController)

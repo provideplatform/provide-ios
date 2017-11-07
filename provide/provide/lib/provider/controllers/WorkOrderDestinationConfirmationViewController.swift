@@ -79,8 +79,10 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
                 self.timeoutAt = timeoutAt
 
                 DispatchQueue.main.asyncAfter(deadline: .now() + timeoutAt.timeIntervalSinceNow) { [weak self] in
-                    logInfo("Preemptively timing out unaccepted work order prior to receiving notification")
-                    self?.cancel(nil)
+                    if WorkOrderService.shared.nextWorkOrder != nil {
+                        logInfo("Preemptively timing out unaccepted work order prior to receiving notification")
+                        self?.cancel(nil)
+                    }
                 }
             }
         }
@@ -229,11 +231,11 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
     // MARK: Actions
 
     @objc private func cancel(_: UIBarButtonItem?) {
-        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            cancelWorkOrder(workOrder)
-        } else {
+        if WorkOrderService.shared.nextWorkOrder != nil {
             clearNavigationItem()
             workOrdersViewControllerDelegate?.confirmationCanceledForWorkOrderViewController?(self)
+        } else if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
+            cancelWorkOrder(workOrder)
         }
     }
 
