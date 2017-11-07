@@ -32,4 +32,5 @@ extension NSNotification.Name {
     static let WorkOrderChanged = Notification.Name("WorkOrderChanged")
     static let WorkOrderContextShouldRefresh = NSNotification.Name("WorkOrderContextShouldRefresh")
     static let WorkOrderStatusChanged = NSNotification.Name("WorkOrderStatusChanged")
+    static let WorkOrderOverviewShouldRender = NSNotification.Name("WorkOrderOverviewShouldRender")
 }

@@ -133,8 +133,6 @@ class WorkOrderMapView: MapView {
     }
 
     override func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
-        assert(self == mapView)
-        super.mapView(mapView, didUpdate: userLocation)
         mapViewDidUpdateUserLocation(self, location: userLocation.location!)
     }
 
@@ -155,13 +153,11 @@ class WorkOrderMapView: MapView {
     }
 
     func mapViewDidUpdateUserLocation(_ mapView: MapView, location: CLLocation) {
-        log("Map view updated user location: \(location)")
+        logmoji("🗺", "Map view updated user location: \(location)")
 
         if mapView.alpha == 0 {
-            log("Adjusting visible map rect based on location: \(location)")
-
+            logmoji("🗺", "Adjusting visible map rect based on location: \(location)")
             mapViewShouldRefreshVisibleMapRect(mapView)
-
             mapView.revealMap()
         }
 

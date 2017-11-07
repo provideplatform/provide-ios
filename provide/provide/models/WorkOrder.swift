@@ -356,6 +356,37 @@ class WorkOrder: Model {
         return false
     }
 
+    var overview: [String: Any]? {
+        return config["overview"] as? [String: Any]
+    }
+
+    var overviewBoundingBox: [String: Any]? { //FIXME!!!!
+        if let overview = overview {
+            if let boundingBox = overview["bounding_box"] as? [String: Any] {
+                return boundingBox
+            }
+        }
+
+        return nil
+    }
+
+    var overviewPolyline: MKPolyline? {
+        if let overview = overview {
+            var coords = [CLLocationCoordinate2D]()
+            if let shape = overview["shape"] as? [String] {
+                for shpe in shape {
+                    let shapeCoords = shpe.components(separatedBy: ",")
+                    let latitude = shapeCoords.count > 0 ? (shapeCoords.first! as NSString).doubleValue : 0.0
+                    let longitude = shapeCoords.count > 1 ? (shapeCoords.last! as NSString).doubleValue : 0.0
+                    coords.append(CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                }
+            }
+            return MKPolyline(coordinates: &coords, count: coords.count)
+        }
+
+        return nil
+    }
+
     var provider: Provider? {  // HACK-- looks for non-timed out providers... this should be done a lot better than this...
         return (workOrderProviders?.first { !$0.isTimedOut })?.provider
     }

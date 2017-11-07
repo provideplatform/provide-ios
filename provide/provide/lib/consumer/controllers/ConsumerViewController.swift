@@ -80,6 +80,11 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         KTNotificationCenter.addObserver(forName: .ProviderLocationChanged, using: updateProviderLocationFromNotification)
 
         KTNotificationCenter.addObserver(forName: .CategorySelectionChanged, using: filterProvidersByCategoryFromNotification)
+        KTNotificationCenter.addObserver(forName: .WorkOrderOverviewShouldRender, queue: .main) { [weak self] notification in
+            if let workOrder = notification.object as? WorkOrder {
+                self?.mapView.renderOverviewPolylineForWorkOrder(workOrder)
+            }
+        }
 
         KTNotificationCenter.addObserver(forName: .WorkOrderStatusChanged, queue: .main) { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder {
@@ -299,6 +304,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
         } else {
             setupMenuBarButtonItem()
 
+            mapView?.removeOverlays()
             animateProviderEnRouteViewController(toHidden: true)
             providerEnRouteViewController?.prepareForReuse()
             confirmWorkOrderViewController?.prepareForReuse()

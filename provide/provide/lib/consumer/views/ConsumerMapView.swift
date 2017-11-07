@@ -47,6 +47,21 @@ class ConsumerMapView: MapView {
         }
     }
 
+    func renderOverviewPolylineForWorkOrder(_ workOrder: WorkOrder) {
+        removeOverlays()
+
+        DispatchQueue.main.async { [weak self] in
+            if let overviewPolyline = workOrder.overviewPolyline {
+                if let strongSelf = self {
+                    strongSelf.add(overviewPolyline, level: .aboveRoads)
+                    strongSelf.visibleMapRect = strongSelf.mapRectThatFits(overviewPolyline.boundingMapRect,
+                                                                           edgePadding: UIEdgeInsets(top: 50.0, left: 20.0, bottom: 100.0, right: 20.0))
+                }
+
+            }
+        }
+    }
+
     // MARK: MKMapViewDelegate
 
     override func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
@@ -103,10 +118,16 @@ class ConsumerMapView: MapView {
         logWarn("MapView failed to locate user: \(error.localizedDescription)")
     }
 
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer? {
-        let renderer: MKOverlayRenderer? = nil
 
-        logWarn("Returning nil overlay renderer for consumer map view; \(renderer!)")
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        var renderer: MKOverlayRenderer!
+
+        if let route = overlay as? MKPolyline {
+            renderer = MKPolylineRenderer(polyline: route)
+            (renderer as! MKPolylineRenderer).fillColor = UIColor.black.withAlphaComponent(0.75)
+            (renderer as! MKPolylineRenderer).strokeColor = .black
+            (renderer as! MKPolylineRenderer).lineWidth = 1.8
+        }
 
         return renderer
     }
@@ -116,21 +137,20 @@ class ConsumerMapView: MapView {
 
         if mapView.alpha == 0 {
             logmoji("🗺", "Adjusting visible consumer map rect based on location: \(location)")
-            mapViewShouldRefreshVisibleMapRect(mapView)
+            mapView.showAnnotations(mapView.annotations, animated: false)
             mapView.revealMap()
 
-            mapView.setCenterCoordinate(location.coordinate,
-                                        fromEyeCoordinate: mapView.centerCoordinate,
-                                        eyeAltitude: 20000.0,
-                                        pitch: mapView.camera.pitch,
-                                        heading: mapView.camera.heading,
-                                        animated: false)
+            if mapView.overlays.count == 0 {
+                mapView.setCenterCoordinate(location.coordinate,
+                                            fromEyeCoordinate: mapView.centerCoordinate,
+                                            eyeAltitude: 20000.0,
+                                            pitch: mapView.camera.pitch,
+                                            heading: mapView.camera.heading,
+                                            animated: false)
+            } else if mapView.overlays.count == 1, let polyline = mapView.overlays.first as? MKPolyline {
+                mapView.visibleMapRect = mapView.mapRectThatFits(polyline.boundingMapRect, edgePadding: UIEdgeInsets(top: 55.0, left: 25.0, bottom: 55.0, right: 25.0))
+            }
         }
-    }
-
-    func mapViewShouldRefreshVisibleMapRect(_ mapView: MKMapView, animated: Bool = false) {
-        mapView.showAnnotations(mapView.annotations, animated: animated)
-        mapView.setVisibleMapRect(mapView.visibleMapRect, edgePadding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0), animated: animated)
     }
 }
 

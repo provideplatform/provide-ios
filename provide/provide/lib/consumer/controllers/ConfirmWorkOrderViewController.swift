@@ -77,6 +77,8 @@ class ConfirmWorkOrderViewController: ViewController {
                 if oldValue == nil {
                     (parent as? ConsumerViewController)?.animateConfirmWorkOrderView(toHidden: false)
                 }
+
+                KTNotificationCenter.post(name: .WorkOrderOverviewShouldRender, object: workOrder)
             }
         }
     }
