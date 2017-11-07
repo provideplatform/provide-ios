@@ -109,6 +109,7 @@ class ConsumerMapView: MapView {
     }
 
     override func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation) {
+        super.mapView(mapView, didUpdate: userLocation)
         mapViewDidUpdateUserLocation(self, location: userLocation.location!)
     }
 
