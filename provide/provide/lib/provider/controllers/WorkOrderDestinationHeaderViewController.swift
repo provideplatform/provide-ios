@@ -8,7 +8,7 @@
 
 class WorkOrderDestinationHeaderViewController: ViewController {
 
-    @IBOutlet private weak var titleImageView: UIImageView!
+    @IBOutlet private weak var titleImageView: ProfileImageView!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var addressTextView: UITextView!
 
@@ -24,10 +24,20 @@ class WorkOrderDestinationHeaderViewController: ViewController {
 
         if let workOrder = workOrder {
             if let user = workOrder.user {
-                if user.profileImageUrl != nil {
-                    // TODO -- load the image view using the profileImageUrl
-                } else if user.email != nil {
-                    logWarn("Not rendering gravatar image view for work order contact email")
+                if let profileImageUrl = user.profileImageUrl {
+                    titleImageView.setImageWithUrl(profileImageUrl) { [weak self] in
+                        if let strongSelf = self {
+                            //strongSelf.activityIndicatorView.stopAnimating()
+                            strongSelf.view.bringSubview(toFront: strongSelf.titleImageView)
+                            strongSelf.titleImageView.makeCircular()
+                            strongSelf.titleImageView.alpha = 1.0
+                        }
+                    }
+                } else {
+                    //activityIndicatorView.stopAnimating()
+
+                    titleImageView.image = nil  // TODO: render default profile pic
+                    titleImageView.alpha = 0.0
                 }
 
                 titleLabel.text = user.name
