@@ -33,6 +33,10 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if let workOrder = WorkOrderService.shared.nextWorkOrder {
+            workOrderMapView?.renderOverviewPolylineForWorkOrder(workOrder)
+        }
 
         if let minutesEta = WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes {
             self.minutesEta = minutesEta

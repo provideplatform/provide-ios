@@ -80,6 +80,21 @@ class WorkOrderMapView: MapView {
         removeAnnotations(nonUserAnnotations)
     }
 
+    func renderOverviewPolylineForWorkOrder(_ workOrder: WorkOrder) {
+        removeOverlays()
+
+        DispatchQueue.main.async { [weak self] in
+            if let overviewPolyline = workOrder.overviewPolyline {
+                if let strongSelf = self {
+                    strongSelf.add(overviewPolyline, level: .aboveRoads)
+                    strongSelf.visibleMapRect = strongSelf.mapRectThatFits(overviewPolyline.boundingMapRect,
+                                                                           edgePadding: UIEdgeInsets(top: 50.0, left: 20.0, bottom: 100.0, right: 20.0))
+                }
+                
+            }
+        }
+    }
+
     // MARK: MKMapViewDelegate
 
     override func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {

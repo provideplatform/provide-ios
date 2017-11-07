@@ -255,8 +255,8 @@ class DirectionsViewController: ViewController {
         if let mapView = workOrderMapView {
             mapView.removeOverlays(mapView.overlays)
 
-            if let directions = directions {
-                mapView.add(directions.selectedRoute!.overviewPolyline, level: .aboveRoads)
+            if let directions = directions, let route = directions.selectedRoute {
+                mapView.add(route.overviewPolyline, level: .aboveRoads)
             }
         }
     }

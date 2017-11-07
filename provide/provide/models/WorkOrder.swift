@@ -373,6 +373,9 @@ class WorkOrder: Model {
     var overviewPolyline: MKPolyline? {
         if let overview = overview {
             var coords = [CLLocationCoordinate2D]()
+            if isCurrentUserProvider {
+                logWarn("Not yet showing provider to trip origin part of polyline")
+            }
             if let shape = overview["shape"] as? [String] {
                 for shpe in shape {
                     let shapeCoords = shpe.components(separatedBy: ",")
