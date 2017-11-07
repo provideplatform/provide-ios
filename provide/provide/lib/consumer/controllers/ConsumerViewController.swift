@@ -68,6 +68,12 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             self?.loadCategoriesContext()
         }
 
+        KTNotificationCenter.addObserver(forName: .CategorySelectionChanged, using: filterProvidersByCategoryFromNotification)
+
+        KTNotificationCenter.addObserver(forName: .ProviderBecameAvailable, using: updateProviderLocationFromNotification)
+        KTNotificationCenter.addObserver(forName: .ProviderBecameUnavailable, using: updateProviderLocationFromNotification)
+        KTNotificationCenter.addObserver(forName: .ProviderLocationChanged, using: updateProviderLocationFromNotification)
+
         KTNotificationCenter.addObserver(forName: .WorkOrderContextShouldRefresh) { [weak self] notification in
             guard let strongSelf = self else { return }
             if !strongSelf.updatingWorkOrderContext && WorkOrderService.shared.inProgressWorkOrder == nil {
@@ -75,11 +81,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             }
         }
 
-        KTNotificationCenter.addObserver(forName: .ProviderBecameAvailable, using: updateProviderLocationFromNotification)
-        KTNotificationCenter.addObserver(forName: .ProviderBecameUnavailable, using: updateProviderLocationFromNotification)
-        KTNotificationCenter.addObserver(forName: .ProviderLocationChanged, using: updateProviderLocationFromNotification)
-
-        KTNotificationCenter.addObserver(forName: .CategorySelectionChanged, using: filterProvidersByCategoryFromNotification)
         KTNotificationCenter.addObserver(forName: .WorkOrderOverviewShouldRender, queue: .main) { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder {
                 self?.mapView.renderOverviewPolylineForWorkOrder(workOrder)
