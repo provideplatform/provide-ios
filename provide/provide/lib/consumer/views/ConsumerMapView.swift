@@ -139,16 +139,20 @@ class ConsumerMapView: MapView {
             mapView.revealMap()
 
             if mapView.overlays.count == 0 {
-                mapView.setCenterCoordinate(location.coordinate,
-                                            fromEyeCoordinate: mapView.centerCoordinate,
-                                            eyeAltitude: 20000.0,
-                                            pitch: mapView.camera.pitch,
-                                            heading: mapView.camera.heading,
-                                            animated: false)
+                centerOnUserLocation()
             } else if mapView.overlays.count == 1, let polyline = mapView.overlays.first as? MKPolyline {
                 mapView.visibleMapRect = mapView.mapRectThatFits(polyline.boundingMapRect, edgePadding: UIEdgeInsets(top: 55.0, left: 25.0, bottom: 55.0, right: 25.0))
             }
         }
+    }
+
+    func centerOnUserLocation() {
+        setCenterCoordinate(userLocation.coordinate,
+                            fromEyeCoordinate: centerCoordinate,
+                            eyeAltitude: 20000.0,
+                            pitch: camera.pitch,
+                            heading: camera.heading,
+                            animated: false)
     }
 }
 

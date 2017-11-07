@@ -311,6 +311,10 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             confirmWorkOrderViewController?.prepareForReuse()
             destinationResultsViewController?.prepareForReuse()
             animateDestinationInputView(toState: .normal)
+
+            DispatchQueue.main.async { [weak self] in
+                self?.mapView?.centerOnUserLocation()
+            }
         }
     }
 
