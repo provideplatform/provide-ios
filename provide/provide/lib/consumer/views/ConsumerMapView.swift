@@ -118,7 +118,6 @@ class ConsumerMapView: MapView {
         logWarn("MapView failed to locate user: \(error.localizedDescription)")
     }
 
-
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         var renderer: MKOverlayRenderer!
 
