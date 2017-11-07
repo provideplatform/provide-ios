@@ -33,7 +33,7 @@ class WorkOrderAnnotationViewController: ViewController, WorkOrdersViewControlle
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         if let workOrder = WorkOrderService.shared.nextWorkOrder {
             workOrderMapView?.renderOverviewPolylineForWorkOrder(workOrder)
         }
