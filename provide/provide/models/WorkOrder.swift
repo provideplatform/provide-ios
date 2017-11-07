@@ -554,12 +554,15 @@ class WorkOrder: Model {
 
     private func reload(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
-            ApiService.shared.fetchWorkOrderWithId(String(id), params: params, onSuccess: { statusCode, mappingResult in
+            ApiService.shared.fetchWorkOrderWithId(String(id), params: params, onSuccess: { [weak self] statusCode, mappingResult in
                 let workOrder = mappingResult?.firstObject as! WorkOrder
-                self.status = workOrder.status
-                self.estimatedCost = workOrder.estimatedCost
-                self.supervisors = workOrder.supervisors
-                self.workOrderProviders = workOrder.workOrderProviders
+                self?.config = workOrder.config
+                self?.status = workOrder.status
+                self?.estimatedCost = workOrder.estimatedCost
+                self?.supervisors = workOrder.supervisors
+                self?.user = workOrder.user
+                self?.userId = workOrder.userId
+                self?.workOrderProviders = workOrder.workOrderProviders
                 WorkOrderService.shared.updateWorkOrder(mappingResult?.firstObject as! WorkOrder)
                 onSuccess(statusCode, mappingResult)
             }, onError: onError)

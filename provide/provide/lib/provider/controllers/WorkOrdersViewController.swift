@@ -542,15 +542,19 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     private func showHeaderView() {
         let workOrder = WorkOrderService.shared.nextWorkOrder ?? WorkOrderService.shared.inProgressWorkOrder
-        let headerViewController = childViewControllers.first as? WorkOrderDestinationHeaderViewController
-        headerViewController?.configure(workOrder: workOrder)
+        workOrder?.reload(onSuccess: { [weak self] statusCode, _ in
+            let headerViewController = self?.childViewControllers.first as? WorkOrderDestinationHeaderViewController
+            headerViewController?.configure(workOrder: workOrder)
 
-        view.layoutIfNeeded()
-        headerViewControllerTopConstraint.constant = 0
-        UIView.animate(withDuration: 0.15) {
-            self.view.layoutIfNeeded()
-            self.headerView?.alpha = 1
-        }
+            self?.view.layoutIfNeeded()
+            self?.headerViewControllerTopConstraint.constant = 0
+            UIView.animate(withDuration: 0.15) {
+                self?.view.layoutIfNeeded()
+                self?.headerView?.alpha = 1
+            }
+        }, onError: { err, statusCode, responseString in
+            logWarn("Failed to reload work order")
+        })
     }
 
     private func hideHeaderView() {
