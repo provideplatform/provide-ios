@@ -101,7 +101,7 @@ class WorkOrder: Model {
     private var pendingArrival = false
 
     var canArrive: Bool {
-        return !pendingArrival && status == "en_route"
+        return !pendingArrival && status == "en_route" && isCurrentUserProvider
     }
 
     var scheduledStartAtDate: Date? {
