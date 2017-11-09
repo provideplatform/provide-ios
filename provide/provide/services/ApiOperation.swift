@@ -175,7 +175,7 @@ class ApiOperation: Operation {
 
         logInfo("API operation canceled: \(self)")
         AnalyticsService.shared.track("API Operation Canceled", properties: [
-            "operation": self,
+            "operation": self.description,
             "attempts": attempts,
             "path": url.path,
             "query": url.query ?? "",
@@ -190,7 +190,7 @@ class ApiOperation: Operation {
 
         logmoji("✅", "\(statusCode): \(request.url!) (\(contentLength)-byte response); took \(execTimeMillis)ms")
         AnalyticsService.shared.track("API Operation Succeeded", properties: [
-            "operation": self,
+            "operation": self.description,
             "attempts": attempts,
             "path": url.path,
             "query": url.query ?? "",
@@ -224,7 +224,7 @@ class ApiOperation: Operation {
             backoffTimeout = initialBackoffTimeout
 
             AnalyticsService.shared.track("API Operation Failed", properties: [
-                "operation": self,
+                "operation": self.description,
                 "attempts": attempts,
                 "path": url.path,
                 "query": url.query ?? "",
@@ -247,7 +247,7 @@ class ApiOperation: Operation {
         } else if let err = error as NSError? {
             logError(err)
             AnalyticsService.shared.track("API Operation Failed", properties: [
-                "operation": self,
+                "operation": self.description,
                 "attempts": attempts,
                 "path": url.path,
                 "query": url.query ?? "",
