@@ -161,9 +161,13 @@ class MessagesViewController: JSQMessagesViewController {
 
     @objc dynamic private func newMessageReceived(_ notification: Notification) {
         if let message = notification.object as? Message {
-            messages.append(message) // FIXME: perform update on collection view
-            collectionView?.reloadData()
-            scrollToBottom(animated: true)
+            if !messages.contains(where: { msg -> Bool in
+                return message.id == msg.id
+            }) {
+                messages.append(message) // FIXME: perform update on collection view
+                collectionView?.reloadData()
+                scrollToBottom(animated: true)
+            }
         }
     }
 
