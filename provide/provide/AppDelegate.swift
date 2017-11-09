@@ -135,7 +135,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        ApiService.shared.createDevice(["user_id": currentUser.id, "apns_device_id": "\(token)"], onSuccess: { statusCode, responseString in
+        ApiService.shared.createDevice(["user_id": currentUser.id, "apns_device_id": token], onSuccess: { statusCode, responseString in
             AnalyticsService.shared.track("App Registered For Remote Notifications")
         }, onError: { error, statusCode, responseString in
             if statusCode == 409 {
