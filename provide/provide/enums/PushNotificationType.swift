@@ -11,15 +11,18 @@ enum PushNotificationType: String {
     case checkin = "checkin"
     case job = "job_id"
     case message = "message"
-    case route = "route_id"
     case unknown = ""
-    case workOrder = "work_order_id"
+    case workOrder = "work_order_changed"
+    case providerBecameAvailable = "provider_became_available"
+    case providerBecameUnavailable = "provider_became_unavailable"
+    case providerLocationChanged = "provider_location_changed"
 
     private var typeKey: String {
         return rawValue
     }
 
-    static let allTypes = [attachment, checkin, job, message, route, workOrder]
+    static let allTypes = [attachment, checkin, job, message, workOrder,
+                           providerBecameAvailable, providerBecameUnavailable, providerLocationChanged]
 
     static func typeAndValueFromUserInfo(_ userInfo: [String: Any]) -> (PushNotificationType, Any?) {
         for type in allTypes {

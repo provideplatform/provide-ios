@@ -97,10 +97,21 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 KTNotificationCenter.post(name: .AttachmentChanged, object: userInfo)
             }
         case .message:
-            let jsonString = (notificationValue as! [String: Any]).toJSONString()
-            let message = Message(json: jsonString)
-            KTNotificationCenter.post(name: .NewMessageReceivedNotification, object: message)
-
+            if let payload = notificationValue as? [String: Any] {
+                NotificationService.handleWebsocketMessage("message_received", payload: payload)
+            }
+        case .providerBecameAvailable:
+            if let payload = notificationValue as? [String: Any] {
+                NotificationService.handleWebsocketMessage("provider_became_available", payload: payload)
+            }
+        case .providerBecameUnavailable:
+            if let payload = notificationValue as? [String: Any] {
+                NotificationService.handleWebsocketMessage("provider_became_unavailable", payload: payload)
+            }
+//        case .providerLocationChanged:
+//            if let payload = notificationValue as? [String: Any] {
+//                NotificationService.handleWebsocketMessage("provider_location_changed", payload: payload)
+//            }
         case .workOrder:
             if !socketConnected {
                 let workOrderId = notificationValue as! Int
