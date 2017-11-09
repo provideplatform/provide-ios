@@ -324,6 +324,13 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
 
         let region = CLCircularRegion(center: overlay.coordinate, radius: radius, identifier: identifier)
         regions.append(region)
+
+        AnalyticsService.shared.track("Registered Region Monitor",
+                                      properties: ["user_id": currentUser.id,
+                                                   "identifier": region.identifier,
+                                                   "center_latitude": region.center.latitude,
+                                                   "center_longitude": region.center.longitude,
+                                                   "radius": region.radius])
     }
 
     func unregisterRegionMonitor(_ identifier: String) {
@@ -332,6 +339,9 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
                 self?.geofenceCallbacks.removeValue(forKey: region.identifier)
                 self?.geofenceCallbackCounts.removeValue(forKey: region.identifier)
                 self?.regions.removeObject(region)
+                AnalyticsService.shared.track("Unregistered Region Monitor",
+                                              properties: ["user_id": currentUser.id,
+                                                           "identifier": region.identifier])
                 break
             }
         }
@@ -359,6 +369,9 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
                 let didExitRegionCallCount = callbackCounts["didExitRegion"] ?? 0
                 if didEnterRegionCallCount > didExitRegionCallCount {
                     logWarn("Not invoking didEnterRegion callback without first exiting")
+                    AnalyticsService.shared.track("Not invoking didEnterRegion callback without first exiting",
+                                                  properties: ["user_id": currentUser.id,
+                                                               "identifier": region.identifier])
                     return
                 }
                 geofenceCallbackCounts[region.identifier]?["didEnterRegion"] = didEnterRegionCallCount + 1
@@ -374,6 +387,9 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
                 let didExitRegionCallCount = callbackCounts["didExitRegion"] ?? 0
                 if didExitRegionCallCount != didEnterRegionCallCount - 1 {
                     logWarn("Not invoking didExitRegion callback without first entering")
+                    AnalyticsService.shared.track("Not invoking didExitRegion callback without first exiting",
+                                                  properties: ["user_id": currentUser.id,
+                                                               "identifier": region.identifier])
                     return
                 }
                 geofenceCallbackCounts[region.identifier]?["didExitRegion"] = didExitRegionCallCount + 1
