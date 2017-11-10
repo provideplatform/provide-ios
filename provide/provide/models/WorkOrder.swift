@@ -402,7 +402,19 @@ class WorkOrder: Model {
     }
 
     var regionMonitoringRadius: CLLocationDistance {
-        if status == "in_progress" {
+        if status == "en_route" {
+            if let currentLocation = config["current_location"] as? [String: Any] {
+                if let radius = currentLocation["radius"] as? Double {
+                    return radius
+                }
+            } else if let origin = config["origin"] as? [String: Any] {
+                if let radius = origin["radius"] as? Double {
+                    return radius
+                }
+            }
+
+            return 150.0  // ~500ft
+        } else if status == "in_progress" {
             if let destination = config?["destination"] as? [String: Any], let radius = destination["radius"] as? Double {
                 return radius
             }
