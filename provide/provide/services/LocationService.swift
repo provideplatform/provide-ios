@@ -182,7 +182,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last, location.isAccurate {
+        if let location = locations.last { // TODO: fix this ...}, location.isAccurate {
             lastAccurateLocationDate = Date()
             locationResolved(location)
         } else if staleLocation {
@@ -330,7 +330,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
                                                    "identifier": region.identifier,
                                                    "center_latitude": region.center.latitude,
                                                    "center_longitude": region.center.longitude,
-                                                   "radius": region.radius])
+                                                   "radius": region.radius,
+                                                   ])
     }
 
     func unregisterRegionMonitor(_ identifier: String) {
@@ -341,7 +342,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
                 self?.regions.removeObject(region)
                 AnalyticsService.shared.track("Unregistered Region Monitor",
                                               properties: ["user_id": currentUser.id,
-                                                           "identifier": region.identifier])
+                                                           "identifier": region.identifier,
+                                                           ])
                 break
             }
         }
@@ -371,7 +373,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
                     logWarn("Not invoking didEnterRegion callback without first exiting")
                     AnalyticsService.shared.track("Not invoking didEnterRegion callback without first exiting",
                                                   properties: ["user_id": currentUser.id,
-                                                               "identifier": region.identifier])
+                                                               "identifier": region.identifier,
+                                                               ])
                     return
                 }
                 geofenceCallbackCounts[region.identifier]?["didEnterRegion"] = didEnterRegionCallCount + 1
@@ -389,7 +392,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
                     logWarn("Not invoking didExitRegion callback without first entering")
                     AnalyticsService.shared.track("Not invoking didExitRegion callback without first exiting",
                                                   properties: ["user_id": currentUser.id,
-                                                               "identifier": region.identifier])
+                                                               "identifier": region.identifier,
+                                                               ])
                     return
                 }
                 geofenceCallbackCounts[region.identifier]?["didExitRegion"] = didExitRegionCallCount + 1
