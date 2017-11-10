@@ -182,14 +182,20 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last { // TODO: fix this ...}, location.isAccurate {
+        var location: CLLocation?
+        location = locations.first { (location) -> Bool in
+            return location.isAccurate
+        }
+
+        if location == nil && staleLocation {
+            location = locations.first { (location) -> Bool in
+                return location.isAccurateForForcedLocationUpdate
+            }
+        }
+
+        if let location = location {
             lastAccurateLocationDate = Date()
             locationResolved(location)
-        } else if staleLocation {
-            if let location = locations.last, location.isAccurateForForcedLocationUpdate {
-                lastAccurateLocationDate = Date()
-                locationResolved(location)
-            }
         }
     }
 
