@@ -413,16 +413,16 @@ class WorkOrder: Model {
                 }
             }
 
-            return 150.0  // ~500ft
+            return 40.0  // ~100ft
         } else if status == "in_progress" {
             if let destination = config?["destination"] as? [String: Any], let radius = destination["radius"] as? Double {
                 return radius
             }
 
-            return 30.0  // ~100ft
+            return 40.0  // ~100ft
         }
 
-        return 10.0  // ~30ft
+        return 40.0  // ~100ft
     }
 
     override func toDictionary(_ snakeKeys: Bool = true, includeNils: Bool = false, ignoreKeys: [String] = []) -> [String: Any] {
