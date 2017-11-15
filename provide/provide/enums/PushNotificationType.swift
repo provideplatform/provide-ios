@@ -21,8 +21,16 @@ enum PushNotificationType: String {
         return rawValue
     }
 
-    static let allTypes = [attachment, checkin, job, message, workOrder,
-                           providerBecameAvailable, providerBecameUnavailable, providerLocationChanged]
+    static let allTypes = [
+        attachment,
+        checkin,
+        job,
+        message,
+        workOrder,
+        providerBecameAvailable,
+        providerBecameUnavailable,
+        providerLocationChanged,
+    ]
 
     static func typeAndValueFromUserInfo(_ userInfo: [String: Any]) -> (PushNotificationType, Any?) {
         for type in allTypes {
