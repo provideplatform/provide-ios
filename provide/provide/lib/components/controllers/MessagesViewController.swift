@@ -152,6 +152,8 @@ class MessagesViewController: JSQMessagesViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        UIApplication.shared.applicationIconBadgeNumber = 0
+
         KTNotificationCenter.addObserver(forName: .NewMessageReceivedNotification) { [weak self] notification in
             DispatchQueue.main.async { [weak self] in
                 self?.newMessageReceived(notification)

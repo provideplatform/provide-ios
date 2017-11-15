@@ -303,6 +303,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
                 }
             }
         } else {
+            UIApplication.shared.applicationIconBadgeNumber = 0
+
             setupMenuBarButtonItem()
 
             mapView?.removeOverlays()

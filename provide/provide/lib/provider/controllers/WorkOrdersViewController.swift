@@ -317,6 +317,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             performSegue(withIdentifier: "WorkOrderAnnotationViewControllerSegue", sender: self)
             availabilityBarButtonItemEnabled = false
         } else {
+            UIApplication.shared.applicationIconBadgeNumber = 0
             setupRightBarButtonItem()
         }
 
