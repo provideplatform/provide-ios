@@ -538,12 +538,12 @@
 			children = (
 				68B412B01B08063B009A4C05 /* AppearenceProxy.swift */,
 				68B4128A1B08036F009A4C05 /* Color.swift */,
+				5C3534331F9C77C0007EB828 /* Formatters.swift */,
+				5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */,
+				5C4D963F1F9F628300AD564F /* Logmoji.swift */,
+				5CED500A1F9C956F0007D19A /* Monkey.swift */,
 				5C54123A1B24038800AD8B04 /* OHHTTPStubsHelper.swift */,
 				68E113001F5CE3D60069BD45 /* SimulatedCLHeading.swift */,
-				5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */,
-				5C3534331F9C77C0007EB828 /* Formatters.swift */,
-				5CED500A1F9C956F0007D19A /* Monkey.swift */,
-				5C4D963F1F9F628300AD564F /* Logmoji.swift */,
 			);
 			path = helpers;
 			sourceTree = "<group>";
