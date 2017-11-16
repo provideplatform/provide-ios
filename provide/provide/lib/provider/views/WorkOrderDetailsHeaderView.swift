@@ -43,7 +43,7 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
 
             mapView.showsUserLocation = false
             mapView.setCenterCoordinate(workOrder.coordinate!, zoomLevel: 12, animated: false)
-            mapView.addAnnotation(workOrder.annotation)
+            mapView.addAnnotation(workOrder.annotationPin)
 
             DispatchQueue.main.async { [weak self] in
                 if let strongSelf = self {

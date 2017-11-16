@@ -98,6 +98,10 @@ class WorkOrder: Model {
         return Annotation(workOrder: self)
     }
 
+    var annotationPin: Annotation {
+        return Annotation(workOrder: self, forcePin: true)
+    }
+
     private var pendingArrival = false
 
     var canArrive: Bool {
@@ -656,8 +660,11 @@ class WorkOrder: Model {
     class Annotation: NSObject, MKAnnotation {
         var workOrder: WorkOrder!
 
-        required init(workOrder: WorkOrder) {
+        private(set) var forcePin = false
+
+        required init(workOrder: WorkOrder, forcePin: Bool = false) {
             self.workOrder = workOrder
+            self.forcePin = forcePin
         }
 
         @objc var coordinate: CLLocationCoordinate2D {

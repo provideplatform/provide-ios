@@ -50,9 +50,11 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                     }
                 }
 
-                mapView.addAnnotation(workOrder.annotation)
+                mapView.addAnnotation(workOrder.annotationPin)
 
-                mapView.alpha = 1.0
+                mapView.onMapRevealed = { [weak self] in
+                    self?.mapView.alpha = 1.0
+                }
 
                 statusBackgroundView.frame = bounds
 //                statusBackgroundView.backgroundColor = workOrder.statusColor

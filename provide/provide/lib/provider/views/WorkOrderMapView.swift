@@ -134,7 +134,8 @@ class WorkOrderMapView: MapView {
                 view = workOrdersViewControllerDelegate?.annotationViewForMapView?(mapView, annotation: annotation)
 
                 if view == nil && annotation is WorkOrder.Annotation {
-                    view = WorkOrderPinAnnotationView(workOrder: (annotation as! WorkOrder.Annotation).workOrder)
+                    view = WorkOrderPinAnnotationView(workOrder: (annotation as! WorkOrder.Annotation).workOrder,
+                                                      forcePin: (annotation as! WorkOrder.Annotation).forcePin)
                 }
             }
         }
