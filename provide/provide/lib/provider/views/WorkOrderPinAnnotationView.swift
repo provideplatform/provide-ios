@@ -31,9 +31,11 @@ class WorkOrderPinAnnotationView: MKAnnotationView {
         super.init(annotation: nil, reuseIdentifier: nil)
 
         backgroundColor = .clear
-        centerOffset = CGPoint(x: (rect.width / 2.0) * -1.0, y: (rect.height / 2.0) * -1.0)
+        centerOffset = CGPoint(x: (rect.width / 2.0) * -1.0,
+                               y: (rect.height / 2.0) * -1.0)
 
         if workOrder.user == nil || workOrder.status == "in_progress" || forcePin {
+            centerOffset.y = 0.0
             addSubview(imageView)
         } else if let profileImageUrl = workOrder.user.profileImageUrl {
             profileImageView = ProfileImageView(frame: rect)
