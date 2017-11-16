@@ -10,7 +10,7 @@ import UIKit
 
 class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
 
-    @IBOutlet private weak var avatarImageView: UIImageView!
+    @IBOutlet private weak var profileImageView: ProfileImageView!
     @IBOutlet private weak var mapView: RouteMapView!
 
     @IBOutlet private weak var detailsContainerView: UIView!
@@ -54,28 +54,19 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
 
                 mapView.alpha = 1.0
 
-                statusBackgroundView.backgroundColor = workOrder.statusColor
                 statusBackgroundView.frame = bounds
-                statusBackgroundView.alpha = 0.9
+//                statusBackgroundView.backgroundColor = workOrder.statusColor
+//                statusBackgroundView.alpha = 0.9
 
-                //            if let profileImageUrl = workOrder.providerOriginAssignment.provider.profileImageUrl {
-                //                avatarImageView.contentMode = .ScaleAspectFit
-                //                avatarImageView.sd_setImageWithURL(profileImageUrl) { image, error, imageCacheType, url in
-                //                    self.bringSubviewToFront(self.avatarImageView)
-                //                    self.avatarImageView.makeCircular()
-                //                    self.avatarImageView.alpha = 1.0
-                //                    self.gravatarImageView?.alpha = 0.0
-                //                }
-                //            } else {
-                //                let gravatarImageView = UIImageView(frame: avatarImageView.frame)
-                //                gravatarImageView.email = route.providerOriginAssignment.provider.contact.email
-                //                gravatarImageView.load { error in
-                //                    gravatarImageView.makeCircular()
-                //                    self.insertSubview(gravatarImageView, aboveSubview: self.avatarImageView)
-                //                    self.avatarImageView.alpha = 0.0
-                //                    gravatarImageView.alpha = 1.0
-                //                }
-                //            }
+                if let profileImageUrl = workOrder?.providerProfileImageUrl {
+                    profileImageView.setImageWithUrl(profileImageUrl) { [weak self] in
+                        if let strongSelf = self {
+                            strongSelf.bringSubview(toFront: strongSelf.profileImageView)
+                            strongSelf.profileImageView.makeCircular()
+                            strongSelf.profileImageView.alpha = 1.0
+                        }
+                    }
+                }
 
                 if let timestamp = workOrder.humanReadableStartedAtTimestamp {
                     timestampLabel.text = timestamp.uppercased()
@@ -125,8 +116,8 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
         statusBackgroundView.backgroundColor = .clear
         statusBackgroundView.alpha = 0.9
 
-        avatarImageView.image = nil
-        avatarImageView.alpha = 0.0
+        profileImageView.image = nil
+        profileImageView.alpha = 0.0
 
         gravatarImageView?.image = nil
         gravatarImageView = nil

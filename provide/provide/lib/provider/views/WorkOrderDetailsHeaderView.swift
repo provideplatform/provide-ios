@@ -41,15 +41,18 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
             addressLabel.sizeToFit()
             bringSubview(toFront: addressLabel)
 
+            mapView.showsUserLocation = false
             mapView.setCenterCoordinate(workOrder.coordinate!, zoomLevel: 12, animated: false)
             mapView.addAnnotation(workOrder.annotation)
 
-            DispatchQueue.main.async {
-                if var coordinate = self.workOrder.coordinate {
-                    coordinate.latitude += self.mapView.region.span.latitudeDelta * 0.1
-                    coordinate.longitude += self.mapView.region.span.longitudeDelta * 0.4
+            DispatchQueue.main.async { [weak self] in
+                if let strongSelf = self {
+                    if var coordinate = strongSelf.workOrder.coordinate {
+                        coordinate.latitude += strongSelf.mapView.region.span.latitudeDelta * 0.1
+                        coordinate.longitude += strongSelf.mapView.region.span.longitudeDelta * 0.4
 
-                    self.mapView.setCenterCoordinate(coordinate, zoomLevel: 12, animated: false)
+                        strongSelf.mapView.setCenterCoordinate(coordinate, zoomLevel: 12, animated: false)
+                    }
                 }
             }
         }

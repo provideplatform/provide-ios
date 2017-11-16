@@ -28,7 +28,6 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
 
     private var zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
 
-
     private var isColumnedLayout: Bool {
         return view.width > 414.0
     }
@@ -64,7 +63,6 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         super.viewDidLoad()
 
         navigationItem.title = "HISTORY"
-
         setupPullToRefresh()
     }
 
@@ -72,7 +70,6 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         super.viewWillAppear(animated)
 
         selectedWorkOrder = nil
-
         collectionView.frame = view.bounds
     }
 
@@ -101,20 +98,19 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         let params: [String: Any] = [
             "page": page,
             "rpp": rpp,
-            "status": "awaiting_schedule,scheduled,en_route,in_progress,pending_approval,paused,completed",
-            "sort_priority_and_due_at_asc": "true",
-            "include_products": "false",
-            "include_work_order_providers": "false",
+            "status": "completed",
+            "sort_started_at_desc": "true",
+            "include_work_order_providers": "true",
             "include_checkin_coordinates": "true",
         ]
 
-        ApiService.shared.fetchWorkOrders(params, onSuccess: { statusCode, mappingResult in
+        ApiService.shared.fetchWorkOrders(params, onSuccess: { [weak self] statusCode, mappingResult in
             let fetchedWorkOrders = mappingResult?.array() as! [WorkOrder]
-            self.workOrders += fetchedWorkOrders
+            self?.workOrders += fetchedWorkOrders
 
-            self.collectionView.reloadData()
-            self.collectionView.layoutIfNeeded()
-            self.refreshControl.endRefreshing()
+            self?.collectionView.reloadData()
+            self?.collectionView.layoutIfNeeded()
+            self?.refreshControl.endRefreshing()
         }, onError: { error, statusCode, responseString in
             logError(error)
         })
@@ -150,7 +146,6 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
 
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         selectedWorkOrder = workOrderForRowAtIndexPath(indexPath)
-
         return true
     }
 

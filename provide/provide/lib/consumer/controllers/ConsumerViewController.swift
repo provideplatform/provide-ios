@@ -68,6 +68,14 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             self?.loadCategoriesContext()
         }
 
+        KTNotificationCenter.addObserver(forName: Notification.Name(rawValue: "SegueToWorkOrderHistoryStoryboard")) { [weak self] sender in
+            if let strongSelf = self {
+                if !strongSelf.navigationControllerContains(WorkOrderHistoryViewController.self) {
+                    strongSelf.performSegue(withIdentifier: "WorkOrderHistoryViewControllerSegue", sender: strongSelf)
+                }
+            }
+        }
+
         KTNotificationCenter.addObserver(forName: .CategorySelectionChanged, using: filterProvidersByCategoryFromNotification)
 
         KTNotificationCenter.addObserver(forName: .ProviderBecameAvailable, using: updateProviderLocationFromNotification)
@@ -124,6 +132,15 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
                 logmoji("📝", "status: \(status)")
             }
         }
+    }
+
+    private func navigationControllerContains(_ clazz: AnyClass) -> Bool {
+        for viewController in navigationController?.viewControllers ?? [] {
+            if viewController.isKind(of: clazz) {
+                return true
+            }
+        }
+        return false
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -398,7 +415,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem? {
         switch indexPath.row {
         case 0:
-            return MenuItem(label: "History", action: "history")
+            return MenuItem(label: "History", action: "segueToWorkOrderHistory")
         case 1:
             return MenuItem(label: "Payment Methods", action: "paymentMethods")
         case 2:
@@ -419,6 +436,11 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     @objc func provide() {
         KeyChainService.shared.mode = .provider
         KTNotificationCenter.post(name: .ApplicationShouldReloadTopViewController)
+    }
+
+    @objc func segueToWorkOrderHistory() {
+        KTNotificationCenter.post(name: .MenuContainerShouldReset)
+        KTNotificationCenter.post(name: Notification.Name(rawValue: "SegueToWorkOrderHistoryStoryboard"), object: nil)
     }
 
     // MARK: DestinationInputViewControllerDelegate

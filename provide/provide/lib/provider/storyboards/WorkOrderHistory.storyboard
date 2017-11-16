@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="aTN-RS-1S1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="aTN-RS-1S1">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -31,28 +31,28 @@
                                 <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="x8k-Uf-i4D">
-                                    <size key="itemSize" width="300" height="175"/>
+                                    <size key="itemSize" width="360" height="175"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="WorkOrderHistoryCollectionViewCell" id="7Bu-Uv-emL" customClass="WorkOrderHistoryCollectionViewCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="41.5" y="0.0" width="300" height="175"/>
+                                        <rect key="frame" x="11.5" y="10" width="360" height="175"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="175"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="360" height="175"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUL-mi-APY" customClass="RouteMapView" customModule="provide" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="125"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="360" height="125"/>
                                                 </mapView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i4F-Fe-1pZ" userLabel="Details Container View">
-                                                    <rect key="frame" x="0.0" y="124" width="300" height="50"/>
+                                                    <rect key="frame" x="0.0" y="124" width="360" height="50"/>
                                                     <subviews>
                                                         <view alpha="0.89999997615814209" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7As-Kj-OCT" userLabel="Status Background View">
-                                                            <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
-                                                            <color key="backgroundColor" red="0.31372549020000001" green="0.85490196080000003" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="360" height="50"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5/5/15, 6:00 PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Obt-kX-axo">
                                                             <rect key="frame" x="64" y="4" width="100.5" height="17"/>
@@ -66,8 +66,8 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COMPLETED" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTM-10-vGQ">
-                                                            <rect key="frame" x="225" y="4" width="67" height="14.5"/>
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COMPLETED" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTM-10-vGQ">
+                                                            <rect key="frame" x="285" y="4" width="67" height="14.5"/>
                                                             <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="12"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -89,7 +89,7 @@
                                                         <constraint firstAttribute="centerY" secondItem="7As-Kj-OCT" secondAttribute="centerY" id="xt3-uo-eJa"/>
                                                     </constraints>
                                                 </view>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dKB-0N-9Gc">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dKB-0N-9Gc" customClass="ProfileImageView" customModule="provide" customModuleProvider="target">
                                                     <rect key="frame" x="8" y="96" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="A6A-ng-gml"/>
@@ -115,10 +115,10 @@
                                             <constraint firstItem="dKB-0N-9Gc" firstAttribute="leading" secondItem="7Bu-Uv-emL" secondAttribute="leadingMargin" id="xmw-8g-fLK"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="avatarImageView" destination="dKB-0N-9Gc" id="Hlk-oV-zU0"/>
                                             <outlet property="detailsContainerView" destination="i4F-Fe-1pZ" id="wOH-pa-Nni"/>
                                             <outlet property="durationLabel" destination="jeq-1h-Rlz" id="a2J-yi-o1I"/>
                                             <outlet property="mapView" destination="gUL-mi-APY" id="2Om-Or-taE"/>
+                                            <outlet property="profileImageView" destination="dKB-0N-9Gc" id="7p9-NE-Rsn"/>
                                             <outlet property="statusBackgroundView" destination="7As-Kj-OCT" id="R3g-ow-tsz"/>
                                             <outlet property="statusLabel" destination="UTM-10-vGQ" id="UBZ-yr-oov"/>
                                             <outlet property="timestampLabel" destination="Obt-kX-axo" id="9B0-AI-UkW"/>
@@ -142,6 +142,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="aey-VP-ScQ" secondAttribute="trailing" constant="-20" id="fPA-NB-vDA"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="collectionView" destination="aey-VP-ScQ" id="Uo8-6u-9mu"/>
                     </connections>

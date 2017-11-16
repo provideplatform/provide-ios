@@ -65,8 +65,10 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         KTNotificationCenter.addObserver(observer: self, selector: #selector(clearProviderContext), name: .ApplicationUserLoggedOut)
 
         KTNotificationCenter.addObserver(forName: Notification.Name(rawValue: "SegueToWorkOrderHistoryStoryboard")) { [weak self] sender in
-            if !self!.navigationControllerContains(WorkOrderHistoryViewController.self) {
-                self!.performSegue(withIdentifier: "WorkOrderHistoryViewControllerSegue", sender: self!)
+            if let strongSelf = self {
+                if !strongSelf.navigationControllerContains(WorkOrderHistoryViewController.self) {
+                    strongSelf.performSegue(withIdentifier: "WorkOrderHistoryViewControllerSegue", sender: strongSelf)
+                }
             }
         }
 
@@ -418,7 +420,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     func menuItemForMenuViewController(_ menuViewController: MenuViewController, at indexPath: IndexPath) -> MenuItem? {
         switch indexPath.row {
         case 0:
-            return MenuItem(label: "History", action: "history")
+            return MenuItem(label: "History", action: "segueToWorkOrderHistory")
         case 1:
             return MenuItem(label: "Ride Mode", action: #selector(switchToConsumerMode))
         default:
@@ -455,6 +457,11 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
         KeyChainService.shared.mode = .consumer
         KTNotificationCenter.post(name: .ApplicationShouldReloadTopViewController)
+    }
+
+    @objc func segueToWorkOrderHistory() {
+        KTNotificationCenter.post(name: .MenuContainerShouldReset)
+        KTNotificationCenter.post(name: Notification.Name(rawValue: "SegueToWorkOrderHistoryStoryboard"), object: nil)
     }
 
     // MARK: WorkOrdersViewControllerDelegate
