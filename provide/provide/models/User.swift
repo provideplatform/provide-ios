@@ -22,7 +22,6 @@ class User: Model {
     var contact: Contact!
     var providers: [Provider]!
     var providerIds = [Int]()
-    var menuItemsPreference: [[String: String]] = []
     var paymentMethods: [Any]!
     var lastCheckinAt: String!
     var lastCheckinLatitude: Double = 0
@@ -60,20 +59,6 @@ class User: Model {
         }
     }
 
-    var menuItems: [MenuItem]! {
-        if !menuItemsPreference.isEmpty {
-            var menuItems = [MenuItem]()
-            for menuItemPreference in menuItemsPreference {
-                menuItems.append(MenuItem(dict: menuItemPreference))
-            }
-            return menuItems
-        } else {
-            var defaultMenuItems = [MenuItem]()
-            defaultMenuItems.append(MenuItem(label: "History", storyboard: "Jobs"))
-            return defaultMenuItems
-        }
-    }
-
     private var hasBeenPromptedToIntegrateQuickbooks: Bool {
         return UserDefaults.standard.bool(forKey: "presentedQuickbooksAuthorizationDialog")
     }
@@ -90,7 +75,6 @@ class User: Model {
             "email": "email",
             "profile_image_url": "profileImageUrlString",
             "provider_ids": "providerIds",
-            "menu_items": "menuItemsPreference",
             "payment_methods": "paymentMethods",
             "last_checkin_at": "lastCheckinAt",
             "last_checkin_latitude": "lastCheckinLatitude",

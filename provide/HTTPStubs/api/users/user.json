@@ -5,16 +5,6 @@
     "last_checkin_heading": 9.99,
     "last_checkin_latitude": 38.891015,
     "last_checkin_longitude": -77.0882267,
-    "menu_items": [
-        {
-            "label": "Jobs",
-            "storyboard": "JobsStoryboard"
-        },
-        {
-            "label": "Work Orders",
-            "storyboard": "WorkOrderHistory"
-        }
-    ],
     "name": "TestUser",
     "profile_image_url": "http://test.example.com/image.png",
     "provider_ids": [
