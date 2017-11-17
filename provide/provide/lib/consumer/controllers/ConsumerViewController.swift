@@ -187,7 +187,9 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
     }
 
     private func setupCancelWorkOrderBarButtonItem() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(cancelButtonTapped))
+        let cancelBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(cancelButtonTapped))
+        cancelBarButtonItem.setTitleTextAttributes(AppearenceProxy.clearBarButtonItemTitleTextAttributes(), for: .normal)
+        navigationItem.leftBarButtonItem = cancelBarButtonItem
     }
 
     @objc private func menuButtonTapped(_ sender: UIBarButtonItem) {

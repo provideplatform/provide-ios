@@ -35,7 +35,7 @@ class AppearenceProxy {
     class func navBarTitleTextAttributes() -> [NSAttributedStringKey: Any] {
         return [
             .font: UIFont(name: "Exo2-Light", size: 20)!,
-            .foregroundColor: Color.darkBlueBackground(),
+            .foregroundColor: UIColor.white, //Color.darkBlueBackground(),
         ]
     }
 
@@ -49,7 +49,7 @@ class AppearenceProxy {
     class func barButtonItemTitleTextAttributes() -> [NSAttributedStringKey: Any] {
         return [
             .font: UIFont(name: "Exo2-Light", size: 14)!,
-            .foregroundColor: Color.darkBlueBackground(),
+            .foregroundColor: UIColor.white,
         ]
     }
 
@@ -57,6 +57,13 @@ class AppearenceProxy {
         return [
             .font: UIFont(name: "Exo2-Light", size: 14)!,
             .foregroundColor: UIColor.darkGray,
+        ]
+    }
+
+    class func clearBarButtonItemTitleTextAttributes() -> [NSAttributedStringKey: Any] {
+        return [
+            .font: UIFont(name: "Exo2-Light", size: 14)!,
+            .foregroundColor: Color.darkBlueBackground(),
         ]
     }
 }
