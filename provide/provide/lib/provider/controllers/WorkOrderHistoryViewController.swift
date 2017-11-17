@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol WorkOrderHistoryViewControllerDelegate: NSObjectProtocol {
+    func paramsForWorkOrderHistoryViewController(viewController: WorkOrderHistoryViewController) -> [String: Any]
+}
+
 class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+
+    weak var delegate: WorkOrderHistoryViewControllerDelegate!
 
     private var page = 1
     private let rpp = 10
@@ -95,14 +101,14 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
             refreshControl.beginRefreshing()
         }
 
-        let params: [String: Any] = [
-            "page": page,
-            "rpp": rpp,
+        var params = delegate?.paramsForWorkOrderHistoryViewController(viewController: self) ?? [
             "status": "completed",
             "sort_started_at_desc": "true",
-            "include_work_order_providers": "true",
-            "include_checkin_coordinates": "true",
         ]
+        params["include_work_order_providers"] = "true"
+        params["include_checkin_coordinates"] = "true"
+        params["page"] = page
+        params["rpp"] = rpp
 
         ApiService.shared.fetchWorkOrders(params, onSuccess: { [weak self] statusCode, mappingResult in
             let fetchedWorkOrders = mappingResult?.array() as! [WorkOrder]

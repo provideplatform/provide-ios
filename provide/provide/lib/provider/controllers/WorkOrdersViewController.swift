@@ -29,7 +29,7 @@ protocol WorkOrdersViewControllerDelegate: NSObjectProtocol { // FIXME -- this i
     @objc optional func confirmationReceivedForWorkOrderViewController(_ viewController: UIViewController)
 }
 
-class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, WorkOrdersViewControllerDelegate, DirectionsViewControllerDelegate {
+class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, WorkOrdersViewControllerDelegate, WorkOrderHistoryViewControllerDelegate, DirectionsViewControllerDelegate {
 
     private let managedViewControllerSegues = [
         "DirectionsViewControllerSegue",
@@ -406,6 +406,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                 destinationConfirmationViewController.showProgressIndicator()
                 workOrdersViewControllerDelegate?.confirmationReceivedForWorkOrderViewController?(destinationConfirmationViewController)
             })
+        case "WorkOrderHistoryViewControllerSegue":
+            let workOrderHistoryViewController = segue.destination as! WorkOrderHistoryViewController
+            workOrderHistoryViewController.delegate = self
         default:
             break
         }
@@ -644,5 +647,15 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         } else {
             // did not attempt to complete work order as there are outstanding components
         }
+    }
+
+    // MARK: WorkOrderHistoryViewControllerDelegate
+
+    func paramsForWorkOrderHistoryViewController(viewController: WorkOrderHistoryViewController) -> [String: Any] {
+        return  [
+            "status": "completed",
+            "sort_started_at_desc": "true",
+            "provider_id": currentProvider.id,
+        ]
     }
 }

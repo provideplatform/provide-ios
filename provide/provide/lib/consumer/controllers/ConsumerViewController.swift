@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConsumerViewController: ViewController, MenuViewControllerDelegate {
+class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOrderHistoryViewControllerDelegate {
 
     @IBOutlet private weak var mapView: ConsumerMapView!
     @IBOutlet private weak var destinationInputViewControllerTopConstraint: NSLayoutConstraint!
@@ -170,6 +170,9 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             tripCompletionVC.configure(driver: workOrder.providers.last!) { tipAmount in
                 logmoji("💰", "Tip amount is \(tipAmount). TODO: POST tip amount to server")
             }
+        case "WorkOrderHistoryViewControllerSegue":
+            let workOrderHistoryViewController = segue.destination as! WorkOrderHistoryViewController
+            workOrderHistoryViewController.delegate = self
         default:
             break
         }
@@ -526,5 +529,15 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate {
             case .normal: return (.clear, 22, 80)
             }
         }
+    }
+
+    // MARK: - WorkOrderHistoryViewControllerDelegate
+
+    func paramsForWorkOrderHistoryViewController(viewController: WorkOrderHistoryViewController) -> [String: Any] {
+        return  [
+            "status": "completed",
+            "sort_started_at_desc": "true",
+            "user_id": currentUser.id,
+        ]
     }
 }
