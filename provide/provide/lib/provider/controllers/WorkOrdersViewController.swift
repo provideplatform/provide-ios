@@ -127,7 +127,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     private func setupRightBarButtonItem() {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-            if ["en_route", "in_progress"].contains(workOrder.status) {
+            if ["en_route", "arriving", "in_progress"].contains(workOrder.status) {
                 setupMessagesBarButtonItem()
             } else {
                 setupAvailabilityBarButtonItem()
