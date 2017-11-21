@@ -18,14 +18,35 @@ class NavigationBarButton: UIButton {
         super.init(frame: frame)
     }
 
-    class func barButtonItemWithImage(_ image: UIImage, target: Any?, action: Selector, tintColor: UIColor = Color.applicationDefaultBarButtonItemTintColor()) -> UIBarButtonItem {
+    class func barButtonItemWithImage(_ image: UIImage, target: Any?, action: Selector, tintColor: UIColor = Color.applicationDefaultBarButtonItemTintColor(), badge: Int = 0) -> UIBarButtonItem {
         let button = NavigationBarButton(type: .custom)
         button.frame = CGRect(x: 0.0, y: 0.0, width: image.width, height: image.height)
-        button.setImage(image.withRenderingMode(.alwaysTemplate), for: UIControlState())
+        button.setBackgroundImage(image.withRenderingMode(.alwaysTemplate), for: UIControlState())
         button.tintColor = tintColor
         button.addTarget(target, action: action, for: .touchUpInside)
 
-        return UIBarButtonItem(customView: button)
+        let item = UIBarButtonItem(customView: button)
+
+        if badge > 0 {
+            let badgeView = BadgeSwift()
+            badgeView.frame = CGRect(x: item.customView!.width - 8.0, y: -4.0, width: 16.0, height: 16.0)
+            badgeView.font = UIFont(name: "Exo2-Bold", size: 12.0)!
+            badgeView.insets = CGSize(width: 4.0, height: 4.0)
+            badgeView.badgeColor = .red
+            badgeView.borderWidth = 0.2
+            badgeView.borderColor = .black
+            badgeView.shadowOpacityBadge = 0.5
+            badgeView.shadowOffsetBadge = CGSize(width: 0.0, height: 0.0)
+            badgeView.shadowRadiusBadge = 1.0
+            badgeView.shadowColorBadge = .black
+            badgeView.shadowOpacityBadge = 0
+            badgeView.textColor = .white
+            badgeView.text = "\(badge)"
+
+            item.customView!.addSubview(badgeView)
+        }
+
+        return item
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

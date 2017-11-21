@@ -78,6 +78,12 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
 
         KTNotificationCenter.addObserver(forName: .CategorySelectionChanged, using: filterProvidersByCategoryFromNotification)
 
+        KTNotificationCenter.addObserver(forName: .NewMessageReceivedNotification) { [weak self] notification in
+            DispatchQueue.main.async { [weak self] in
+                self?.setupMessagesBarButtonItem()
+            }
+        }
+
         KTNotificationCenter.addObserver(forName: .ProviderBecameAvailable, using: updateProviderLocationFromNotification)
         KTNotificationCenter.addObserver(forName: .ProviderBecameUnavailable, using: updateProviderLocationFromNotification)
         KTNotificationCenter.addObserver(forName: .ProviderLocationChanged, using: updateProviderLocationFromNotification)
@@ -185,8 +191,15 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
     }
 
     private func setupMessagesBarButtonItem() {
-        let messageIconImage = FAKFontAwesome.envelopeOIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0))!
-        navigationItem.rightBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage, target: self, action: #selector(messageButtonTapped))
+        if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
+            if ["en_route", "arriving", "in_progress"].contains(workOrder.status) {
+                let messageIconImage = FAKFontAwesome.envelopeOIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0))!
+                navigationItem.rightBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage,
+                                                                                               target: self,
+                                                                                               action: #selector(messageButtonTapped),
+                                                                                               badge: UIApplication.shared.applicationIconBadgeNumber)
+            }
+        }
     }
 
     private func setupCancelWorkOrderBarButtonItem() {
@@ -216,7 +229,11 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
                 messagesVC.navigationItem.leftBarButtonItem = dismissItem
             }
             messagesNavCon?.modalPresentationStyle = .overCurrentContext
-            present(messagesNavCon!, animated: true)
+            present(messagesNavCon!, animated: true) {
+                DispatchQueue.main.async { [weak self] in
+                    self?.setupMessagesBarButtonItem()
+                }
+            }
         }
     }
 

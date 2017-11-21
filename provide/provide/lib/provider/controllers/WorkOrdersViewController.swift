@@ -109,6 +109,12 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             }
         }
 
+        KTNotificationCenter.addObserver(forName: .NewMessageReceivedNotification) { [weak self] notification in
+            DispatchQueue.main.async { [weak self] in
+                self?.setupRightBarButtonItem()
+            }
+        }
+
         setupMenuBarButtonItem()
         setupRightBarButtonItem()
     }
@@ -138,7 +144,10 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     private func setupMessagesBarButtonItem() {
         let messageIconImage = FAKFontAwesome.envelopeOIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0))!
-        navigationItem.rightBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage, target: self, action: #selector(messageButtonTapped))
+        navigationItem.rightBarButtonItem = NavigationBarButton.barButtonItemWithImage(messageIconImage,
+                                                                                       target: self,
+                                                                                       action: #selector(messageButtonTapped),
+                                                                                       badge: UIApplication.shared.applicationIconBadgeNumber)
     }
 
     @objc private func menuButtonTapped(_ sender: UIBarButtonItem) {
@@ -157,7 +166,11 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                 messagesVC.navigationItem.leftBarButtonItem = dismissItem
             }
             messagesNavCon?.modalPresentationStyle = .overCurrentContext
-            present(messagesNavCon!, animated: true)
+            present(messagesNavCon!, animated: true) {
+                DispatchQueue.main.async { [weak self] in
+                    self?.setupMessagesBarButtonItem()
+                }
+            }
         }
     }
 

@@ -239,6 +239,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             if let senderProfileImageUrl = senderProfileImageUrl {
                 message.senderProfileImageUrl = URL(string: senderProfileImageUrl)!
             }
+            UIApplication.shared.applicationIconBadgeNumber += 1
             KTNotificationCenter.post(name: .NewMessageReceivedNotification, object: message)
         case "provider_became_available":
             let providerJson = payload.toJSONString()

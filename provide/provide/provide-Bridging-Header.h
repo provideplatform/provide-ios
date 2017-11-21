@@ -27,5 +27,6 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIImageView+HighlightedWebCache.h>
 
+@import BadgeSwift;
 @import FontAwesomeKit;
 @import RestKit;
