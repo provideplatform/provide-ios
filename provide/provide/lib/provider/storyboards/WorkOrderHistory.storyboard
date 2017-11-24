@@ -72,6 +72,13 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="COMPLETED" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ab-20-sVe" userLabel="Price Label">
+                                                            <rect key="frame" x="285" y="4" width="67" height="14.5"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="12"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
@@ -118,6 +125,7 @@
                                             <outlet property="detailsContainerView" destination="i4F-Fe-1pZ" id="wOH-pa-Nni"/>
                                             <outlet property="durationLabel" destination="jeq-1h-Rlz" id="a2J-yi-o1I"/>
                                             <outlet property="mapView" destination="gUL-mi-APY" id="2Om-Or-taE"/>
+                                            <outlet property="priceLabel" destination="9ab-20-sVe" id="iM3-Nd-v0F"/>
                                             <outlet property="profileImageView" destination="dKB-0N-9Gc" id="7p9-NE-Rsn"/>
                                             <outlet property="statusBackgroundView" destination="7As-Kj-OCT" id="R3g-ow-tsz"/>
                                             <outlet property="statusLabel" destination="UTM-10-vGQ" id="UBZ-yr-oov"/>

@@ -18,6 +18,7 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
     @IBOutlet private weak var timestampLabel: UILabel!
     @IBOutlet private weak var durationLabel: UILabel!
     @IBOutlet private weak var statusLabel: UILabel!
+    @IBOutlet private weak var priceLabel: UILabel!
 
     private var gravatarImageView: UIImageView?
 
@@ -81,6 +82,11 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
                 if let duration = workOrder.humanReadableDuration {
                     durationLabel.text = duration.uppercased()
                     durationLabel.sizeToFit()
+                }
+
+                priceLabel.text = ""
+                if let humanReadablePrice = workOrder.humanReadablePrice {
+                    priceLabel.text = humanReadablePrice
                 }
 
                 let status = workOrder.status

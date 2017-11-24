@@ -39,6 +39,7 @@ class WorkOrder: Model {
     var configJson: String!
     var expensesCount = 0
     var expensedAmount: Double!
+    var price: Double!
     var priority = 0
     var supervisors: [User]!
 
@@ -78,6 +79,7 @@ class WorkOrder: Model {
             "provider_rating": "providerRating",
             "expenses_count": "expensesCount",
             "expensed_amount": "expensedAmount",
+            "price": "price",
             "priority": "priority",
             "user_id": "userId",
         ])
@@ -157,6 +159,13 @@ class WorkOrder: Model {
     private var canceledAtDate: Date? {
         if let canceledAt = canceledAt {
             return Date.fromString(canceledAt)
+        }
+        return nil
+    }
+
+    var humanReadablePrice: String? {
+        if let price = price {
+            return "$\(NSString(format: "%.02f", price))"
         }
         return nil
     }
