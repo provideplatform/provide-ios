@@ -8,6 +8,13 @@
 
 class DestinationInputViewController: ViewController, UITextFieldDelegate {
 
+    var hasFirstResponder: Bool {
+        if let destinationTextField = destinationTextField {
+            return destinationTextField.isFirstResponder
+        }
+        return false
+    }
+
     @IBOutlet weak var destinationTextField: UITextField!
     @IBOutlet weak var destinationTextFieldTopConstraint: NSLayoutConstraint!
 

@@ -350,8 +350,11 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
             animateProviderEnRouteViewController(toHidden: true)
             providerEnRouteViewController?.prepareForReuse()
             confirmWorkOrderViewController?.prepareForReuse()
-            destinationResultsViewController?.prepareForReuse()
-            animateDestinationInputView(toState: .normal)
+
+            if let hasFirstResponder = destinationInputViewController?.hasFirstResponder, !hasFirstResponder {
+                destinationResultsViewController?.prepareForReuse()
+                animateDestinationInputView(toState: .normal)
+            }
 
             DispatchQueue.main.async { [weak self] in
                 self?.mapView?.centerOnUserLocation()
