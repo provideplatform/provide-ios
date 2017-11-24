@@ -56,15 +56,19 @@ class WorkOrderDestinationConfirmationViewController: ViewController, WorkOrders
         timeoutAt = nil
 
         if WorkOrderService.shared.nextWorkOrder != nil {
-            confirmStartWorkOrderButton.setTitle("ACCEPT REQUEST", for: .normal) // FIXME
+            confirmStartWorkOrderButton.setTitle("ACCEPT REQUEST", for: .normal) // FIXME (strings)
             minutesEta = WorkOrderService.shared.nextWorkOrderDrivingEtaMinutes
-        } else if WorkOrderService.shared.inProgressWorkOrder != nil {
-            confirmStartWorkOrderButton.setTitle("CONFIRM DESTINATION", for: .normal) // FIXME
+        } else if let wo = WorkOrderService.shared.inProgressWorkOrder {
+            let inProgress = wo.status == "in_progress"
+            let title = inProgress ? "COMPLETE" : "CONFIRM DESTINATION" // FIXME (strings)
+            confirmStartWorkOrderButton.setTitle(title, for: .normal)
 
-            // refresh eta
-            LocationService.shared.resolveCurrentLocation { [weak self] location in
-                WorkOrderService.shared.fetchInProgressWorkOrderDrivingEtaFromCoordinate(location.coordinate) { [weak self] _, minutesEta in
-                    self?.minutesEta = minutesEta
+            if !inProgress {
+                // refresh eta
+                LocationService.shared.resolveCurrentLocation { [weak self] location in
+                    WorkOrderService.shared.fetchInProgressWorkOrderDrivingEtaFromCoordinate(location.coordinate) { [weak self] _, minutesEta in
+                        self?.minutesEta = minutesEta
+                    }
                 }
             }
         }

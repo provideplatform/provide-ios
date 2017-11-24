@@ -350,7 +350,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     private func registerRegionMonitoringCallbacks() {
-        WorkOrderService.shared.setInProgressWorkOrderRegionMonitoringCallbacks({
+        WorkOrderService.shared.setInProgressWorkOrderRegionMonitoringCallbacks({ [weak self] in
             logmoji("⭕️", "Entered monitored work order region")
             if let wo = WorkOrderService.shared.inProgressWorkOrder {
                 if wo.canArrive {
@@ -367,15 +367,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                         LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
                     })
                 } else if wo.status == "in_progress" {
-                    wo.complete(onSuccess: { [weak self] statusCode, responseString in
-                        logmoji("⭕️", "Completed work order")
-                        self?.nextWorkOrderContextShouldBeRewound()
-                        self?.attemptSegueToValidWorkOrderContext()
-                        LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
-                    }, onError: { error, statusCode, responseString in
-                        logWarn("⭕️ Failed to set work order status to completed upon arrival (\(statusCode)) ⭕️")
-                        LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
-                    })
+                    if let strongSelf = self {
+                        strongSelf.segueToWorkOrderDestinationConfirmationViewController(strongSelf)
+                    }
                 }
             }
         }, onDidExitRegion: {
@@ -591,7 +585,16 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     func segueToWorkOrderDestinationConfirmationViewController(_ viewController: UIViewController) {
-        showHeaderView()
+        var wo = WorkOrderService.shared.nextWorkOrder
+        if wo == nil {
+            wo = WorkOrderService.shared.inProgressWorkOrder
+        }
+        if let status = wo?.status, status == "in_progress" {
+            DispatchQueue.main.async { [weak self] in
+                self?.showHeaderView()
+            }
+        }
+
         performSegue(withIdentifier: "WorkOrderDestinationConfirmationViewControllerSegue", sender: self)
     }
 
@@ -622,13 +625,28 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                     logWarn("Failed to start work order (\(statusCode))")
                 })
             } else if let workOrder = WorkOrderService.shared.inProgressWorkOrder {
-                workOrder.start(onSuccess: { [weak self] statusCode, responseString in
-                    logInfo("Work order started")
-                    self?.nextWorkOrderContextShouldBeRewound()
-                    self?.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
-                }, onError: { error, statusCode, responseString in
-                    logWarn("Failed to start work order (\(statusCode))")
-                })
+                switch workOrder.status {
+                case "arriving":
+                    workOrder.start(onSuccess: { [weak self] statusCode, responseString in
+                        logInfo("Work order started")
+                        self?.nextWorkOrderContextShouldBeRewound()
+                        self?.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
+                    }, onError: { error, statusCode, responseString in
+                        logWarn("Failed to start work order (\(statusCode))")
+                    })
+                case "in_progress":
+                    workOrder.complete(onSuccess: { [weak self] statusCode, responseString in
+                        logmoji("⭕️", "Completed work order")
+                        self?.nextWorkOrderContextShouldBeRewound()
+                        self?.attemptSegueToValidWorkOrderContext()
+                        LocationService.shared.unregisterRegionMonitor(workOrder.regionIdentifier)
+                    }, onError: { error, statusCode, responseString in
+                        logWarn("⭕️ Failed to set work order status to completed upon arrival (\(statusCode)) ⭕️")
+                        LocationService.shared.unregisterRegionMonitor(workOrder.regionIdentifier)
+                    })
+                default:
+                    logWarn("Failed to handle work order confirmation received due to unexpected work order status: \(workOrder.status)")
+                }
             }
         }
     }
