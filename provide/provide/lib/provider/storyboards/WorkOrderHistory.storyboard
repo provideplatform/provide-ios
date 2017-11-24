@@ -72,9 +72,8 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="COMPLETED" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ab-20-sVe" userLabel="Price Label">
-                                                            <rect key="frame" x="285" y="4" width="67" height="14.5"/>
-                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9ab-20-sVe" userLabel="Price Label">
+                                                            <rect key="frame" x="320.5" y="4" width="31.5" height="14.5"/>
                                                             <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="12"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -90,7 +89,9 @@
                                                         <constraint firstItem="Obt-kX-axo" firstAttribute="leading" secondItem="i4F-Fe-1pZ" secondAttribute="leading" constant="64" id="bkf-Ls-7Ov"/>
                                                         <constraint firstAttribute="bottom" secondItem="7As-Kj-OCT" secondAttribute="bottom" id="g7S-ZH-Qcx"/>
                                                         <constraint firstItem="jeq-1h-Rlz" firstAttribute="leading" secondItem="i4F-Fe-1pZ" secondAttribute="leading" constant="64" id="iC6-BU-ext"/>
+                                                        <constraint firstAttribute="trailing" secondItem="9ab-20-sVe" secondAttribute="trailing" constant="8" id="k8u-uP-ZQD"/>
                                                         <constraint firstItem="Obt-kX-axo" firstAttribute="top" secondItem="i4F-Fe-1pZ" secondAttribute="top" constant="4" id="llb-hB-lwu"/>
+                                                        <constraint firstItem="9ab-20-sVe" firstAttribute="top" secondItem="i4F-Fe-1pZ" secondAttribute="top" constant="4" id="ms9-Su-V10"/>
                                                         <constraint firstItem="7As-Kj-OCT" firstAttribute="leading" secondItem="i4F-Fe-1pZ" secondAttribute="leading" id="oqt-Ye-kjw"/>
                                                         <constraint firstAttribute="trailing" secondItem="UTM-10-vGQ" secondAttribute="trailing" constant="7.5" id="tav-mL-yae"/>
                                                         <constraint firstAttribute="centerY" secondItem="7As-Kj-OCT" secondAttribute="centerY" id="xt3-uo-eJa"/>
