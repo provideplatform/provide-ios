@@ -74,7 +74,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
         KTNotificationCenter.addObserver(forName: .WorkOrderChanged) { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder {
-                if WorkOrderService.shared.inProgressWorkOrder?.id == workOrder.id {
+                if WorkOrderService.shared.inProgressWorkOrder?.id == workOrder.id, let pendingManualCompletion = self?.pendingManualCompletion, !pendingManualCompletion {
                     self?.registerRegionMonitoringCallbacks()
                 } else if workOrder.status == "canceled" {
                     LocationService.shared.unregisterRegionMonitor(workOrder.regionIdentifier)
@@ -229,6 +229,13 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         return false
     }
 
+    private var pendingManualCompletion: Bool {
+        if let wo = WorkOrderService.shared.inProgressWorkOrder {
+            return wo.status == "in_progress" && managedViewControllers.contains { $0 is WorkOrderDestinationConfirmationViewController }
+        }
+        return false
+    }
+
     private var viewingDirections: Bool {
         return managedViewControllers.contains { $0 is DirectionsViewController }
     }
@@ -367,8 +374,12 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                         LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
                     })
                 } else if wo.status == "in_progress" {
-                    if let strongSelf = self {
-                        strongSelf.segueToWorkOrderDestinationConfirmationViewController(strongSelf)
+                    LocationService.shared.unregisterRegionMonitor(wo.regionIdentifier)
+                    DispatchQueue.main.async { [weak self] in
+                        if let strongSelf = self {
+                            strongSelf.nextWorkOrderContextShouldBeRewound()
+                            strongSelf.segueToWorkOrderDestinationConfirmationViewController(strongSelf)
+                        }
                     }
                 }
             }
@@ -629,6 +640,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                 case "arriving":
                     workOrder.start(onSuccess: { [weak self] statusCode, responseString in
                         logInfo("Work order started")
+                        LocationService.shared.unregisterRegionMonitor(workOrder.regionIdentifier)
                         self?.nextWorkOrderContextShouldBeRewound()
                         self?.performSegue(withIdentifier: "DirectionsViewControllerSegue", sender: self!)
                     }, onError: { error, statusCode, responseString in
@@ -637,9 +649,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                 case "in_progress":
                     workOrder.complete(onSuccess: { [weak self] statusCode, responseString in
                         logmoji("⭕️", "Completed work order")
+                        LocationService.shared.unregisterRegionMonitor(workOrder.regionIdentifier)
                         self?.nextWorkOrderContextShouldBeRewound()
                         self?.attemptSegueToValidWorkOrderContext()
-                        LocationService.shared.unregisterRegionMonitor(workOrder.regionIdentifier)
                     }, onError: { error, statusCode, responseString in
                         logWarn("⭕️ Failed to set work order status to completed upon arrival (\(statusCode)) ⭕️")
                         LocationService.shared.unregisterRegionMonitor(workOrder.regionIdentifier)
