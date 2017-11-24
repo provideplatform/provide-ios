@@ -133,6 +133,7 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
         timestampLabel.text = ""
         durationLabel.text = ""
         statusLabel.text = ""
+        priceLabel.text = ""
 
         timer?.invalidate()
     }

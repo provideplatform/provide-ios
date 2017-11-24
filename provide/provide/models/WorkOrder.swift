@@ -167,7 +167,7 @@ class WorkOrder: Model {
         if let price = price {
             return "$\(NSString(format: "%.02f", price))"
         }
-        return nil
+        return "$0.00"
     }
 
     private var humanReadableEstimatedCost: String? {
