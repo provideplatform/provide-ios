@@ -131,11 +131,11 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
     // MARK: UICollectionViewDelegate
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10.0, left: 5.0, bottom: 0.0, right: 5.0)
+        return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-        let inset = UIEdgeInsets(top: 10.0, left: 5.0, bottom: 10.0, right: 5.0)
+        let inset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 10.0, right: 0.0)
         let insetWidthOffset = inset.left + inset.right
         _ = inset.top + inset.bottom
         return CGSize(width: collectionView.width - insetWidthOffset, height: 175.0)
