@@ -97,7 +97,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
                 KTNotificationCenter.post(name: .AttachmentChanged, object: userInfo)
             }
         case .message:
-            if let payload = notificationValue as? [String: Any] {
+            if !socketConnected, let payload = notificationValue as? [String: Any] {
                 NotificationService.handleWebsocketMessage("message_received", payload: payload)
             }
         case .providerBecameAvailable:
