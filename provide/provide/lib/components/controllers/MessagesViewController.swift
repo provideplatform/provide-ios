@@ -147,18 +147,31 @@ class MessagesViewController: JSQMessagesViewController {
         dismiss(animated: true)
     }
 
+    private func decrementIconBadgeNumber() {
+        // for now, this just resets the app icon badge number to 0...
+        // but in the future, it should be smart enough to decrement
+        // the badge number related to this instances messages
+        UIApplication.shared.applicationIconBadgeNumber = 0
+    }
+
     // MARK: - Observe NewMessageReceivedNotification
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        UIApplication.shared.applicationIconBadgeNumber = 0
+        decrementIconBadgeNumber()
 
         KTNotificationCenter.addObserver(forName: .NewMessageReceivedNotification) { [weak self] notification in
             DispatchQueue.main.async { [weak self] in
                 self?.newMessageReceived(notification)
             }
         }
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        decrementIconBadgeNumber()
     }
 
     @objc dynamic private func newMessageReceived(_ notification: Notification) {
