@@ -42,6 +42,17 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
         }
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        KTNotificationCenter.addObserver(forName: .ApplicationWillResignActive) { [weak self] notification in
+            guard let strongSelf = self else { return }
+            if strongSelf.expanded {
+                strongSelf.expanded = false
+            }
+        }
+    }
+
     @objc private func search() {
         if pendingSearch {
             logInfo("Places autocomplete search API request still pending; will execute when it returns")

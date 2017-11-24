@@ -47,6 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
+        KTNotificationCenter.post(name: .ApplicationWillResignActive)
         renderLaunchScreenViewController()
     }
 

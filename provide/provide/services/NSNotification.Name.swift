@@ -12,6 +12,7 @@ extension NSNotification.Name {
     static let ApplicationShouldPresentPinInputViewController = NSNotification.Name("ApplicationShouldPresentPinInputViewController")
     static let ApplicationShouldReloadTopViewController = NSNotification.Name("ApplicationShouldReloadTopViewController")
     static let ApplicationShouldShowInvalidCredentialsToast = NSNotification.Name("ApplicationShouldShowInvalidCredentialsToast")
+    static let ApplicationWillResignActive = NSNotification.Name("ApplicationWillResignActive")
     static let ApplicationUserLoggedOut = NSNotification.Name("ApplicationUserLoggedOut")
     static let ApplicationUserShouldLogout = NSNotification.Name("ApplicationUserShouldLogout")
     static let ApplicationUserWasAuthenticated = NSNotification.Name("ApplicationUserWasAuthenticated")
