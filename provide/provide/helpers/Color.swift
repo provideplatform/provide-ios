@@ -23,7 +23,7 @@ class Color {
     }
 
     class func authenticationViewControllerButtonColor() -> UIColor {
-        return UIColor("#3983f2")
+        return .white
     }
 
     class func applicationDefaultBarTintColor() -> UIColor {
