@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 import MBProgressHUD
 
-class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate, PinInputViewControllerDelegate {
+class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate, FBSDKLoginButtonDelegate, PinInputViewControllerDelegate {
 
     @IBOutlet private var logoImageView: UIImageView!
     @IBOutlet private var signInButton: UIButton!
@@ -89,6 +90,25 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
 
     func dismissApplicationViewController(_ viewController: ApplicationViewController) {
         dismiss(animated: true)
+    }
+
+    // MARK: FBSDKLoginButtonDelegate
+
+    func loginButtonWillLogin(_ loginButton: FBSDKLoginButton!) -> Bool {
+        logInfo("Attempting to login using Facebook")
+        return true
+    }
+
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        if let result = result {
+            logInfo("Facebook login completed with result: \(result)")
+        } else if let error = error {
+            logWarn("Facebook login failed with error: \(error)")
+        }
+    }
+
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        logWarn("No-op for Facebook logout")
     }
 
     // MARK: PinInputViewControllerDelegate

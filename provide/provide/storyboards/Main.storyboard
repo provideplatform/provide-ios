@@ -37,7 +37,7 @@
             </objects>
             <point key="canvasLocation" x="-864" y="-485.25"/>
         </scene>
-        <!--Navigation Root View Controller-->
+        <!--Delegate-->
         <scene sceneID="Avf-HL-ytF">
             <objects>
                 <viewController id="G1v-PW-MaR" customClass="NavigationRootViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
@@ -78,6 +78,9 @@
                                 <state key="normal" title="[ fb login ]">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <outlet property="delegate" destination="G1v-PW-MaR" id="AO2-Rh-ZHy"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8s-wM-zeM">
                                 <rect key="frame" x="154.66666666666666" y="692" width="104.99999999999997" height="36"/>
@@ -165,7 +168,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KiV-zr-4NR">
-                                                    <rect key="frame" x="96" y="8" width="313" height="27"/>
+                                                    <rect key="frame" x="96" y="9" width="313" height="26"/>
                                                     <accessibility key="accessibilityConfiguration" label="email"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
@@ -705,7 +708,7 @@
         <image name="prvd-splash" width="2048" height="1322"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="flA-yQ-9Vg"/>
-        <segue reference="baH-vf-SLM"/>
+        <segue reference="qEh-KF-YoG"/>
+        <segue reference="Dg0-CW-FQe"/>
     </inferredMetricsTieBreakers>
 </document>
