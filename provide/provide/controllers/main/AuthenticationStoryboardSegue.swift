@@ -21,18 +21,18 @@ class AuthenticationStoryboardSegue: UIStoryboardSegue {
                 navigationController.pushViewController(destination as! AuthenticationViewController, animated: false)
                 (destination as! AuthenticationViewController).setupNavigationItem()
 
-                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseOut, animations: { [weak self] in
                     navigationController.navigationBar.alpha = 1.0
-                    (self.destination as! AuthenticationViewController).view.alpha = 1.0
+                    self?.destination.view.alpha = 1.0
                 })
             }
         case "AuthenticationViewControllerUnwindSegue":
             assert(destination is NavigationRootViewController)
 
             if let navigationController = source.navigationController {
-                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: {
-                    self.destination.view.alpha = 1.0
-                    (self.source as! AuthenticationViewController).view.alpha = 0.0
+                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: { [weak self] in
+                    self?.destination.view.alpha = 1.0
+                    self?.source.view.alpha = 0.0
                     navigationController.navigationBar.alpha = 0.0
                 }, completion: { complete in
                     navigationController.setNavigationBarHidden(true, animated: false)
@@ -49,18 +49,18 @@ class AuthenticationStoryboardSegue: UIStoryboardSegue {
                 navigationController.pushViewController(destination as! SetPasswordViewController, animated: false)
                 (destination as! SetPasswordViewController).setupNavigationItem()
 
-                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseOut, animations: {
+                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseOut, animations: { [weak self] in
                     navigationController.navigationBar.alpha = 1.0
-                    (self.destination as! SetPasswordViewController).view.alpha = 1.0
+                    self?.destination.view.alpha = 1.0
                 })
             }
         case "SetPasswordViewControllerUnwindSegue":
             assert(destination is NavigationRootViewController)
 
             if let navigationController = source.navigationController {
-                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: {
-                    self.destination.view.alpha = 1.0
-                    (self.source as! SetPasswordViewController).view.alpha = 0.0
+                UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: { [weak self] in
+                    self?.destination.view.alpha = 1.0
+                    self?.source.view.alpha = 0.0
                     navigationController.navigationBar.alpha = 0.0
                 }, completion: { complete in
                     navigationController.setNavigationBarHidden(true, animated: false)
