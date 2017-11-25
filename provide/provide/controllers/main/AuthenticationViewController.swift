@@ -23,8 +23,8 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
         tableView.layer.cornerRadius = 5.0
 
-        KTNotificationCenter.addObserver(forName: .ApplicationUserWasAuthenticated) { _ in
-            self.userWasAuthenticated()
+        KTNotificationCenter.addObserver(forName: .ApplicationUserWasAuthenticated) { [weak self] _ in
+            self?.userWasAuthenticated()
         }
     }
 

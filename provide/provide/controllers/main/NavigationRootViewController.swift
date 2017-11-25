@@ -33,10 +33,11 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         MBProgressHUD.showAdded(to: view, animated: true)
 
         if ApiService.shared.hasCachedToken {
-            DispatchQueue.main.async {
-                MBProgressHUD.hide(for: self.view, animated: true)
-
-                self.presentApplicationViewController()
+            DispatchQueue.main.async { [weak self] in
+                if let strongSelf = self {
+                    MBProgressHUD.hide(for: strongSelf.view, animated: true)
+                    strongSelf.presentApplicationViewController()
+                }
             }
         } else {
             MBProgressHUD.hide(for: view, animated: true)
