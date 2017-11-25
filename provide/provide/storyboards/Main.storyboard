@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="J41-78-tRE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="J41-78-tRE">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -50,14 +50,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="provide-logo" translatesAutoresizingMaskIntoConstraints="NO" id="Isk-bN-U1h">
-                                <rect key="frame" x="65.5" y="50" width="244" height="87"/>
+                                <rect key="frame" x="66" y="50" width="244" height="87"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="244" id="CLu-8a-BiA"/>
                                     <constraint firstAttribute="height" constant="87" id="HqC-iN-mNd"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ewp-oP-mJb">
-                                <rect key="frame" x="135" y="315.5" width="105" height="36"/>
+                                <rect key="frame" x="135" y="316" width="105" height="36"/>
                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="20"/>
                                 <state key="normal" title="SIGN IN">
                                     <color key="titleColor" red="0.23137254900000001" green="0.52156862749999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -66,6 +66,13 @@
                                 <connections>
                                     <segue destination="xdW-1X-RWT" kind="custom" identifier="AuthenticationViewControllerSegue" customClass="AuthenticationStoryboardSegue" customModule="provide" customModuleProvider="target" id="JlE-hD-X26"/>
                                 </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aB-u6-nxs" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="112" y="385" width="150" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="Yn4-0M-yDD"/>
+                                </constraints>
+                                <state key="normal" title="[ fb login ]"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8s-wM-zeM">
                                 <rect key="frame" x="135" y="623" width="105" height="36"/>
@@ -87,7 +94,10 @@
                         <constraints>
                             <constraint firstItem="aFy-U9-0mG" firstAttribute="top" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="20" id="9gx-cj-4ES"/>
                             <constraint firstItem="ewp-oP-mJb" firstAttribute="centerY" secondItem="Pce-DG-jaQ" secondAttribute="centerY" id="D7w-x0-yiI"/>
+                            <constraint firstItem="5aB-u6-nxs" firstAttribute="centerX" secondItem="ewp-oP-mJb" secondAttribute="centerX" id="J6q-3K-wDq"/>
                             <constraint firstItem="Isk-bN-U1h" firstAttribute="top" secondItem="JYX-3X-yd8" secondAttribute="bottom" constant="30" id="M2v-HL-uYv"/>
+                            <constraint firstItem="5aB-u6-nxs" firstAttribute="leading" secondItem="Pce-DG-jaQ" secondAttribute="leadingMargin" constant="96" id="Nqo-tH-nLb"/>
+                            <constraint firstItem="5aB-u6-nxs" firstAttribute="top" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="33" id="SWL-eg-xPK"/>
                             <constraint firstItem="ewp-oP-mJb" firstAttribute="centerX" secondItem="Isk-bN-U1h" secondAttribute="centerX" id="aIV-OY-lUU"/>
                             <constraint firstItem="ewp-oP-mJb" firstAttribute="centerX" secondItem="Pce-DG-jaQ" secondAttribute="centerX" id="j2z-nS-CpL"/>
                             <constraint firstItem="ewp-oP-mJb" firstAttribute="trailing" secondItem="w8s-wM-zeM" secondAttribute="trailing" id="l0Z-Yg-qs3"/>
@@ -116,7 +126,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dmw-du-LFr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-87" y="-486"/>
+            <point key="canvasLocation" x="-87.200000000000003" y="-486.20689655172418"/>
         </scene>
         <!--Sign In-->
         <scene sceneID="CRL-d1-7mo">
@@ -147,13 +157,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KiV-zr-4NR">
-                                                    <rect key="frame" x="99" y="7" width="268" height="30"/>
+                                                    <rect key="frame" x="106" y="10" width="254" height="24.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="email"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMG-6n-9RI">
-                                                    <rect key="frame" x="8" y="11" width="75" height="21.5"/>
+                                                    <rect key="frame" x="15" y="14" width="75" height="15.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="5kM-hG-x7C"/>
                                                         <constraint firstAttribute="width" constant="75" id="8dW-WX-SSd"/>
@@ -273,7 +283,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qm1-XU-sQ9">
-                                                    <rect key="frame" x="8" y="11" width="75" height="21.5"/>
+                                                    <rect key="frame" x="15" y="14" width="75" height="15.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="BHS-DA-414"/>
                                                         <constraint firstAttribute="width" constant="76" id="OeF-Np-ZtZ"/>
@@ -294,7 +304,7 @@
                                                     </variation>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0lo-59-hky">
-                                                    <rect key="frame" x="99" y="7" width="268" height="30"/>
+                                                    <rect key="frame" x="106" y="10" width="254" height="24.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="password"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
@@ -610,7 +620,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xjt-vG-yCQ">
-                                                    <rect key="frame" x="99" y="7" width="268" height="30"/>
+                                                    <rect key="frame" x="106" y="10" width="254" height="24.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="email"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="next" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
@@ -619,7 +629,7 @@
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tmC-Ck-Zwi">
-                                                    <rect key="frame" x="8" y="11" width="75" height="21.5"/>
+                                                    <rect key="frame" x="15" y="14" width="75" height="15.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="rqE-YA-xu0"/>
                                                         <constraint firstAttribute="width" constant="76" id="u6G-ZS-uhY"/>
@@ -739,7 +749,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="confirm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tlh-sc-CfC">
-                                                    <rect key="frame" x="8" y="11" width="75" height="21.5"/>
+                                                    <rect key="frame" x="15" y="14" width="75" height="15.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="76" id="L7n-Kw-inH"/>
                                                         <constraint firstAttribute="width" constant="75" id="hwX-Eh-8ua"/>
@@ -760,7 +770,7 @@
                                                     </variation>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DAh-vK-VzY">
-                                                    <rect key="frame" x="99" y="7" width="268" height="30"/>
+                                                    <rect key="frame" x="106" y="10" width="254" height="24.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="password"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
@@ -915,7 +925,8 @@
         <image name="provide-logo" width="341" height="170"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="flA-yQ-9Vg"/>
-        <segue reference="Dg0-CW-FQe"/>
+        <segue reference="JlE-hD-X26"/>
+        <segue reference="qEh-KF-YoG"/>
+        <segue reference="baH-vf-SLM"/>
     </inferredMetricsTieBreakers>
 </document>

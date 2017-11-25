@@ -10,6 +10,8 @@ def shared_pods
   pod 'Analytics'
   pod 'BadgeSwift'
   pod 'ELFixSecureTextFieldFont', git: 'https://github.com/elegion/ELFixSecureTextFieldFont'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
   pod 'Firebase/Core'
   pod 'Firebase/Crash'
   pod 'FontAwesomeKit/FontAwesome'

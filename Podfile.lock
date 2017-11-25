@@ -5,7 +5,25 @@ PODS:
     - ObjectMapper (~> 3.0)
   - Analytics (3.6.7)
   - BadgeSwift (5.0.1)
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.8.4)
   - ELFixSecureTextFieldFont (0.1.0)
+  - FacebookCore (0.3.0):
+    - Bolts (~> 1.8)
+    - FBSDKCoreKit (~> 4.27)
+  - FacebookLogin (0.3.0):
+    - Bolts (~> 1.8)
+    - FacebookCore (~> 0.3)
+    - FBSDKCoreKit (~> 4.27)
+    - FBSDKLoginKit (~> 4.27)
+  - FBSDKCoreKit (4.27.1):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.27.1):
+    - FBSDKCoreKit
   - Firebase/Core (4.4.0):
     - FirebaseAnalytics (= 4.0.4)
     - FirebaseCore (= 4.0.9)
@@ -110,6 +128,8 @@ DEPENDENCIES:
   - Analytics
   - BadgeSwift
   - ELFixSecureTextFieldFont (from `https://github.com/elegion/ELFixSecureTextFieldFont`)
+  - FacebookCore
+  - FacebookLogin
   - Firebase/Core
   - Firebase/Crash
   - FontAwesomeKit/FontAwesome
@@ -148,7 +168,12 @@ SPEC CHECKSUMS:
   AlamofireObjectMapper: 5fafc816351cbbc0d486611aaeba7461c0cbad49
   Analytics: 2c09a50e3478a3a7ced08a22d00c43ba6f7011e6
   BadgeSwift: 3defa56f504bfb46f2300122c4a565ec9e405c1e
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   ELFixSecureTextFieldFont: 983df1daf8d576a9aeac7b50d4f24cede19ec9c4
+  FacebookCore: 3ffa190a3f1f96cec0e44d3fc221bc322c595ffa
+  FacebookLogin: 0af839ea858faef99550d16596b87b4a8e8906e6
+  FBSDKCoreKit: 03365dad5d790249196ffad8be4f6d8a2d98f932
+  FBSDKLoginKit: 66ff53b73cffd967ab773e32fac39e90a60e6d46
   Firebase: 3e92884a63e8f76d107c43a67d2ab9071e1eda10
   FirebaseAnalytics: 722b53c7b32bfc7806b06e0093a2f5180d4f2c5a
   FirebaseCore: ebe73f64302705e693b1de9919a76edbdd17a19d
@@ -182,6 +207,6 @@ SPEC CHECKSUMS:
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
   UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
 
-PODFILE CHECKSUM: dc1d78dab16064e0e652840223037dc363bab256
+PODFILE CHECKSUM: 86c29e9df012c038071caf22b637bc5dcf13c401
 
 COCOAPODS: 1.3.1
