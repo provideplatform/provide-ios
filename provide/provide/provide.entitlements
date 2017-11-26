@@ -6,10 +6,5 @@
 	<string>development</string>
 	<key>com.apple.developer.networking.multipath</key>
 	<true/>
-	<key>keychain-access-groups</key>
-	<array>
-		<string>$(AppIdentifierPrefix)services.provide</string>
-		<string>$(AppIdentifierPrefix)services.provide.ridesharing</string>
-	</array>
 </dict>
 </plist>

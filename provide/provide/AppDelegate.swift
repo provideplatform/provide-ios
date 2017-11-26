@@ -9,6 +9,7 @@
 import UIKit
 import RestKit
 import Firebase
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -36,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ApiService.shared.registerForRemoteNotifications()
             NotificationService.shared.connectWebsocket()
         }
+
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
 
         ReachabilityService.shared.start()
 
@@ -81,11 +84,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AnalyticsService.shared.track("App Will Terminate")
     }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any]) -> Bool {
-        return openURL(url)
-    }
-
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        if FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) {
+            return true
+        }
+
         return openURL(url)
     }
 
