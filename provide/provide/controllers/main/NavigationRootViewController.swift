@@ -48,26 +48,28 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
             codeButton.alpha = 1.0
         }
 
-        KTNotificationCenter.addObserver(forName: .ApplicationShouldPresentPinInputViewController) { _ in
-            self.performSegue(withIdentifier: "PinInputViewControllerSegue", sender: self)
+        KTNotificationCenter.addObserver(forName: .ApplicationShouldPresentPinInputViewController) { [weak self] _ in
+            if let strongSelf = self {
+                strongSelf.performSegue(withIdentifier: "PinInputViewControllerSegue", sender: strongSelf)
+            }
         }
 
-        KTNotificationCenter.addObserver(forName: .ApplicationShouldShowInvalidCredentialsToast) { _ in
-            self.showToast("The supplied credentials are invalid...")
+        KTNotificationCenter.addObserver(forName: .ApplicationShouldShowInvalidCredentialsToast) { [weak self] _ in
+            self?.showToast("The supplied credentials are invalid...")
         }
 
-        KTNotificationCenter.addObserver(forName: .ApplicationUserWasAuthenticated) { _ in
-            self.presentApplicationViewController()
+        KTNotificationCenter.addObserver(forName: .ApplicationUserWasAuthenticated) { [weak self] _ in
+            self?.presentApplicationViewController()
         }
     }
 
     private func presentApplicationViewController() {
         performSegue(withIdentifier: "ApplicationViewControllerSegue", sender: self)
 
-        dispatch_after_delay(1.0) {
-            self.logoImageView.alpha = 1.0
-            self.signInButton.alpha = 1.0
-            self.codeButton.alpha = 1.0
+        dispatch_after_delay(1.0) { [weak self] in
+            self?.logoImageView.alpha = 1.0
+            self?.signInButton.alpha = 1.0
+            self?.codeButton.alpha = 1.0
         }
     }
 
@@ -140,9 +142,11 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
                         "invitation_token": pin,
                     ]
 
-                    ApiService.shared.createUser(params, onSuccess: { statusCode, mappingResult in
-                        MBProgressHUD.hide(for: presentingViewController.view, animated: true)
-                        self.performSegue(withIdentifier: "SetPasswordViewControllerSegue", sender: self)
+                    ApiService.shared.createUser(params, onSuccess: { [weak self] statusCode, mappingResult in
+                        if let strongSelf = self {
+                            MBProgressHUD.hide(for: presentingViewController.view, animated: true)
+                            strongSelf.performSegue(withIdentifier: "SetPasswordViewControllerSegue", sender: strongSelf)
+                        }
                     }, onError: { error, statusCode, responseString in
                         MBProgressHUD.hide(for: presentingViewController.view, animated: true)
                     })
@@ -153,8 +157,10 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
 
                     let alertController = UIAlertController(title: "Invalid PIN", message: nil, preferredStyle: .alert)
 
-                    let tryAgainAction = UIAlertAction(title: "Try Again", style: .cancel) { action in
-                        self.performSegue(withIdentifier: "PinInputViewControllerSegue", sender: self)
+                    let tryAgainAction = UIAlertAction(title: "Try Again", style: .cancel) { [weak self] action in
+                        if let strongSelf = self {
+                            strongSelf.performSegue(withIdentifier: "PinInputViewControllerSegue", sender: strongSelf)
+                        }
                     }
                     alertController.addAction(tryAgainAction)
 
@@ -171,10 +177,12 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
 
     func onPasswordSet(success: Bool) {
         if success {
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "ApplicationViewControllerSegue", sender: self)
-                dispatch_after_delay(1.0) {
-                    self.signInButton.alpha = 1.0
+            DispatchQueue.main.async { [weak self] in
+                if let strongSelf = self {
+                    strongSelf.performSegue(withIdentifier: "ApplicationViewControllerSegue", sender: strongSelf)
+                    dispatch_after_delay(1.0) { [weak self] in
+                        self?.signInButton.alpha = 1.0
+                    }
                 }
             }
         }
