@@ -242,7 +242,8 @@ class ApiOperation: Operation {
 
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
-                strongSelf.onError?((error as NSError?) ?? NSError(domain: "provide.services.api", code: strongSelf.statusCode, userInfo: nil), strongSelf.statusCode, strongSelf.responseString ?? "{}")
+                let err = NSError(domain: "provide.services.api", code: strongSelf.statusCode, userInfo: strongSelf.responseString?.toJSONObject())
+                strongSelf.onError?(err, strongSelf.statusCode, strongSelf.responseString ?? "{}")
             }
         } else if let err = error as NSError? {
             logError(err)
