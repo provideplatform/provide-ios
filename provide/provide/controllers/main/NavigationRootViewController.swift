@@ -161,7 +161,17 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
                     MBProgressHUD.hide(for: strongSelf.view, animated: true)
                     strongSelf.showAuthenticationUI()
 
-                    // FIXME-- error should be presented in alert toast
+                    if let errors = error.userInfo["errors"] as? [String: [String]] {
+                        var msg = ""
+                        for (k, msgs) in errors {
+                            msg = "\(msg) \(k)"
+                            for errmsg in msgs {
+                                msg = "\(msg) \(errmsg)\n"
+                            }
+                        }
+                        msg = msg.trimmingCharacters(in: .whitespacesAndNewlines)
+                        strongSelf.showToast(msg)
+                    }
                 }
             })
         } else if let result = result, result.isCancelled {
