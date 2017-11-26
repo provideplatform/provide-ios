@@ -62,6 +62,11 @@ class SetPasswordViewController: ViewController, UITableViewDelegate, UITableVie
     }
 
     private func setPassword() {
+        if currentUser == nil {
+            onPasswordSet(true)
+            return
+        }
+
         MBProgressHUD.showAdded(to: view, animated: true)
 
         let params = [

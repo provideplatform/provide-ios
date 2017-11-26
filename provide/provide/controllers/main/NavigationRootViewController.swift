@@ -16,6 +16,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
     @IBOutlet private var signInButton: UIButton!
     @IBOutlet private var fbSignInButton: FBSDKLoginButton!
     @IBOutlet private var codeButton: UIButton!
+    @IBOutlet private var orLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         view.backgroundColor = .white
 
         logoImageView.alpha = 0.0
+        logoImageView.tintColor = UIColor(red: 0.263, green: 0.416, blue: 0.69, alpha: 1.0)
 
         signInButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
         signInButton.setTitleColor(.darkGray, for: .highlighted)
@@ -34,6 +36,8 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         codeButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
         codeButton.setTitleColor(.darkGray, for: .highlighted)
         codeButton.alpha = 0.0
+
+        orLabel.alpha = 0.0
 
         MBProgressHUD.showAdded(to: view, animated: true)
 
@@ -51,6 +55,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
             signInButton.alpha = 1.0
             fbSignInButton.alpha = 1.0
             codeButton.alpha = 1.0
+            orLabel.alpha = 1.0
         }
 
         KTNotificationCenter.addObserver(forName: .ApplicationShouldPresentPinInputViewController) { [weak self] _ in
@@ -76,6 +81,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
             self?.signInButton.alpha = 1.0
             self?.fbSignInButton.alpha = 1.0
             self?.codeButton.alpha = 1.0
+            self?.orLabel.alpha = 1.0
         }
     }
 
@@ -94,6 +100,35 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         }
     }
 
+    private func hideAuthenticationUI() {
+        DispatchQueue.main.async { [weak self] in
+            self?.signInButton.alpha = 0.0
+            self?.fbSignInButton.alpha = 0.0
+            self?.codeButton.alpha = 0.0
+            self?.orLabel.alpha = 0.0
+        }
+    }
+
+    private func showAuthenticationUI() {
+        DispatchQueue.main.async { [weak self] in
+            self?.signInButton.alpha = 1.0
+            self?.fbSignInButton.alpha = 1.0
+            self?.codeButton.alpha = 1.0
+            self?.orLabel.alpha = 1.0
+        }
+    }
+
+    private func segueToApplicationViewController() {
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self {
+                strongSelf.performSegue(withIdentifier: "ApplicationViewControllerSegue", sender: strongSelf)
+                dispatch_after_delay(1.0) { [weak self] in
+                    self?.showAuthenticationUI()
+                }
+            }
+        }
+    }
+
     // MARK: ApplicationViewControllerDelegate
 
     func dismissApplicationViewController(_ viewController: ApplicationViewController) {
@@ -105,30 +140,36 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
     func loginButtonWillLogin(_ loginButton: FBSDKLoginButton!) -> Bool {
         logInfo("Attempting to login using Facebook")
         AnalyticsService.shared.track("Attempting Facebook Login")
+
+        hideAuthenticationUI()
+        MBProgressHUD.showAdded(to: view, animated: true)
+
         return true
     }
 
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        if let result = result {
-            if let token = result.token {
-                logInfo("Facebook login completed for user: \(token.userID)")
-                AnalyticsService.shared.track("Facebook Login Succeeded")
+        if let result = result, result.token != nil {
+            AnalyticsService.shared.track("Facebook Login Succeeded")
 
-                FBSDKGraphRequest(graphPath: token.userID, parameters: ["fields": "email,name",]).start { connection, result, err in
-                    if let result = result as? [String: Any] {
-                        let name = result["name"] as? String
-                        let email = result["email"] as? String
-                        let profileImageUrl = "http://graph.facebook.com/\(token.userID)/picture?type=large"
-                        let tokenExpiration = token.expirationDate.utcString
-                    } else if let err = err {
-                        logWarn("FB graph API response failed; \(err)")
-                    }
+            ApiService.shared.createUser(withFacebookAccessToken: result.token, onSuccess: { [weak self] statusCode, mappingResult in
+                if let strongSelf = self {
+                    MBProgressHUD.hide(for: strongSelf.view, animated: true)
+                    strongSelf.performSegue(withIdentifier: "SetPasswordViewControllerSegue", sender: strongSelf)
                 }
-            }
+            }, onError: { [weak self] error, statusCode, responseString in
+                if let strongSelf = self {
+                    MBProgressHUD.hide(for: strongSelf.view, animated: true)
+                    strongSelf.showAuthenticationUI()
 
+                    // FIXME-- error should be presented in alert toast
+                }
+            })
         } else if let error = error {
             logWarn("Facebook login failed with error: \(error)")
             AnalyticsService.shared.track("Facebook Login Failed")
+
+            MBProgressHUD.hide(for: view, animated: true)
+            showAuthenticationUI()
         }
     }
 
@@ -200,14 +241,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
 
     func onPasswordSet(success: Bool) {
         if success {
-            DispatchQueue.main.async { [weak self] in
-                if let strongSelf = self {
-                    strongSelf.performSegue(withIdentifier: "ApplicationViewControllerSegue", sender: strongSelf)
-                    dispatch_after_delay(1.0) { [weak self] in
-                        self?.signInButton.alpha = 1.0
-                    }
-                }
-            }
+            segueToApplicationViewController()
         }
     }
 }

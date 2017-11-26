@@ -143,6 +143,7 @@
                         <outlet property="codeButton" destination="w8s-wM-zeM" id="bl3-Kw-a7o"/>
                         <outlet property="fbSignInButton" destination="5aB-u6-nxs" id="JXq-3h-pNc"/>
                         <outlet property="logoImageView" destination="Isk-bN-U1h" id="TW4-Ea-QhM"/>
+                        <outlet property="orLabel" destination="RND-VZ-c0C" id="Z4Y-8s-GBL"/>
                         <outlet property="signInButton" destination="ewp-oP-mJb" id="uT0-Th-LAv"/>
                         <segue destination="dY7-kw-4Fv" kind="presentation" identifier="ApplicationViewControllerSegue" modalTransitionStyle="crossDissolve" id="qEh-KF-YoG"/>
                         <segue destination="0AS-GH-aMX" kind="custom" identifier="SetPasswordViewControllerSegue" customClass="AuthenticationStoryboardSegue" customModule="provide" customModuleProvider="target" id="zl8-ty-CFI"/>
