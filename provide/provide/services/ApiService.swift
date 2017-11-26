@@ -205,6 +205,10 @@ class ApiService: NSObject {
         opQueue.cancelAllOperations()
 
         currentUser = nil
+
+        if FBSDKAccessToken.current() != nil {
+            FBSDKLoginManager().logOut()
+        }
     }
 
     private func cancelAllOperations() {
