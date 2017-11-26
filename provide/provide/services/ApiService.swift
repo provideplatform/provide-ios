@@ -336,17 +336,17 @@ class ApiService: NSObject {
     func createUser(withFacebookAccessToken token: FBSDKAccessToken, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         FBSDKGraphRequest(graphPath: token.userID, parameters: ["fields": "email,name"]).start { [weak self] connection, result, err in
             if let result = result as? [String: Any] {
-                let name = result["name"] as? String
-                let email = result["email"] as? String
-
-                if let name = name, let email = email {
-                    self?.createUser(["name": name,
-                                      "email": email,
-                                      "password": UUID().uuidString,
-                                      "profile_image_url": "http://graph.facebook.com/\(token.userID)/picture?type=large",
-                                      "fb_access_token": token.tokenString,
-                                      "fb_token_expiration": token.expirationDate.utcString,
-                                      ], onSuccess: onSuccess, onError: onError)
+                if let name = result["name"] as? String, let email = result["email"] as? String {
+                    let params: [String: Any] = [
+                        "name": name,
+                        "email": email,
+                        "password": UUID().uuidString,
+                        "profile_image_url": "http://graph.facebook.com/\(token.userID)/picture?type=large",
+                        "fb_user_id": token.userID,
+                        "fb_access_token": token.tokenString,
+                        "fb_access_token_expires_at": token.expirationDate.utcString,
+                    ]
+                    self?.createUser(params, onSuccess: onSuccess, onError: onError)
                 } else {
                     onError(NSError(domain: "services.provide", code: -1, userInfo: nil), 500, "{}")
                 }
