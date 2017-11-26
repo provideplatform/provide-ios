@@ -14,6 +14,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
 
     @IBOutlet private var logoImageView: UIImageView!
     @IBOutlet private var signInButton: UIButton!
+    @IBOutlet private var fbSignInButton: FBSDKLoginButton!
     @IBOutlet private var codeButton: UIButton!
 
     override func viewDidLoad() {
@@ -26,6 +27,9 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         signInButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
         signInButton.setTitleColor(.darkGray, for: .highlighted)
         signInButton.alpha = 0.0
+
+        fbSignInButton.readPermissions = ["public_profile", "email"]
+        fbSignInButton.alpha = 0.0
 
         codeButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
         codeButton.setTitleColor(.darkGray, for: .highlighted)
@@ -45,6 +49,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
 
             logoImageView.alpha = 1.0
             signInButton.alpha = 1.0
+            fbSignInButton.alpha = 1.0
             codeButton.alpha = 1.0
         }
 
@@ -69,6 +74,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         dispatch_after_delay(1.0) { [weak self] in
             self?.logoImageView.alpha = 1.0
             self?.signInButton.alpha = 1.0
+            self?.fbSignInButton.alpha = 1.0
             self?.codeButton.alpha = 1.0
         }
     }
@@ -98,14 +104,31 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
 
     func loginButtonWillLogin(_ loginButton: FBSDKLoginButton!) -> Bool {
         logInfo("Attempting to login using Facebook")
+        AnalyticsService.shared.track("Attempting Facebook Login")
         return true
     }
 
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         if let result = result {
-            logInfo("Facebook login completed with result: \(result)")
+            if let token = result.token {
+                logInfo("Facebook login completed for user: \(token.userID)")
+                AnalyticsService.shared.track("Facebook Login Succeeded")
+
+                FBSDKGraphRequest(graphPath: token.userID, parameters: ["fields": "email,name",]).start { connection, result, err in
+                    if let result = result as? [String: Any] {
+                        let name = result["name"] as? String
+                        let email = result["email"] as? String
+                        let profileImageUrl = "http://graph.facebook.com/\(token.userID)/picture?type=large"
+                        let tokenExpiration = token.expirationDate.utcString
+                    } else if let err = err {
+                        logWarn("FB graph API response failed; \(err)")
+                    }
+                }
+            }
+
         } else if let error = error {
             logWarn("Facebook login failed with error: \(error)")
+            AnalyticsService.shared.track("Facebook Login Failed")
         }
     }
 

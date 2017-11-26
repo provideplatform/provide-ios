@@ -78,8 +78,9 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aB-u6-nxs" customClass="FBSDKLoginButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aB-u6-nxs" customClass="FBSDKLoginButton">
                                 <rect key="frame" x="115.99999999999999" y="419" width="180.66666666666663" height="38"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="Yn4-0M-yDD"/>
                                 </constraints>
@@ -140,6 +141,7 @@
                     <navigationItem key="navigationItem" id="mdI-xf-wyA"/>
                     <connections>
                         <outlet property="codeButton" destination="w8s-wM-zeM" id="bl3-Kw-a7o"/>
+                        <outlet property="fbSignInButton" destination="5aB-u6-nxs" id="JXq-3h-pNc"/>
                         <outlet property="logoImageView" destination="Isk-bN-U1h" id="TW4-Ea-QhM"/>
                         <outlet property="signInButton" destination="ewp-oP-mJb" id="uT0-Th-LAv"/>
                         <segue destination="dY7-kw-4Fv" kind="presentation" identifier="ApplicationViewControllerSegue" modalTransitionStyle="crossDissolve" id="qEh-KF-YoG"/>
@@ -717,8 +719,7 @@
         <image name="prvd-splash" width="2048" height="1322"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JlE-hD-X26"/>
         <segue reference="qEh-KF-YoG"/>
-        <segue reference="baH-vf-SLM"/>
+        <segue reference="pyb-Ej-lW7"/>
     </inferredMetricsTieBreakers>
 </document>
