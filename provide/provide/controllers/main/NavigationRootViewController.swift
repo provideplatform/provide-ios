@@ -154,7 +154,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
             ApiService.shared.createUser(withFacebookAccessToken: result.token, onSuccess: { [weak self] statusCode, mappingResult in
                 if let strongSelf = self {
                     MBProgressHUD.hide(for: strongSelf.view, animated: true)
-                    strongSelf.performSegue(withIdentifier: "SetPasswordViewControllerSegue", sender: strongSelf)
+                    strongSelf.segueToApplicationViewController()
                 }
             }, onError: { [weak self] error, statusCode, responseString in
                 if let strongSelf = self {
