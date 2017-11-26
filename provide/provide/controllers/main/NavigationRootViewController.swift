@@ -164,6 +164,11 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
                     // FIXME-- error should be presented in alert toast
                 }
             })
+        } else if let result = result, result.isCancelled {
+            AnalyticsService.shared.track("Facebook Login Cancelled")
+
+            MBProgressHUD.hide(for: view, animated: true)
+            showAuthenticationUI()
         } else if let error = error {
             logWarn("Facebook login failed with error: \(error)")
             AnalyticsService.shared.track("Facebook Login Failed")
