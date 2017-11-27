@@ -158,19 +158,38 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
                 }
             }, onError: { [weak self] error, statusCode, responseString in
                 if let strongSelf = self {
-                    MBProgressHUD.hide(for: strongSelf.view, animated: true)
-                    strongSelf.showAuthenticationUI()
+                    if error.code == 409 {
+                        let params = [
+                            "fb_access_token": result.token!.tokenString!,
+                        ]
 
-                    if let errors = error.userInfo["errors"] as? [String: [String]] {
-                        var msg = ""
-                        for (k, msgs) in errors {
-                            msg = "\(msg) \(k)"
-                            for errmsg in msgs {
-                                msg = "\(msg) \(errmsg)\n"
+                        ApiService.shared.login(params, onSuccess: { [weak self] statusCode, responseString in
+                            if let strongSelf = self {
+                                MBProgressHUD.hide(for: strongSelf.view, animated: true)
+                                strongSelf.segueToApplicationViewController()
                             }
+                        }, onError: { [weak self] error, statusCode, responseString in
+                            if let strongSelf = self {
+                                logWarn("Failed to create API token")
+                                MBProgressHUD.hide(for: strongSelf.view, animated: true)
+                                strongSelf.showAuthenticationUI()
+                            }
+                        })
+                    } else {
+                        MBProgressHUD.hide(for: strongSelf.view, animated: true)
+                        strongSelf.showAuthenticationUI()
+
+                        if let errors = error.userInfo["errors"] as? [String: [String]] {
+                            var msg = ""
+                            for (k, msgs) in errors {
+                                msg = "\(msg) \(k)"
+                                for errmsg in msgs {
+                                    msg = "\(msg) \(errmsg)\n"
+                                }
+                            }
+                            msg = msg.trimmingCharacters(in: .whitespacesAndNewlines)
+                            strongSelf.showToast(msg)
                         }
-                        msg = msg.trimmingCharacters(in: .whitespacesAndNewlines)
-                        strongSelf.showToast(msg)
                     }
                 }
             })
