@@ -132,7 +132,7 @@
       <AdditionalOptions>
       </AdditionalOptions>
       <LocationScenarioReference
-         identifier = "../provide/provide/gpx/arlington/quincy.gpx"
+         identifier = "../provide/provide/gpx/dc/ritz.gpx"
          referenceType = "0">
       </LocationScenarioReference>
    </LaunchAction>
