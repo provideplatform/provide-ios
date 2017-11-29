@@ -103,6 +103,7 @@
 		687CB59A1B07F6020048B692 /* DirectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB58E1B07F6020048B692 /* DirectionService.swift */; };
 		687CB59D1B07F6020048B692 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB58F1B07F6020048B692 /* LocationService.swift */; };
 		687CB5A91B07F6020048B692 /* WorkOrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB5931B07F6020048B692 /* WorkOrderService.swift */; };
+		687D2CAC1FCE35DB008A9A22 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687D2CAB1FCE35DB008A9A22 /* SignupViewController.swift */; };
 		688127141F8B67BC00BE7971 /* AttachmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688127131F8B67BC00BE7971 /* AttachmentTests.swift */; };
 		688127171F8D134400BE7971 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist */; };
 		6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6884415B1C06F6810017D4AA /* PinInput.storyboard */; };
@@ -294,6 +295,7 @@
 		687CB58E1B07F6020048B692 /* DirectionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionService.swift; sourceTree = "<group>"; };
 		687CB58F1B07F6020048B692 /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		687CB5931B07F6020048B692 /* WorkOrderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderService.swift; sourceTree = "<group>"; };
+		687D2CAB1FCE35DB008A9A22 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		688127131F8B67BC00BE7971 /* AttachmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTests.swift; sourceTree = "<group>"; };
 		688127161F8D134400BE7971 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6884415B1C06F6810017D4AA /* PinInput.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PinInput.storyboard; sourceTree = "<group>"; };
@@ -681,6 +683,7 @@
 				68B412921B0804BC009A4C05 /* AuthenticationStoryboardSegue.swift */,
 				68B412931B0804BC009A4C05 /* MenuViewController.swift */,
 				68B412941B0804BC009A4C05 /* NavigationRootViewController.swift */,
+				687D2CAB1FCE35DB008A9A22 /* SignupViewController.swift */,
 				6837AF901C8BB2100082F4EC /* SetPasswordViewController.swift */,
 				68B412961B0804BC009A4C05 /* TopViewController.swift */,
 				68B412971B0804BC009A4C05 /* ViewController.swift */,
@@ -1662,6 +1665,7 @@
 				68F536D51B834A080007F480 /* ImagePickerViewController.swift in Sources */,
 				68F5371B1B834A9A0007F480 /* MenuTableView.swift in Sources */,
 				68F537091B834A890007F480 /* WebViewController.swift in Sources */,
+				687D2CAC1FCE35DB008A9A22 /* SignupViewController.swift in Sources */,
 				5C68C6CD1F86804300BBD3B9 /* ConsumerViewController.swift in Sources */,
 				5C68C6BF1F867F9700BBD3B9 /* MessageCell.swift in Sources */,
 				6889951D1C9D3AEF00F7D25F /* ImageService.swift in Sources */,

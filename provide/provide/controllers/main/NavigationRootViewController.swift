@@ -13,10 +13,12 @@ import MBProgressHUD
 class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate, FBSDKLoginButtonDelegate, PinInputViewControllerDelegate {
 
     @IBOutlet private var logoImageView: UIImageView!
+    @IBOutlet private var signUpButton: UIButton!
     @IBOutlet private var signInButton: UIButton!
     @IBOutlet private var fbSignInButton: FBSDKLoginButton!
     @IBOutlet private var codeButton: UIButton!
-    @IBOutlet private var orLabel: UILabel!
+    @IBOutlet private var orLabel1: UILabel!
+    @IBOutlet private var orLabel2: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +27,10 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
 
         logoImageView.alpha = 0.0
         logoImageView.tintColor = UIColor(red: 0.263, green: 0.416, blue: 0.69, alpha: 1.0)
+
+        signUpButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
+        signUpButton.setTitleColor(.darkGray, for: .highlighted)
+        signUpButton.alpha = 0.0
 
         signInButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
         signInButton.setTitleColor(.darkGray, for: .highlighted)
@@ -37,7 +43,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         codeButton.setTitleColor(.darkGray, for: .highlighted)
         codeButton.alpha = 0.0
 
-        orLabel.alpha = 0.0
+        orLabel1.alpha = 0.0
 
         MBProgressHUD.showAdded(to: view, animated: true)
 
@@ -52,10 +58,12 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
             MBProgressHUD.hide(for: view, animated: true)
 
             logoImageView.alpha = 1.0
+            signUpButton.alpha = 1.0
             signInButton.alpha = 1.0
             fbSignInButton.alpha = 1.0
             codeButton.alpha = 1.0
-            orLabel.alpha = 1.0
+            orLabel1.alpha = 1.0
+            orLabel2.alpha = 1.0
         }
 
         KTNotificationCenter.addObserver(forName: .ApplicationShouldPresentPinInputViewController) { [weak self] _ in
@@ -78,10 +86,12 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
 
         dispatch_after_delay(1.0) { [weak self] in
             self?.logoImageView.alpha = 1.0
+            self?.signUpButton.alpha = 1.0
             self?.signInButton.alpha = 1.0
             self?.fbSignInButton.alpha = 1.0
             self?.codeButton.alpha = 1.0
-            self?.orLabel.alpha = 1.0
+            self?.orLabel1.alpha = 1.0
+            self?.orLabel2.alpha = 1.0
         }
     }
 
@@ -95,6 +105,8 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
             (segue.destination as! PinInputViewController).delegate = self
         case "SetPasswordViewControllerSegue":
             (segue.destination as! SetPasswordViewController).configure(onPasswordSet: onPasswordSet)
+        case "SignupViewControllerSegue":
+            assert(segue.destination is SignupViewController)
         default:
             break
         }
@@ -102,19 +114,23 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
 
     private func hideAuthenticationUI() {
         DispatchQueue.main.async { [weak self] in
+            self?.signUpButton.alpha = 0.0
             self?.signInButton.alpha = 0.0
             self?.fbSignInButton.alpha = 0.0
             self?.codeButton.alpha = 0.0
-            self?.orLabel.alpha = 0.0
+            self?.orLabel1.alpha = 0.0
+            self?.orLabel2.alpha = 0.0
         }
     }
 
     private func showAuthenticationUI() {
         DispatchQueue.main.async { [weak self] in
+            self?.signUpButton.alpha = 1.0
             self?.signInButton.alpha = 1.0
             self?.fbSignInButton.alpha = 1.0
             self?.codeButton.alpha = 1.0
-            self?.orLabel.alpha = 1.0
+            self?.orLabel1.alpha = 1.0
+            self?.orLabel2.alpha = 1.0
         }
     }
 

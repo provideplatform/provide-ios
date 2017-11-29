@@ -1,16 +1,17 @@
 //
-//  AuthenticationViewController.swift
+//  SignupViewController.swift
 //  provide
 //
-//  Created by Kyle Thomas on 5/16/15.
-//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
+//  Created by Kyle Thomas on 11/28/17.
+//  Copyright © 2017 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
 import MBProgressHUD
 
-class AuthenticationViewController: ViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
+class SignupViewController: ViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
 
+    private var nameField: UITextField!
     private var emailField: UITextField!
     private var passwordField: UITextField!
 
@@ -27,7 +28,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     func setupNavigationItem() {
         navigationController?.isNavigationBarHidden = false
 
-        navigationItem.title = "SIGN IN"
+        navigationItem.title = "SIGN UP"
         navigationItem.hidesBackButton = true
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "CANCEL", style: .plain, target: self, action: #selector(cancel(_:)))
@@ -44,6 +45,10 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     @objc private func cancel(_: UIBarButtonItem) {
         UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseIn, animations: {
+            if self.nameField?.isFirstResponder == true {
+                self.nameField?.resignFirstResponder()
+            }
+
             if self.emailField?.isFirstResponder == true {
                 self.emailField?.resignFirstResponder()
             }
@@ -54,15 +59,15 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
             return
         }, completion: { complete in
-            self.performSegue(withIdentifier: "AuthenticationViewControllerUnwindSegue", sender: self)
+            self.performSegue(withIdentifier: "SignupViewControllerUnwindSegue", sender: self)
         })
     }
 
     private func showForm() {
         passwordField?.text = ""
 
-        if let emailField = emailField {
-            if emailField.text!.length > 0 {
+        if let nameField = nameField, let emailField = emailField {
+            if nameField.text!.length > 0 && emailField.text!.length > 0 {
                 passwordField?.becomeFirstResponder()
             } else {
                 emailField.becomeFirstResponder()
@@ -85,15 +90,21 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     // MARK: Process Methods
 
     private func submit(_: UIButton?) {
-        let loginInvalid = emailField.text?.length == 0 || passwordField.text?.length == 0
-        if loginInvalid {
+        let nameInvalid = nameField.text?.length == 0
+        if nameInvalid {
+            showToast("Please enter your name.")
+            return
+        }
+
+        let credentialsInvalid = emailField.text?.length == 0 || passwordField.text?.length == 0
+        if credentialsInvalid {
             showToast("Please enter both email and password.")
             return
         }
 
         hideForm()
 
-        updateStatus("Authenticating")
+        updateStatus("Creating")
         login()
     }
 
@@ -101,13 +112,13 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
         MBProgressHUD.showAdded(to: view, animated: true)
 
         let params = [
+            "name": nameField.text!,
             "email": emailField.text!,
             "password": passwordField.text!,
         ]
 
-        ApiService.shared.login(params, onSuccess: { statusCode, responseString in
+        ApiService.shared.createUser(params, onSuccess: { statusCode, responseString in
             MBProgressHUD.hide(for: self.view, animated: true)
-
             self.userWasAuthenticated()
         }, onError: { error, statusCode, responseString in
             MBProgressHUD.hide(for: self.view, animated: true)
@@ -130,7 +141,7 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     // MARK: UITableViewDataSource
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -138,8 +149,10 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
         switch indexPath.row {
         case 0:
-            cell = emailCell(tableView)
+            cell = nameCell(tableView)
         case 1:
+            cell = emailCell(tableView)
+        case 2:
             cell = passwordCell(tableView)
         default:
             assertionFailure("Misconfigured table view form.")
@@ -153,15 +166,18 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     // MARK: AuthenticationCell setup methods
 
+    private func nameCell(_ tableView: UITableView) -> AuthenticationCell {
+        let cell = tableView["NameCell"] as! AuthenticationCell
+        nameField = cell.textField
+        if nameField.text!.isEmpty && tableView.alpha != 0 {
+            nameField.becomeFirstResponder()
+        }
+        return cell
+    }
+
     private func emailCell(_ tableView: UITableView) -> AuthenticationCell {
         let cell = tableView["EmailCell"] as! AuthenticationCell
         emailField = cell.textField
-        if let storedEmail = KeyChainService.shared.email {
-            emailField.text = storedEmail
-        }
-        if emailField.text!.isEmpty && tableView.alpha != 0 {
-            emailField.becomeFirstResponder()
-        }
         return cell
     }
 
@@ -191,7 +207,10 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
     // MARK: UITextFieldDelegate
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if emailField != nil && textField == emailField {
+        if nameField != nil && textField == nameField {
+            emailField.becomeFirstResponder()
+            return false
+        } else if emailField != nil && textField == emailField {
             passwordField.becomeFirstResponder()
             return false
         } else if emailField != nil && emailField.text!.isEmpty {
@@ -219,13 +238,17 @@ class AuthenticationViewController: ViewController, UITableViewDataSource, UITab
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
-        case "AuthenticationViewControllerUnwindSegue":
+        case "SignupViewControllerUnwindSegue":
+            if nameField.isFirstResponder {
+                nameField.resignFirstResponder()
+            }
+
             if emailField.isFirstResponder {
-                emailField?.resignFirstResponder()
+                emailField.resignFirstResponder()
             }
 
             if passwordField.isFirstResponder {
-                passwordField?.resignFirstResponder()
+                passwordField.resignFirstResponder()
             }
         default:
             logWarn("Attempted unhandled segue")
