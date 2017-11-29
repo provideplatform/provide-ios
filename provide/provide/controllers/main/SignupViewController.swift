@@ -133,7 +133,7 @@ class SignupViewController: ViewController, UITableViewDataSource, UITableViewDe
         KTNotificationCenter.post(name: .ApplicationUserWasAuthenticated)
         dispatch_after_delay(1.0) { [weak self] in
             if let strongSelf = self {
-                strongSelf.performSegue(withIdentifier: "AuthenticationViewControllerUnwindSegue", sender: strongSelf)
+                strongSelf.performSegue(withIdentifier: "SignupViewControllerUnwindSegue", sender: strongSelf)
             }
         }
     }
