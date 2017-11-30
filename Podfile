@@ -42,3 +42,7 @@ end
 target 'provideUITests' do
   shared_pods
 end
+
+target 'unicorn' do
+  shared_pods
+end
