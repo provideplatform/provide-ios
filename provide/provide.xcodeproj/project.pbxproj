@@ -224,7 +224,6 @@
 		687D2D271FCFAB79008A9A22 /* Consumer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6C81F86804300BBD3B9 /* Consumer.storyboard */; };
 		687D2D281FCFAB79008A9A22 /* Messages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6899CDD81F5D8B120074370C /* Messages.storyboard */; };
 		687D2D291FCFAB79008A9A22 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412341B07FBEB009A4C05 /* Main.storyboard */; };
-		687D2D2A1FCFAB79008A9A22 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		687D2D2B1FCFAB79008A9A22 /* Exo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412461B07FC15009A4C05 /* Exo2-Regular.ttf */; };
 		687D2D2C1FCFAB79008A9A22 /* Exo2-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412401B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf */; };
 		687D2D2D1FCFAB79008A9A22 /* HTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = 5C0049501B1BD9FF000ACE9D /* HTTPStubs */; };
@@ -375,7 +374,6 @@
 		687D2DD31FD0DD23008A9A22 /* Consumer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6C81F86804300BBD3B9 /* Consumer.storyboard */; };
 		687D2DD41FD0DD23008A9A22 /* Messages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6899CDD81F5D8B120074370C /* Messages.storyboard */; };
 		687D2DD51FD0DD23008A9A22 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412341B07FBEB009A4C05 /* Main.storyboard */; };
-		687D2DD61FD0DD23008A9A22 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		687D2DD71FD0DD23008A9A22 /* Exo2-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412461B07FC15009A4C05 /* Exo2-Regular.ttf */; };
 		687D2DD81FD0DD23008A9A22 /* Exo2-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412401B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf */; };
 		687D2DD91FD0DD23008A9A22 /* HTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = 5C0049501B1BD9FF000ACE9D /* HTTPStubs */; };
@@ -410,6 +408,9 @@
 		687D2DF61FD0DD23008A9A22 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist */; };
 		687D2E031FD298CB008A9A22 /* unicorn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 687D2E011FD296DE008A9A22 /* unicorn.storyboard */; };
 		687D2E041FD298CC008A9A22 /* unicorn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 687D2E011FD296DE008A9A22 /* unicorn.storyboard */; };
+		687D2E091FD29BD7008A9A22 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
+		687D2E0A1FD29BE2008A9A22 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
+		687D2E0B1FD29BE3008A9A22 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		688127141F8B67BC00BE7971 /* AttachmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688127131F8B67BC00BE7971 /* AttachmentTests.swift */; };
 		688127171F8D134400BE7971 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist */; };
 		6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6884415B1C06F6810017D4AA /* PinInput.storyboard */; };
@@ -476,7 +477,6 @@
 		68DCAE461BEC6BB3009B383E /* WorkOrderHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */; };
 		68DCAE481BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCAE471BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift */; };
 		68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DFB0831B07C5C4002A72E8 /* AppDelegate.swift */; };
-		68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68E113011F5CE3D60069BD45 /* SimulatedCLHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E113001F5CE3D60069BD45 /* SimulatedCLHeading.swift */; };
 		68F536CC1B834A080007F480 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536C81B834A080007F480 /* CameraViewController.swift */; };
 		68F536D51B834A080007F480 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F536CB1B834A080007F480 /* ImagePickerViewController.swift */; };
@@ -1507,7 +1507,6 @@
 				687D2D271FCFAB79008A9A22 /* Consumer.storyboard in Resources */,
 				687D2D281FCFAB79008A9A22 /* Messages.storyboard in Resources */,
 				687D2D291FCFAB79008A9A22 /* Main.storyboard in Resources */,
-				687D2D2A1FCFAB79008A9A22 /* Images.xcassets in Resources */,
 				687D2D2B1FCFAB79008A9A22 /* Exo2-Regular.ttf in Resources */,
 				687D2D2C1FCFAB79008A9A22 /* Exo2-ExtraLightItalic.ttf in Resources */,
 				687D2D2D1FCFAB79008A9A22 /* HTTPStubs in Resources */,
@@ -1519,6 +1518,7 @@
 				687D2D321FCFAB79008A9A22 /* OutboundMediaMessageCell.xib in Resources */,
 				687D2D331FCFAB79008A9A22 /* Exo2-ThinItalic.ttf in Resources */,
 				687D2D341FCFAB79008A9A22 /* Exo2-Bold.ttf in Resources */,
+				687D2E0B1FD29BE3008A9A22 /* Images.xcassets in Resources */,
 				687D2D351FCFAB79008A9A22 /* Selfie.storyboard in Resources */,
 				687D2D361FCFAB79008A9A22 /* PinInput.storyboard in Resources */,
 				687D2D371FCFAB79008A9A22 /* Exo2-Black.ttf in Resources */,
@@ -1552,7 +1552,6 @@
 				687D2DD31FD0DD23008A9A22 /* Consumer.storyboard in Resources */,
 				687D2DD41FD0DD23008A9A22 /* Messages.storyboard in Resources */,
 				687D2DD51FD0DD23008A9A22 /* Main.storyboard in Resources */,
-				687D2DD61FD0DD23008A9A22 /* Images.xcassets in Resources */,
 				687D2DD71FD0DD23008A9A22 /* Exo2-Regular.ttf in Resources */,
 				687D2DD81FD0DD23008A9A22 /* Exo2-ExtraLightItalic.ttf in Resources */,
 				687D2DD91FD0DD23008A9A22 /* HTTPStubs in Resources */,
@@ -1564,6 +1563,7 @@
 				687D2DDE1FD0DD23008A9A22 /* OutboundMediaMessageCell.xib in Resources */,
 				687D2DDF1FD0DD23008A9A22 /* Exo2-ThinItalic.ttf in Resources */,
 				687D2DE01FD0DD23008A9A22 /* Exo2-Bold.ttf in Resources */,
+				687D2E0A1FD29BE2008A9A22 /* Images.xcassets in Resources */,
 				687D2DE11FD0DD23008A9A22 /* Selfie.storyboard in Resources */,
 				687D2DE21FD0DD23008A9A22 /* PinInput.storyboard in Resources */,
 				687D2DE31FD0DD23008A9A22 /* Exo2-Black.ttf in Resources */,
@@ -1604,10 +1604,10 @@
 				5C68C6D01F86804300BBD3B9 /* Consumer.storyboard in Resources */,
 				6899CDD91F5D8B120074370C /* Messages.storyboard in Resources */,
 				68B412351B07FBEB009A4C05 /* Main.storyboard in Resources */,
-				68DFB08E1B07C5C4002A72E8 /* Images.xcassets in Resources */,
 				68B412721B07FC15009A4C05 /* Exo2-Regular.ttf in Resources */,
 				68B412601B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf in Resources */,
 				5C0049511B1BD9FF000ACE9D /* HTTPStubs in Resources */,
+				687D2E091FD29BD7008A9A22 /* Images.xcassets in Resources */,
 				68B4126F1B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */,
 				68B412751B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */,
 				68B4125D1B07FC15009A4C05 /* Exo2-ExtraLight.ttf in Resources */,
