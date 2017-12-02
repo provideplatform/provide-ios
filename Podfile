@@ -46,3 +46,7 @@ end
 target 'unicorn' do
   shared_pods
 end
+
+target 'unicorn driver' do
+  shared_pods
+end
