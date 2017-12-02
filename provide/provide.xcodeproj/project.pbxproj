@@ -2798,6 +2798,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2822,6 +2823,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = AdHoc;
 		};
@@ -2846,6 +2848,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = AppStore;
 		};
@@ -2853,7 +2856,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BC824228D968B3F8CDE3D435 /* Pods-unicorn driver.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "ūnicorn";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "ūnicorn-driver";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2877,7 +2880,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C6567F6092FA1F535CF73935 /* Pods-unicorn driver.adhoc.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "ūnicorn";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "ūnicorn-driver";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2901,7 +2904,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4207F994ECA4267CB7558ED3 /* Pods-unicorn driver.appstore.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "ūnicorn";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "ūnicorn-driver";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
