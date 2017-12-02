@@ -1329,11 +1329,11 @@
 				112BA5FA3AF619AD3AE74A51 /* [CP] Check Pods Manifest.lock */,
 				687D2CB11FCFAB79008A9A22 /* Sources */,
 				687D2D221FCFAB79008A9A22 /* Frameworks */,
+				EED5B549862C08DC12674330 /* [CP] Copy Pods Resources */,
+				63C0446E6AB0C7CC90FF201D /* [CP] Embed Pods Frameworks */,
 				687D2D251FCFAB79008A9A22 /* Resources */,
 				687D2D4D1FCFAB79008A9A22 /* swiftlint */,
 				687D2D4E1FCFAB79008A9A22 /* Upload Symbol Files */,
-				63C0446E6AB0C7CC90FF201D /* [CP] Embed Pods Frameworks */,
-				EED5B549862C08DC12674330 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1353,10 +1353,10 @@
 				687D2D5D1FD0DD23008A9A22 /* Sources */,
 				687D2DCE1FD0DD23008A9A22 /* Frameworks */,
 				687D2DD11FD0DD23008A9A22 /* Resources */,
+				687D2DFA1FD0DD23008A9A22 /* [CP] Copy Pods Resources */,
+				687D2DF91FD0DD23008A9A22 /* [CP] Embed Pods Frameworks */,
 				687D2DF71FD0DD23008A9A22 /* swiftlint */,
 				687D2DF81FD0DD23008A9A22 /* Upload Symbol Files */,
-				687D2DF91FD0DD23008A9A22 /* [CP] Embed Pods Frameworks */,
-				687D2DFA1FD0DD23008A9A22 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
