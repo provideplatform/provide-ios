@@ -114,7 +114,7 @@
                                     <segue destination="OYp-7G-woo" kind="presentation" identifier="PinInputViewControllerSegue" modalTransitionStyle="crossDissolve" id="Wzh-ch-uKh"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ūnicorn" translatesAutoresizingMaskIntoConstraints="NO" id="Isk-bN-U1h">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ūnicorn-icon" translatesAutoresizingMaskIntoConstraints="NO" id="Isk-bN-U1h">
                                 <rect key="frame" x="112" y="44" width="149" height="149"/>
                                 <color key="tintColor" red="0.32691484689712524" green="0.49853861331939697" blue="0.74592679738998413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -896,7 +896,7 @@
     </scenes>
     <resources>
         <image name="prvd-splash" width="2048" height="1322"/>
-        <image name="ūnicorn" width="512" height="512"/>
+        <image name="ūnicorn-icon" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="C50-VZ-xgK"/>
