@@ -369,7 +369,6 @@
 		687D2DCC1FD0DD23008A9A22 /* PinInputControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6899CDDD1F5D8CD60074370C /* PinInputControl.swift */; };
 		687D2DCD1FD0DD23008A9A22 /* AppearenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B01B08063B009A4C05 /* AppearenceProxy.swift */; };
 		687D2DCF1FD0DD23008A9A22 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0E6501D56D09800157123 /* MobileCoreServices.framework */; };
-		687D2DD01FD0DD23008A9A22 /* Pods_unicorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */; };
 		687D2DD21FD0DD23008A9A22 /* WorkOrderDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140D9F1C1C23EF008F7E3A /* WorkOrderDetails.storyboard */; };
 		687D2DD31FD0DD23008A9A22 /* Consumer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6C81F86804300BBD3B9 /* Consumer.storyboard */; };
 		687D2DD41FD0DD23008A9A22 /* Messages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6899CDD81F5D8B120074370C /* Messages.storyboard */; };
@@ -762,7 +761,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				687D2DCF1FD0DD23008A9A22 /* MobileCoreServices.framework in Frameworks */,
-				687D2DD01FD0DD23008A9A22 /* Pods_unicorn.framework in Frameworks */,
 				4099AEB1B9C09B38FE0310C7 /* Pods_unicorn_driver.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
