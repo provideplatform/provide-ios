@@ -31,6 +31,7 @@ platform :ios do
   desc "This will also make sure the profile is up to date"
   lane :beta do
     # match(type: "appstore") # more information: https://codesigning.guide
+    ENV["APP_IDENTIFIER"] = "services.provide"
     gym(scheme: "provide") # Build your app - more options available
     pilot
 
@@ -42,6 +43,7 @@ platform :ios do
   lane :release do
     # match(type: "appstore")
     # snapshot
+    ENV["APP_IDENTIFIER"] = "services.provide"
     gym(scheme: "provide") # Build your app - more options available
     deliver(force: true)
     # frameit
@@ -49,12 +51,14 @@ platform :ios do
 
   desc "Submit unicorn beta to TestFlight"
   lane :unicorn_beta do
+    ENV["APP_IDENTIFIER"] = "services.provide.unicorn"
     gym(scheme: "unicorn")
     pilot
   end
 
   desc "Submit unicorn driver beta to TestFlight"
   lane :unicorn_driver_beta do
+    ENV["APP_IDENTIFIER"] = "services.provide.unicorn.driver"
     gym(scheme: "unicorn driver")
     pilot
   end

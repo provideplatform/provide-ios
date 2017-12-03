@@ -1,4 +1,4 @@
-app_identifier "services.provide.unicorn" # The bundle identifier of your app
+app_identifier ENV["APP_IDENTIFIER"] # The bundle identifier of your app
 apple_id "kyle@provide.services" # Your Apple email address
 
 team_id "4A8DZ57H2Y" # Developer Portal Team ID
