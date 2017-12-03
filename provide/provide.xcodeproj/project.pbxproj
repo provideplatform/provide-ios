@@ -623,11 +623,11 @@
 		687CB5931B07F6020048B692 /* WorkOrderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderService.swift; sourceTree = "<group>"; };
 		687D2CAB1FCE35DB008A9A22 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		687D2D531FCFAB79008A9A22 /* unicorn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = unicorn.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		687D2D541FCFAB7A008A9A22 /* unicorn-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "unicorn-Info.plist"; path = "/Users/kt/code/provideapp/provide-ios/provide/unicorn-Info.plist"; sourceTree = "<absolute>"; };
+		687D2D541FCFAB7A008A9A22 /* unicorn-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "unicorn-Info.plist"; sourceTree = "<group>"; };
 		687D2D561FCFBE7D008A9A22 /* Pods_provide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_provide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		687D2D581FCFC35A008A9A22 /* Pods_provide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_provide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		687D2DFF1FD0DD23008A9A22 /* unicorn driver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "unicorn driver.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		687D2E001FD0DD24008A9A22 /* unicorn-driver-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "unicorn-driver-Info.plist"; path = "/Users/kt/code/provideapp/provide-ios/provide/unicorn-driver-Info.plist"; sourceTree = "<absolute>"; };
+		687D2E001FD0DD24008A9A22 /* unicorn-driver-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "unicorn-driver-Info.plist"; sourceTree = "<group>"; };
 		687D2E011FD296DE008A9A22 /* unicorn.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = unicorn.storyboard; sourceTree = "<group>"; };
 		688127131F8B67BC00BE7971 /* AttachmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTests.swift; sourceTree = "<group>"; };
 		688127161F8D134400BE7971 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1168,8 +1168,6 @@
 				68DFB07F1B07C5C4002A72E8 /* Products */,
 				FFEF7100F5F8A41E6773C954 /* Pods */,
 				E202B806A9E0508AFF60327D /* Frameworks */,
-				687D2D541FCFAB7A008A9A22 /* unicorn-Info.plist */,
-				687D2E001FD0DD24008A9A22 /* unicorn-driver-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1213,6 +1211,8 @@
 				68AAF65C1D8C7B2300EAFD6F /* provide.entitlements */,
 				682D326C1B07CD4200BC4EEC /* provide-prefix.pch */,
 				682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */,
+				687D2D541FCFAB7A008A9A22 /* unicorn-Info.plist */,
+				687D2E001FD0DD24008A9A22 /* unicorn-driver-Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
