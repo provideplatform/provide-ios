@@ -2779,7 +2779,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 78DD016A747128BC47E5ECFD /* Pods-unicorn.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "ūnicorn";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "unicorn-AppIcon";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2804,7 +2804,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 53D47D2C9E6C25B77DA25974 /* Pods-unicorn.adhoc.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "ūnicorn";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "unicorn-AppIcon";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2829,7 +2829,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9813BC5C4E50ED1F5D45CA45 /* Pods-unicorn.appstore.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "ūnicorn";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "unicorn-AppIcon";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
