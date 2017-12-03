@@ -2800,7 +2800,7 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=consumer",
 				);
-				INFOPLIST_FILE = "unicorn-Info.plist";
+				INFOPLIST_FILE = "provide/unicorn-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = services.provide.unicorn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2835,7 +2835,7 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=consumer",
 				);
-				INFOPLIST_FILE = "unicorn-Info.plist";
+				INFOPLIST_FILE = "provide/unicorn-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = services.provide.unicorn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2870,7 +2870,7 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=consumer",
 				);
-				INFOPLIST_FILE = "unicorn-Info.plist";
+				INFOPLIST_FILE = "provide/unicorn-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = services.provide.unicorn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2905,7 +2905,7 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=provider",
 				);
-				INFOPLIST_FILE = "unicorn-driver-Info.plist";
+				INFOPLIST_FILE = "provide/unicorn-driver-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = services.provide.unicorn.driver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2939,7 +2939,7 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=provider",
 				);
-				INFOPLIST_FILE = "unicorn-driver-Info.plist";
+				INFOPLIST_FILE = "provide/unicorn-driver-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = services.provide.unicorn.driver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2973,7 +2973,7 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=provider",
 				);
-				INFOPLIST_FILE = "unicorn-driver-Info.plist";
+				INFOPLIST_FILE = "provide/unicorn-driver-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = services.provide.unicorn.driver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
