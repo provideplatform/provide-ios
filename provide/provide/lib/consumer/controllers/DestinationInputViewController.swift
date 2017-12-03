@@ -66,36 +66,32 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
             return
         }
 
-        if let query = destinationTextField.text {
+        if let query = destinationTextField.text, let location = LocationService.shared.currentLocation {
             timer?.invalidate()
             timer = nil
 
             pendingSearch = true
-            LocationService.shared.resolveCurrentLocation { [weak self] location in
-                LocationService.shared.reverseGeocodeLocation(location) { [weak self] placemark in
-                    self?.placemark = placemark
-                }
-                let currentCoordinate = location.coordinate
-                let params: [String: Any] = [
-                    "q": query,
-                    "latitude": currentCoordinate.latitude,
-                    "longitude": currentCoordinate.longitude,
+            LocationService.shared.reverseGeocodeLocation(location) { [weak self] placemark in
+                self?.placemark = placemark
+            }
+            let currentCoordinate = location.coordinate
+            let params: [String: Any] = [
+                "q": query,
+                "latitude": currentCoordinate.latitude,
+                "longitude": currentCoordinate.longitude,
                 ]
-                ApiService.shared.autocompletePlaces(params, onSuccess: { [weak self] statusCode, mappingResult in
-                    self?.pendingSearch = false
-                    if let suggestions = mappingResult?.array() as? [Contact] {
-                        logInfo("Retrieved \(suggestions.count) autocomplete suggestions for query string: \(query)")
-                        self?.destinationResultsViewController.updateResults(suggestions)
-                    } else {
-                        logWarn("Failed to fetch possible destinations for query: \(query) (\(statusCode))")
-                    }
+            ApiService.shared.autocompletePlaces(params, onSuccess: { [weak self] statusCode, mappingResult in
+                self?.pendingSearch = false
+                if let suggestions = mappingResult?.array() as? [Contact] {
+                    logInfo("Retrieved \(suggestions.count) autocomplete suggestions for query string: \(query)")
+                    self?.destinationResultsViewController.updateResults(suggestions)
+                } else {
+                    logWarn("Failed to fetch possible destinations for query: \(query) (\(statusCode))")
+                }
                 }, onError: { [weak self] err, statusCode, responseString in
                     logWarn("Failed to fetch autocomplete suggestions for query: \(query) (\(statusCode))")
                     self?.pendingSearch = false
-                })
-
-                LocationService.shared.background()
-            }
+            })
         }
     }
 
@@ -151,7 +147,14 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
         }
 
         if !pendingSearch {
-            search()
+            if LocationService.shared.currentLocation == nil {
+                LocationService.shared.resolveCurrentLocation { [weak self] location in
+                    self?.search()
+                    LocationService.shared.background()
+                }
+            } else {
+                search()
+            }
         } else if timer == nil {
             timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(search), userInfo: nil, repeats: true)
         }
