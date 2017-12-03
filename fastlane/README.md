@@ -52,6 +52,11 @@ Deploy a new version to the App Store
 fastlane ios unicorn_beta
 ```
 Submit unicorn beta to TestFlight
+### ios unicorn_driver_beta
+```
+fastlane ios unicorn_driver_beta
+```
+Submit unicorn driver beta to TestFlight
 
 ----
 

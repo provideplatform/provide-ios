@@ -442,8 +442,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         switch indexPath.row {
         case 0:
             return MenuItem(label: "History", action: "segueToWorkOrderHistory")
-        case 1:
-            return MenuItem(label: "Ride Mode", action: #selector(switchToConsumerMode))
         default:
             break
         }
@@ -455,7 +453,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     func menuViewController(_ menuViewController: MenuViewController, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
 
     @objc private func clearProviderContext() {

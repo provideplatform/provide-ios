@@ -443,8 +443,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
             return MenuItem(label: "History", action: "segueToWorkOrderHistory")
         case 1:
             return MenuItem(label: "Payment Methods", action: "paymentMethods")
-        case 2:
-            return MenuItem(label: "Driver Mode", action: #selector(provide))
         default:
             return nil
         }
@@ -455,7 +453,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
     }
 
     func menuViewController(_ menuViewController: MenuViewController, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 2
     }
 
     @objc func provide() {

@@ -14,6 +14,8 @@ enum UserMode: String {
         return rawValue
     }
 
+    static let mode: UserMode? = infoDictionaryValueFor("xAppMode") != "" ? UserMode(rawValue: infoDictionaryValueFor("xAppMode")) : nil
+
     static let allTypes = [consumer, provider]
 
     static func typeAndValueFromUserInfo(_ userInfo: [String: Any]) -> (UserMode, Any?) {
