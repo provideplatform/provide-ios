@@ -53,6 +53,12 @@ platform :ios do
     pilot
   end
 
+  desc "Submit unicorn driver beta to TestFlight"
+  lane :unicorn_driver_beta do
+    gym(scheme: "unicorn driver")
+    pilot
+  end
+
   # You can define as many lanes as you want
 
   after_all do |lane|
