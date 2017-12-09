@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6Mz-5N-8Tx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6Mz-5N-8Tx">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -105,6 +105,7 @@
                         <segue destination="FNp-tj-7th" kind="presentation" identifier="TripCompletionViewControllerSegue" id="lJU-eQ-kt3"/>
                         <segue destination="TlW-I9-Qya" kind="presentation" identifier="DestinationResultsViewControllerSegue" id="B22-tr-tJh"/>
                         <segue destination="raB-tW-94p" kind="show" identifier="WorkOrderHistoryViewControllerSegue" id="nAT-ZQ-Jzf"/>
+                        <segue destination="Nc8-sU-amH" kind="show" identifier="PaymentsViewControllerSegue" id="K6Q-SJ-vKK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0ix-H9-gBT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -248,6 +249,14 @@
             </objects>
             <point key="canvasLocation" x="127" y="756"/>
         </scene>
+        <!--PaymentMethodsViewController-->
+        <scene sceneID="acg-Jk-ohj">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Payments" referencedIdentifier="PaymentMethodsViewController" id="Nc8-sU-amH" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4h9-yw-fHj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="194" y="706"/>
+        </scene>
         <!--Confirm Work Order View Controller-->
         <scene sceneID="m4u-Py-LLR">
             <objects>
@@ -355,12 +364,12 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13 miles / 20 minutes" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="SeR-ao-OhO">
-                                        <rect key="frame" x="16" y="17" width="134" height="16.5"/>
+                                        <rect key="frame" x="16" y="17" width="136" height="17"/>
                                         <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$12" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="xkL-Ur-DnX">
-                                        <rect key="frame" x="335.5" y="17" width="23.5" height="16.5"/>
+                                        <rect key="frame" x="337.5" y="17" width="21.5" height="17"/>
                                         <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                         <nil key="highlightedColor"/>
                                     </label>

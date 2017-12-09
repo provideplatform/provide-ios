@@ -68,6 +68,14 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
             self?.loadCategoriesContext()
         }
 
+        KTNotificationCenter.addObserver(forName: Notification.Name(rawValue: "SegueToPaymentsStoryboard")) { [weak self] sender in
+            if let strongSelf = self {
+                if !strongSelf.navigationControllerContains(PaymentMethodsViewController.self) {
+                    strongSelf.performSegue(withIdentifier: "PaymentsViewControllerSegue", sender: strongSelf)
+                }
+            }
+        }
+
         KTNotificationCenter.addObserver(forName: Notification.Name(rawValue: "SegueToWorkOrderHistoryStoryboard")) { [weak self] sender in
             if let strongSelf = self {
                 if !strongSelf.navigationControllerContains(WorkOrderHistoryViewController.self) {
@@ -176,6 +184,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
             tripCompletionVC.configure(driver: workOrder.providers.last!) { tipAmount in
                 logmoji("💰", "Tip amount is \(tipAmount). TODO: POST tip amount to server")
             }
+        case "PaymentsViewControllerSegue":
+            logInfo("Preparing for PaymentsViewControllerSegue is a no-op")
         case "WorkOrderHistoryViewControllerSegue":
             let workOrderHistoryViewController = segue.destination as! WorkOrderHistoryViewController
             workOrderHistoryViewController.delegate = self
@@ -442,7 +452,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         case 0:
             return MenuItem(label: "History", action: "segueToWorkOrderHistory")
         case 1:
-            return MenuItem(label: "Payment Methods", action: "paymentMethods")
+            return MenuItem(label: "Payments", action: "segueToPayments")
         default:
             return nil
         }
@@ -464,6 +474,11 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
     @objc func segueToWorkOrderHistory() {
         KTNotificationCenter.post(name: .MenuContainerShouldReset)
         KTNotificationCenter.post(name: Notification.Name(rawValue: "SegueToWorkOrderHistoryStoryboard"), object: nil)
+    }
+
+    @objc func segueToPayments() {
+        KTNotificationCenter.post(name: .MenuContainerShouldReset)
+        KTNotificationCenter.post(name: Notification.Name(rawValue: "SegueToPaymentsStoryboard"), object: nil)
     }
 
     // MARK: DestinationInputViewControllerDelegate
