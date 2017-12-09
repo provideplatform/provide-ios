@@ -494,7 +494,6 @@
 		68F537211B834A9A0007F480 /* NavigationBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F537111B834A9A0007F480 /* NavigationBarButton.swift */; };
 		68F658061F9AB7E0008EEDAE /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F658051F9AB7E0008EEDAE /* CategoryButton.swift */; };
 		7ACF0F2C9AE83D9254E5CB61 /* Pods_provideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BAE03306348524648965C /* Pods_provideTests.framework */; };
-		AE62BDEC68D5B78B7743EC00 /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BD0BF5796F416A49F68121 /* Pods_provide.framework */; };
 		C32E484A3D6A2B71B7B19DC3 /* Pods_provideUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA218394C86B3C20FA606CE /* Pods_provideUITests.framework */; };
 		EE42125EFC6A55E190E2E809 /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BD0BF5796F416A49F68121 /* Pods_provide.framework */; };
 		FD9399B1916A4822D8C9643B /* Pods_unicorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */; };
@@ -779,7 +778,6 @@
 			files = (
 				68C0E6511D56D09800157123 /* MobileCoreServices.framework in Frameworks */,
 				EE42125EFC6A55E190E2E809 /* Pods_provide.framework in Frameworks */,
-				AE62BDEC68D5B78B7743EC00 /* Pods_provide.framework in Frameworks */,
 				3277524C2801264E166522E9 /* Pods_provide.framework in Frameworks */,
 				3E78EEA212AF7C16683F8C8A /* Pods_provide.framework in Frameworks */,
 			);
@@ -1440,7 +1438,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Provide Technologies Inc.";
 				TargetAttributes = {
 					689608901B3A1F21008719B0 = {
