@@ -22,11 +22,12 @@ class User: Model {
     var contact: Contact!
     var providers: [Provider]!
     var providerIds = [Int]()
-    var paymentMethods: [Any]!
+    var paymentMethods: [PaymentMethod]!
     var lastCheckinAt: String!
     var lastCheckinLatitude: Double = 0
     var lastCheckinLongitude: Double = 0
     var lastCheckinHeading: Double = 0
+    var wallets: [Wallet]!
 
     var annotation: Annotation {
         return Annotation(user: self)
@@ -75,15 +76,25 @@ class User: Model {
             "email": "email",
             "profile_image_url": "profileImageUrlString",
             "provider_ids": "providerIds",
-            "payment_methods": "paymentMethods",
             "last_checkin_at": "lastCheckinAt",
             "last_checkin_latitude": "lastCheckinLatitude",
             "last_checkin_longitude": "lastCheckinLongitude",
             "last_checkin_heading": "lastCheckinHeading",
         ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "payment_methods", toKeyPath: "paymentMethods", with: PaymentMethod.mapping()))
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "providers", toKeyPath: "providers", with: Provider.mapping()))
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "wallets", toKeyPath: "wallets", with: Wallet.mapping()))
         return mapping!
+    }
+
+    func reloadPaymentMethods(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        if id > 0 {
+            ApiService.shared.fetchPaymentMethods(onSuccess: { [weak self] statusCode, mappingResult in
+                self?.paymentMethods = mappingResult?.array() as! [PaymentMethod]
+                onSuccess(statusCode, mappingResult)
+            }, onError: onError)
+        }
     }
 
     class Annotation: NSObject, MKAnnotation {

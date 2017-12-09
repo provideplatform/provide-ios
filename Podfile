@@ -9,6 +9,7 @@ project 'provide/provide.xcodeproj'
 def shared_pods
   pod 'Analytics'
   pod 'BadgeSwift'
+  pod 'CardIO'
   pod 'ELFixSecureTextFieldFont', git: 'https://github.com/elegion/ELFixSecureTextFieldFont'
   pod 'FacebookCore'
   pod 'FacebookLogin'

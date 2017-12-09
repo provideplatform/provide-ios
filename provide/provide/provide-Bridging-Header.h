@@ -12,6 +12,7 @@
 
 // CocoaPods
 #import <Analytics/SEGAnalytics.h>
+#import <CardIO/CardIO.h>
 #import <ELFixSecureTextFieldFont/UITextField+ELFixSecureTextFieldFont.h>
 #import <jetfire/JFRWebSocket.h>
 #import <JSQMessagesViewController/JSQMessages.h>

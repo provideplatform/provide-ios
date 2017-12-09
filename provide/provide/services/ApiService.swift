@@ -42,6 +42,7 @@ class ApiService: NSObject {
         "directions": Directions.mapping(),
         "eta": Directions.mapping(),
         "invitations": Invitation.mapping(),
+        "payment_methods": PaymentMethod.mapping(),
         "places": Contact.mapping(),
         "providers": Provider.mapping(),
         "tokens": Token.mapping(),
@@ -593,12 +594,14 @@ class ApiService: NSObject {
 
     // MARK: - Payment methods API
 
-    private func _fetchPaymentMethods(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("payment_methods", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
+    @discardableResult
+    func fetchPaymentMethods(onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> ApiOperation? {
+        return dispatchApiOperationForPath("payment_methods", method: .GET, params: [:], onSuccess: onSuccess, onError: onError)
     }
 
-    private func _createPaymentMethod(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        dispatchApiOperationForPath("payment_methods", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
+    @discardableResult
+    func createPaymentMethod(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> ApiOperation? {
+        return dispatchApiOperationForPath("payment_methods", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: - Messages API
