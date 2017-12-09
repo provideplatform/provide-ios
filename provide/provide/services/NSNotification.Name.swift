@@ -26,6 +26,7 @@ extension NSNotification.Name {
     static let MenuContainerShouldReset = NSNotification.Name("MenuContainerShouldReset")
     static let MessagesViewControllerPoppedNotification = Notification.Name("MessagesViewControllerPoppedNotification")
     static let NewMessageReceivedNotification = Notification.Name("NewMessageReceivedNotification")
+    static let PaymentMethodShouldBeRemoved = NSNotification.Name("PaymentMethodShouldBeRemoved")
     static let ProfileImageShouldRefresh = NSNotification.Name("ProfileImageShouldRefresh")
     static let ProviderBecameAvailable = Notification.Name("ProviderBecameAvailable")
     static let ProviderBecameUnavailable = Notification.Name("ProviderBecameUnavailable")

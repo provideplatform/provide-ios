@@ -604,6 +604,11 @@ class ApiService: NSObject {
         return dispatchApiOperationForPath("payment_methods", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
+    @discardableResult
+    func removePaymentMethod(_ id: Int, onSuccess: @escaping OnSuccess, onError: @escaping OnError) -> ApiOperation? {
+        return dispatchApiOperationForPath("payment_methods/\(id)", method: .DELETE, params: nil, onSuccess: onSuccess, onError: onError)
+    }
+
     // MARK: - Messages API
 
     func fetchMessages(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {

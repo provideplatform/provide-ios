@@ -17,6 +17,12 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        KTNotificationCenter.addObserver(forName: .PaymentMethodShouldBeRemoved, queue: .main) { [weak self] notification in
+            if let sender = notification.object as? PaymentMethodTableViewCell {
+                self?.removePaymentMethod(sender: sender)
+            }
+        }
+
         reload()
     }
 
@@ -87,5 +93,28 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
         let cell = tableView.dequeue(PaymentMethodTableViewCell.self, for: indexPath)
         cell.configure(paymentMethod: currentUser.paymentMethods[indexPath.row])
         return cell
+    }
+
+    @IBAction private func removePaymentMethod(sender: PaymentMethodTableViewCell) {
+        if let paymentMethod = sender.paymentMethod {
+            MBProgressHUD.showAdded(to: view, animated: true)
+
+            let indexPath = paymentMethodsTableView.indexPath(for: sender)!
+            currentUser.paymentMethods.remove(at: indexPath.row)
+            paymentMethodsTableView.deleteRows(at: [indexPath], with: .left)
+
+            ApiService.shared.removePaymentMethod(paymentMethod.id, onSuccess: { [weak self] statusCode, result in
+                if let strongSelf = self {
+                    MBProgressHUD.hide(for: strongSelf.view, animated: true)
+
+                }
+            }, onError: { [weak self] err, statusCode, responseText in
+                logWarn("Failed to remove payment method; \(statusCode) response")
+
+                if let strongSelf = self {
+                    MBProgressHUD.hide(for: strongSelf.view, animated: true)
+                }
+            })
+        }
     }
 }

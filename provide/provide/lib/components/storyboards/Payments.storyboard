@@ -77,23 +77,36 @@
                                                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YV9-gZ-WLa" userLabel="Remote Button">
+                                                    <rect key="frame" x="313" y="16" width="47" height="27"/>
+                                                    <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="12"/>
+                                                    <state key="normal" title="REMOVE">
+                                                        <color key="titleColor" red="0.23137254900000001" green="0.52156862749999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="removePaymentMethod:" destination="lvA-7D-JaV" eventType="touchUpInside" id="OiZ-ui-ux9"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="2IF-px-KfW" firstAttribute="top" secondItem="wCZ-bF-Brd" secondAttribute="topMargin" constant="21" id="0yx-JX-HN7"/>
                                                 <constraint firstItem="8Oy-UG-C0D" firstAttribute="centerY" secondItem="wCZ-bF-Brd" secondAttribute="centerY" id="647-oe-OT7"/>
                                                 <constraint firstItem="8Oy-UG-C0D" firstAttribute="centerY" secondItem="z9b-MF-4Pp" secondAttribute="centerY" id="8uE-NJ-1y2"/>
+                                                <constraint firstItem="YV9-gZ-WLa" firstAttribute="top" secondItem="wCZ-bF-Brd" secondAttribute="top" constant="16" id="FY2-oN-MIp"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="z9b-MF-4Pp" secondAttribute="bottom" constant="11" id="Heq-C8-6fX"/>
                                                 <constraint firstItem="8Oy-UG-C0D" firstAttribute="leading" secondItem="wCZ-bF-Brd" secondAttribute="leadingMargin" constant="8" id="aPF-rB-1wT"/>
                                                 <constraint firstItem="2IF-px-KfW" firstAttribute="bottom" secondItem="wCZ-bF-Brd" secondAttribute="bottomMargin" id="e1D-5D-J4w"/>
                                                 <constraint firstItem="z9b-MF-4Pp" firstAttribute="leading" secondItem="8Oy-UG-C0D" secondAttribute="trailing" constant="21" id="ecR-jH-Ada"/>
                                                 <constraint firstItem="z9b-MF-4Pp" firstAttribute="trailing" secondItem="2IF-px-KfW" secondAttribute="trailing" id="jvq-5s-zor"/>
                                                 <constraint firstItem="z9b-MF-4Pp" firstAttribute="leading" secondItem="2IF-px-KfW" secondAttribute="leading" id="ngb-Fg-A90"/>
+                                                <constraint firstAttribute="trailing" secondItem="YV9-gZ-WLa" secondAttribute="trailing" constant="15" id="sXh-ta-O3H"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="creditCardIcon" destination="8Oy-UG-C0D" id="FIE-nQ-LfS"/>
                                             <outlet property="creditCardLastFourLabel" destination="z9b-MF-4Pp" id="DFo-c9-kFz"/>
                                             <outlet property="creditCardNoticeLabel" destination="2IF-px-KfW" id="0zr-ax-tIE"/>
+                                            <outlet property="removeButton" destination="YV9-gZ-WLa" id="sdV-v5-vFO"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
