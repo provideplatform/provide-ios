@@ -79,7 +79,7 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
                 "q": query,
                 "latitude": currentCoordinate.latitude,
                 "longitude": currentCoordinate.longitude,
-                ]
+            ]
             ApiService.shared.autocompletePlaces(params, onSuccess: { [weak self] statusCode, mappingResult in
                 self?.pendingSearch = false
                 if let suggestions = mappingResult?.array() as? [Contact] {
