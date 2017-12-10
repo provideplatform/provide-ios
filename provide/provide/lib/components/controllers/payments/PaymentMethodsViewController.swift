@@ -9,12 +9,13 @@
 import UIKit
 import MBProgressHUD
 
-class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewControllerDelegate, UITableViewDelegate, UITableViewDataSource {
+class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     @IBOutlet private weak var tokenBalanceHeaderView: TokenBalanceHeaderView!
     @IBOutlet private weak var paymentMethodsTableView: UITableView!
     @IBOutlet private weak var promoCodeInputContainerView: UIView!
     @IBOutlet private weak var promoCodeInputTextField: UITextField!
+    @IBOutlet private weak var promoCodeApplyButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,10 +31,19 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
             }
         }
 
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidHide), name: .UIKeyboardDidHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
 
         reload()
+    }
+
+    @objc
+    func keyboardDidHide(notification: NSNotification) {
+        promoCodeInputContainerView.isHidden = true
+        promoCodeInputContainerView.alpha = 1.0
+        promoCodeInputTextField.text = ""
+        promoCodeApplyButton.isEnabled = false
     }
 
     @objc
@@ -44,10 +54,6 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
                     strongSelf.promoCodeInputContainerView.alpha = 0.0
                     strongSelf.promoCodeInputContainerView.frame.origin.y += keyboardSize.height
                 }
-            }, completion: { [weak self] completed in
-                self?.promoCodeInputContainerView.isHidden = true
-                self?.promoCodeInputContainerView.alpha = 1.0
-                //self?.view.disableTapToDismissKeyboard()
             })
         }
     }
@@ -173,6 +179,20 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
+    // MARK: UITextFieldDelegate
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let currentText = textField.text ?? ""
+        let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        promoCodeApplyButton.isEnabled = updatedText.length > 0
+        return true
+    }
+
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        promoCodeApplyButton.isEnabled = false
+        return true
+    }
+
     private func presentPromoCodeInputContainerView() {
         DispatchQueue.main.async { [weak self] in
             if let strongSelf = self {
@@ -217,7 +237,7 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
             if code.lowercased() == "prvd" {
                 logInfo("Enabling crypto opt-in functionality for PRVD token")
                 KeyChainService.shared.cryptoOptIn = true
-                paymentMethodsTableView.reloadData()
+                tokenBalanceHeaderView.isHidden = !currentUser.cryptoOptIn
             }
         }
         if promoCodeInputTextField.isFirstResponder {
