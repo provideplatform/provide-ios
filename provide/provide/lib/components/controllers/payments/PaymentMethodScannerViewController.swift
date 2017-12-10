@@ -69,6 +69,11 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
         scan()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        CardIOUtilities.preloadCardIO()
+    }
+
     private func scan() {
         if cardIOView != nil {
             cardIOView.removeFromSuperview()
