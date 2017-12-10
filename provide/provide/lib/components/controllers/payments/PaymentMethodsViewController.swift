@@ -11,16 +11,24 @@ import MBProgressHUD
 
 class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
-    @IBOutlet private weak var tokenBalanceHeaderView: TokenBalanceHeaderView!
+    //FIXME @IBOutlet private weak var tokenBalanceHeaderView: TokenBalanceHeaderView!
     @IBOutlet private weak var paymentMethodsTableView: UITableView!
     @IBOutlet private weak var promoCodeInputContainerView: UIView!
     @IBOutlet private weak var promoCodeInputTextField: UITextField!
     @IBOutlet private weak var promoCodeApplyButton: UIButton!
 
+    private var paymentMethodsSectionIndex: Int {
+        return currentUser.cryptoOptIn ? 1 : 0
+    }
+
+    private var promotionsSectionIndex: Int {
+        return paymentMethodsSectionIndex + 1
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tokenBalanceHeaderView.isHidden = !currentUser.cryptoOptIn
+        //FIXME tokenBalanceHeaderView.isHidden = !currentUser.cryptoOptIn
 
         promoCodeInputContainerView.isHidden = true
         promoCodeInputContainerView.frame.origin.y += promoCodeInputContainerView.height
@@ -125,30 +133,51 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
     // MARK: UITableViewDataSource
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return currentUser.cryptoOptIn ? 3 : 2
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        if section == paymentMethodsSectionIndex {
             return (currentUser.paymentMethods?.count ?? 0) + 1
         }
         return 1
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
+        if section == paymentMethodsSectionIndex {
             return "Payment Methods"
-        } else if section == 1 {
+        } else if section == promotionsSectionIndex {
             return "Promotions"
         }
         return nil
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 && currentUser.cryptoOptIn {
+            return 0.0
+        }
+        return 18.0
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 40.0
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 0 && currentUser.cryptoOptIn {
+            return 70.0
+        }
+        return 60.0
     }
 
     // MARK: UITableViewDelegate
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
-        if indexPath.section == 0 {
+        if indexPath.section == 0 && currentUser.cryptoOptIn {
+            cell = tableView.dequeueReusableCell(withIdentifier: "TokenBalanceTableViewCellReuseIdentifier")!
+            // fixme
+        } else if indexPath.section == paymentMethodsSectionIndex {
             if indexPath.row < tableView.numberOfRows(inSection: indexPath.section) - 1 {
                 cell = tableView.dequeue(PaymentMethodTableViewCell.self, for: indexPath)
                 cell.selectionStyle = .none
@@ -158,7 +187,7 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
                 cell.selectionStyle = .gray
                 (cell.contentView.subviews.first as! UILabel).text = "Add Payment Method"
             }
-        } else if indexPath.section == 1 {
+        } else if indexPath.section == promotionsSectionIndex {
             cell = tableView.dequeueReusableCell(withIdentifier: "CallToActionTableViewCellReuseIdentifier")!
             cell.selectionStyle = .gray
             (cell.contentView.subviews.first as! UILabel).text = "Enter Promo Code"
@@ -168,9 +197,9 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 && indexPath.row == tableView.numberOfRows(inSection: 0) - 1 {
+        if indexPath.section == paymentMethodsSectionIndex && indexPath.row == tableView.numberOfRows(inSection: paymentMethodsSectionIndex) - 1 {
             performSegue(withIdentifier: "PaymentMethodScannerViewControllerSegue", sender: self)
-        } else if indexPath.section == 1 {
+        } else if indexPath.section == promotionsSectionIndex {
             if indexPath.row == 0 {
                 presentPromoCodeInputContainerView()
             }
@@ -233,15 +262,23 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
     }
 
     @IBAction private func applyPromoCodeInput(sender: UIButton) {
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self {
+                if strongSelf.promoCodeInputTextField.isFirstResponder {
+                    strongSelf.promoCodeInputTextField.resignFirstResponder()
+                }
+            }
+        }
+
         if let code = promoCodeInputTextField?.text {
             if code.lowercased() == "prvd" {
                 logInfo("Enabling crypto opt-in functionality for PRVD token")
-                KeyChainService.shared.cryptoOptIn = true
-                tokenBalanceHeaderView.isHidden = !currentUser.cryptoOptIn
+
+                DispatchQueue.main.async { [weak self] in
+                    KeyChainService.shared.cryptoOptIn = true
+                    self?.paymentMethodsTableView.reloadData()
+                }
             }
-        }
-        if promoCodeInputTextField.isFirstResponder {
-            promoCodeInputTextField.resignFirstResponder()
         }
     }
 }

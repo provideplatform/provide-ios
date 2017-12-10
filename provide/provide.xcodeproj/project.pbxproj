@@ -98,6 +98,9 @@
 		6846D99B1F3ED90B004532BD /* CheckinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D99A1F3ED90B004532BD /* CheckinService.swift */; };
 		6846D9A11F3EDF2A004532BD /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9A01F3EDF2A004532BD /* Route.swift */; };
 		6846D9A31F3EE08B004532BD /* RouteMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9A21F3EE08B004532BD /* RouteMapView.swift */; };
+		68544C3A1FDDDB010014AC7F /* TokenBalanceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68544C391FDDDB010014AC7F /* TokenBalanceHeaderView.swift */; };
+		68544C3B1FDDDB010014AC7F /* TokenBalanceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68544C391FDDDB010014AC7F /* TokenBalanceHeaderView.swift */; };
+		68544C3C1FDDDB010014AC7F /* TokenBalanceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68544C391FDDDB010014AC7F /* TokenBalanceHeaderView.swift */; };
 		6855D0BD1F6EBCF3001A4D33 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6855D0BC1F6EBCF3001A4D33 /* ProfileImageView.swift */; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
 		6874543A1B3C014300C49B3F /* ProvideTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454391B3C014300C49B3F /* ProvideTestCase.swift */; };
@@ -478,9 +481,6 @@
 		68B882791FDBA12200100CF7 /* PaymentMethodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B882781FDBA12200100CF7 /* PaymentMethodTableViewCell.swift */; };
 		68B8827A1FDBA12200100CF7 /* PaymentMethodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B882781FDBA12200100CF7 /* PaymentMethodTableViewCell.swift */; };
 		68B8827B1FDBA12200100CF7 /* PaymentMethodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B882781FDBA12200100CF7 /* PaymentMethodTableViewCell.swift */; };
-		68B8827D1FDBC08200100CF7 /* TokenBalanceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B8827C1FDBC08200100CF7 /* TokenBalanceHeaderView.swift */; };
-		68B8827E1FDBC08200100CF7 /* TokenBalanceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B8827C1FDBC08200100CF7 /* TokenBalanceHeaderView.swift */; };
-		68B8827F1FDBC08200100CF7 /* TokenBalanceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B8827C1FDBC08200100CF7 /* TokenBalanceHeaderView.swift */; };
 		68B882811FDBCF4200100CF7 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B882801FDBCF4200100CF7 /* Wallet.swift */; };
 		68B882821FDBCF4200100CF7 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B882801FDBCF4200100CF7 /* Wallet.swift */; };
 		68B882831FDBCF4200100CF7 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B882801FDBCF4200100CF7 /* Wallet.swift */; };
@@ -633,6 +633,7 @@
 		6846D99A1F3ED90B004532BD /* CheckinService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinService.swift; sourceTree = "<group>"; };
 		6846D9A01F3EDF2A004532BD /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		6846D9A21F3EE08B004532BD /* RouteMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteMapView.swift; sourceTree = "<group>"; };
+		68544C391FDDDB010014AC7F /* TokenBalanceHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenBalanceHeaderView.swift; sourceTree = "<group>"; };
 		6855D0BC1F6EBCF3001A4D33 /* ProfileImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		687454391B3C014300C49B3F /* ProvideTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvideTestCase.swift; sourceTree = "<group>"; };
@@ -712,7 +713,6 @@
 		68B8826E1FDB8D2D00100CF7 /* PaymentMethodsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodsViewController.swift; sourceTree = "<group>"; };
 		68B882721FDB999D00100CF7 /* TokenPurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenPurchaseViewController.swift; sourceTree = "<group>"; };
 		68B882781FDBA12200100CF7 /* PaymentMethodTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodTableViewCell.swift; sourceTree = "<group>"; };
-		68B8827C1FDBC08200100CF7 /* TokenBalanceHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenBalanceHeaderView.swift; sourceTree = "<group>"; };
 		68B882801FDBCF4200100CF7 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		68B882841FDBD62C00100CF7 /* PaymentMethodScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodScannerViewController.swift; sourceTree = "<group>"; };
 		68B978C51B084E0E00863E21 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
@@ -1181,7 +1181,7 @@
 			isa = PBXGroup;
 			children = (
 				68B882781FDBA12200100CF7 /* PaymentMethodTableViewCell.swift */,
-				68B8827C1FDBC08200100CF7 /* TokenBalanceHeaderView.swift */,
+				68544C391FDDDB010014AC7F /* TokenBalanceHeaderView.swift */,
 			);
 			path = payments;
 			sourceTree = "<group>";
@@ -2427,7 +2427,6 @@
 				687D2CBC1FCFAB79008A9A22 /* TripCompletionViewController.swift in Sources */,
 				687D2CBD1FCFAB79008A9A22 /* MenuViewController.swift in Sources */,
 				687D2CBE1FCFAB79008A9A22 /* NameValueTableViewCell.swift in Sources */,
-				68B8827E1FDBC08200100CF7 /* TokenBalanceHeaderView.swift in Sources */,
 				687D2CBF1FCFAB79008A9A22 /* ConfirmWorkOrderViewController.swift in Sources */,
 				687D2CC01FCFAB79008A9A22 /* WorkOrderDestinationHeaderViewController.swift in Sources */,
 				687D2CC11FCFAB79008A9A22 /* Monkey.swift in Sources */,
@@ -2467,6 +2466,7 @@
 				687D2CE21FCFAB79008A9A22 /* WorkOrderAnnotationView.swift in Sources */,
 				687D2CE31FCFAB79008A9A22 /* ProviderService.swift in Sources */,
 				687D2CE41FCFAB79008A9A22 /* ReachabilityService.swift in Sources */,
+				68544C3B1FDDDB010014AC7F /* TokenBalanceHeaderView.swift in Sources */,
 				687D2CE51FCFAB79008A9A22 /* Attachment.swift in Sources */,
 				687D2CE61FCFAB79008A9A22 /* CustomHeightModalTransitioningDelegate.swift in Sources */,
 				687D2CE71FCFAB79008A9A22 /* KeyChainService.swift in Sources */,
@@ -2552,7 +2552,6 @@
 				687D2D681FD0DD23008A9A22 /* TripCompletionViewController.swift in Sources */,
 				687D2D691FD0DD23008A9A22 /* MenuViewController.swift in Sources */,
 				687D2D6A1FD0DD23008A9A22 /* NameValueTableViewCell.swift in Sources */,
-				68B8827F1FDBC08200100CF7 /* TokenBalanceHeaderView.swift in Sources */,
 				687D2D6B1FD0DD23008A9A22 /* ConfirmWorkOrderViewController.swift in Sources */,
 				687D2D6C1FD0DD23008A9A22 /* WorkOrderDestinationHeaderViewController.swift in Sources */,
 				687D2D6D1FD0DD23008A9A22 /* Monkey.swift in Sources */,
@@ -2592,6 +2591,7 @@
 				687D2D8E1FD0DD23008A9A22 /* WorkOrderAnnotationView.swift in Sources */,
 				687D2D8F1FD0DD23008A9A22 /* ProviderService.swift in Sources */,
 				687D2D901FD0DD23008A9A22 /* ReachabilityService.swift in Sources */,
+				68544C3C1FDDDB010014AC7F /* TokenBalanceHeaderView.swift in Sources */,
 				687D2D911FD0DD23008A9A22 /* Attachment.swift in Sources */,
 				687D2D921FD0DD23008A9A22 /* CustomHeightModalTransitioningDelegate.swift in Sources */,
 				687D2D931FD0DD23008A9A22 /* KeyChainService.swift in Sources */,
@@ -2685,7 +2685,6 @@
 				5C47B4301F9B6DA20004F1A2 /* TripCompletionViewController.swift in Sources */,
 				68B412A11B0804BC009A4C05 /* MenuViewController.swift in Sources */,
 				68F5371E1B834A9A0007F480 /* NameValueTableViewCell.swift in Sources */,
-				68B8827D1FDBC08200100CF7 /* TokenBalanceHeaderView.swift in Sources */,
 				5C68C6CF1F86804300BBD3B9 /* ConfirmWorkOrderViewController.swift in Sources */,
 				68B413031B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift in Sources */,
 				5CED500B1F9C956F0007D19A /* Monkey.swift in Sources */,
@@ -2725,6 +2724,7 @@
 				68B413091B08153D009A4C05 /* WorkOrderAnnotationView.swift in Sources */,
 				68A653A31F4C20D7007CC52F /* ProviderService.swift in Sources */,
 				68BA45651FA13FED00322B7C /* ReachabilityService.swift in Sources */,
+				68544C3A1FDDDB010014AC7F /* TokenBalanceHeaderView.swift in Sources */,
 				681416E51B8457870076BFBD /* Attachment.swift in Sources */,
 				5C879E061FA6FAB90066805C /* CustomHeightModalTransitioningDelegate.swift in Sources */,
 				689B0CB61B07E0A7005694B7 /* KeyChainService.swift in Sources */,
