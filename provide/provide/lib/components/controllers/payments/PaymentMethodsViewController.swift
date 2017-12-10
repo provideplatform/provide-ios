@@ -217,6 +217,7 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
             if code.lowercased() == "prvd" {
                 logInfo("Enabling crypto opt-in functionality for PRVD token")
                 KeyChainService.shared.cryptoOptIn = true
+                paymentMethodsTableView.reloadData()
             }
         }
         if promoCodeInputTextField.isFirstResponder {
