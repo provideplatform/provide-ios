@@ -43,6 +43,7 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
                 cardNumberField.text = paymentMethod.last4
                 expiryMonthField.text = "\(paymentMethod.expMonth)"
                 expiryYearField.text = "\(paymentMethod.expYear)"
+                expiryYearField.sizeToFit()
 
                 creditCardTableView?.isHidden = false
 
@@ -79,7 +80,7 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
         cardIOView = CardIOView(frame: view.bounds)
         cardIOView.delegate = self
         cardIOView.hideCardIOLogo = true
-        cardIOView.scannedImageDuration = 0.25
+        cardIOView.scannedImageDuration = 0.1
         cardIOView.isHidden = true
 
         view.addSubview(cardIOView)
