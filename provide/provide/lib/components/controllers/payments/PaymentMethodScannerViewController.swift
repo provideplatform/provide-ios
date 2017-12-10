@@ -106,7 +106,6 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
 
                 strongSelf.delegate?.paymentMethodScannerViewController(strongSelf, didScanPaymentMethod: result?.firstObject as! PaymentMethod)
             }
-
         }, onError: { [weak self] err, statusCode, responseString in
             logWarn("Failed to create payment method; \(statusCode) response")
 
