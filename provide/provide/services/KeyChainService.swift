@@ -58,6 +58,15 @@ class KeyChainService {
         }
     }
 
+    var cryptoOptIn: Bool {
+        get {
+            return self["cryptoOptIn"] != nil
+        }
+        set {
+            self["cryptoOptIn"] = newValue ? "t" : nil
+        }
+    }
+
     var token: Token? {
         get {
             if let token = cachedToken {
@@ -80,7 +89,7 @@ class KeyChainService {
         if CurrentBuildConfig != .debug {
             uicStore.removeAllItems()
         } else {
-            for key in ["user", "token", "email", "deviceId"] where self[key] != nil {
+            for key in ["user", "token", "email", "deviceId", "cryptoOptIn"] where self[key] != nil {
                 self[key] = nil
             }
         }

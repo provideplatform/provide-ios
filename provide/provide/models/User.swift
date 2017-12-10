@@ -33,6 +33,13 @@ class User: Model {
         return Annotation(user: self)
     }
 
+    var cryptoOptIn: Bool {
+        if let wallets = wallets, wallets.count > 0 {
+            return KeyChainService.shared.cryptoOptIn
+        }
+        return false
+    }
+
     private var coordinate: CLLocationCoordinate2D? {
         if lastCheckinLatitude != 0 && lastCheckinLongitude != 0 {
             return CLLocationCoordinate2D(latitude: lastCheckinLatitude, longitude: lastCheckinLatitude)
