@@ -28,10 +28,7 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //FIXME tokenBalanceHeaderView.isHidden = !currentUser.cryptoOptIn
-
         promoCodeInputContainerView.isHidden = true
-        promoCodeInputContainerView.frame.origin.y += promoCodeInputContainerView.height
 
         KTNotificationCenter.addObserver(forName: .PaymentMethodShouldBeRemoved, queue: .main) { [weak self] notification in
             if let sender = notification.object as? PaymentMethodTableViewCell {
@@ -57,10 +54,11 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
     @objc
     func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            promoCodeInputContainerView.transform = CGAffineTransform(translationX: 0, y: keyboardSize.height)
             UIView.animate(withDuration: 0.25, animations: { [weak self] in
                 if let strongSelf = self {
                     strongSelf.promoCodeInputContainerView.alpha = 0.0
-                    strongSelf.promoCodeInputContainerView.frame.origin.y += keyboardSize.height
+                    strongSelf.promoCodeInputContainerView.transform = .identity
                 }
             })
         }
@@ -68,14 +66,9 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
 
     @objc
     func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             promoCodeInputContainerView.isHidden = false
-            UIView.animate(withDuration: 0.25, animations: { [weak self] in
-                if let strongSelf = self {
-                    strongSelf.promoCodeInputContainerView.frame.origin.y -= keyboardSize.height
-                    //strongSelf.view.enableTapToDismissKeyboard()
-                }
-            })
+            promoCodeInputContainerView.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height)
         }
     }
 
