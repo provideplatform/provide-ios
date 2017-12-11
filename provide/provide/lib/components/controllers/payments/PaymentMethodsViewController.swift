@@ -85,12 +85,6 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
 
     private func reload() {
         MBProgressHUD.showAdded(to: view, animated: true)
-
-        refreshPaymentMethods()
-        refreshToken()
-    }
-
-    private func refreshPaymentMethods() {
         currentUser.reloadPaymentMethods(onSuccess: { [weak self] statusCode, result in
             if let strongSelf = self {
                 strongSelf.paymentMethodsTableView.reloadData()
@@ -102,12 +96,6 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
                 MBProgressHUD.hide(for: strongSelf.view, animated: true)
             }
         })
-    }
-
-    private func refreshToken() {
-        logWarn("refresh token... TODO")
-
-        MBProgressHUD.hide(for: view, animated: true)
     }
 
     // MARK: PaymentMethodScannerViewControllerDelegate
