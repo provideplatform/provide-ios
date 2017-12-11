@@ -149,11 +149,11 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
         if section == 0 && currentUser.cryptoOptIn {
             return 0.0
         }
-        return 18.0
+        return 20.0
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 40.0
+        return 60.0
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

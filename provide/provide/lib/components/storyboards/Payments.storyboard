@@ -28,7 +28,7 @@
         <scene sceneID="Bhx-I0-Z66">
             <objects>
                 <navigationController id="4hW-Wh-ReH" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="g85-5X-w6v">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="g85-5X-w6v">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -48,7 +48,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="grouped" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="18" sectionFooterHeight="18" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="icb-6b-eTV">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="grouped" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="icb-6b-eTV">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -238,7 +238,7 @@
                                 <rect key="frame" x="0.0" y="507" width="375" height="96"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cmS-Gi-MqB">
-                                        <rect key="frame" x="284" y="51" width="75" height="32"/>
+                                        <rect key="frame" x="284" y="50" width="75" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="YGV-rv-xUa"/>
                                         </constraints>
@@ -249,7 +249,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your promo code" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="l9Y-t6-4aW">
-                                        <rect key="frame" x="30" y="6" width="314" height="41"/>
+                                        <rect key="frame" x="30" y="6" width="314" height="40"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -259,7 +259,7 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="twT-IU-Mcb">
-                                        <rect key="frame" x="15" y="51" width="75" height="32"/>
+                                        <rect key="frame" x="15" y="50" width="75" height="33"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="Rje-Zz-1DM"/>
                                         </constraints>
@@ -293,13 +293,11 @@
                             <constraint firstItem="icb-6b-eTV" firstAttribute="leading" secondItem="EWQ-PR-FOY" secondAttribute="leading" id="a7i-w7-6Si"/>
                             <constraint firstItem="EWQ-PR-FOY" firstAttribute="trailing" secondItem="icb-6b-eTV" secondAttribute="trailing" id="bpV-SD-8gV"/>
                             <constraint firstItem="EWQ-PR-FOY" firstAttribute="bottom" secondItem="icb-6b-eTV" secondAttribute="bottom" id="e4q-hJ-w6o"/>
-                            <constraint firstItem="icb-6b-eTV" firstAttribute="height" secondItem="EWQ-PR-FOY" secondAttribute="height" id="hm5-Do-zOM"/>
                             <constraint firstItem="EWQ-PR-FOY" firstAttribute="trailing" secondItem="Gfx-nb-0vx" secondAttribute="trailing" id="kEF-3b-4bt"/>
                             <constraint firstItem="EWQ-PR-FOY" firstAttribute="bottom" secondItem="Gfx-nb-0vx" secondAttribute="bottom" id="ktT-SP-G7k"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EWQ-PR-FOY"/>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Payments" id="fGI-45-clh">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="eAD-Pt-990">
                             <connections>
