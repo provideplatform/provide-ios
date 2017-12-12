@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,25 +17,24 @@
                 <viewControllerLayoutGuide type="bottom" id="9aV-y1-lTs"/>
             </layoutGuides>
             <view key="view" contentMode="scaleToFill" id="Ems-6k-Ba2">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prvd-splash" translatesAutoresizingMaskIntoConstraints="NO" id="CNb-gf-oad">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="CNb-gf-oad" secondAttribute="trailing" id="0qu-ZI-NXh"/>
-                    <constraint firstItem="CNb-gf-oad" firstAttribute="top" secondItem="HKQ-L0-yIt" secondAttribute="bottom" constant="-20" id="DvN-oA-hnD"/>
                     <constraint firstItem="CNb-gf-oad" firstAttribute="width" secondItem="Ems-6k-Ba2" secondAttribute="width" id="GQU-bM-G7w"/>
-                    <constraint firstItem="9aV-y1-lTs" firstAttribute="top" secondItem="CNb-gf-oad" secondAttribute="bottom" id="RFD-yQ-d1I"/>
                     <constraint firstItem="CNb-gf-oad" firstAttribute="height" secondItem="Ems-6k-Ba2" secondAttribute="height" id="YE9-nU-PQC"/>
+                    <constraint firstItem="CNb-gf-oad" firstAttribute="top" secondItem="Ems-6k-Ba2" secondAttribute="top" id="aNd-00-iMu"/>
                     <constraint firstItem="CNb-gf-oad" firstAttribute="leading" secondItem="Ems-6k-Ba2" secondAttribute="leading" id="toE-n2-A5E"/>
                 </constraints>
             </view>
             <navigationItem key="navigationItem" id="LFV-Kh-15L"/>
-            <point key="canvasLocation" x="-53.5" y="-486.5"/>
+            <point key="canvasLocation" x="-53.5" y="-487"/>
         </viewController>
     </objects>
     <resources>
