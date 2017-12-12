@@ -74,12 +74,13 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     // MARK: Authorization
 
     func requireAuthorization(_ callback: @escaping VoidBlock) {
-        if CLLocationManager.authorizationStatus() == .authorizedAlways {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             callback()
         } else {
             KTNotificationCenter.post(name: .ApplicationWillRequestLocationAuthorization)
             onManagerAuthorizedCallbacks.append(callback)
-            requestAlwaysAuthorization()
+            requestWhenInUseAuthorization()
+            //requestAlwaysAuthorization()
         }
     }
 
@@ -308,7 +309,7 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     }
 
     func monitorRegionWithCircularOverlay(_ overlay: MKCircle, identifier: String, onDidEnterRegion: @escaping VoidBlock, onDidExitRegion: @escaping VoidBlock) {
-        if CLLocationManager.authorizationStatus() != .authorizedAlways {
+        if CLLocationManager.authorizationStatus() != .authorizedWhenInUse {
             return
         }
 

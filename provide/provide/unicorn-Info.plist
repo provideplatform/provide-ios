@@ -86,10 +86,6 @@
 	<string>unicorn would like to use your bluetooth radio</string>
 	<key>NSCameraUsageDescription</key>
 	<string>unicorn would like to use your camera</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>unicorn would like to use your current location</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>unicorn would like to use your current location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>unicorn would like to use your current location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
