@@ -74,22 +74,31 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     // MARK: Authorization
 
     func requireAuthorization(_ callback: @escaping VoidBlock) {
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+        let status = CLLocationManager.authorizationStatus()
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
             callback()
-        } else {
+        } else if status == .notDetermined {
             KTNotificationCenter.post(name: .ApplicationWillRequestLocationAuthorization)
             onManagerAuthorizedCallbacks.append(callback)
             requestWhenInUseAuthorization()
             //requestAlwaysAuthorization()
+        } else if status == .denied {
+            KTNotificationCenter.post(name: .ApplicationUserDeniedLocationServices)
+            logWarn("Use has denied access to location services")
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedAlways {
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
             while onManagerAuthorizedCallbacks.count > 0 {
                 let callback = onManagerAuthorizedCallbacks.remove(at: 0)
                 callback()
             }
+        } else if status == .notDetermined {
+            // TODO
+        } else if status == .denied {
+            KTNotificationCenter.post(name: .ApplicationUserDeniedLocationServices)
+            logWarn("Use has denied access to location services")
         }
     }
 

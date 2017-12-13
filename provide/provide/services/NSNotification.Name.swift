@@ -13,6 +13,7 @@ extension NSNotification.Name {
     static let ApplicationShouldReloadTopViewController = NSNotification.Name("ApplicationShouldReloadTopViewController")
     static let ApplicationShouldShowInvalidCredentialsToast = NSNotification.Name("ApplicationShouldShowInvalidCredentialsToast")
     static let ApplicationWillResignActive = NSNotification.Name("ApplicationWillResignActive")
+    static let ApplicationUserDeniedLocationServices = NSNotification.Name("ApplicationUserDeniedLocationServices")
     static let ApplicationUserLoggedOut = NSNotification.Name("ApplicationUserLoggedOut")
     static let ApplicationUserShouldLogout = NSNotification.Name("ApplicationUserShouldLogout")
     static let ApplicationUserWasAuthenticated = NSNotification.Name("ApplicationUserWasAuthenticated")
