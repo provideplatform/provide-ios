@@ -124,11 +124,10 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        DispatchQueue.main.async { [weak self] in
-            self?.navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
-            self?.navigationController?.navigationBar.barTintColor = nil
-            self?.navigationController?.navigationBar.tintColor = nil
-        }
+        UIApplication.shared.statusBarStyle = .default
+        navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
+        navigationController?.navigationBar.barTintColor = nil
+        navigationController?.navigationBar.tintColor = nil
     }
 
     private func performTripCompletionViewControllerSegue(sender: WorkOrder) {
@@ -207,6 +206,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
 
     private func prepareForMenuItemSegue() {
         DispatchQueue.main.async { [weak self] in
+            UIApplication.shared.statusBarStyle = .lightContent
             self?.navigationController?.navigationBar.backgroundColor = .black
             self?.navigationController?.navigationBar.barTintColor = .black
             self?.navigationController?.navigationBar.tintColor = .white
