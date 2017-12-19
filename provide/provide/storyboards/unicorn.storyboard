@@ -898,7 +898,6 @@
         <image name="prvd-splash" width="2048" height="1322"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="C50-VZ-xgK"/>
         <segue reference="ifq-UV-5Ww"/>
     </inferredMetricsTieBreakers>
 </document>

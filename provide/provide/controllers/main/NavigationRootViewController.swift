@@ -44,6 +44,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         codeButton.alpha = 0.0
 
         orLabel1.alpha = 0.0
+        orLabel2.alpha = 0.0
 
         MBProgressHUD.showAdded(to: view, animated: true)
 
