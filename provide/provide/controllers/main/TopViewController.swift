@@ -29,6 +29,10 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
         if rootViewController != nil {
             navigationController?.setNavigationBarHidden(true, animated: false)
             navigationController?.popViewController(animated: false)
+            if #available(iOS 11.0, *) {
+                navigationController?.navigationBar.prefersLargeTitles = true
+            }
+
             rootViewController = nil
         }
 

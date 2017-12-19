@@ -210,6 +210,10 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
             self?.navigationController?.navigationBar.backgroundColor = .black
             self?.navigationController?.navigationBar.barTintColor = .black
             self?.navigationController?.navigationBar.tintColor = .white
+            if #available(iOS 11.0, *) {
+                self?.navigationController?.navigationBar.prefersLargeTitles = true
+                self?.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+            }
         }
     }
 

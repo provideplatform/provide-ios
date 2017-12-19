@@ -13,7 +13,7 @@ class MenuTableViewCell: UITableViewCell {
     var menuItem: MenuItem! {
         didSet {
             if let menuItem = menuItem {
-                label?.text = menuItem.label.uppercased()
+                label?.text = menuItem.label
                 label?.sizeToFit()
             }
         }

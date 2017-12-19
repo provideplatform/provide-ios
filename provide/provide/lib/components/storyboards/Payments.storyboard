@@ -40,7 +40,7 @@
             </objects>
             <point key="canvasLocation" x="-1529" y="252"/>
         </scene>
-        <!--PAYMENTS-->
+        <!--Payments-->
         <scene sceneID="8ZZ-FH-dYc">
             <objects>
                 <viewController storyboardIdentifier="PaymentMethodsViewController" id="ELe-zS-9hv" customClass="PaymentMethodsViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
@@ -298,7 +298,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="EWQ-PR-FOY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="PAYMENTS" largeTitleDisplayMode="always" id="fGI-45-clh">
+                    <navigationItem key="navigationItem" title="Payments" id="fGI-45-clh">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="eAD-Pt-990">
                             <connections>
                                 <segue destination="V1h-05-vCu" kind="showDetail" identifier="PaymentMethodScannerViewControllerSegue" animates="NO" action="showViewController:sender:" id="uZ2-kA-5Z9"/>
