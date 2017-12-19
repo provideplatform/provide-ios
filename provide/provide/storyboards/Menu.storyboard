@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -22,10 +24,6 @@
         <scene sceneID="Lkn-jb-QZn">
             <objects>
                 <viewController storyboardIdentifier="WebViewController" id="R0e-aH-frg" customClass="WebViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="OWi-1I-hZF"/>
-                        <viewControllerLayoutGuide type="bottom" id="XtO-Ko-RR3"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="eGZ-2h-M94">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,13 +36,14 @@
                                 </connections>
                             </webView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="pQN-sP-dJb" firstAttribute="top" secondItem="eGZ-2h-M94" secondAttribute="top" id="1Sw-VC-Gmd"/>
-                            <constraint firstItem="pQN-sP-dJb" firstAttribute="leading" secondItem="eGZ-2h-M94" secondAttribute="leading" id="adF-7t-7WS"/>
-                            <constraint firstItem="pQN-sP-dJb" firstAttribute="bottom" secondItem="XtO-Ko-RR3" secondAttribute="top" id="mId-OL-RWZ"/>
-                            <constraint firstAttribute="trailing" secondItem="pQN-sP-dJb" secondAttribute="trailing" id="sMQ-bC-re6"/>
+                            <constraint firstItem="pQN-sP-dJb" firstAttribute="leading" secondItem="2Rb-3y-uT4" secondAttribute="leading" id="112-tf-Wgy"/>
+                            <constraint firstItem="2Rb-3y-uT4" firstAttribute="top" secondItem="pQN-sP-dJb" secondAttribute="top" constant="20" id="3aU-fA-HmB"/>
+                            <constraint firstItem="2Rb-3y-uT4" firstAttribute="bottom" secondItem="pQN-sP-dJb" secondAttribute="bottom" id="HRj-yz-zRf"/>
+                            <constraint firstItem="2Rb-3y-uT4" firstAttribute="trailing" secondItem="pQN-sP-dJb" secondAttribute="trailing" id="INI-2m-4Wi"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="2Rb-3y-uT4"/>
                     </view>
                     <connections>
                         <outlet property="webView" destination="pQN-sP-dJb" id="W0e-FL-Glv"/>
@@ -66,11 +65,16 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QgJ-x5-mA1">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QgJ-x5-mA1">
                                     <rect key="frame" x="9" y="34" width="65" height="65"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="65" id="MFF-A5-vu1"/>
+                                        <constraint firstAttribute="width" secondItem="QgJ-x5-mA1" secondAttribute="height" multiplier="1:1" id="h2P-O7-ecO"/>
+                                        <constraint firstAttribute="width" constant="65" id="iRb-Qz-hwC"/>
+                                    </constraints>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K47-UQ-7Pe">
-                                    <rect key="frame" x="0.0" y="86" width="83" height="30"/>
+                                    <rect key="frame" x="8" y="86" width="67" height="30"/>
                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                     <state key="normal" title="change">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -126,63 +130,15 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Legal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Buf-hq-Naq">
-                                            <rect key="frame" x="23" y="7212" width="242" height="0.0"/>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Legal" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Buf-hq-Naq">
+                                            <rect key="frame" x="31" y="10.5" width="39" height="19.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <accessibility key="accessibilityConfiguration" label="tos_menu_item"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="242" id="IwO-eu-yf6"/>
-                                                <constraint firstAttribute="width" constant="242" id="arL-NF-cJF"/>
-                                                <constraint firstAttribute="width" constant="242" id="pmA-7f-4e5"/>
-                                            </constraints>
                                             <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="16"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="arL-NF-cJF"/>
-                                                    <exclude reference="pmA-7f-4e5"/>
-                                                </mask>
-                                            </variation>
-                                            <variation key="heightClass=regular-widthClass=compact">
-                                                <mask key="constraints">
-                                                    <include reference="pmA-7f-4e5"/>
-                                                </mask>
-                                            </variation>
-                                            <variation key="heightClass=regular-widthClass=regular">
-                                                <mask key="constraints">
-                                                    <include reference="arL-NF-cJF"/>
-                                                </mask>
-                                            </variation>
                                         </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstItem="Buf-hq-Naq" firstAttribute="top" secondItem="Ljp-YN-v2Z" secondAttribute="topMargin" constant="4" id="4IL-T5-Alh"/>
-                                        <constraint firstItem="Buf-hq-Naq" firstAttribute="leading" secondItem="Ljp-YN-v2Z" secondAttribute="leadingMargin" constant="50" id="7bC-4I-uI6"/>
-                                        <constraint firstItem="Buf-hq-Naq" firstAttribute="top" secondItem="Ljp-YN-v2Z" secondAttribute="topMargin" constant="4" id="TmS-dq-lDf"/>
-                                        <constraint firstItem="Buf-hq-Naq" firstAttribute="leading" secondItem="Ljp-YN-v2Z" secondAttribute="leadingMargin" constant="15" id="ZjV-wm-AvB"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Buf-hq-Naq" secondAttribute="bottom" constant="9" id="as8-EG-7FO"/>
-                                        <constraint firstItem="Buf-hq-Naq" firstAttribute="top" secondItem="Ljp-YN-v2Z" secondAttribute="topMargin" constant="4" id="ppZ-td-69t"/>
-                                    </constraints>
-                                    <variation key="default">
-                                        <mask key="constraints">
-                                            <exclude reference="7bC-4I-uI6"/>
-                                            <exclude reference="TmS-dq-lDf"/>
-                                            <exclude reference="ppZ-td-69t"/>
-                                        </mask>
-                                    </variation>
-                                    <variation key="heightClass=regular-widthClass=compact">
-                                        <mask key="constraints">
-                                            <include reference="TmS-dq-lDf"/>
-                                        </mask>
-                                    </variation>
-                                    <variation key="heightClass=regular-widthClass=regular">
-                                        <mask key="constraints">
-                                            <exclude reference="4IL-T5-Alh"/>
-                                            <include reference="7bC-4I-uI6"/>
-                                            <exclude reference="as8-EG-7FO"/>
-                                            <include reference="ppZ-td-69t"/>
-                                        </mask>
-                                    </variation>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>

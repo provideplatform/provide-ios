@@ -79,6 +79,7 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
                     let webViewController = UIStoryboard("Menu").instantiateViewController(withIdentifier: "WebViewController") as! WebViewController
                     webViewController.url = url
                     KTNotificationCenter.post(name: .MenuContainerShouldReset)
+                    prepareForMenuItemSegue()
                     delegate?.navigationControllerForMenuViewController(self)?.pushViewController(webViewController, animated: true)
                 }
             }
@@ -112,6 +113,19 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         let remainingSpace = view.height - (statusBarHeight + tableHeaderViewHeight + totalCellHeight + versionNumberHeight)
         tableView.sectionFooterHeight = remainingSpace / CGFloat(tableView.numberOfSections - 1)
+    }
+
+    private func prepareForMenuItemSegue() {
+        DispatchQueue.main.async { [weak self] in
+            if let strongSelf = self {
+                UIApplication.shared.statusBarStyle = .lightContent
+                if let navigationController = strongSelf.delegate?.navigationControllerForMenuViewController(strongSelf) {
+                    navigationController.navigationBar.backgroundColor = .black
+                    navigationController.navigationBar.barTintColor = .black
+                    navigationController.navigationBar.tintColor = .white
+                }
+            }
+        }
     }
 
     @objc func logout() {
