@@ -238,7 +238,7 @@
                                 <rect key="frame" x="0.0" y="507" width="375" height="96"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cmS-Gi-MqB">
-                                        <rect key="frame" x="284" y="50" width="75" height="33"/>
+                                        <rect key="frame" x="284" y="51" width="75" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="YGV-rv-xUa"/>
                                         </constraints>
@@ -249,7 +249,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your promo code" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="l9Y-t6-4aW">
-                                        <rect key="frame" x="30" y="6" width="314" height="40"/>
+                                        <rect key="frame" x="30" y="6" width="314" height="41"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -259,7 +259,7 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="twT-IU-Mcb">
-                                        <rect key="frame" x="15" y="50" width="75" height="33"/>
+                                        <rect key="frame" x="15" y="51" width="75" height="32"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="Rje-Zz-1DM"/>
                                         </constraints>
