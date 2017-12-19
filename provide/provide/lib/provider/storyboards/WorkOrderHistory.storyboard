@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="OLz-8w-PnB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OLz-8w-PnB">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -22,17 +23,13 @@
         <scene sceneID="Sgu-7f-9Bj">
             <objects>
                 <viewController id="OLz-8w-PnB" customClass="WorkOrderHistoryViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="BOs-ly-Kdr"/>
-                        <viewControllerLayoutGuide type="bottom" id="hoE-pt-Vce"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ben-Gj-TqF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="E5v-YL-wMD">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="XGu-xY-8Gv">
                                     <size key="itemSize" width="414" height="170"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -141,13 +138,14 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="E5v-YL-wMD" firstAttribute="top" secondItem="ben-Gj-TqF" secondAttribute="top" id="HXf-DR-Kvg"/>
-                            <constraint firstItem="E5v-YL-wMD" firstAttribute="bottom" secondItem="hoE-pt-Vce" secondAttribute="top" id="UtN-23-dPv"/>
-                            <constraint firstAttribute="trailing" secondItem="E5v-YL-wMD" secondAttribute="trailing" id="bge-9w-5BL"/>
-                            <constraint firstItem="E5v-YL-wMD" firstAttribute="leading" secondItem="ben-Gj-TqF" secondAttribute="leading" id="uAa-Ta-LCq"/>
+                            <constraint firstItem="E5v-YL-wMD" firstAttribute="leading" secondItem="4kz-bd-8cU" secondAttribute="leading" id="AUL-gt-S6l"/>
+                            <constraint firstItem="4kz-bd-8cU" firstAttribute="trailing" secondItem="E5v-YL-wMD" secondAttribute="trailing" id="dAm-bm-Rla"/>
+                            <constraint firstItem="4kz-bd-8cU" firstAttribute="top" secondItem="E5v-YL-wMD" secondAttribute="top" constant="20" id="fAb-aw-T9F"/>
+                            <constraint firstItem="4kz-bd-8cU" firstAttribute="bottom" secondItem="E5v-YL-wMD" secondAttribute="bottom" id="mLS-pJ-Xnc"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="4kz-bd-8cU"/>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="E5v-YL-wMD" id="gOo-lg-03A"/>

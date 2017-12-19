@@ -121,6 +121,16 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
+            self?.navigationController?.navigationBar.barTintColor = nil
+            self?.navigationController?.navigationBar.tintColor = nil
+        }
+    }
+
     private func performTripCompletionViewControllerSegue(sender: WorkOrder) {
         DispatchQueue.main.async { [weak self] in
             if let vc = self?.presentedViewController {
@@ -185,12 +195,21 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
                 logmoji("💰", "Tip amount is \(tipAmount). TODO: POST tip amount to server")
             }
         case "PaymentsViewControllerSegue":
-            logInfo("Preparing for PaymentsViewControllerSegue is a no-op")
+            prepareForMenuItemSegue()
         case "WorkOrderHistoryViewControllerSegue":
+            prepareForMenuItemSegue()
             let workOrderHistoryViewController = segue.destination as! WorkOrderHistoryViewController
             workOrderHistoryViewController.delegate = self
         default:
             break
+        }
+    }
+
+    private func prepareForMenuItemSegue() {
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController?.navigationBar.backgroundColor = .black
+            self?.navigationController?.navigationBar.barTintColor = .black
+            self?.navigationController?.navigationBar.tintColor = .white
         }
     }
 
