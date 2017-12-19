@@ -68,7 +68,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "History"
+        navigationItem.title = "HISTORY"
         setupPullToRefresh()
     }
 
