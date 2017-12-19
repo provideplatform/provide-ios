@@ -463,7 +463,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="QHH-x5-FsR" firstAttribute="trailing" secondItem="20e-zz-5lN" secondAttribute="trailing" constant="37" id="1h2-Eg-Y1B"/>
                             <constraint firstItem="20e-zz-5lN" firstAttribute="top" secondItem="QHH-x5-FsR" secondAttribute="top" constant="110" id="KeB-cR-cRM"/>
