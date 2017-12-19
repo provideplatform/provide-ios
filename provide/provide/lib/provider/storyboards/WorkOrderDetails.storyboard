@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9ir-BJ-5Pd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9ir-BJ-5Pd">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -22,10 +23,6 @@
         <scene sceneID="Hp2-Zg-ugY">
             <objects>
                 <viewController id="9ir-BJ-5Pd" customClass="WorkOrderDetailsViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="D5L-RS-ofN"/>
-                        <viewControllerLayoutGuide type="bottom" id="18u-3a-PVV"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="R5S-LA-nN1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -86,9 +83,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Gfp-fb-M2y">
                                 <rect key="frame" x="0.0" y="200" width="375" height="467"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="392" id="aLj-yW-INK"/>
-                                </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NameValueTableViewCell" id="4gO-pk-Qwm" customClass="NameValueTableViewCell" customModule="provide" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="375" height="44"/>
@@ -190,11 +184,6 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="aLj-yW-INK"/>
-                                    </mask>
-                                </variation>
                                 <connections>
                                     <outlet property="dataSource" destination="9ir-BJ-5Pd" id="4Jb-oX-3Mp"/>
                                     <outlet property="delegate" destination="9ir-BJ-5Pd" id="G6a-TG-sVt"/>
@@ -203,25 +192,16 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Gfp-fb-M2y" firstAttribute="top" secondItem="D5L-RS-ofN" secondAttribute="bottom" constant="180" id="48O-PD-99J"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Gfp-fb-M2y" secondAttribute="trailing" constant="-16" id="658-Nz-dGk"/>
-                            <constraint firstItem="18u-3a-PVV" firstAttribute="top" secondItem="Gfp-fb-M2y" secondAttribute="bottom" id="7Vl-Oh-bOi"/>
-                            <constraint firstItem="IjT-uB-FWM" firstAttribute="trailing" secondItem="Gfp-fb-M2y" secondAttribute="trailing" id="C0B-3w-KtD"/>
-                            <constraint firstItem="IjT-uB-FWM" firstAttribute="leading" secondItem="Gfp-fb-M2y" secondAttribute="leading" id="J4u-2a-Wdb"/>
-                            <constraint firstItem="IjT-uB-FWM" firstAttribute="top" secondItem="R5S-LA-nN1" secondAttribute="top" id="LMh-7r-HtY"/>
-                            <constraint firstItem="Gfp-fb-M2y" firstAttribute="leading" secondItem="R5S-LA-nN1" secondAttribute="leadingMargin" constant="-16" id="WiQ-NF-hX2"/>
-                            <constraint firstItem="18u-3a-PVV" firstAttribute="top" secondItem="Gfp-fb-M2y" secondAttribute="bottom" id="YLR-YR-scL"/>
-                            <constraint firstAttribute="trailing" secondItem="Gfp-fb-M2y" secondAttribute="trailing" id="cZo-u7-pWu"/>
-                            <constraint firstItem="Gfp-fb-M2y" firstAttribute="top" secondItem="IjT-uB-FWM" secondAttribute="bottom" id="iMx-Gr-vAG"/>
-                            <constraint firstItem="Gfp-fb-M2y" firstAttribute="leading" secondItem="R5S-LA-nN1" secondAttribute="leading" id="kmx-XT-kYQ"/>
-                            <constraint firstItem="Gfp-fb-M2y" firstAttribute="top" secondItem="R5S-LA-nN1" secondAttribute="top" constant="200" id="p0p-C3-n36"/>
+                            <constraint firstItem="Gfp-fb-M2y" firstAttribute="top" secondItem="71m-Z7-Iyk" secondAttribute="top" constant="180" id="8YR-Tw-GF9"/>
+                            <constraint firstItem="Gfp-fb-M2y" firstAttribute="leading" secondItem="71m-Z7-Iyk" secondAttribute="leading" id="H1c-1C-0UT"/>
+                            <constraint firstItem="71m-Z7-Iyk" firstAttribute="trailing" secondItem="Gfp-fb-M2y" secondAttribute="trailing" id="Lt3-S9-zSZ"/>
+                            <constraint firstItem="71m-Z7-Iyk" firstAttribute="trailing" secondItem="IjT-uB-FWM" secondAttribute="trailing" id="Px9-4g-JQh"/>
+                            <constraint firstItem="Gfp-fb-M2y" firstAttribute="top" secondItem="IjT-uB-FWM" secondAttribute="bottom" id="Y2c-DN-9ds"/>
+                            <constraint firstItem="71m-Z7-Iyk" firstAttribute="top" secondItem="IjT-uB-FWM" secondAttribute="top" constant="20" id="ZSD-pj-a0a"/>
+                            <constraint firstItem="71m-Z7-Iyk" firstAttribute="bottom" secondItem="Gfp-fb-M2y" secondAttribute="bottom" id="hUS-1V-gDe"/>
+                            <constraint firstItem="IjT-uB-FWM" firstAttribute="leading" secondItem="71m-Z7-Iyk" secondAttribute="leading" id="tSe-jv-bz5"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="658-Nz-dGk"/>
-                                <exclude reference="WiQ-NF-hX2"/>
-                            </mask>
-                        </variation>
+                        <viewLayoutGuide key="safeArea" id="71m-Z7-Iyk"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
