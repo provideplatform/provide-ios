@@ -52,12 +52,13 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
             self.showToast("The supplied credentials are invalid...", dismissAfter: 4.0)
         }
 
-        KTNotificationCenter.addObserver(forName: .ApplicationShouldReloadTopViewController) { _ in
-            if let tnc = self.topViewController as? UINavigationController, let tvc = tnc.viewControllers.first as? TopViewController {
+        KTNotificationCenter.addObserver(forName: .ApplicationShouldReloadTopViewController) { [weak self] _ in
+            if let tnc = self?.topViewController as? UINavigationController, let tvc = tnc.viewControllers.first as? TopViewController {
                 tvc.reload()
             }
 
-            self.refreshMenu()
+            self?.refreshMenu()
+            self?.requireMinimumViableUser()
         }
     }
 
@@ -129,7 +130,9 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
             }
         }
 
-        if currentUser.profileImageUrl == nil && !currentUser.hasBeenPromptedToTakeSelfie {
+        if currentUser.defaultPaymentMethod == nil {
+            KTNotificationCenter.post(name: Notification.Name(rawValue: "SegueToPaymentsStoryboard"), object: nil)
+        } else if currentUser.profileImageUrl == nil && !currentUser.hasBeenPromptedToTakeSelfie {
             promptUserToTakeSelfie()
         }
     }
