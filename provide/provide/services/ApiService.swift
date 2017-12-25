@@ -60,7 +60,7 @@ class ApiService: NSObject {
 
     private var multipathTcpEnabled: Bool {
         if #available(iOS 11.0, *) {
-            return true
+            return !isSimulator()
         }
         return false
     }
