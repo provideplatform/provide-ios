@@ -63,8 +63,10 @@ class ConfirmWorkOrderViewController: ViewController {
                     fareEstimateLabel.text = Formatters.currencyFormatter.string(from: price as NSNumber)
                     fareEstimateLabel.isHidden = false
 
-                    // self.creditCardLastFour.text = "" // TODO
-                    // self.capacity.text = "" // TODO
+                    if let paymentMethod = currentUser.defaultPaymentMethod, let last4 = paymentMethod.last4 {
+                        creditCardIcon.image = paymentMethod.icon
+                        creditCardLastFourLabel.text = "•••• \(last4)"
+                    }
 
                     monkey("👨‍💼 Tap: CONFIRM PRVD") {
                         self.confirmButtonTapped(UIButton())
