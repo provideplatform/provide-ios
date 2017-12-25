@@ -99,13 +99,17 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
         }
 
         ApiService.shared.fetchCurrentUser(onSuccess: { _, _ in
-            if currentUser.profileImageUrl == nil && !currentUser.hasBeenPromptedToTakeSelfie {
-                promptUserToTakeSelfie()
-            }
+            currentUser.reloadPaymentMethods(onSuccess: { [weak self] _, _ in
+                self?.requireMinimumViableUser()
+            }, onError: { error, statusCode, responseString in
+                logError(error)
+            })
         }, onError: { error, statusCode, responseString in
             logError(error)
         })
+    }
 
+    private func requireMinimumViableUser() {
         func promptUserToTakeSelfie() {
             let authorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
             switch authorizationStatus {
@@ -123,6 +127,10 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
             case .restricted, .denied:
                 break
             }
+        }
+
+        if currentUser.profileImageUrl == nil && !currentUser.hasBeenPromptedToTakeSelfie {
+            promptUserToTakeSelfie()
         }
     }
 
