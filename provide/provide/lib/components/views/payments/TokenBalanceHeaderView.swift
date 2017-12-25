@@ -37,6 +37,6 @@ class TokenBalanceHeaderView: UIView {
 
     @objc
     private func buyTokens(_ sender: UIButton) {
-        logInfo("Buy tokens!")
+        KTNotificationCenter.post(name: .ApplicationShouldPresentTokenPurchaseViewController)
     }
 }

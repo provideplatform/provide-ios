@@ -48,7 +48,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="grouped" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="icb-6b-eTV">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="icb-6b-eTV">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -56,11 +56,11 @@
                                         <rect key="frame" x="0.0" y="55.5" width="375" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gkI-Ae-YPe" id="0of-9S-T5h">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hsw-Wx-w1i" customClass="TokenBalanceHeaderView" customModule="provide" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="-1" width="375" height="70"/>
+                                                    <rect key="frame" x="0.0" y="-1" width="375" height="72"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$2,159.22" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hOA-Sp-wWa" userLabel="USD Balance Label">
                                                             <rect key="frame" x="8" y="0.0" width="359" height="36"/>
@@ -74,8 +74,8 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JBK-Ie-vKC">
-                                                            <rect key="frame" x="149" y="36" width="78" height="33"/>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JBK-Ie-vKC">
+                                                            <rect key="frame" x="149" y="36" width="78" height="35"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="78" id="OkQ-N2-uzF"/>
                                                             </constraints>
@@ -83,10 +83,10 @@
                                                             <state key="normal" title="Join ICO"/>
                                                         </button>
                                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6uB-5U-S4a" userLabel="Token Opts">
-                                                            <rect key="frame" x="0.0" y="44" width="375" height="25"/>
+                                                            <rect key="frame" x="0.0" y="44" width="375" height="27"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay with PRVD?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWd-nv-7ea">
-                                                                    <rect key="frame" x="150" y="2" width="130" height="21"/>
+                                                                    <rect key="frame" x="150" y="2" width="130" height="23"/>
                                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -95,7 +95,7 @@
                                                                     <rect key="frame" x="95" y="-3" width="51" height="31"/>
                                                                 </switch>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NXu-Ed-xFb" userLabel="Pay with PRVD Disclosure">
-                                                                    <rect key="frame" x="258" y="1" width="22" height="22"/>
+                                                                    <rect key="frame" x="258" y="1" width="22" height="24"/>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -150,7 +150,7 @@
                                         <rect key="frame" x="0.0" y="125.5" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lvA-7D-JaV" id="wCZ-bF-Brd">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="visa" translatesAutoresizingMaskIntoConstraints="NO" id="8Oy-UG-C0D">
@@ -211,7 +211,7 @@
                                         <rect key="frame" x="0.0" y="185.5" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gn5-Ca-22d" id="HIX-aE-dvh">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Payment Method" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2SJ-P4-bu1">
@@ -310,7 +310,6 @@
                         <outlet property="promoCodeApplyButton" destination="cmS-Gi-MqB" id="JEM-Gg-u1A"/>
                         <outlet property="promoCodeInputContainerView" destination="Gfx-nb-0vx" id="H3A-wp-BCu"/>
                         <outlet property="promoCodeInputTextField" destination="l9Y-t6-4aW" id="Pw7-En-tS0"/>
-                        <segue destination="VxB-XA-Cma" kind="showDetail" identifier="TokenPurchaseViewControllerSegue" id="LSs-TU-bG7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t68-I3-x0a" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -490,34 +489,36 @@
         <!--Buy PRVD-->
         <scene sceneID="9nu-qJ-fSN">
             <objects>
-                <viewController id="VxB-XA-Cma" customClass="TokenPurchaseViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TokenPurchaseViewController" id="VxB-XA-Cma" customClass="TokenPurchaseViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1sa-ae-iMt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="500" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oZK-pa-h4h">
-                                <rect key="frame" x="85" y="57" width="97" height="30"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s9k-b7-h7C">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="500" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oZK-pa-h4h">
+                                <rect key="frame" x="85" y="57" width="97" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="97" id="zMM-Rd-xHZ"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="20"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                <connections>
+                                    <action selector="quantityChanged:" destination="VxB-XA-Cma" eventType="valueChanged" id="Gn4-uI-cGp"/>
+                                    <outlet property="delegate" destination="VxB-XA-Cma" id="H40-Wv-123"/>
+                                </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.22 per PRVD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szt-ff-HBt">
-                                <rect key="frame" x="126.5" y="135" width="123" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$100" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eb7-Uc-xm3">
-                                <rect key="frame" x="139" y="195" width="97.5" height="74.5"/>
+                                <rect key="frame" x="88" y="214" width="199" height="80.5"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•••• 7059" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="gGx-a4-w1j">
-                                <rect key="frame" x="182" y="325.5" width="55" height="16"/>
+                                <rect key="frame" x="182" y="314.5" width="55" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="ZQS-j4-U4C"/>
                                 </constraints>
@@ -525,51 +526,71 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRVD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mao-YY-Zo3">
-                                <rect key="frame" x="189" y="66" width="100" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="189" y="64" width="100" height="20"/>
+                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dIL-jg-AdI">
-                                <rect key="frame" x="155.5" y="428.5" width="64" height="30"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dIL-jg-AdI">
+                                <rect key="frame" x="151.5" y="346.5" width="72" height="33"/>
+                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
                                 <state key="normal" title="Purchase"/>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="visa" translatesAutoresizingMaskIntoConstraints="NO" id="cfd-zO-N6T">
-                                <rect key="frame" x="139" y="323.5" width="32" height="21"/>
+                                <rect key="frame" x="139" y="312.5" width="32" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="Mcy-hm-hx5"/>
                                     <constraint firstAttribute="width" secondItem="cfd-zO-N6T" secondAttribute="height" multiplier="32:21" id="jbR-2r-Iq1"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@ $0.22 per PRVD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szt-ff-HBt">
+                                <rect key="frame" x="136.5" y="94" width="102.5" height="16"/>
+                                <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="szt-ff-HBt" firstAttribute="top" secondItem="oZK-pa-h4h" secondAttribute="bottom" constant="48" id="1hB-oI-AQy"/>
+                            <constraint firstItem="szt-ff-HBt" firstAttribute="top" secondItem="oZK-pa-h4h" secondAttribute="bottom" constant="8" id="1hB-oI-AQy"/>
                             <constraint firstItem="oZK-pa-h4h" firstAttribute="leading" secondItem="zu9-fs-in0" secondAttribute="leading" constant="85" id="Clm-L1-0fj"/>
-                            <constraint firstItem="eb7-Uc-xm3" firstAttribute="top" secondItem="szt-ff-HBt" secondAttribute="bottom" constant="39" id="HHO-BI-Gfc"/>
+                            <constraint firstItem="s9k-b7-h7C" firstAttribute="leading" secondItem="zu9-fs-in0" secondAttribute="leading" id="EkK-tG-BQy"/>
+                            <constraint firstItem="eb7-Uc-xm3" firstAttribute="top" secondItem="szt-ff-HBt" secondAttribute="bottom" constant="104" id="HHO-BI-Gfc"/>
                             <constraint firstItem="szt-ff-HBt" firstAttribute="centerX" secondItem="eb7-Uc-xm3" secondAttribute="centerX" id="HoI-Ai-o54"/>
-                            <constraint firstItem="gGx-a4-w1j" firstAttribute="centerY" secondItem="1sa-ae-iMt" secondAttribute="centerY" id="JiQ-az-PeM"/>
-                            <constraint firstItem="oZK-pa-h4h" firstAttribute="bottom" secondItem="Mao-YY-Zo3" secondAttribute="bottom" id="WDd-rs-qFE"/>
+                            <constraint firstItem="gGx-a4-w1j" firstAttribute="centerY" secondItem="1sa-ae-iMt" secondAttribute="centerY" constant="-11" id="JiQ-az-PeM"/>
+                            <constraint firstItem="oZK-pa-h4h" firstAttribute="bottom" secondItem="Mao-YY-Zo3" secondAttribute="bottom" constant="2" id="WDd-rs-qFE"/>
                             <constraint firstItem="Mao-YY-Zo3" firstAttribute="leading" secondItem="oZK-pa-h4h" secondAttribute="trailing" constant="7" id="Zol-1y-oVz"/>
-                            <constraint firstItem="eb7-Uc-xm3" firstAttribute="leading" secondItem="zu9-fs-in0" secondAttribute="leading" constant="139" id="eMD-5d-4kj"/>
-                            <constraint firstItem="gGx-a4-w1j" firstAttribute="top" secondItem="eb7-Uc-xm3" secondAttribute="bottom" constant="56" id="i85-nW-BQb"/>
+                            <constraint firstItem="zu9-fs-in0" firstAttribute="bottom" secondItem="s9k-b7-h7C" secondAttribute="bottom" id="aYd-F9-VVn"/>
+                            <constraint firstItem="eb7-Uc-xm3" firstAttribute="leading" secondItem="zu9-fs-in0" secondAttribute="leading" constant="88" id="eMD-5d-4kj"/>
+                            <constraint firstItem="zu9-fs-in0" firstAttribute="trailing" secondItem="s9k-b7-h7C" secondAttribute="trailing" id="fOZ-ff-WVo"/>
+                            <constraint firstItem="gGx-a4-w1j" firstAttribute="top" secondItem="eb7-Uc-xm3" secondAttribute="bottom" constant="20" id="i85-nW-BQb"/>
                             <constraint firstItem="zu9-fs-in0" firstAttribute="trailing" secondItem="Mao-YY-Zo3" secondAttribute="trailing" constant="86" id="jVc-sn-AFl"/>
                             <constraint firstItem="dIL-jg-AdI" firstAttribute="centerX" secondItem="zu9-fs-in0" secondAttribute="centerX" id="jcB-ek-iwc"/>
                             <constraint firstItem="gGx-a4-w1j" firstAttribute="leading" secondItem="cfd-zO-N6T" secondAttribute="trailing" constant="11" id="m0j-Xc-aEi"/>
                             <constraint firstItem="oZK-pa-h4h" firstAttribute="top" secondItem="zu9-fs-in0" secondAttribute="top" constant="37" id="oSJ-X5-AXa"/>
+                            <constraint firstItem="zu9-fs-in0" firstAttribute="top" secondItem="s9k-b7-h7C" secondAttribute="top" constant="20" id="rgO-0H-yMT"/>
                             <constraint firstItem="zu9-fs-in0" firstAttribute="trailing" secondItem="gGx-a4-w1j" secondAttribute="trailing" constant="138" id="rgt-tt-1H4"/>
-                            <constraint firstItem="Mao-YY-Zo3" firstAttribute="top" secondItem="zu9-fs-in0" secondAttribute="top" constant="46" id="s48-uO-anX"/>
-                            <constraint firstItem="dIL-jg-AdI" firstAttribute="top" secondItem="gGx-a4-w1j" secondAttribute="bottom" constant="87" id="sbz-Oz-mlJ"/>
-                            <constraint firstItem="cfd-zO-N6T" firstAttribute="top" secondItem="eb7-Uc-xm3" secondAttribute="bottom" constant="54" id="weX-jK-Xbs"/>
+                            <constraint firstItem="Mao-YY-Zo3" firstAttribute="top" secondItem="zu9-fs-in0" secondAttribute="top" constant="44" id="s48-uO-anX"/>
+                            <constraint firstItem="dIL-jg-AdI" firstAttribute="top" secondItem="gGx-a4-w1j" secondAttribute="bottom" constant="16" id="sbz-Oz-mlJ"/>
+                            <constraint firstItem="cfd-zO-N6T" firstAttribute="top" secondItem="eb7-Uc-xm3" secondAttribute="bottom" constant="18" id="weX-jK-Xbs"/>
                             <constraint firstItem="eb7-Uc-xm3" firstAttribute="centerX" secondItem="dIL-jg-AdI" secondAttribute="centerX" id="zfb-LY-NF9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zu9-fs-in0"/>
                     </view>
                     <navigationItem key="navigationItem" title="Buy PRVD" id="4zq-LK-CWi"/>
+                    <connections>
+                        <outlet property="cardIcon" destination="cfd-zO-N6T" id="Scz-RI-DkW"/>
+                        <outlet property="cardNumberLabel" destination="gGx-a4-w1j" id="np6-QI-dS2"/>
+                        <outlet property="purchaseButton" destination="dIL-jg-AdI" id="nlQ-cs-2h8"/>
+                        <outlet property="quantityTextField" destination="oZK-pa-h4h" id="DqE-bJ-VfX"/>
+                        <outlet property="tokenSymbolLabel" destination="Mao-YY-Zo3" id="R2P-pX-Qvf"/>
+                        <outlet property="tokenUsdExchangeRateLabel" destination="szt-ff-HBt" id="oMr-B1-77u"/>
+                        <outlet property="totalPurchasePriceField" destination="eb7-Uc-xm3" id="3vx-OV-oQ2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cTQ-mV-B6P" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-852" y="949"/>
+            <point key="canvasLocation" x="-852" y="948.57571214392806"/>
         </scene>
     </scenes>
     <resources>

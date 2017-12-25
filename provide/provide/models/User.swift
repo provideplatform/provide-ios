@@ -40,6 +40,13 @@ class User: Model {
         return false
     }
 
+    var defaultPaymentMethod: PaymentMethod? {
+        if let paymentMethods = paymentMethods {
+            return paymentMethods.first
+        }
+        return nil
+    }
+
     private var coordinate: CLLocationCoordinate2D? {
         if lastCheckinLatitude != 0 && lastCheckinLongitude != 0 {
             return CLLocationCoordinate2D(latitude: lastCheckinLatitude, longitude: lastCheckinLatitude)

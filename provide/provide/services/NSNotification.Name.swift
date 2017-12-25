@@ -10,6 +10,7 @@ import Foundation
 
 extension NSNotification.Name {
     static let ApplicationShouldPresentPinInputViewController = NSNotification.Name("ApplicationShouldPresentPinInputViewController")
+    static let ApplicationShouldPresentTokenPurchaseViewController = NSNotification.Name("ApplicationShouldPresentTokenPurchaseViewController")
     static let ApplicationShouldReloadTopViewController = NSNotification.Name("ApplicationShouldReloadTopViewController")
     static let ApplicationShouldShowInvalidCredentialsToast = NSNotification.Name("ApplicationShouldShowInvalidCredentialsToast")
     static let ApplicationWillResignActive = NSNotification.Name("ApplicationWillResignActive")

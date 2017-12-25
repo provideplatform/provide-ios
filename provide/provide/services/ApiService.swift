@@ -44,6 +44,7 @@ class ApiService: NSObject {
         "invitations": Invitation.mapping(),
         "payment_methods": PaymentMethod.mapping(),
         "places": Contact.mapping(),
+        "prices": Prices.mapping(),
         "providers": Provider.mapping(),
         "tokens": Token.mapping(),
         "work_orders": WorkOrder.mapping(),
@@ -617,6 +618,16 @@ class ApiService: NSObject {
 
     func createMessage(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("messages", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
+    // MARK: - Blockchains API
+
+    func fetchPrices(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        dispatchApiOperationForPath("blockchains/prices", method: .GET, params: params, onSuccess: onSuccess, onError: onError)
+    }
+
+    func purchaseTokens(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        dispatchApiOperationForPath("blockchains/tokens", method: .POST, params: params, onSuccess: onSuccess, onError: onError)
     }
 
     // MARK: Private methods

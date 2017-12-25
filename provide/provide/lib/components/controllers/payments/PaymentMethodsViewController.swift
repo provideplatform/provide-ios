@@ -30,6 +30,14 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
 
         promoCodeInputContainerView.isHidden = true
 
+        KTNotificationCenter.addObserver(forName: .ApplicationShouldPresentTokenPurchaseViewController, queue: .main) { [weak self] notification in
+            if let strongSelf = self {
+                if let tokenPurchaseViewController = strongSelf.storyboard?.instantiateViewController(withIdentifier: "TokenPurchaseViewController") {
+                    self?.navigationController?.pushViewController(tokenPurchaseViewController, animated: true)
+                }
+            }
+        }
+
         KTNotificationCenter.addObserver(forName: .PaymentMethodShouldBeRemoved, queue: .main) { [weak self] notification in
             if let sender = notification.object as? PaymentMethodTableViewCell {
                 self?.removePaymentMethod(sender: sender)
@@ -160,7 +168,7 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
         var cell: UITableViewCell!
         if indexPath.section == 0 && currentUser.cryptoOptIn {
             cell = tableView.dequeueReusableCell(withIdentifier: "TokenBalanceTableViewCellReuseIdentifier")!
-            // fixme
+            // FIXME-- what's left? may have just been separator...
         } else if indexPath.section == paymentMethodsSectionIndex {
             if indexPath.row < tableView.numberOfRows(inSection: indexPath.section) - 1 {
                 cell = tableView.dequeue(PaymentMethodTableViewCell.self, for: indexPath)
