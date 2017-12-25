@@ -8,9 +8,10 @@
 
 class ConfirmWorkOrderViewController: ViewController {
 
-    func configure(workOrder: WorkOrder!, categories: [Category], onWorkOrderConfirmed: @escaping (WorkOrder) -> Void) {
+    func configure(workOrder: WorkOrder!, categories: [Category], paymentMethod: PaymentMethod!, onWorkOrderConfirmed: @escaping (WorkOrder) -> Void) {
         self.workOrder = workOrder
         self.categories = categories
+        self.paymentMethod = paymentMethod
         self.onWorkOrderConfirmed = onWorkOrderConfirmed
     }
 
@@ -46,6 +47,18 @@ class ConfirmWorkOrderViewController: ViewController {
         }
     }
 
+    var paymentMethod: PaymentMethod! {
+        didSet {
+            if paymentMethod != nil, let last4 = paymentMethod.last4 {
+                creditCardIcon.image = paymentMethod.icon
+                creditCardLastFourLabel.text = "•••• \(last4)"
+            } else {
+                creditCardIcon?.image = nil
+                creditCardLastFourLabel?.text = ""
+            }
+        }
+    }
+
     private(set) var workOrder: WorkOrder? {
         didSet {
             if workOrder == nil {
@@ -62,11 +75,6 @@ class ConfirmWorkOrderViewController: ViewController {
                     let price = workOrder.estimatedPriceForCategory(1) ?? 0
                     fareEstimateLabel.text = Formatters.currencyFormatter.string(from: price as NSNumber)
                     fareEstimateLabel.isHidden = false
-
-                    if let paymentMethod = currentUser.defaultPaymentMethod, let last4 = paymentMethod.last4 {
-                        creditCardIcon.image = paymentMethod.icon
-                        creditCardLastFourLabel.text = "•••• \(last4)"
-                    }
 
                     monkey("👨‍💼 Tap: CONFIRM PRVD") {
                         self.confirmButtonTapped(UIButton())

@@ -18,6 +18,7 @@ class TokenBalanceHeaderView: UIView {
         didSet {
             if buyButton != nil {
                 buyButton.addTarget(self, action: #selector(buyTokens), for: .touchUpInside)
+                buyButton.isEnabled = currentUser.defaultPaymentMethod != nil
             }
         }
     }
@@ -31,6 +32,7 @@ class TokenBalanceHeaderView: UIView {
     func prepareForReuse() {
         tokenBalanceLabel.text = ""
         usdBalanceLabel.text = "$0.00"
+        buyButton.isEnabled = currentUser.defaultPaymentMethod != nil
 
         tokenOptionsContainerView.isHidden = true
     }

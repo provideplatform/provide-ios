@@ -26,7 +26,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
     private var updatingWorkOrderContext = false
     private var categories = [Category]() {
         didSet {
-            confirmWorkOrderViewController?.configure(workOrder: confirmWorkOrderViewController?.workOrder, categories: categories) { _ in
+            confirmWorkOrderViewController?.configure(workOrder: confirmWorkOrderViewController?.workOrder, categories: categories, paymentMethod: currentUser.defaultPaymentMethod) { _ in
                 self.setupCancelWorkOrderBarButtonItem()
             }
         }
@@ -182,7 +182,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
             destinationResultsViewController.configure(results: [], onResultSelected: onResultSelected)
         case "ConfirmWorkOrderViewControllerEmbedSegue":
             confirmWorkOrderViewController = segue.destination as! ConfirmWorkOrderViewController
-            confirmWorkOrderViewController.configure(workOrder: nil, categories: categories) { _ in
+            confirmWorkOrderViewController.configure(workOrder: nil, categories: categories, paymentMethod: currentUser.defaultPaymentMethod) { _ in
                 self.setupCancelWorkOrderBarButtonItem()
             }
         case "TripCompletionViewControllerSegue":
@@ -370,7 +370,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
                 animateProviderEnRouteViewController(toHidden: false)
             } else if ["awaiting_schedule", "pending_acceptance"].contains(workOrder.status) {
                 setupCancelWorkOrderBarButtonItem()
-                confirmWorkOrderViewController.configure(workOrder: workOrder, categories: categories) { _ in
+                confirmWorkOrderViewController.configure(workOrder: workOrder, categories: categories, paymentMethod: currentUser.defaultPaymentMethod) { _ in
                     self.setupCancelWorkOrderBarButtonItem()
                 }
             }
