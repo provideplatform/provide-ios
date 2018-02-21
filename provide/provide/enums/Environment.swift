@@ -9,7 +9,7 @@
 import Foundation
 
 private let defaultEnvironment = Environment.production
-private let productionApiHostSuffix = "provide.services"
+private let productionApiHostSuffix = "unicorn.provide.services"
 private let productionMarketingHostSuffix = "provideapp.com"
 
 let CurrentEnvironment = Environment(rawValue: ENV("OVERRIDE_ENVIRONMENT") ?? "") ?? defaultEnvironment
