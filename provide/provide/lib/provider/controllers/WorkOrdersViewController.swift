@@ -276,6 +276,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                 ApiService.shared.createProvider(["user_id": String(user.id)], onSuccess: { [weak self] statusCode, mappingResult in
                     if let provider = mappingResult!.firstObject as? Provider {
                         logInfo("Created new provider context for user: \(user)")
+                        currentProvider = provider
                         user.providerIds.append(provider.id)
                         self?.requireProviderContext()
                     }
