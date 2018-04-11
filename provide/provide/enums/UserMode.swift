@@ -9,6 +9,7 @@
 enum UserMode: String {
     case consumer
     case provider
+    case plug
 
     private var typeKey: String {
         return rawValue

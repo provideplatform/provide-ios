@@ -16,6 +16,7 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
         switch mode {
         case .consumer: return UIStoryboard("Consumer")
         case .provider: return UIStoryboard("Provider")
+        case .plug: return UIStoryboard("Plug")
         }
     }
 

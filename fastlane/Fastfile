@@ -63,6 +63,13 @@ platform :ios do
     pilot
   end
 
+  desc "Submit plug beta to TestFlight"
+  lane :plug do
+    ENV["APP_IDENTIFIER"] = "services.provide.plug"
+    gym(scheme: "plug")
+    pilot
+  end
+
   # You can define as many lanes as you want
 
   after_all do |lane|

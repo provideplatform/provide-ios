@@ -45,6 +45,11 @@ Submit unicorn beta to TestFlight
 fastlane ios unicorn_driver_beta
 ```
 Submit unicorn driver beta to TestFlight
+### ios plug
+```
+fastlane ios plug
+```
+Submit plug beta to TestFlight
 
 ----
 

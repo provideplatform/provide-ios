@@ -6,5 +6,7 @@
 	<string>development</string>
 	<key>com.apple.developer.networking.multipath</key>
 	<true/>
+	<key>com.apple.developer.networking.networkextension</key>
+	<array/>
 </dict>
 </plist>
