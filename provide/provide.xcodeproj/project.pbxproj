@@ -3347,7 +3347,7 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=consumer",
 				);
-				INFOPLIST_FILE = "plug-Info.plist";
+				INFOPLIST_FILE = "provide/plug-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = services.provide.plug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3381,7 +3381,7 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=consumer",
 				);
-				INFOPLIST_FILE = "plug-Info.plist";
+				INFOPLIST_FILE = "provide/plug-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = services.provide.plug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3415,7 +3415,7 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=consumer",
 				);
-				INFOPLIST_FILE = "plug-Info.plist";
+				INFOPLIST_FILE = "provide/plug-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = services.provide.plug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
