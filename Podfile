@@ -7,7 +7,6 @@ use_frameworks!
 project 'provide/provide.xcodeproj'
 
 def shared_pods
-  pod 'Analytics'
   pod 'BadgeSwift'
   pod 'CardIO'
   pod 'ELFixSecureTextFieldFont', git: 'https://github.com/elegion/ELFixSecureTextFieldFont'
@@ -31,6 +30,10 @@ def shared_pods
   pod 'UICKeyChainStore'
 end
 
+
+target 'plug' do
+  shared_pods
+end
 
 target 'provide' do
   shared_pods

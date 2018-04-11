@@ -29,46 +29,20 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>unicorn</string>
-				<string>fb128411211186353</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>db-el712k0lhw2f1h8</string>
+				<string>plug</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>X_BUILD_NUMBER</string>
-	<key>Fabric</key>
-	<dict>
-		<key>APIKey</key>
-		<string>0e160bf5b619e0ad44f93215d487d78bf8536287</string>
-		<key>Kits</key>
-		<array>
-			<dict>
-				<key>KitInfo</key>
-				<dict/>
-				<key>KitName</key>
-				<string>Crashlytics</string>
-			</dict>
-		</array>
-	</dict>
 	<key>FacebookAppID</key>
 	<string>128411211186353</string>
 	<key>FacebookDisplayName</key>
-	<string>unicorn</string>
+	<string>plug</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>dbapi-1</string>
-		<string>dbapi-2</string>
-		<string>dbapi-3</string>
 		<string>fbapi</string>
 		<string>fb-messenger-api</string>
 		<string>fbauth</string>
@@ -83,13 +57,13 @@
 		<true/>
 	</dict>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>unicorn would like to use your bluetooth radio</string>
+	<string>plug would like to use your bluetooth radio</string>
 	<key>NSCameraUsageDescription</key>
-	<string>unicorn would like to use your camera</string>
+	<string>plug would like to use your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>unicorn would like to use your current location</string>
+	<string>plug would like to use your current location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>unicorn would like to use your photo library</string>
+	<string>plug would like to use your photo library</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
@@ -118,7 +92,7 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>xAppMode</key>
-	<string>consumer</string>
+	<string>plug</string>
 	<key>xBuildShortTime</key>
 	<string>X_BUILD_TIME</string>
 	<key>xGitShortSHA</key>

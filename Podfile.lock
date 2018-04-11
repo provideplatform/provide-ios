@@ -3,7 +3,6 @@ PODS:
   - AlamofireObjectMapper (5.0.0):
     - Alamofire (~> 4.1)
     - ObjectMapper (~> 3.0)
-  - Analytics (3.6.8)
   - BadgeSwift (5.0.1)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
@@ -125,7 +124,6 @@ PODS:
   - UICKeyChainStore (2.1.1)
 
 DEPENDENCIES:
-  - Analytics
   - BadgeSwift
   - CardIO
   - ELFixSecureTextFieldFont (from `https://github.com/elegion/ELFixSecureTextFieldFont`)
@@ -167,7 +165,6 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   AlamofireObjectMapper: 5fafc816351cbbc0d486611aaeba7461c0cbad49
-  Analytics: 6f00cff963ca3b9a4ffdfe3b6dc5564405431f60
   BadgeSwift: 3defa56f504bfb46f2300122c4a565ec9e405c1e
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
@@ -209,6 +206,6 @@ SPEC CHECKSUMS:
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
   UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
 
-PODFILE CHECKSUM: 0489b164d0fda522d895d71d87752e75b5117c93
+PODFILE CHECKSUM: ffb28105594f9eac4b6714379b058b7dec8eda15
 
 COCOAPODS: 1.3.1

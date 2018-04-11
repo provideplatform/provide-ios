@@ -7,13 +7,12 @@
 //
 
 import Foundation
-import Analytics
 
 class AnalyticsService: NSObject {
     static let shared = AnalyticsService()
 
     private var analyticsEnabled: Bool {
-        return !isSimulator() && !isRunningUnitTests()
+        return false //!isSimulator() && !isRunningUnitTests()
     }
 
     override init() {
@@ -22,27 +21,27 @@ class AnalyticsService: NSObject {
         swizzleMethodSelector("viewDidAppear:", withSelector: "swizzled_viewDidAppear:", forClass: UIViewController.self)
 
         if analyticsEnabled {
-            let configuration = SEGAnalyticsConfiguration(writeKey: "BsyhXoiZ05nMBittF2CKM2DEEpUfOExT")
-            //SEGAnalytics.debug(true)
-            configuration.flushAt = 1
-            log("Segment.io enabled with version \(SEGAnalytics.version())")
-            SEGAnalytics.setup(with: configuration)
+//            let configuration = SEGAnalyticsConfiguration(writeKey: "") // FIXME
+//            //SEGAnalytics.debug(true)
+//            configuration.flushAt = 1
+//            log("Segment.io enabled with version \(SEGAnalytics.version())")
+//            SEGAnalytics.setup(with: configuration)
         }
     }
 
     // MARK: Analytics session management
 
     func identify(_ user: User) {
-        if analyticsEnabled {
-            let analytics = SEGAnalytics.shared()
-            log("Analytics Identify: User id = \(user.id)")
-            analytics.identify("\(user.id)", traits: user.toDictionary())
-        }
+//        if analyticsEnabled {
+//            let analytics = SEGAnalytics.shared()
+//            log("Analytics Identify: User id = \(user.id)")
+//            analytics.identify("\(user.id)", traits: user.toDictionary())
+//        }
     }
 
     func logout() {
         if analyticsEnabled {
-            SEGAnalytics.shared().reset()
+//            SEGAnalytics.shared().reset()
         }
     }
 
@@ -63,7 +62,7 @@ class AnalyticsService: NSObject {
                 message += "\nproperties = \(populatedProperties)"
             }
             log(message)
-            SEGAnalytics.shared().track(event, properties: properties, options: options)
+//            SEGAnalytics.shared().track(event, properties: properties, options: options)
         }
     }
 
@@ -84,7 +83,7 @@ class AnalyticsService: NSObject {
                 message += "\nproperties = \(populatedProperties)"
             }
             log(message)
-            SEGAnalytics.shared().screen(screenTitle, properties: properties, options: options)
+//            SEGAnalytics.shared().screen(screenTitle, properties: properties, options: options)
         }
     }
 
