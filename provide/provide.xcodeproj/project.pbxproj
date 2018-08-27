@@ -546,7 +546,6 @@
 		689BC27021339FC600C15B82 /* PinInputControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6899CDDD1F5D8CD60074370C /* PinInputControl.swift */; };
 		689BC27121339FC600C15B82 /* AppearenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B01B08063B009A4C05 /* AppearenceProxy.swift */; };
 		689BC27321339FC600C15B82 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0E6501D56D09800157123 /* MobileCoreServices.framework */; };
-		689BC27421339FC600C15B82 /* Pods_unicorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */; };
 		689BC27621339FC600C15B82 /* Consumer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6C81F86804300BBD3B9 /* Consumer.storyboard */; };
 		689BC27721339FC600C15B82 /* Messages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6899CDD81F5D8B120074370C /* Messages.storyboard */; };
 		689BC27821339FC600C15B82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412341B07FBEB009A4C05 /* Main.storyboard */; };
@@ -674,6 +673,7 @@
 		68F537211B834A9A0007F480 /* NavigationBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F537111B834A9A0007F480 /* NavigationBarButton.swift */; };
 		68F658061F9AB7E0008EEDAE /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F658051F9AB7E0008EEDAE /* CategoryButton.swift */; };
 		7ACF0F2C9AE83D9254E5CB61 /* Pods_provideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BAE03306348524648965C /* Pods_provideTests.framework */; };
+		BBD597BBC1BA058C9E099E64 /* Pods_unicorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */; };
 		C32E484A3D6A2B71B7B19DC3 /* Pods_provideUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA218394C86B3C20FA606CE /* Pods_provideUITests.framework */; };
 		EE42125EFC6A55E190E2E809 /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BD0BF5796F416A49F68121 /* Pods_provide.framework */; };
 		FD9399B1916A4822D8C9643B /* Pods_unicorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */; };
@@ -730,8 +730,8 @@
 		2D3860B26130FFCE55B33CDD /* Pods-provideUITests.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideUITests.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-provideUITests/Pods-provideUITests.appstore.xcconfig"; sourceTree = "<group>"; };
 		336DD004743D72869A3CBE07 /* Pods_unicorn_driver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unicorn_driver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4207F994ECA4267CB7558ED3 /* Pods-unicorn driver.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn driver.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn driver/Pods-unicorn driver.appstore.xcconfig"; sourceTree = "<group>"; };
+		5148C2D7F8B43DB5C38FB3FC /* Pods-unicorn.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn/Pods-unicorn.adhoc.xcconfig"; sourceTree = "<group>"; };
 		53B9F12E1B9F025FEB2EB8BB /* Pods-provideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideUITests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-provideUITests/Pods-provideUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		53D47D2C9E6C25B77DA25974 /* Pods-unicorn.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn/Pods-unicorn.adhoc.xcconfig"; sourceTree = "<group>"; };
 		5C0049501B1BD9FF000ACE9D /* HTTPStubs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HTTPStubs; sourceTree = "<group>"; };
 		5C0049551B1BE964000ACE9D /* WorkOrderServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderServiceTests.swift; sourceTree = "<group>"; };
 		5C16BDAD1F8AE414005012BB /* Model+Provide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Model+Provide.swift"; sourceTree = "<group>"; };
@@ -928,15 +928,15 @@
 		68F730681B07DE94001A21B0 /* WorkOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrder.swift; sourceTree = "<group>"; };
 		68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProvider.swift; sourceTree = "<group>"; };
 		7065B6D67728BFBA41AF0B18 /* Pods-provideUITests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideUITests.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-provideUITests/Pods-provideUITests.adhoc.xcconfig"; sourceTree = "<group>"; };
-		78DD016A747128BC47E5ECFD /* Pods-unicorn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn/Pods-unicorn.debug.xcconfig"; sourceTree = "<group>"; };
 		7E2337DF238DDA66D1C18C1E /* Pods-provideTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-provideTests/Pods-provideTests.debug.xcconfig"; sourceTree = "<group>"; };
 		831BAE03306348524648965C /* Pods_provideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_provideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		92EA2CD0A8044DA0AA3696C0 /* Pods-unicorn.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn/Pods-unicorn.appstore.xcconfig"; sourceTree = "<group>"; };
 		957740662E4E010F64737E3A /* Pods-provideTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideTests.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-provideTests/Pods-provideTests.adhoc.xcconfig"; sourceTree = "<group>"; };
-		9813BC5C4E50ED1F5D45CA45 /* Pods-unicorn.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn/Pods-unicorn.appstore.xcconfig"; sourceTree = "<group>"; };
 		9C092875ABDFBAE661DA7624 /* Pods-provideTests.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideTests.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-provideTests/Pods-provideTests.appstore.xcconfig"; sourceTree = "<group>"; };
 		AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unicorn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC824228D968B3F8CDE3D435 /* Pods-unicorn driver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn driver.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn driver/Pods-unicorn driver.debug.xcconfig"; sourceTree = "<group>"; };
 		BDA218394C86B3C20FA606CE /* Pods_provideUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_provideUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4F11418DF2BB2EDAC67A1FE /* Pods-unicorn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn/Pods-unicorn.debug.xcconfig"; sourceTree = "<group>"; };
 		C6567F6092FA1F535CF73935 /* Pods-unicorn driver.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn driver.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn driver/Pods-unicorn driver.adhoc.xcconfig"; sourceTree = "<group>"; };
 		F56D0DC51ED6557597C526F0 /* Pods-provide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provide.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-provide/Pods-provide.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -948,6 +948,7 @@
 			files = (
 				687D2D231FCFAB79008A9A22 /* MobileCoreServices.framework in Frameworks */,
 				FD9399B1916A4822D8C9643B /* Pods_unicorn.framework in Frameworks */,
+				BBD597BBC1BA058C9E099E64 /* Pods_unicorn.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -973,7 +974,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				689BC27321339FC600C15B82 /* MobileCoreServices.framework in Frameworks */,
-				689BC27421339FC600C15B82 /* Pods_unicorn.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1545,12 +1545,12 @@
 				F56D0DC51ED6557597C526F0 /* Pods-provide.debug.xcconfig */,
 				12BDBB6CB0327EE190AFAE20 /* Pods-provide.adhoc.xcconfig */,
 				62D633DDD275017C21C43913 /* Pods-provide.appstore.xcconfig */,
-				78DD016A747128BC47E5ECFD /* Pods-unicorn.debug.xcconfig */,
-				53D47D2C9E6C25B77DA25974 /* Pods-unicorn.adhoc.xcconfig */,
-				9813BC5C4E50ED1F5D45CA45 /* Pods-unicorn.appstore.xcconfig */,
 				BC824228D968B3F8CDE3D435 /* Pods-unicorn driver.debug.xcconfig */,
 				C6567F6092FA1F535CF73935 /* Pods-unicorn driver.adhoc.xcconfig */,
 				4207F994ECA4267CB7558ED3 /* Pods-unicorn driver.appstore.xcconfig */,
+				C4F11418DF2BB2EDAC67A1FE /* Pods-unicorn.debug.xcconfig */,
+				5148C2D7F8B43DB5C38FB3FC /* Pods-unicorn.adhoc.xcconfig */,
+				92EA2CD0A8044DA0AA3696C0 /* Pods-unicorn.appstore.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1568,7 +1568,6 @@
 				687D2D251FCFAB79008A9A22 /* Resources */,
 				EED5B549862C08DC12674330 /* [CP] Copy Pods Resources */,
 				63C0446E6AB0C7CC90FF201D /* [CP] Embed Pods Frameworks */,
-				687D2D4D1FCFAB79008A9A22 /* swiftlint */,
 				687D2D4E1FCFAB79008A9A22 /* Upload Symbol Files */,
 			);
 			buildRules = (
@@ -1629,12 +1628,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 689BC2A021339FC600C15B82 /* Build configuration list for PBXNativeTarget "unicorn copy" */;
 			buildPhases = (
-				689BC1F921339FC600C15B82 /* [CP] Check Pods Manifest.lock */,
 				689BC1FA21339FC600C15B82 /* Sources */,
 				689BC27221339FC600C15B82 /* Frameworks */,
 				689BC27521339FC600C15B82 /* Resources */,
-				689BC29C21339FC600C15B82 /* [CP] Copy Pods Resources */,
-				689BC29D21339FC600C15B82 /* [CP] Embed Pods Frameworks */,
 				689BC29F21339FC600C15B82 /* Upload Symbol Files */,
 			);
 			buildRules = (
@@ -2185,20 +2181,6 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-provide/Pods-provide-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		687D2D4D1FCFAB79008A9A22 /* swiftlint */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = swiftlint;
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# PROJECT_DIR is provide-ios/provide so have to cd one level up to find the proper .swiftlint.yml file\ncd $PROJECT_DIR/..;\n\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
-		};
 		687D2D4E1FCFAB79008A9A22 /* Upload Symbol Files */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -2360,125 +2342,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-unicorn driver/Pods-unicorn driver-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		689BC1F921339FC600C15B82 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-unicorn-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		689BC29C21339FC600C15B82 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-unicorn/Pods-unicorn-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		689BC29D21339FC600C15B82 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/../Pods/Target Support Files/Pods-unicorn/Pods-unicorn-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/BadgeSwift/BadgeSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
-				"${BUILT_PRODUCTS_DIR}/ELFixSecureTextFieldFont/ELFixSecureTextFieldFont.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
-				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
-				"${BUILT_PRODUCTS_DIR}/FontAwesomeKit/FontAwesomeKit.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/ISO8601DateFormatterValueTransformer/ISO8601DateFormatterValueTransformer.framework",
-				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
-				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
-				"${BUILT_PRODUCTS_DIR}/JWTDecode/JWTDecode.framework",
-				"${BUILT_PRODUCTS_DIR}/KTSwiftExtensions/KTSwiftExtensions.framework",
-				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
-				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
-				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
-				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
-				"${BUILT_PRODUCTS_DIR}/PDTSimpleCalendar/PDTSimpleCalendar.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/RFGravatarImageView/RFGravatarImageView.framework",
-				"${BUILT_PRODUCTS_DIR}/RKValueTransformers/RKValueTransformers.framework",
-				"${BUILT_PRODUCTS_DIR}/Reachability/Reachability.framework",
-				"${BUILT_PRODUCTS_DIR}/RestKit/RestKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
-				"${BUILT_PRODUCTS_DIR}/SOCKit/SOCKit.framework",
-				"${BUILT_PRODUCTS_DIR}/SWTableViewCell/SWTableViewCell.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/TransitionKit/TransitionKit.framework",
-				"${BUILT_PRODUCTS_DIR}/UICKeyChainStore/UICKeyChainStore.framework",
-				"${BUILT_PRODUCTS_DIR}/jetfire/jetfire.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BadgeSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ELFixSecureTextFieldFont.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesomeKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ISO8601DateFormatterValueTransformer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWTDecode.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KTSwiftExtensions.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MarqueeLabel.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDTSimpleCalendar.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RFGravatarImageView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RKValueTransformers.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RestKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SOCKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SWTableViewCell.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICKeyChainStore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jetfire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-unicorn/Pods-unicorn-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		689BC29F21339FC600C15B82 /* Upload Symbol Files */ = {
@@ -3357,7 +3220,7 @@
 /* Begin XCBuildConfiguration section */
 		687D2D501FCFAB79008A9A22 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78DD016A747128BC47E5ECFD /* Pods-unicorn.debug.xcconfig */;
+			baseConfigurationReference = C4F11418DF2BB2EDAC67A1FE /* Pods-unicorn.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-unicorn";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
@@ -3392,7 +3255,7 @@
 		};
 		687D2D511FCFAB79008A9A22 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 53D47D2C9E6C25B77DA25974 /* Pods-unicorn.adhoc.xcconfig */;
+			baseConfigurationReference = 5148C2D7F8B43DB5C38FB3FC /* Pods-unicorn.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-unicorn";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
@@ -3427,7 +3290,7 @@
 		};
 		687D2D521FCFAB79008A9A22 /* AppStore */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9813BC5C4E50ED1F5D45CA45 /* Pods-unicorn.appstore.xcconfig */;
+			baseConfigurationReference = 92EA2CD0A8044DA0AA3696C0 /* Pods-unicorn.appstore.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-unicorn";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
@@ -3664,7 +3527,6 @@
 		};
 		689BC2A121339FC600C15B82 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78DD016A747128BC47E5ECFD /* Pods-unicorn.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-unicorn";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
@@ -3699,7 +3561,6 @@
 		};
 		689BC2A221339FC600C15B82 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 53D47D2C9E6C25B77DA25974 /* Pods-unicorn.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-unicorn";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
@@ -3734,7 +3595,6 @@
 		};
 		689BC2A321339FC600C15B82 /* AppStore */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9813BC5C4E50ED1F5D45CA45 /* Pods-unicorn.appstore.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-unicorn";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
