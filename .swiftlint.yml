@@ -70,7 +70,9 @@ vertical_whitespace:
   max_empty_lines: 2
 
 identifier_name:
+  min_length: 1
   max_length: 50
+  allowed_symbols: "_"
   excluded:
     - id
     - x
