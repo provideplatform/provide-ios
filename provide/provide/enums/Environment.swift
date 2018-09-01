@@ -9,8 +9,8 @@
 import Foundation
 
 private let defaultEnvironment = Environment.production
-private let productionApiHostSuffix = "unicorn.provide.services"
-private let productionMarketingHostSuffix = "provideapp.com"
+private let productionApiHostSuffix = "staging-api.carmonyconnect.com"
+private let productionMarketingHostSuffix = "carmony.io"
 
 let CurrentEnvironment = Environment(rawValue: ENV("OVERRIDE_ENVIRONMENT") ?? "") ?? defaultEnvironment
 
