@@ -25,6 +25,6 @@ enum UserMode: String {
             }
         }
         logInfo("Existing user mode type not found in userInfo: \(userInfo); defaulting to consumer...")
-        return (consumer, "consumer")  // default to consumer
+        return (consumer, "provider")  // default to consumer
     }
 }
