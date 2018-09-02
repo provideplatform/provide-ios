@@ -43,6 +43,13 @@ class WorkOrder: Model {
     var priority = 0
     var supervisors: [User]!
 
+    func getVehicle() -> Vehicle? {
+        var v = Vehicle()
+        // TODO:
+
+        return v
+    }
+
     func estimatedPriceForCategory(_ categoryId: Int) -> Double? {
         if let estimatesByCategory = config["estimates_by_category"] as? [[String: Double]] {
             for object in estimatesByCategory {

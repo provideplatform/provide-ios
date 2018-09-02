@@ -107,6 +107,7 @@
 		686F26CB1FF0458700168446 /* Prices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686F26C81FF0458700168446 /* Prices.swift */; };
 		6874543A1B3C014300C49B3F /* ProvideTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687454391B3C014300C49B3F /* ProvideTestCase.swift */; };
 		6879B9C4213B2357008EE30A /* carmony.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6879B9C2213B22E2008EE30A /* carmony.storyboard */; };
+		6879BA80213C7E74008EE30A /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6879BA7F213C7E74008EE30A /* Vehicle.swift */; };
 		687B650E1C2431800088E539 /* MenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B650D1C2431800088E539 /* MenuItem.swift */; };
 		687B65121C2439210088E539 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B65111C2439210088E539 /* MenuTableViewCell.swift */; };
 		687CB59A1B07F6020048B692 /* DirectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687CB58E1B07F6020048B692 /* DirectionService.swift */; };
@@ -804,6 +805,7 @@
 		686F26C81FF0458700168446 /* Prices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prices.swift; sourceTree = "<group>"; };
 		687454391B3C014300C49B3F /* ProvideTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvideTestCase.swift; sourceTree = "<group>"; };
 		6879B9C2213B22E2008EE30A /* carmony.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = carmony.storyboard; sourceTree = "<group>"; };
+		6879BA7F213C7E74008EE30A /* Vehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
 		687B650D1C2431800088E539 /* MenuItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		687B65111C2439210088E539 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		687CB58E1B07F6020048B692 /* DirectionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionService.swift; sourceTree = "<group>"; };
@@ -1520,6 +1522,7 @@
 				68F730681B07DE94001A21B0 /* WorkOrder.swift */,
 				68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */,
 				5CED50081F9C849E0007D19A /* ModelDescriptions.swift */,
+				6879BA7F213C7E74008EE30A /* Vehicle.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -3086,6 +3089,7 @@
 				68D2042C213B1F7700F91504 /* DestinationInputViewController.swift in Sources */,
 				68D2042D213B1F7700F91504 /* NSNotification.Name.swift in Sources */,
 				68D2042E213B1F7700F91504 /* Message.swift in Sources */,
+				6879BA80213C7E74008EE30A /* Vehicle.swift in Sources */,
 				68D2042F213B1F7700F91504 /* WorkOrderProvider.swift in Sources */,
 				68D20430213B1F7700F91504 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,
 				68D20431213B1F7700F91504 /* WorkOrderAnnotationView.swift in Sources */,
