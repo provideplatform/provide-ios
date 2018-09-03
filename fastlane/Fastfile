@@ -63,7 +63,14 @@ platform :ios do
     pilot
   end
 
-  # You can define as many lanes as you want
+  desc "Submit unicorn driver beta to TestFlight"
+  lane :carmony_beta do
+    ENV["APP_IDENTIFIER"] = "io.carmony.connect"
+    gym(scheme: "carmony")
+    pilot
+  end
+
+# You can define as many lanes as you want
 
   after_all do |lane|
     # This block is called, only if the executed lane was successful
