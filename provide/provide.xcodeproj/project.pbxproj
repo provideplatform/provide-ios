@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		175E0B164FD0530DFA1647BC /* Pods_carmony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD39F99B3B2CF7DA86C23FA9 /* Pods_carmony.framework */; };
 		3277524C2801264E166522E9 /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687D2D561FCFBE7D008A9A22 /* Pods_provide.framework */; };
 		3E78EEA212AF7C16683F8C8A /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687D2D581FCFC35A008A9A22 /* Pods_provide.framework */; };
 		4099AEB1B9C09B38FE0310C7 /* Pods_unicorn_driver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 336DD004743D72869A3CBE07 /* Pods_unicorn_driver.framework */; };
@@ -726,6 +727,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D72189B7AECD46B16DA62EC /* Pods-carmony.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carmony.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-carmony/Pods-carmony.appstore.xcconfig"; sourceTree = "<group>"; };
 		12BDBB6CB0327EE190AFAE20 /* Pods-provide.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provide.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-provide/Pods-provide.adhoc.xcconfig"; sourceTree = "<group>"; };
 		18BD0BF5796F416A49F68121 /* Pods_provide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_provide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D3860B26130FFCE55B33CDD /* Pods-provideUITests.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideUITests.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-provideUITests/Pods-provideUITests.appstore.xcconfig"; sourceTree = "<group>"; };
@@ -930,13 +932,16 @@
 		68F730671B07DE94001A21B0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		68F730681B07DE94001A21B0 /* WorkOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrder.swift; sourceTree = "<group>"; };
 		68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProvider.swift; sourceTree = "<group>"; };
+		6F409E46870B9C1CABE1A1F9 /* Pods-carmony.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carmony.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-carmony/Pods-carmony.adhoc.xcconfig"; sourceTree = "<group>"; };
 		7065B6D67728BFBA41AF0B18 /* Pods-provideUITests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideUITests.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-provideUITests/Pods-provideUITests.adhoc.xcconfig"; sourceTree = "<group>"; };
+		7D520DB5BC7F5ABC0A2849B7 /* Pods-carmony.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-carmony.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-carmony/Pods-carmony.debug.xcconfig"; sourceTree = "<group>"; };
 		7E2337DF238DDA66D1C18C1E /* Pods-provideTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-provideTests/Pods-provideTests.debug.xcconfig"; sourceTree = "<group>"; };
 		831BAE03306348524648965C /* Pods_provideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_provideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92EA2CD0A8044DA0AA3696C0 /* Pods-unicorn.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn/Pods-unicorn.appstore.xcconfig"; sourceTree = "<group>"; };
 		957740662E4E010F64737E3A /* Pods-provideTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideTests.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-provideTests/Pods-provideTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		9C092875ABDFBAE661DA7624 /* Pods-provideTests.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideTests.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-provideTests/Pods-provideTests.appstore.xcconfig"; sourceTree = "<group>"; };
 		AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unicorn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD39F99B3B2CF7DA86C23FA9 /* Pods_carmony.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_carmony.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC824228D968B3F8CDE3D435 /* Pods-unicorn driver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn driver.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn driver/Pods-unicorn driver.debug.xcconfig"; sourceTree = "<group>"; };
 		BDA218394C86B3C20FA606CE /* Pods_provideUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_provideUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4F11418DF2BB2EDAC67A1FE /* Pods-unicorn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn/Pods-unicorn.debug.xcconfig"; sourceTree = "<group>"; };
@@ -979,6 +984,7 @@
 				68D20477213B1F7700F91504 /* MobileCoreServices.framework in Frameworks */,
 				68D20478213B1F7700F91504 /* Pods_unicorn.framework in Frameworks */,
 				68D20479213B1F7700F91504 /* Pods_unicorn.framework in Frameworks */,
+				175E0B164FD0530DFA1647BC /* Pods_carmony.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1536,6 +1542,7 @@
 				BDA218394C86B3C20FA606CE /* Pods_provideUITests.framework */,
 				AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */,
 				336DD004743D72869A3CBE07 /* Pods_unicorn_driver.framework */,
+				AD39F99B3B2CF7DA86C23FA9 /* Pods_carmony.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1558,6 +1565,9 @@
 				C4F11418DF2BB2EDAC67A1FE /* Pods-unicorn.debug.xcconfig */,
 				5148C2D7F8B43DB5C38FB3FC /* Pods-unicorn.adhoc.xcconfig */,
 				92EA2CD0A8044DA0AA3696C0 /* Pods-unicorn.appstore.xcconfig */,
+				7D520DB5BC7F5ABC0A2849B7 /* Pods-carmony.debug.xcconfig */,
+				6F409E46870B9C1CABE1A1F9 /* Pods-carmony.adhoc.xcconfig */,
+				0D72189B7AECD46B16DA62EC /* Pods-carmony.appstore.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -2378,7 +2388,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-unicorn-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-carmony-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2397,7 +2407,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-unicorn/Pods-unicorn-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-carmony/Pods-carmony-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		68D204A2213B1F7700F91504 /* [CP] Embed Pods Frameworks */ = {
@@ -2406,7 +2416,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/../Pods/Target Support Files/Pods-unicorn/Pods-unicorn-frameworks.sh",
+				"${SRCROOT}/../Pods/Target Support Files/Pods-carmony/Pods-carmony-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/BadgeSwift/BadgeSwift.framework",
@@ -2483,7 +2493,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-unicorn/Pods-unicorn-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-carmony/Pods-carmony-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		68D204A3213B1F7700F91504 /* Upload Symbol Files */ = {
@@ -3655,7 +3665,7 @@
 		};
 		68D204A5213B1F7700F91504 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4F11418DF2BB2EDAC67A1FE /* Pods-unicorn.debug.xcconfig */;
+			baseConfigurationReference = 7D520DB5BC7F5ABC0A2849B7 /* Pods-carmony.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-carmony";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
@@ -3690,7 +3700,7 @@
 		};
 		68D204A6213B1F7700F91504 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5148C2D7F8B43DB5C38FB3FC /* Pods-unicorn.adhoc.xcconfig */;
+			baseConfigurationReference = 6F409E46870B9C1CABE1A1F9 /* Pods-carmony.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-carmony";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
@@ -3725,7 +3735,7 @@
 		};
 		68D204A7213B1F7700F91504 /* AppStore */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 92EA2CD0A8044DA0AA3696C0 /* Pods-unicorn.appstore.xcconfig */;
+			baseConfigurationReference = 0D72189B7AECD46B16DA62EC /* Pods-carmony.appstore.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-carmony";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;

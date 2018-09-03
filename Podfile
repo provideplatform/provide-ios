@@ -50,3 +50,7 @@ end
 target 'unicorn driver' do
   shared_pods
 end
+
+target 'carmony' do
+  shared_pods
+end
