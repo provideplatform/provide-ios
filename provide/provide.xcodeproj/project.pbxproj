@@ -834,7 +834,6 @@
 		689B0CB51B07E0A7005694B7 /* KeyChainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyChainService.swift; sourceTree = "<group>"; };
 		689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildConfig.swift; sourceTree = "<group>"; };
 		689B0CBB1B07E0F1005694B7 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		689BC2A521339FC600C15B82 /* unicorn copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "unicorn copy-Info.plist"; path = "/Users/kt/code/provideapp/provide-ios/provide/unicorn copy-Info.plist"; sourceTree = "<absolute>"; };
 		68A653A01F4C184B007CC52F /* ZeroState.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ZeroState.storyboard; sourceTree = "<group>"; };
 		68A653A21F4C20D7007CC52F /* ProviderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderService.swift; sourceTree = "<group>"; };
 		68AAF65C1D8C7B2300EAFD6F /* provide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = provide.entitlements; sourceTree = "<group>"; };
@@ -892,7 +891,7 @@
 		68C16A101FAB021E001DAF90 /* ApiOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiOperation.swift; sourceTree = "<group>"; };
 		68CD56041F6C8C3B007E66CE /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		68D204A8213B1F7700F91504 /* carmony.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = carmony.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		68D204A9213B1F7700F91504 /* unicorn copy2-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "unicorn copy2-Info.plist"; path = "/Users/kt/code/provideapp/provide-ios/provide/unicorn copy2-Info.plist"; sourceTree = "<absolute>"; };
+		68D204A9213B1F7700F91504 /* carmony-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "carmony-Info.plist"; path = "/Users/kt/code/provideapp/provide-ios/provide/carmony-Info.plist"; sourceTree = "<absolute>"; };
 		68D843C01BFAA73800DE7400 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderHistoryViewController.swift; sourceTree = "<group>"; };
 		68DCAE471BEC7001009B383E /* WorkOrderHistoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderHistoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -1407,8 +1406,6 @@
 				68DFB07F1B07C5C4002A72E8 /* Products */,
 				FFEF7100F5F8A41E6773C954 /* Pods */,
 				E202B806A9E0508AFF60327D /* Frameworks */,
-				689BC2A521339FC600C15B82 /* unicorn copy-Info.plist */,
-				68D204A9213B1F7700F91504 /* unicorn copy2-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1455,6 +1452,7 @@
 				682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */,
 				687D2D541FCFAB7A008A9A22 /* unicorn-Info.plist */,
 				687D2E001FD0DD24008A9A22 /* unicorn-driver-Info.plist */,
+				68D204A9213B1F7700F91504 /* carmony-Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -3659,7 +3657,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C4F11418DF2BB2EDAC67A1FE /* Pods-unicorn.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-unicorn";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-carmony";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3680,7 +3678,7 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=consumer",
 				);
-				INFOPLIST_FILE = "unicorn copy2-Info.plist";
+				INFOPLIST_FILE = "carmony-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = services.provide.unicorn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3694,7 +3692,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5148C2D7F8B43DB5C38FB3FC /* Pods-unicorn.adhoc.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-unicorn";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-carmony";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3715,7 +3713,7 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=consumer",
 				);
-				INFOPLIST_FILE = "unicorn copy2-Info.plist";
+				INFOPLIST_FILE = "carmony-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = services.provide.unicorn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3729,7 +3727,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 92EA2CD0A8044DA0AA3696C0 /* Pods-unicorn.appstore.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-unicorn";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-carmony";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3750,7 +3748,7 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=consumer",
 				);
-				INFOPLIST_FILE = "unicorn copy2-Info.plist";
+				INFOPLIST_FILE = "carmony-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = services.provide.unicorn;
 				PRODUCT_NAME = "$(TARGET_NAME)";
