@@ -45,6 +45,11 @@ Submit unicorn beta to TestFlight
 fastlane ios unicorn_driver_beta
 ```
 Submit unicorn driver beta to TestFlight
+### ios carmony_beta
+```
+fastlane ios carmony_beta
+```
+Submit unicorn driver beta to TestFlight
 
 ----
 
