@@ -11,11 +11,11 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
     private(set) var rootViewController: UIViewController?
 
     private var topStoryboard: UIStoryboard {
-        guard let mode = KeyChainService.shared.mode else { return UIStoryboard("Provider") } // Should never happen
+        guard let mode = KeyChainService.shared.mode else { return UIStoryboard("Jobs") } // Should never happen
 
         switch mode {
         case .consumer: return UIStoryboard("Consumer")
-        case .provider: return UIStoryboard("Provider")
+        case .provider: return UIStoryboard("Jobs")
         }
     }
 

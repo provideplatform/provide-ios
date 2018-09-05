@@ -28,6 +28,7 @@ class User: Model {
     var lastCheckinLongitude: Double = 0
     var lastCheckinHeading: Double = 0
     var wallets: [Wallet]!
+    var defaultCompanyId = 0
 
     var annotation: Annotation {
         return Annotation(user: self)

@@ -94,6 +94,21 @@
 		6837AF911C8BB2100082F4EC /* SetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF901C8BB2100082F4EC /* SetPasswordViewController.swift */; };
 		6837AF931C8BB9300082F4EC /* AuthenticationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF921C8BB9300082F4EC /* AuthenticationCell.swift */; };
 		6837AF951C8BBD9B0082F4EC /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF941C8BBD9B0082F4EC /* UserToken.swift */; };
+		6838191B213FF3400096B50F /* Jobs.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6838191A213FF33F0096B50F /* Jobs.storyboard */; };
+		68381922213FF4310096B50F /* JobsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68381921213FF4310096B50F /* JobsViewController.swift */; };
+		68381924213FF4430096B50F /* JobTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68381923213FF4430096B50F /* JobTableViewCell.swift */; };
+		68381926213FF45F0096B50F /* Job.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68381925213FF45F0096B50F /* Job.swift */; };
+		68381928214020DC0096B50F /* JobProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68381927214020DC0096B50F /* JobProduct.swift */; };
+		6838192A214020EA0096B50F /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68381929214020E90096B50F /* Product.swift */; };
+		6838192C214020F90096B50F /* WorkOrderProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6838192B214020F90096B50F /* WorkOrderProduct.swift */; };
+		6838192E2140230E0096B50F /* JobService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6838192D2140230E0096B50F /* JobService.swift */; };
+		683819322140243C0096B50F /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6838192F2140243C0096B50F /* Comment.swift */; };
+		683819332140243C0096B50F /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683819302140243C0096B50F /* Company.swift */; };
+		683819342140243C0096B50F /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683819312140243C0096B50F /* Customer.swift */; };
+		68381936214025830096B50F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68381935214025820096B50F /* Task.swift */; };
+		683819392140279D0096B50F /* Estimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683819372140279D0096B50F /* Estimate.swift */; };
+		6838193A2140279D0096B50F /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 683819382140279D0096B50F /* Expense.swift */; };
+		6838193C2140BB3C0096B50F /* JobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6838193B2140BB3C0096B50F /* JobViewController.swift */; };
 		6846D9921F3EC187004532BD /* UserMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9911F3EC187004532BD /* UserMode.swift */; };
 		6846D99B1F3ED90B004532BD /* CheckinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D99A1F3ED90B004532BD /* CheckinService.swift */; };
 		6846D9A11F3EDF2A004532BD /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9A01F3EDF2A004532BD /* Route.swift */; };
@@ -614,7 +629,6 @@
 		68D20475213B1F7700F91504 /* AppearenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B01B08063B009A4C05 /* AppearenceProxy.swift */; };
 		68D20477213B1F7700F91504 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0E6501D56D09800157123 /* MobileCoreServices.framework */; };
 		68D20478213B1F7700F91504 /* Pods_unicorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */; };
-		68D20479213B1F7700F91504 /* Pods_unicorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */; };
 		68D2047B213B1F7700F91504 /* Consumer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6C81F86804300BBD3B9 /* Consumer.storyboard */; };
 		68D2047C213B1F7700F91504 /* Messages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6899CDD81F5D8B120074370C /* Messages.storyboard */; };
 		68D2047D213B1F7700F91504 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412341B07FBEB009A4C05 /* Main.storyboard */; };
@@ -675,7 +689,6 @@
 		68F537211B834A9A0007F480 /* NavigationBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F537111B834A9A0007F480 /* NavigationBarButton.swift */; };
 		68F658061F9AB7E0008EEDAE /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F658051F9AB7E0008EEDAE /* CategoryButton.swift */; };
 		7ACF0F2C9AE83D9254E5CB61 /* Pods_provideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BAE03306348524648965C /* Pods_provideTests.framework */; };
-		BBD597BBC1BA058C9E099E64 /* Pods_unicorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */; };
 		C32E484A3D6A2B71B7B19DC3 /* Pods_provideUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA218394C86B3C20FA606CE /* Pods_provideUITests.framework */; };
 		EE42125EFC6A55E190E2E809 /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BD0BF5796F416A49F68121 /* Pods_provide.framework */; };
 		FD9399B1916A4822D8C9643B /* Pods_unicorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */; };
@@ -797,6 +810,21 @@
 		6837AF901C8BB2100082F4EC /* SetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPasswordViewController.swift; sourceTree = "<group>"; };
 		6837AF921C8BB9300082F4EC /* AuthenticationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationCell.swift; sourceTree = "<group>"; };
 		6837AF941C8BBD9B0082F4EC /* UserToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
+		6838191A213FF33F0096B50F /* Jobs.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Jobs.storyboard; sourceTree = "<group>"; };
+		68381921213FF4310096B50F /* JobsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobsViewController.swift; sourceTree = "<group>"; };
+		68381923213FF4430096B50F /* JobTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobTableViewCell.swift; sourceTree = "<group>"; };
+		68381925213FF45F0096B50F /* Job.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Job.swift; sourceTree = "<group>"; };
+		68381927214020DC0096B50F /* JobProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobProduct.swift; sourceTree = "<group>"; };
+		68381929214020E90096B50F /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		6838192B214020F90096B50F /* WorkOrderProduct.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProduct.swift; sourceTree = "<group>"; };
+		6838192D2140230E0096B50F /* JobService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobService.swift; sourceTree = "<group>"; };
+		6838192F2140243C0096B50F /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		683819302140243C0096B50F /* Company.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		683819312140243C0096B50F /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		68381935214025820096B50F /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		683819372140279D0096B50F /* Estimate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Estimate.swift; sourceTree = "<group>"; };
+		683819382140279D0096B50F /* Expense.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
+		6838193B2140BB3C0096B50F /* JobViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobViewController.swift; sourceTree = "<group>"; };
 		6846D9911F3EC187004532BD /* UserMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMode.swift; sourceTree = "<group>"; };
 		6846D99A1F3ED90B004532BD /* CheckinService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinService.swift; sourceTree = "<group>"; };
 		6846D9A01F3EDF2A004532BD /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -956,7 +984,6 @@
 			files = (
 				687D2D231FCFAB79008A9A22 /* MobileCoreServices.framework in Frameworks */,
 				FD9399B1916A4822D8C9643B /* Pods_unicorn.framework in Frameworks */,
-				BBD597BBC1BA058C9E099E64 /* Pods_unicorn.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -983,7 +1010,6 @@
 			files = (
 				68D20477213B1F7700F91504 /* MobileCoreServices.framework in Frameworks */,
 				68D20478213B1F7700F91504 /* Pods_unicorn.framework in Frameworks */,
-				68D20479213B1F7700F91504 /* Pods_unicorn.framework in Frameworks */,
 				175E0B164FD0530DFA1647BC /* Pods_carmony.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1094,6 +1120,41 @@
 			path = storyboards;
 			sourceTree = "<group>";
 		};
+		6838191C213FF3D10096B50F /* carmonyprovider */ = {
+			isa = PBXGroup;
+			children = (
+				68381920213FF3F20096B50F /* storyboards */,
+				6838191F213FF3EE0096B50F /* views */,
+				6838191E213FF3E60096B50F /* controllers */,
+			);
+			path = carmonyprovider;
+			sourceTree = "<group>";
+		};
+		6838191E213FF3E60096B50F /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6838193B2140BB3C0096B50F /* JobViewController.swift */,
+				68381921213FF4310096B50F /* JobsViewController.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		6838191F213FF3EE0096B50F /* views */ = {
+			isa = PBXGroup;
+			children = (
+				68381923213FF4430096B50F /* JobTableViewCell.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		68381920213FF3F20096B50F /* storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				6838191A213FF33F0096B50F /* Jobs.storyboard */,
+			);
+			path = storyboards;
+			sourceTree = "<group>";
+		};
 		6846D9901F3EB35C004532BD /* consumer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1168,6 +1229,7 @@
 				6846D99A1F3ED90B004532BD /* CheckinService.swift */,
 				687CB58E1B07F6020048B692 /* DirectionService.swift */,
 				6889951C1C9D3AEF00F7D25F /* ImageService.swift */,
+				6838192D2140230E0096B50F /* JobService.swift */,
 				689B0CB51B07E0A7005694B7 /* KeyChainService.swift */,
 				687CB58F1B07F6020048B692 /* LocationService.swift */,
 				68D843C01BFAA73800DE7400 /* NotificationService.swift */,
@@ -1275,6 +1337,7 @@
 		68B412B41B080D41009A4C05 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				6838191C213FF3D10096B50F /* carmonyprovider */,
 				68B412B51B080D41009A4C05 /* components */,
 				68B412F01B08153D009A4C05 /* provider */,
 				6846D9901F3EB35C004532BD /* consumer */,
@@ -1512,18 +1575,28 @@
 				68F730591B07DE94001A21B0 /* Attachment.swift */,
 				5CB25A8F1F9882470018D30F /* Category.swift */,
 				68F7305B1B07DE94001A21B0 /* Contact.swift */,
+				6838192F2140243C0096B50F /* Comment.swift */,
+				683819302140243C0096B50F /* Company.swift */,
+				683819312140243C0096B50F /* Customer.swift */,
 				68F7305D1B07DE94001A21B0 /* Device.swift */,
+				683819372140279D0096B50F /* Estimate.swift */,
+				683819382140279D0096B50F /* Expense.swift */,
 				6837AF8E1C8BAB2D0082F4EC /* Invitation.swift */,
+				68381925213FF45F0096B50F /* Job.swift */,
+				68381927214020DC0096B50F /* JobProduct.swift */,
 				687B650D1C2431800088E539 /* MenuItem.swift */,
 				5C4AF39E1B13A3ED00423B71 /* Message.swift */,
 				68F7305F1B07DE94001A21B0 /* Model.swift */,
 				68CD56041F6C8C3B007E66CE /* PaymentMethod.swift */,
+				68381929214020E90096B50F /* Product.swift */,
 				68F730611B07DE94001A21B0 /* Provider.swift */,
+				68381935214025820096B50F /* Task.swift */,
 				68F730661B07DE94001A21B0 /* Token.swift */,
 				68F730671B07DE94001A21B0 /* User.swift */,
 				6837AF941C8BBD9B0082F4EC /* UserToken.swift */,
 				68B882801FDBCF4200100CF7 /* Wallet.swift */,
 				68F730681B07DE94001A21B0 /* WorkOrder.swift */,
+				6838192B214020F90096B50F /* WorkOrderProduct.swift */,
 				68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */,
 				5CED50081F9C849E0007D19A /* ModelDescriptions.swift */,
 				6879BA7F213C7E74008EE30A /* Vehicle.swift */,
@@ -1714,7 +1787,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Provide Technologies Inc.";
 				TargetAttributes = {
 					689608901B3A1F21008719B0 = {
@@ -1875,6 +1948,7 @@
 				68D2047C213B1F7700F91504 /* Messages.storyboard in Resources */,
 				68D2047D213B1F7700F91504 /* Main.storyboard in Resources */,
 				68D2047E213B1F7700F91504 /* Exo2-Regular.ttf in Resources */,
+				6838191B213FF3400096B50F /* Jobs.storyboard in Resources */,
 				68D2047F213B1F7700F91504 /* Exo2-ExtraLightItalic.ttf in Resources */,
 				68D20480213B1F7700F91504 /* HTTPStubs in Resources */,
 				68D20481213B1F7700F91504 /* Exo2-MediumItalic.ttf in Resources */,
@@ -3050,6 +3124,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68D203FF213B1F7700F91504 /* MenuTableViewCell.swift in Sources */,
+				683819392140279D0096B50F /* Estimate.swift in Sources */,
 				68D20400213B1F7700F91504 /* JSONResponseWriter.swift in Sources */,
 				68D20401213B1F7700F91504 /* NavigationBarButton.swift in Sources */,
 				68D20402213B1F7700F91504 /* Invitation.swift in Sources */,
@@ -3084,13 +3159,16 @@
 				68D2041F213B1F7700F91504 /* UserToken.swift in Sources */,
 				68D20420213B1F7700F91504 /* MessageService.swift in Sources */,
 				68D20421213B1F7700F91504 /* RoundedButton.swift in Sources */,
+				683819332140243C0096B50F /* Company.swift in Sources */,
 				68D20422213B1F7700F91504 /* DestinationResultTableViewCell.swift in Sources */,
 				68D20423213B1F7700F91504 /* UserMode.swift in Sources */,
 				68D20424213B1F7700F91504 /* Color.swift in Sources */,
 				68D20425213B1F7700F91504 /* ModelDescriptions.swift in Sources */,
+				68381924213FF4430096B50F /* JobTableViewCell.swift in Sources */,
 				68D20426213B1F7700F91504 /* AuthenticationStoryboardSegue.swift in Sources */,
 				68D20427213B1F7700F91504 /* WorkOrderAnnotationViewController.swift in Sources */,
 				68D20428213B1F7700F91504 /* ApiService.swift in Sources */,
+				68381928214020DC0096B50F /* JobProduct.swift in Sources */,
 				68D20429213B1F7700F91504 /* Model.swift in Sources */,
 				68D2042A213B1F7700F91504 /* NotificationService.swift in Sources */,
 				68D2042B213B1F7700F91504 /* Formatters.swift in Sources */,
@@ -3099,11 +3177,15 @@
 				68D2042E213B1F7700F91504 /* Message.swift in Sources */,
 				6879BA80213C7E74008EE30A /* Vehicle.swift in Sources */,
 				68D2042F213B1F7700F91504 /* WorkOrderProvider.swift in Sources */,
+				6838192E2140230E0096B50F /* JobService.swift in Sources */,
 				68D20430213B1F7700F91504 /* WorkOrderDestinationConfirmationViewController.swift in Sources */,
 				68D20431213B1F7700F91504 /* WorkOrderAnnotationView.swift in Sources */,
 				68D20432213B1F7700F91504 /* ProviderService.swift in Sources */,
 				68D20433213B1F7700F91504 /* ReachabilityService.swift in Sources */,
 				68D20434213B1F7700F91504 /* TokenBalanceHeaderView.swift in Sources */,
+				6838192A214020EA0096B50F /* Product.swift in Sources */,
+				683819322140243C0096B50F /* Comment.swift in Sources */,
+				683819342140243C0096B50F /* Customer.swift in Sources */,
 				68D20435213B1F7700F91504 /* Attachment.swift in Sources */,
 				68D20436213B1F7700F91504 /* CustomHeightModalTransitioningDelegate.swift in Sources */,
 				68D20437213B1F7700F91504 /* KeyChainService.swift in Sources */,
@@ -3135,6 +3217,7 @@
 				68D20451213B1F7700F91504 /* DestinationResultsViewController.swift in Sources */,
 				68D20452213B1F7700F91504 /* Prices.swift in Sources */,
 				68D20453213B1F7700F91504 /* PaymentMethod.swift in Sources */,
+				68381922213FF4310096B50F /* JobsViewController.swift in Sources */,
 				68D20454213B1F7700F91504 /* MapView.swift in Sources */,
 				68D20455213B1F7700F91504 /* SelfieViewController.swift in Sources */,
 				68D20456213B1F7700F91504 /* ViewController.swift in Sources */,
@@ -3144,15 +3227,20 @@
 				68D2045A213B1F7700F91504 /* WorkOrdersViewController.swift in Sources */,
 				68D2045B213B1F7700F91504 /* CameraViewController.swift in Sources */,
 				68D2045C213B1F7700F91504 /* RenderComponentSegue.swift in Sources */,
+				6838193C2140BB3C0096B50F /* JobViewController.swift in Sources */,
+				68381936214025830096B50F /* Task.swift in Sources */,
+				68381926213FF45F0096B50F /* Job.swift in Sources */,
 				68D2045D213B1F7700F91504 /* SetPasswordViewController.swift in Sources */,
 				68D2045E213B1F7700F91504 /* Contact.swift in Sources */,
 				68D2045F213B1F7700F91504 /* AnnotationView.swift in Sources */,
 				68D20460213B1F7700F91504 /* Device.swift in Sources */,
 				68D20461213B1F7700F91504 /* WorkOrder.swift in Sources */,
 				68D20462213B1F7700F91504 /* DirectionService.swift in Sources */,
+				6838193A2140279D0096B50F /* Expense.swift in Sources */,
 				68D20463213B1F7700F91504 /* CategoryButton.swift in Sources */,
 				68D20464213B1F7700F91504 /* WorkOrderPinAnnotationView.swift in Sources */,
 				68D20465213B1F7700F91504 /* WorkOrderHistoryViewController.swift in Sources */,
+				6838192C214020F90096B50F /* WorkOrderProduct.swift in Sources */,
 				68D20466213B1F7700F91504 /* ProviderEnRouteViewController.swift in Sources */,
 				68D20467213B1F7700F91504 /* WorkOrderDetailsHeaderTableViewController.swift in Sources */,
 				68D20468213B1F7700F91504 /* ConsumerMapView.swift in Sources */,
@@ -3780,12 +3868,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -3837,12 +3927,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -3994,12 +4086,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

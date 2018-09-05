@@ -276,6 +276,8 @@ class WorkOrder: Model {
 
     var coordinate: CLLocationCoordinate2D? {
         if let config = config {
+            return CLLocationCoordinate2D(latitude: 38.007198, longitude: -84.573473)
+
             if status == "in_progress" {
                 if let destination = config["destination"] as? [String: Any],
                     let latitude = destination["latitude"] as? Double,
