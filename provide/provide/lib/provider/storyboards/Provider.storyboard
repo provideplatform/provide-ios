@@ -469,7 +469,7 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COMPLETED" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idE-yu-Fkc">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COMPLETED" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="idE-yu-Fkc">
                                                             <rect key="frame" x="261" y="11" width="67" height="15"/>
                                                             <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="12"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -503,10 +503,10 @@
                                                         <constraint firstItem="0CT-aj-eN2" firstAttribute="centerX" secondItem="WGt-qf-ou8" secondAttribute="centerX" id="ETf-xJ-w81"/>
                                                         <constraint firstItem="0CT-aj-eN2" firstAttribute="centerY" secondItem="idE-yu-Fkc" secondAttribute="centerY" id="Gdm-fb-3v5"/>
                                                         <constraint firstItem="LVB-yI-ffO" firstAttribute="leading" secondItem="ae1-sO-VAX" secondAttribute="leading" id="HAn-ib-Uno"/>
+                                                        <constraint firstAttribute="trailing" secondItem="idE-yu-Fkc" secondAttribute="trailing" constant="16" id="RPM-cZ-PNB"/>
                                                         <constraint firstItem="ae1-sO-VAX" firstAttribute="top" secondItem="LVB-yI-ffO" secondAttribute="bottom" constant="1" id="SNM-lU-0Q7"/>
                                                         <constraint firstItem="idE-yu-Fkc" firstAttribute="leading" secondItem="0CT-aj-eN2" secondAttribute="trailing" constant="95" id="joY-N1-hOF"/>
                                                         <constraint firstItem="z96-Ih-KXp" firstAttribute="top" secondItem="fUe-a6-1Ea" secondAttribute="top" constant="4" id="kVA-U8-Ndq"/>
-                                                        <constraint firstItem="z96-Ih-KXp" firstAttribute="leading" secondItem="idE-yu-Fkc" secondAttribute="trailing" constant="24" id="kfr-Hp-iDp"/>
                                                         <constraint firstItem="LVB-yI-ffO" firstAttribute="top" secondItem="WGt-qf-ou8" secondAttribute="bottom" constant="10" id="qx5-pu-OcC"/>
                                                         <constraint firstItem="Nxe-dc-7Xh" firstAttribute="top" secondItem="LVB-yI-ffO" secondAttribute="top" id="rIP-nE-uF1"/>
                                                         <constraint firstItem="nB2-tY-wOu" firstAttribute="trailing" secondItem="fUe-a6-1Ea" secondAttribute="trailingMargin" id="z6B-va-NfR"/>
@@ -808,6 +808,7 @@
         <image name="uturn-left" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="xeT-sO-EvV"/>
         <segue reference="e4f-A0-qEi"/>
     </inferredMetricsTieBreakers>
 </document>
