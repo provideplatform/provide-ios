@@ -44,9 +44,10 @@ class WorkOrder: Model {
     var supervisors: [User]!
 
     func getVehicle() -> Vehicle? {
-        var v = Vehicle()
-        // TODO:
-
+        var v: Vehicle?
+        if let vehicle = config["vehicle"] as? [String: Any] {
+            v = Vehicle(json: vehicle.toJSONString())
+        }
         return v
     }
 
@@ -276,7 +277,9 @@ class WorkOrder: Model {
 
     var coordinate: CLLocationCoordinate2D? {
         if let config = config {
-            if status == "in_progress" {
+            if let vehicle = getVehicle() {
+                return vehicle.coordinate
+            } else if status == "in_progress" {
                 if let destination = config["destination"] as? [String: Any],
                     let latitude = destination["latitude"] as? Double,
                     let longitude = destination["longitude"] as? Double {

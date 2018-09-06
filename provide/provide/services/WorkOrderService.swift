@@ -20,7 +20,7 @@ class WorkOrderService: NSObject {
 
     weak var nextWorkOrder: WorkOrder? {
         for wo in workOrders {
-            if wo.status == "scheduled" || wo.status == "pending_acceptance" {
+            if wo.status == "scheduled" || wo.status == "pending_quote" || wo.status == "pending_acceptance" {
                 if wo.userId == currentUser.id {
                     return wo
                 }
@@ -35,7 +35,7 @@ class WorkOrderService: NSObject {
     weak var inProgressWorkOrder: WorkOrder? {
         for wo in workOrders {
             if wo.userId == currentUser.id {
-                if Set(["awaiting_schedule", "pending_acceptance", "en_route", "arriving", "in_progress", "timed_out"]).contains(wo.status) {
+                if Set(["awaiting_schedule", "pending_quote", "pending_acceptance", "en_route", "arriving", "in_progress", "timed_out"]).contains(wo.status) {
                     return wo
                 }
             }

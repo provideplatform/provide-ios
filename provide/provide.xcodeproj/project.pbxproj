@@ -1522,11 +1522,11 @@
 				68F730661B07DE94001A21B0 /* Token.swift */,
 				68F730671B07DE94001A21B0 /* User.swift */,
 				6837AF941C8BBD9B0082F4EC /* UserToken.swift */,
+				6879BA7F213C7E74008EE30A /* Vehicle.swift */,
 				68B882801FDBCF4200100CF7 /* Wallet.swift */,
 				68F730681B07DE94001A21B0 /* WorkOrder.swift */,
 				68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */,
 				5CED50081F9C849E0007D19A /* ModelDescriptions.swift */,
-				6879BA7F213C7E74008EE30A /* Vehicle.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";

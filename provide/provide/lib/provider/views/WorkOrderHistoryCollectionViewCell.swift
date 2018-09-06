@@ -10,11 +10,13 @@ import UIKit
 
 class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegate {
 
+    @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var profileImageView: ProfileImageView!
-    @IBOutlet private weak var mapView: RouteMapView!
 
     @IBOutlet private weak var detailsContainerView: UIView!
     @IBOutlet private weak var statusBackgroundView: UIView!
+    @IBOutlet private weak var ymmtLabel: UILabel!
+    @IBOutlet private weak var vinLabel: UILabel!
     @IBOutlet private weak var timestampLabel: UILabel!
     @IBOutlet private weak var durationLabel: UILabel!
     @IBOutlet private weak var statusLabel: UILabel!
@@ -32,34 +34,45 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
             contentView.backgroundColor = .clear
             detailsContainerView.backgroundColor = .clear
 
-            mapView.showsUserLocation = false
-            mapView.removeAnnotations()
-            mapView.removeOverlays()
+//            mapView.showsUserLocation = false
+//            mapView.removeAnnotations()
+//            mapView.removeOverlays()
+
+            if let vehicle = workOrder?.getVehicle() {
+                ymmtLabel.text = vehicle.description
+                vinLabel.text = vehicle.vin
+
+                if let vehicleImageUrl = vehicle.vehicleImageUrl {
+                    imageView?.contentMode = .scaleAspectFill
+                    imageView?.sd_setImage(with: URL(string: vehicleImageUrl)!)
+                }
+            }
 
             if let workOrderProviders = workOrder?.workOrderProviders {
-                for workOrderProvider in workOrderProviders {
-                    if let checkinsPolyline = workOrderProvider.checkinsPolyline {
-                        mapView.add(checkinsPolyline, level: .aboveRoads)
-
-                        let edgePadding = UIEdgeInsets(top: 40.0, left: 0.0, bottom: 10.0, right: 0.0)
-
-                        if checkinsPolyline.pointCount > 0 {
-                            mapView.setVisibleMapRect(checkinsPolyline.boundingMapRect, edgePadding: edgePadding, animated: false)
-                        } else {
-                            mapView.setCenterCoordinate(workOrder.coordinate!, zoomLevel: 12, animated: false)
-                        }
-                    }
-                }
-
-                mapView.addAnnotation(workOrder.annotationPin)
-
-                mapView.onMapRevealed = { [weak self] in
-                    self?.mapView.alpha = 1.0
-                }
+//                for workOrderProvider in workOrderProviders {
+//                    if let checkinsPolyline = workOrderProvider.checkinsPolyline {
+//                        mapView.add(checkinsPolyline, level: .aboveRoads)
+//
+//                        let edgePadding = UIEdgeInsets(top: 40.0, left: 0.0, bottom: 10.0, right: 0.0)
+//
+//                        if checkinsPolyline.pointCount > 0 {
+//                            mapView.setVisibleMapRect(checkinsPolyline.boundingMapRect, edgePadding: edgePadding, animated: false)
+//                        } else {
+//                            mapView.setCenterCoordinate(workOrder.coordinate!, zoomLevel: 12, animated: false)
+//                        }
+//                    }
+//                }
+//
+//                mapView.addAnnotation(workOrder.annotationPin)
+//
+//                mapView.onMapRevealed = { [weak self] in
+//                    self?.mapView.alpha = 1.0
+//                }
 
                 statusBackgroundView.frame = bounds
 //                statusBackgroundView.backgroundColor = workOrder.statusColor
 //                statusBackgroundView.alpha = 0.9
+            
 
                 if let profileImageUrl = workOrder?.providerProfileImageUrl {
                     profileImageView.setImageWithUrl(profileImageUrl) { [weak self] in
@@ -117,9 +130,9 @@ class WorkOrderHistoryCollectionViewCell: UICollectionViewCell, MKMapViewDelegat
         contentView.backgroundColor = .clear
         detailsContainerView.backgroundColor = .clear
 
-        mapView.alpha = 0.0
-        mapView.removeAnnotations()
-        mapView.removeOverlays()
+//        mapView.alpha = 0.0
+//        mapView.removeAnnotations()
+//        mapView.removeOverlays()
 
         statusBackgroundView.backgroundColor = .clear
         statusBackgroundView.alpha = 0.9

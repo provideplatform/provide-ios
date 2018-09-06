@@ -102,7 +102,7 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
         }
 
         var params = delegate?.paramsForWorkOrderHistoryViewController(viewController: self) ?? [
-            "status": "completed",
+            "status": "pending_quote,pending_acceptance,en_route,arriving,in_progress",
             "sort_started_at_desc": "true",
         ]
         params["include_work_order_providers"] = "true"
@@ -131,14 +131,14 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
     // MARK: UICollectionViewDelegate
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+        return UIEdgeInsets(top: 0.0, left: 10.0, bottom: 0.0, right: 10.0)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
-        let inset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 10.0, right: 0.0)
+        let inset = UIEdgeInsets(top: 0.0, left: 10.0, bottom: 10.0, right: 10.0)
         let insetWidthOffset = inset.left + inset.right
         _ = inset.top + inset.bottom
-        return CGSize(width: collectionView.width - insetWidthOffset, height: 175.0)
+        return CGSize(width: collectionView.width - insetWidthOffset, height: 200.0)
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
