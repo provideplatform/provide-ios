@@ -94,6 +94,7 @@
 		6837AF911C8BB2100082F4EC /* SetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF901C8BB2100082F4EC /* SetPasswordViewController.swift */; };
 		6837AF931C8BB9300082F4EC /* AuthenticationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF921C8BB9300082F4EC /* AuthenticationCell.swift */; };
 		6837AF951C8BBD9B0082F4EC /* UserToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6837AF941C8BBD9B0082F4EC /* UserToken.swift */; };
+		6838193E214133260096B50F /* WorkOrderDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6838193D214133260096B50F /* WorkOrderDetailsTableViewController.swift */; };
 		6846D9921F3EC187004532BD /* UserMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9911F3EC187004532BD /* UserMode.swift */; };
 		6846D99B1F3ED90B004532BD /* CheckinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D99A1F3ED90B004532BD /* CheckinService.swift */; };
 		6846D9A11F3EDF2A004532BD /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6846D9A01F3EDF2A004532BD /* Route.swift */; };
@@ -797,6 +798,7 @@
 		6837AF901C8BB2100082F4EC /* SetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPasswordViewController.swift; sourceTree = "<group>"; };
 		6837AF921C8BB9300082F4EC /* AuthenticationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationCell.swift; sourceTree = "<group>"; };
 		6837AF941C8BBD9B0082F4EC /* UserToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserToken.swift; sourceTree = "<group>"; };
+		6838193D214133260096B50F /* WorkOrderDetailsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOrderDetailsTableViewController.swift; sourceTree = "<group>"; };
 		6846D9911F3EC187004532BD /* UserMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserMode.swift; sourceTree = "<group>"; };
 		6846D99A1F3ED90B004532BD /* CheckinService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckinService.swift; sourceTree = "<group>"; };
 		6846D9A01F3EDF2A004532BD /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -1338,6 +1340,7 @@
 				68B412F41B08153D009A4C05 /* WorkOrderDestinationConfirmationViewController.swift */,
 				68B412F51B08153D009A4C05 /* WorkOrderDestinationHeaderViewController.swift */,
 				68F536E31B834A5C0007F480 /* WorkOrderDetailsViewController.swift */,
+				6838193D214133260096B50F /* WorkOrderDetailsTableViewController.swift */,
 				6816FD3D1C32485E005A18BB /* WorkOrderDetailsHeaderTableViewController.swift */,
 				68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */,
 				68B412F61B08153D009A4C05 /* WorkOrdersViewController.swift */,
@@ -3080,6 +3083,7 @@
 				68D2041B213B1F7700F91504 /* RouteLeg.swift in Sources */,
 				68D2041C213B1F7700F91504 /* ZeroStateViewController.swift in Sources */,
 				68D2041D213B1F7700F91504 /* MenuItem.swift in Sources */,
+				6838193E214133260096B50F /* WorkOrderDetailsTableViewController.swift in Sources */,
 				68D2041E213B1F7700F91504 /* ApiOperation.swift in Sources */,
 				68D2041F213B1F7700F91504 /* UserToken.swift in Sources */,
 				68D20420213B1F7700F91504 /* MessageService.swift in Sources */,

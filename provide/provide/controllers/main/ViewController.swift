@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet private weak var statusLabel: UILabel!
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return .default
     }
 
     // MARK: Activity indicator and status messaging

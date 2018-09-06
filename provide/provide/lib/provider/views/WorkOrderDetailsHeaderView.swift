@@ -10,10 +10,10 @@ import UIKit
 
 class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
 
-    @IBOutlet private weak var mapView: WorkOrderMapView!
+    @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var gradientView: UIView!
-    @IBOutlet private weak var consumerLabel: UILabel!
-    @IBOutlet private weak var addressLabel: UILabel!
+    @IBOutlet private weak var ymmtLabel: UILabel!
+    @IBOutlet private weak var vinLabel: UILabel!
 
     var workOrder: WorkOrder! {
         didSet {
@@ -25,36 +25,38 @@ class WorkOrderDetailsHeaderView: UIView, MKMapViewDelegate {
             gradientView.alpha = 0.7
             bringSubview(toFront: gradientView)
 
-            consumerLabel.text = ""
-            addressLabel.text = ""
+            ymmtLabel.text = ""
+            vinLabel.text = ""
 
-            if let user = workOrder.user {
-                consumerLabel.text = user.name
-                if let destination = workOrder.config?["destination"] as? [String: String], let desc = destination["description"] {
-                    addressLabel.text = desc
+            if let vehicle = workOrder.getVehicle() {
+                ymmtLabel.text = vehicle.description
+                vinLabel.text = vehicle.vin
+
+                if let vehicleImageUrl = vehicle.vehicleImageUrl {
+                    imageView?.contentMode = .scaleAspectFill
+                    imageView?.sd_setImage(with: URL(string: vehicleImageUrl)!)
                 }
             }
 
-            consumerLabel.sizeToFit()
-            bringSubview(toFront: consumerLabel)
+            ymmtLabel.sizeToFit()
+            bringSubview(toFront: ymmtLabel)
+            vinLabel.sizeToFit()
+            bringSubview(toFront: vinLabel)
 
-            addressLabel.sizeToFit()
-            bringSubview(toFront: addressLabel)
-
-            mapView.showsUserLocation = false
-            mapView.setCenterCoordinate(workOrder.coordinate!, zoomLevel: 12, animated: false)
-            mapView.addAnnotation(workOrder.annotationPin)
-
-            DispatchQueue.main.async { [weak self] in
-                if let strongSelf = self {
-                    if var coordinate = strongSelf.workOrder.coordinate {
-                        coordinate.latitude += strongSelf.mapView.region.span.latitudeDelta * 0.1
-                        coordinate.longitude += strongSelf.mapView.region.span.longitudeDelta * 0.4
-
-                        strongSelf.mapView.setCenterCoordinate(coordinate, zoomLevel: 12, animated: false)
-                    }
-                }
-            }
+//            mapView.showsUserLocation = false
+//            mapView.setCenterCoordinate(workOrder.coordinate!, zoomLevel: 12, animated: false)
+//            mapView.addAnnotation(workOrder.annotationPin)
+//
+//            DispatchQueue.main.async { [weak self] in
+//                if let strongSelf = self {
+//                    if var coordinate = strongSelf.workOrder.coordinate {
+//                        coordinate.latitude += strongSelf.mapView.region.span.latitudeDelta * 0.1
+//                        coordinate.longitude += strongSelf.mapView.region.span.longitudeDelta * 0.4
+//
+//                        strongSelf.mapView.setCenterCoordinate(coordinate, zoomLevel: 12, animated: false)
+//                    }
+//                }
+//            }
         }
     }
 }

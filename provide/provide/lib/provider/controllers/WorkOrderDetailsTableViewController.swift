@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, WorkOrderDetailsHeaderTableViewControllerDelegate {
+class WorkOrderDetailsTableViewController: UITableViewController, WorkOrderDetailsHeaderTableViewControllerDelegate {
 
     var workOrder: WorkOrder! {
         didSet {
@@ -17,8 +17,6 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
             }
         }
     }
-
-    @IBOutlet private weak var tableView: UITableView!
 
     @IBOutlet private weak var headerView: WorkOrderDetailsHeaderView!
     @IBOutlet private weak var headerTableViewController: WorkOrderDetailsHeaderTableViewController!
@@ -38,7 +36,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
                     }
                 }
 
-                self.headerView?.addDropShadow()
+//                self.headerView?.addDropShadow()
                 self.headerView?.workOrder = self.workOrder
             }
         } else {
@@ -128,35 +126,35 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
 
     // MARK: UITableViewDelegate
 
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
     }
 
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75.0
     }
 
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return nil
     }
 
     // MARK: UITableViewDataSource
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell!
 
         switch indexPath.section {
         case 0:
             switch indexPath.row {
-            case 0:
-                cell = tableView.dequeueReusableCell(withIdentifier: "mediaCollectionViewTableViewCellReuseIdentifier")! as UITableViewCell
-                mediaCollectionView = cell.contentView.subviews.first as! UICollectionView
-                mediaCollectionView.delegate = self
-                mediaCollectionView.dataSource = self
+            case 0: break
+                //cell = tableView.dequeueReusableCell(withIdentifier: "mediaCollectionViewTableViewCellReuseIdentifier")! as UITableViewCell
+                //mediaCollectionView = cell.contentView.subviews.first as! UICollectionView
+                //mediaCollectionView.delegate = self
+                //mediaCollectionView.dataSource = self
             default:
                 break
             }
@@ -167,18 +165,18 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
         return cell
     }
 
-    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return indexPath.row == 5
     }
 
-    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         if indexPath.row == 5 {
             return indexPath
         }
         return nil
     }
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 

@@ -11,7 +11,7 @@ import UIKit
 class Color {
 
     class func darkBlueBackground() -> UIColor {
-        return UIColor("#202838")
+        return UIColor("#1d1d28")
     }
 
     class func applicationDefaultBackgroundImage() -> UIImage {
@@ -19,7 +19,7 @@ class Color {
     }
 
     class func applicationDefaultNavigationBarBackgroundColor() -> UIColor {
-        return .clear //UIColor("#3983f2")
+        return UIColor("#1d1d28")
     }
 
     class func authenticationViewControllerButtonColor() -> UIColor {
@@ -27,11 +27,11 @@ class Color {
     }
 
     class func applicationDefaultBarTintColor() -> UIColor {
-        return darkBlueBackground()
+        return .white //darkBlueBackground()
     }
 
     class func applicationDefaultBarButtonItemTintColor() -> UIColor {
-        return darkBlueBackground()
+        return .white // darkBlueBackground()
     }
 
     class func pinInputControlBoxBorderColor() -> UIColor {

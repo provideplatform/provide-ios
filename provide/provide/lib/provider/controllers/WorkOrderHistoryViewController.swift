@@ -68,7 +68,8 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "History"
+        navigationItem.hidesBackButton = true
+        navigationItem.title = "Work Orders"
         setupPullToRefresh()
     }
 
@@ -124,14 +125,14 @@ class WorkOrderHistoryViewController: ViewController, UICollectionViewDelegate, 
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "WorkOrderDetailsViewControllerSegue" {
-            (segue.destination as! WorkOrderDetailsViewController).workOrder = selectedWorkOrder
+            (segue.destination as! WorkOrderDetailsTableViewController).workOrder = selectedWorkOrder
         }
     }
 
     // MARK: UICollectionViewDelegate
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0.0, left: 10.0, bottom: 0.0, right: 10.0)
+        return UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
