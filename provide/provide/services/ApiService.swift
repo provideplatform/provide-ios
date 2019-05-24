@@ -12,7 +12,7 @@ import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
 import JWTDecode
-import FBSDKLoginKit
+//import FBSDKLoginKit
 
 typealias OnSuccess = (_ statusCode: Int, _ mappingResult: RKMappingResult?) -> Void
 typealias OnError = (_ error: NSError, _ statusCode: Int, _ responseString: String) -> Void
@@ -208,9 +208,9 @@ class ApiService: NSObject {
 
         currentUser = nil
 
-        if FBSDKAccessToken.current() != nil {
-            FBSDKLoginManager().logOut()
-        }
+//        if FBSDKAccessToken.current() != nil {
+//            FBSDKLoginManager().logOut()
+//        }
     }
 
     private func cancelAllOperations() {
@@ -339,29 +339,29 @@ class ApiService: NSObject {
 
     // MARK: User API
 
-    func createUser(withFacebookAccessToken token: FBSDKAccessToken, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        FBSDKGraphRequest(graphPath: token.userID, parameters: ["fields": "email,name"]).start { [weak self] connection, result, err in
-            if let result = result as? [String: Any] {
-                if let name = result["name"] as? String, let email = result["email"] as? String {
-                    let params: [String: Any] = [
-                        "name": name,
-                        "email": email,
-                        "password": UUID().uuidString,
-                        "profile_image_url": "http://graph.facebook.com/\(token.userID)/picture?type=large",
-                        "fb_user_id": token.userID,
-                        "fb_access_token": token.tokenString,
-                        "fb_access_token_expires_at": token.expirationDate.utcString,
-                    ]
-                    self?.createUser(params, onSuccess: onSuccess, onError: onError)
-                } else {
-                    onError(NSError(domain: "services.provide", code: -1, userInfo: nil), 500, "{}")
-                }
-            } else if let err = err {
-                logWarn("FB graph API response failed; \(err)")
-                onError(err as NSError, 500, "{}")
-            }
-        }
-    }
+//    func createUser(withFacebookAccessToken token: FBSDKAccessToken, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+//        FBSDKGraphRequest(graphPath: token.userID, parameters: ["fields": "email,name"]).start { [weak self] connection, result, err in
+//            if let result = result as? [String: Any] {
+//                if let name = result["name"] as? String, let email = result["email"] as? String {
+//                    let params: [String: Any] = [
+//                        "name": name,
+//                        "email": email,
+//                        "password": UUID().uuidString,
+//                        "profile_image_url": "http://graph.facebook.com/\(token.userID)/picture?type=large",
+//                        "fb_user_id": token.userID,
+//                        "fb_access_token": token.tokenString,
+//                        "fb_access_token_expires_at": token.expirationDate.utcString,
+//                    ]
+//                    self?.createUser(params, onSuccess: onSuccess, onError: onError)
+//                } else {
+//                    onError(NSError(domain: "services.provide", code: -1, userInfo: nil), 500, "{}")
+//                }
+//            } else if let err = err {
+//                logWarn("FB graph API response failed; \(err)")
+//                onError(err as NSError, 500, "{}")
+//            }
+//        }
+//    }
 
     func createUser(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("users", method: .POST, params: params, onSuccess: { statusCode, mappingResult in

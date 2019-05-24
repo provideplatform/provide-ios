@@ -808,7 +808,6 @@
         <image name="uturn-left" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xeT-sO-EvV"/>
         <segue reference="e4f-A0-qEi"/>
     </inferredMetricsTieBreakers>
 </document>

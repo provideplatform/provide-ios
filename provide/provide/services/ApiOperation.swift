@@ -103,8 +103,8 @@ class ApiOperation: Operation {
 
         backoffTimeout = initialBackoffTimeout
 
-        var mutableSelf = self
-        withUnsafePointer(to: &mutableSelf) {
+        let mutableSelf = self
+        withUnsafePointer(to: mutableSelf) {
             mutableSelf.name = "ApiOperation[\($0)]"
         }
 

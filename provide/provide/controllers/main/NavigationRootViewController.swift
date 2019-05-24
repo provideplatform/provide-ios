@@ -7,15 +7,15 @@
 //
 
 import UIKit
-import FBSDKLoginKit
+//import FBSDKLoginKit
 import MBProgressHUD
 
-class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate, FBSDKLoginButtonDelegate, PinInputViewControllerDelegate {
+class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate, PinInputViewControllerDelegate { // FBSDKLoginButtonDelegate
 
     @IBOutlet private var logoImageView: UIImageView!
     @IBOutlet private var signUpButton: UIButton!
     @IBOutlet private var signInButton: UIButton!
-    @IBOutlet private var fbSignInButton: FBSDKLoginButton!
+    @IBOutlet private var fbSignInButton: UIButton! //FBSDKLoginButton!
     @IBOutlet private var codeButton: UIButton!
     @IBOutlet private var orLabel1: UILabel!
     @IBOutlet private var orLabel2: UILabel!
@@ -36,15 +36,15 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         signInButton.setTitleColor(.darkGray, for: .highlighted)
         signInButton.alpha = 0.0
 
-        fbSignInButton.readPermissions = ["public_profile", "email"]
-        fbSignInButton.alpha = 0.0
+//        fbSignInButton.readPermissions = ["public_profile", "email"]
+        fbSignInButton?.alpha = 0.0
 
         codeButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
         codeButton.setTitleColor(.darkGray, for: .highlighted)
         codeButton.alpha = 0.0
 
         orLabel1.alpha = 0.0
-        orLabel2.alpha = 0.0
+        orLabel2?.alpha = 0.0
 
         MBProgressHUD.showAdded(to: view, animated: true)
 
@@ -61,10 +61,10 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
             logoImageView.alpha = 1.0
             signUpButton.alpha = 1.0
             signInButton.alpha = 1.0
-            fbSignInButton.alpha = 1.0
+            fbSignInButton?.alpha = 1.0
             codeButton.alpha = 1.0
             orLabel1.alpha = 1.0
-            orLabel2.alpha = 1.0
+            orLabel2?.alpha = 1.0
         }
 
         KTNotificationCenter.addObserver(forName: .ApplicationShouldPresentPinInputViewController) { [weak self] _ in
@@ -89,10 +89,10 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
             self?.logoImageView.alpha = 1.0
             self?.signUpButton.alpha = 1.0
             self?.signInButton.alpha = 1.0
-            self?.fbSignInButton.alpha = 1.0
+            self?.fbSignInButton?.alpha = 1.0
             self?.codeButton.alpha = 1.0
             self?.orLabel1.alpha = 1.0
-            self?.orLabel2.alpha = 1.0
+            self?.orLabel2?.alpha = 1.0
         }
     }
 
@@ -117,10 +117,10 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         DispatchQueue.main.async { [weak self] in
             self?.signUpButton.alpha = 0.0
             self?.signInButton.alpha = 0.0
-            self?.fbSignInButton.alpha = 0.0
+            self?.fbSignInButton?.alpha = 0.0
             self?.codeButton.alpha = 0.0
             self?.orLabel1.alpha = 0.0
-            self?.orLabel2.alpha = 0.0
+            self?.orLabel2?.alpha = 0.0
         }
     }
 
@@ -128,10 +128,10 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         DispatchQueue.main.async { [weak self] in
             self?.signUpButton.alpha = 1.0
             self?.signInButton.alpha = 1.0
-            self?.fbSignInButton.alpha = 1.0
+            self?.fbSignInButton?.alpha = 1.0
             self?.codeButton.alpha = 1.0
             self?.orLabel1.alpha = 1.0
-            self?.orLabel2.alpha = 1.0
+            self?.orLabel2?.alpha = 1.0
         }
     }
 
@@ -154,79 +154,79 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
 
     // MARK: FBSDKLoginButtonDelegate
 
-    func loginButtonWillLogin(_ loginButton: FBSDKLoginButton!) -> Bool {
-        logInfo("Attempting to login using Facebook")
-        AnalyticsService.shared.track("Attempting Facebook Login")
+//    func loginButtonWillLogin(_ loginButton: FBSDKLoginButton!) -> Bool {
+//        logInfo("Attempting to login using Facebook")
+//        AnalyticsService.shared.track("Attempting Facebook Login")
+//
+//        hideAuthenticationUI()
+//        MBProgressHUD.showAdded(to: view, animated: true)
+//
+//        return true
+//    }
+//
+//    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+//        if let result = result, result.token != nil {
+//            AnalyticsService.shared.track("Facebook Login Succeeded")
+//
+//            ApiService.shared.createUser(withFacebookAccessToken: result.token, onSuccess: { [weak self] statusCode, mappingResult in
+//                if let strongSelf = self {
+//                    MBProgressHUD.hide(for: strongSelf.view, animated: true)
+//                    strongSelf.segueToApplicationViewController()
+//                }
+//            }, onError: { [weak self] error, statusCode, responseString in
+//                if let strongSelf = self {
+//                    if error.code == 409 {
+//                        let params = [
+//                            "fb_access_token": result.token!.tokenString!,
+//                        ]
+//
+//                        ApiService.shared.login(params, onSuccess: { [weak self] statusCode, responseString in
+//                            if let strongSelf = self {
+//                                MBProgressHUD.hide(for: strongSelf.view, animated: true)
+//                                strongSelf.segueToApplicationViewController()
+//                            }
+//                        }, onError: { [weak self] error, statusCode, responseString in
+//                            if let strongSelf = self {
+//                                logWarn("Failed to create API token")
+//                                MBProgressHUD.hide(for: strongSelf.view, animated: true)
+//                                strongSelf.showAuthenticationUI()
+//                            }
+//                        })
+//                    } else {
+//                        MBProgressHUD.hide(for: strongSelf.view, animated: true)
+//                        strongSelf.showAuthenticationUI()
+//
+//                        if let errors = error.userInfo["errors"] as? [String: [String]] {
+//                            var msg = ""
+//                            for (k, msgs) in errors {
+//                                msg = "\(msg) \(k)"
+//                                for errmsg in msgs {
+//                                    msg = "\(msg) \(errmsg)\n"
+//                                }
+//                            }
+//                            msg = msg.trimmingCharacters(in: .whitespacesAndNewlines)
+//                            strongSelf.showToast(msg)
+//                        }
+//                    }
+//                }
+//            })
+//        } else if let result = result, result.isCancelled {
+//            AnalyticsService.shared.track("Facebook Login Cancelled")
+//
+//            MBProgressHUD.hide(for: view, animated: true)
+//            showAuthenticationUI()
+//        } else if let error = error {
+//            logWarn("Facebook login failed with error: \(error)")
+//            AnalyticsService.shared.track("Facebook Login Failed")
+//
+//            MBProgressHUD.hide(for: view, animated: true)
+//            showAuthenticationUI()
+//        }
+//    }
 
-        hideAuthenticationUI()
-        MBProgressHUD.showAdded(to: view, animated: true)
-
-        return true
-    }
-
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        if let result = result, result.token != nil {
-            AnalyticsService.shared.track("Facebook Login Succeeded")
-
-            ApiService.shared.createUser(withFacebookAccessToken: result.token, onSuccess: { [weak self] statusCode, mappingResult in
-                if let strongSelf = self {
-                    MBProgressHUD.hide(for: strongSelf.view, animated: true)
-                    strongSelf.segueToApplicationViewController()
-                }
-            }, onError: { [weak self] error, statusCode, responseString in
-                if let strongSelf = self {
-                    if error.code == 409 {
-                        let params = [
-                            "fb_access_token": result.token!.tokenString!,
-                        ]
-
-                        ApiService.shared.login(params, onSuccess: { [weak self] statusCode, responseString in
-                            if let strongSelf = self {
-                                MBProgressHUD.hide(for: strongSelf.view, animated: true)
-                                strongSelf.segueToApplicationViewController()
-                            }
-                        }, onError: { [weak self] error, statusCode, responseString in
-                            if let strongSelf = self {
-                                logWarn("Failed to create API token")
-                                MBProgressHUD.hide(for: strongSelf.view, animated: true)
-                                strongSelf.showAuthenticationUI()
-                            }
-                        })
-                    } else {
-                        MBProgressHUD.hide(for: strongSelf.view, animated: true)
-                        strongSelf.showAuthenticationUI()
-
-                        if let errors = error.userInfo["errors"] as? [String: [String]] {
-                            var msg = ""
-                            for (k, msgs) in errors {
-                                msg = "\(msg) \(k)"
-                                for errmsg in msgs {
-                                    msg = "\(msg) \(errmsg)\n"
-                                }
-                            }
-                            msg = msg.trimmingCharacters(in: .whitespacesAndNewlines)
-                            strongSelf.showToast(msg)
-                        }
-                    }
-                }
-            })
-        } else if let result = result, result.isCancelled {
-            AnalyticsService.shared.track("Facebook Login Cancelled")
-
-            MBProgressHUD.hide(for: view, animated: true)
-            showAuthenticationUI()
-        } else if let error = error {
-            logWarn("Facebook login failed with error: \(error)")
-            AnalyticsService.shared.track("Facebook Login Failed")
-
-            MBProgressHUD.hide(for: view, animated: true)
-            showAuthenticationUI()
-        }
-    }
-
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        logWarn("No-op for Facebook logout")
-    }
+//    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+//        logWarn("No-op for Facebook logout")
+//    }
 
     // MARK: PinInputViewControllerDelegate
 
