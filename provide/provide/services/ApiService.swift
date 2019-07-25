@@ -752,13 +752,13 @@ class ApiService: NSObject {
         }
 
         if ["PATCH", "POST", "PUT"].contains(httpMethod) {
-            let _contentType = contentType ?? "application/json"
-            request.setValue(_contentType, forHTTPHeaderField: "content-type")
+            let contentType_ = contentType ?? "application/json"
+            request.setValue(contentType_, forHTTPHeaderField: "content-type")
 
-            if let entity = entity, _contentType.lowercased() == "application/json" {
+            if let entity = entity, contentType_.lowercased() == "application/json" {
                 request.httpBody = entity
             } else {
-                logWarn("Request factory encountered unimplemented content-type: \(_contentType)")
+                logWarn("Request factory encountered unimplemented content-type: \(contentType_)")
             }
         }
 

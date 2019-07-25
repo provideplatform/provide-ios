@@ -46,9 +46,9 @@ class WorkOrder: Model {
     func estimatedPriceForCategory(_ categoryId: Int) -> Double? {
         if let estimatesByCategory = config["estimates_by_category"] as? [[String: Double]] {
             for object in estimatesByCategory {
-                let _categoryId = Int(object["category_id"]!)
+                let categoryId_ = Int(object["category_id"]!)
                 let price = object["price"]
-                if categoryId == _categoryId {
+                if categoryId == categoryId_ {
                     return price
                 }
             }
