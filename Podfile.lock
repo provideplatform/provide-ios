@@ -89,7 +89,7 @@ PODS:
     - JSQSystemSoundPlayer (~> 2.0.1)
   - JSQSystemSoundPlayer (2.0.1)
   - JWTDecode (2.3.0)
-  - KTSwiftExtensions (0.25.0):
+  - KTSwiftExtensions (0.26.0):
     - Alamofire (~> 4.0)
     - AlamofireObjectMapper (~> 5.0)
     - JWTDecode (~> 2.0)
@@ -164,7 +164,7 @@ DEPENDENCIES:
   - FontAwesomeKit/FontAwesome
   - jetfire
   - JSQMessagesViewController (~> 7.3.4)
-  - KTSwiftExtensions (from `KTSwiftExtensions`)
+  - KTSwiftExtensions (from `https://github.com/kthomas/KTSwiftExtensions`)
   - NotificationBannerSwift
   - OHHTTPStubs
   - PDTSimpleCalendar
@@ -223,7 +223,7 @@ EXTERNAL SOURCES:
   ELFixSecureTextFieldFont:
     :git: https://github.com/elegion/ELFixSecureTextFieldFont
   KTSwiftExtensions:
-    :path: KTSwiftExtensions
+    :git: https://github.com/kthomas/KTSwiftExtensions
   SWTableViewCell:
     :git: https://github.com/kthomas/SWTableViewCell
 
@@ -231,6 +231,9 @@ CHECKOUT OPTIONS:
   ELFixSecureTextFieldFont:
     :commit: bc0d5afecdfbae523ad3b6f855ea641fb980ef9e
     :git: https://github.com/elegion/ELFixSecureTextFieldFont
+  KTSwiftExtensions:
+    :commit: f6e2d600ff8afc56a8a45c7de6e49492a6ea956a
+    :git: https://github.com/kthomas/KTSwiftExtensions
   SWTableViewCell:
     :commit: d2aae294e6d2ddc73772a90c9cb13ec1f42812d4
     :git: https://github.com/kthomas/SWTableViewCell
@@ -259,7 +262,7 @@ SPEC CHECKSUMS:
   JSQMessagesViewController: 6587f56aedbcb150a8ba1d968e1ef58b1bc758b7
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JWTDecode: fb77675c8049c1a7e9433c7cf448c3ce33ee4ac7
-  KTSwiftExtensions: 74653550d254cf655d1d14051b0b6724f4934490
+  KTSwiftExtensions: 1ea0c09484f611e6af2de65d4ec90571bea7df40
   MarqueeLabel: b55b26e690b6ad41faedd95cbf5eae6f1d1735b4
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
@@ -280,6 +283,6 @@ SPEC CHECKSUMS:
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
   UICKeyChainStore: 85db518bb1d294366d15ec9b92a416c4e670518f
 
-PODFILE CHECKSUM: 4fd4c7242e66775e9e47fabfe380470a8f666653
+PODFILE CHECKSUM: eb47b22625b495f0bbb3f5a99251e31be7909b12
 
 COCOAPODS: 1.7.3
