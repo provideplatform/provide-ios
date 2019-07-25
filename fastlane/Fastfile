@@ -20,6 +20,8 @@ platform :ios do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
     cocoapods
     # carthage
+    #get_certificates
+    #get_provisioning_profile
   end
 
   desc "Runs all the tests"
@@ -32,6 +34,7 @@ platform :ios do
   lane :beta do
     # match(type: "appstore") # more information: https://codesigning.guide
     ENV["APP_IDENTIFIER"] = "services.provide"
+    ENV["FASTLANE_ITC_TEAM_ID"] = "117789692"
     gym(scheme: "provide") # Build your app - more options available
     pilot
 
@@ -44,6 +47,7 @@ platform :ios do
     # match(type: "appstore")
     # snapshot
     ENV["APP_IDENTIFIER"] = "services.provide"
+    ENV["FASTLANE_ITC_TEAM_ID"] = "117789692"
     gym(scheme: "provide") # Build your app - more options available
     deliver(force: true)
     # frameit
@@ -52,6 +56,7 @@ platform :ios do
   desc "Submit unicorn beta to TestFlight"
   lane :unicorn_beta do
     ENV["APP_IDENTIFIER"] = "services.provide.unicorn"
+    ENV["FASTLANE_ITC_TEAM_ID"] = "117789692"
     gym(scheme: "unicorn")
     pilot
   end
@@ -59,6 +64,7 @@ platform :ios do
   desc "Submit unicorn driver beta to TestFlight"
   lane :unicorn_driver_beta do
     ENV["APP_IDENTIFIER"] = "services.provide.unicorn.driver"
+    ENV["FASTLANE_ITC_TEAM_ID"] = "117789692"
     gym(scheme: "unicorn driver")
     pilot
   end
@@ -66,6 +72,7 @@ platform :ios do
   desc "Submit arcade city beta to TestFlight"
   lane :arcade_city_beta do
     ENV["APP_IDENTIFIER"] = "arcade.city.rider"
+    ENV["FASTLANE_ITC_TEAM_ID"] = "118112144"
     gym(scheme: "arcade city")
     pilot
   end
@@ -73,6 +80,7 @@ platform :ios do
   desc "Submit arcade city driver beta to TestFlight"
   lane :arcade_city_driver_beta do
     ENV["APP_IDENTIFIER"] = "arcade.city.driver"
+    ENV["FASTLANE_ITC_TEAM_ID"] = "118112144"
     gym(scheme: "arcade city driver")
     pilot
   end
