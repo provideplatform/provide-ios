@@ -10,12 +10,12 @@ import UIKit
 import FBSDKLoginKit
 import MBProgressHUD
 
-class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate, FBSDKLoginButtonDelegate, PinInputViewControllerDelegate {
+class NavigationRootViewController: ViewController, ApplicationViewControllerDelegate, LoginButtonDelegate, PinInputViewControllerDelegate {
 
     @IBOutlet private var logoImageView: UIImageView!
     @IBOutlet private var signUpButton: UIButton!
     @IBOutlet private var signInButton: UIButton!
-    @IBOutlet private var fbSignInButton: FBSDKLoginButton!
+    @IBOutlet private var fbSignInButton: FBLoginButton!
     @IBOutlet private var codeButton: UIButton!
     @IBOutlet private var orLabel1: UILabel!
     @IBOutlet private var orLabel2: UILabel!
@@ -36,7 +36,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         signInButton.setTitleColor(.darkGray, for: .highlighted)
         signInButton.alpha = 0.0
 
-        fbSignInButton.readPermissions = ["public_profile", "email"]
+        fbSignInButton.permissions = ["public_profile", "email"]
         fbSignInButton.alpha = 0.0
 
         codeButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
@@ -154,7 +154,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
 
     // MARK: FBSDKLoginButtonDelegate
 
-    func loginButtonWillLogin(_ loginButton: FBSDKLoginButton!) -> Bool {
+    func loginButtonWillLogin(_ loginButton: FBLoginButton) -> Bool {
         logInfo("Attempting to login using Facebook")
         AnalyticsService.shared.track("Attempting Facebook Login")
 
@@ -164,11 +164,11 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         return true
     }
 
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
         if let result = result, result.token != nil {
             AnalyticsService.shared.track("Facebook Login Succeeded")
 
-            ApiService.shared.createUser(withFacebookAccessToken: result.token, onSuccess: { [weak self] statusCode, mappingResult in
+            ApiService.shared.createUser(withFacebookAccessToken: result.token!, onSuccess: { [weak self] statusCode, mappingResult in
                 if let strongSelf = self {
                     MBProgressHUD.hide(for: strongSelf.view, animated: true)
                     strongSelf.segueToApplicationViewController()
@@ -177,7 +177,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
                 if let strongSelf = self {
                     if error.code == 409 {
                         let params = [
-                            "fb_access_token": result.token!.tokenString!,
+                            "fb_access_token": result.token!.tokenString
                         ]
 
                         ApiService.shared.login(params, onSuccess: { [weak self] statusCode, responseString in
@@ -224,7 +224,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         }
     }
 
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
         logWarn("No-op for Facebook logout")
     }
 

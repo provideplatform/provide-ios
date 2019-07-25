@@ -232,7 +232,7 @@ class WorkOrderDetailsHeaderTableViewCell: SWTableViewCell, SWTableViewCellDeleg
                 if i == detailDisplayCount {
                     break
                 }
-                specificProviders += ", \(provider.contact.name)"
+                specificProviders += ", \(String(describing: provider.contact.name))"
                 i += 1
             }
             let matches = KTRegex.match("^, ", input: specificProviders)

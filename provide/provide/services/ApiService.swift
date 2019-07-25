@@ -208,8 +208,8 @@ class ApiService: NSObject {
 
         currentUser = nil
 
-        if FBSDKAccessToken.current() != nil {
-            FBSDKLoginManager().logOut()
+        if AccessToken.current != nil {
+            LoginManager()
         }
     }
 
@@ -339,8 +339,8 @@ class ApiService: NSObject {
 
     // MARK: User API
 
-    func createUser(withFacebookAccessToken token: FBSDKAccessToken, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        FBSDKGraphRequest(graphPath: token.userID, parameters: ["fields": "email,name"]).start { [weak self] connection, result, err in
+    func createUser(withFacebookAccessToken token: AccessToken, onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
+        GraphRequest(graphPath: token.userID, parameters: ["fields": "email,name"]).start { [weak self] connection, result, err in
             if let result = result as? [String: Any] {
                 if let name = result["name"] as? String, let email = result["email"] as? String {
                     let params: [String: Any] = [
@@ -435,7 +435,7 @@ class ApiService: NSObject {
         if !isSimulator() {
             KTNotificationCenter.post(name: .ApplicationWillRegisterUserNotificationSettings)
 
-            let notificationTypes: UIUserNotificationType = [UIUserNotificationType.badge, UIUserNotificationType.sound, UIUserNotificationType.alert]
+            let notificationTypes: UIUserNotificationType = [.badge, .sound, .alert]
             let settings = UIUserNotificationSettings(types: notificationTypes, categories: nil)
             UIApplication.shared.registerUserNotificationSettings(settings)
         }

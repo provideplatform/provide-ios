@@ -154,7 +154,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
             videoDataOutput = AVCaptureVideoDataOutput()
             var settings = [AnyHashable: Any]()
             settings.updateValue(NSNumber(value: kCVPixelFormatType_32BGRA as UInt32), forKey: String(kCVPixelBufferPixelFormatTypeKey))
-            videoDataOutput.videoSettings = settings as! [String: Any]
+            videoDataOutput.videoSettings = settings as? [String: Any]
             videoDataOutput.alwaysDiscardsLateVideoFrames = true
             videoDataOutput.setSampleBufferDelegate(self, queue: avVideoOutputQueue)
 

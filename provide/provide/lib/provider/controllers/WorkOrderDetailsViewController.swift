@@ -154,7 +154,7 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
             switch indexPath.row {
             case 0:
                 cell = tableView.dequeueReusableCell(withIdentifier: "mediaCollectionViewTableViewCellReuseIdentifier")! as UITableViewCell
-                mediaCollectionView = cell.contentView.subviews.first as! UICollectionView
+                mediaCollectionView = cell.contentView.subviews.first as? UICollectionView
                 mediaCollectionView.delegate = self
                 mediaCollectionView.dataSource = self
             default:

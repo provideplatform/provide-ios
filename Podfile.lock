@@ -1,8 +1,8 @@
 PODS:
   - Alamofire (4.8.2)
-  - AlamofireObjectMapper (4.1.0):
-    - Alamofire (~> 4.1)
-    - ObjectMapper (~> 2.0)
+  - AlamofireObjectMapper (5.2.0):
+    - Alamofire (~> 4.7)
+    - ObjectMapper (~> 3.4)
   - BadgeSwift (8.0.0)
   - CardIO (5.4.1)
   - ELFixSecureTextFieldFont (0.1.0)
@@ -12,13 +12,13 @@ PODS:
     - FacebookCore (~> 0.7)
     - FBSDKCoreKit (~> 5.0)
     - FBSDKLoginKit (~> 5.0)
-  - FBSDKCoreKit (5.2.1):
-    - FBSDKCoreKit/Basics (= 5.2.1)
-    - FBSDKCoreKit/Core (= 5.2.1)
-  - FBSDKCoreKit/Basics (5.2.1)
-  - FBSDKCoreKit/Core (5.2.1):
+  - FBSDKCoreKit (5.0.1):
+    - FBSDKCoreKit/Basics (= 5.0.1)
+    - FBSDKCoreKit/Core (= 5.0.1)
+  - FBSDKCoreKit/Basics (5.0.1)
+  - FBSDKCoreKit/Core (5.0.1):
     - FBSDKCoreKit/Basics
-  - FBSDKLoginKit (5.2.1):
+  - FBSDKLoginKit (5.0.1):
     - FBSDKCoreKit (~> 5.0)
   - Firebase/Core (5.20.2):
     - Firebase/CoreOnly
@@ -91,10 +91,10 @@ PODS:
   - JWTDecode (2.3.0)
   - KTSwiftExtensions (0.25.0):
     - Alamofire (~> 4.0)
-    - AlamofireObjectMapper (~> 4.0)
+    - AlamofireObjectMapper (~> 5.0)
     - JWTDecode (~> 2.0)
     - MBProgressHUD (~> 1.0)
-    - ObjectMapper (~> 2.0)
+    - ObjectMapper (~> 3.0)
   - MarqueeLabel (4.0.0)
   - MBProgressHUD (1.1.0)
   - nanopb (0.3.901):
@@ -102,10 +102,10 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - NotificationBannerSwift (2.3.0):
+  - NotificationBannerSwift (2.2.0):
     - MarqueeLabel (~> 4.0.0)
     - SnapKit (~> 5.0.0)
-  - ObjectMapper (2.2.9)
+  - ObjectMapper (3.4.2)
   - OHHTTPStubs (8.0.0):
     - OHHTTPStubs/Default (= 8.0.0)
   - OHHTTPStubs/Core (8.0.0)
@@ -120,7 +120,7 @@ PODS:
     - OHHTTPStubs/Core
   - OHHTTPStubs/OHPathHelpers (8.0.0)
   - PDTSimpleCalendar (0.9.1)
-  - Protobuf (3.8.0)
+  - Protobuf (3.7.0)
   - Reachability (3.2)
   - RestKit (0.27.3):
     - RestKit/Core (= 0.27.3)
@@ -143,12 +143,12 @@ PODS:
   - RFGravatarImageView (1.1):
     - SDWebImage (~> 3.7)
   - RKValueTransformers (1.1.3)
-  - SDWebImage (3.8.3):
-    - SDWebImage/Core (= 3.8.3)
-  - SDWebImage/Core (3.8.3)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
   - SnapKit (5.0.0)
   - SOCKit (1.1)
-  - SwiftLint (0.33.0)
+  - SwiftLint (0.32.0)
   - SWTableViewCell (0.3.7)
   - TransitionKit (2.2.1)
   - UICKeyChainStore (2.1.2)
@@ -164,7 +164,7 @@ DEPENDENCIES:
   - FontAwesomeKit/FontAwesome
   - jetfire
   - JSQMessagesViewController (~> 7.3.4)
-  - KTSwiftExtensions
+  - KTSwiftExtensions (from `KTSwiftExtensions`)
   - NotificationBannerSwift
   - OHHTTPStubs
   - PDTSimpleCalendar
@@ -200,7 +200,6 @@ SPEC REPOS:
     - JSQMessagesViewController
     - JSQSystemSoundPlayer
     - JWTDecode
-    - KTSwiftExtensions
     - MarqueeLabel
     - MBProgressHUD
     - nanopb
@@ -223,6 +222,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   ELFixSecureTextFieldFont:
     :git: https://github.com/elegion/ELFixSecureTextFieldFont
+  KTSwiftExtensions:
+    :path: KTSwiftExtensions
   SWTableViewCell:
     :git: https://github.com/kthomas/SWTableViewCell
 
@@ -236,14 +237,14 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
-  AlamofireObjectMapper: 435adc82f5b367679bd9e71c4974a54efd0b2521
+  AlamofireObjectMapper: 92b6ce2423a9d159e686f6a1d514a009bf903ddc
   BadgeSwift: a81547ffde1f462bb5fc02e3fa3fdcbc1b888354
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   ELFixSecureTextFieldFont: 983df1daf8d576a9aeac7b50d4f24cede19ec9c4
   FacebookCore: 4eee98476cb37a485af5d337eb21f8cd5b3c7e6c
   FacebookLogin: 94cdad6850e86a2b04704dedfe7674a7af8148eb
-  FBSDKCoreKit: e1ab8d86f5eea2d7aa6ab12acca3e1d2dcb11983
-  FBSDKLoginKit: 6e20e44775ddf4b159a8ca676834325e13d12221
+  FBSDKCoreKit: 4a19534474ade7c71bd016d800aa5e7722bcdda1
+  FBSDKLoginKit: 41efa754b909b0ea813fa9a8596dacc8ed196d50
   Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
   FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
   FirebaseCore: f1a9a8be1aee4bf71a2fc0f4096df6788bdfda61
@@ -258,27 +259,27 @@ SPEC CHECKSUMS:
   JSQMessagesViewController: 6587f56aedbcb150a8ba1d968e1ef58b1bc758b7
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JWTDecode: fb77675c8049c1a7e9433c7cf448c3ce33ee4ac7
-  KTSwiftExtensions: 74b948a7f1a48c7e2fca45a3f15bb2d1ae71840e
+  KTSwiftExtensions: 74653550d254cf655d1d14051b0b6724f4934490
   MarqueeLabel: b55b26e690b6ad41faedd95cbf5eae6f1d1735b4
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  NotificationBannerSwift: fdc44b934be7a8175f7a7170a75a11c672990e70
-  ObjectMapper: 63cfe41bc6f8e7c8f44344c49901b8ae7de14c52
+  NotificationBannerSwift: 0ebb4b35e18c0515fdfe01b5ebd90c3eb1255e3d
+  ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
   OHHTTPStubs: 9cbce6364bec557cc3439aa6bb7514670d780881
   PDTSimpleCalendar: d1c03387678422715dc021aa1a85d70f4d1014f2
-  Protobuf: 3f617b9a6e73605565086864c9bc26b2bf2dd5a3
+  Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   RestKit: 0baa8b61899d1e00c24f4f2d8aea07ecef0c88bc
   RFGravatarImageView: ac2dee5d2b2c01f312eb67fe7d6917d94564c920
   RKValueTransformers: e5ed67e3811229b616fe01bddeeafe3bb337b1b9
-  SDWebImage: a72e880a8fe0f7fc31efe15aaed443c074d2a80c
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SOCKit: c7376ac262bea9115b8f749358f762522a47d392
-  SwiftLint: fed9c66336e41fc74dc48a73678380718f0c8b0e
+  SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
   UICKeyChainStore: 85db518bb1d294366d15ec9b92a416c4e670518f
 
-PODFILE CHECKSUM: bcd1e0dfcff2b55bbed6a576555c1dbeae64406b
+PODFILE CHECKSUM: 041dfd72c684a8bac4ce774f08299fff72287161
 
 COCOAPODS: 1.7.3

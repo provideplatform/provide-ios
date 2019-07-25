@@ -38,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NotificationService.shared.connectWebsocket()
         }
 
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
 
         ReachabilityService.shared.start()
 
@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        if FBSDKApplicationDelegate.sharedInstance().application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) {
+        if ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation) {
             return true
         }
 
@@ -169,7 +169,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Privacy view controller
 
     private func setupLaunchScreenViewController() {
-        launchScreenViewController = Bundle.main.loadNibNamed("LaunchScreen", owner: self, options: nil)?.first as! UIViewController
+        launchScreenViewController = Bundle.main.loadNibNamed("LaunchScreen", owner: self, options: nil)?.first as? UIViewController
 
         let notificationNames: [NSNotification.Name] = [.ApplicationWillRegisterUserNotificationSettings, .ApplicationWillRequestLocationAuthorization, .ApplicationWillRequestMediaAuthorization]
         for notificationName in notificationNames {

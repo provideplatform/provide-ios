@@ -171,17 +171,17 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         case "ProviderEnRouteViewControllerEmbedSegue":
             providerEnRouteViewController = segue.destination as? ProviderEnRouteViewController
         case "DestinationInputViewControllerEmbedSegue":
-            destinationInputViewController = segue.destination as! DestinationInputViewController
+            destinationInputViewController = segue.destination as? DestinationInputViewController
         case "DestinationResultsViewControllerSegue":
             let extraSpace: CGFloat = 50 // visible map amount
             let destinationResultsViewControllerHeight = UIScreen.main.bounds.height - destinationInputViewController.view.height - extraSpace
             providerEnRouteTransitioningDelegate = CustomHeightModalTransitioningDelegate(height: destinationResultsViewControllerHeight)
-            destinationResultsViewController = segue.destination as! DestinationResultsViewController
+            destinationResultsViewController = segue.destination as? DestinationResultsViewController
             destinationResultsViewController?.transitioningDelegate = providerEnRouteTransitioningDelegate
             destinationResultsViewController?.modalPresentationStyle = .custom
             destinationResultsViewController.configure(results: [], onResultSelected: onResultSelected)
         case "ConfirmWorkOrderViewControllerEmbedSegue":
-            confirmWorkOrderViewController = segue.destination as! ConfirmWorkOrderViewController
+            confirmWorkOrderViewController = segue.destination as? ConfirmWorkOrderViewController
             confirmWorkOrderViewController.configure(workOrder: nil, categories: categories, paymentMethod: currentUser.defaultPaymentMethod) { _ in
                 self.setupCancelWorkOrderBarButtonItem()
             }

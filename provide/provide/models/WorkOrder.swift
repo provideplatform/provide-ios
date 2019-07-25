@@ -330,11 +330,11 @@ class WorkOrder: Model {
             if let componentDict = component as? [String: Any] {
                 if let completed = componentDict["completed"] as? Bool {
                     if !completed {
-                        componentIdentifier = componentDict["component"] as! String
+                        componentIdentifier = componentDict["component"] as? String
                         break
                     }
                 } else {
-                    componentIdentifier = componentDict["component"] as! String
+                    componentIdentifier = componentDict["component"] as? String
                     break
                 }
             }
@@ -597,7 +597,7 @@ class WorkOrder: Model {
     func reloadAttachments(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             ApiService.shared.fetchAttachments(forWorkOrderWithId: String(id), onSuccess: { statusCode, mappingResult in
-                self.attachments = mappingResult?.array() as! [Attachment]
+                self.attachments = mappingResult?.array() as? [Attachment]
                 onSuccess(statusCode, mappingResult)
             }, onError: onError)
         }
@@ -623,7 +623,7 @@ class WorkOrder: Model {
     func setComponents(_ components: NSMutableArray) {
         let mutableConfig = NSMutableDictionary(dictionary: config)
         mutableConfig.setObject(components, forKey: "components" as NSCopying)
-        config = mutableConfig as! [String: Any]
+        config = mutableConfig as? [String: Any]
     }
 
     func route(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {

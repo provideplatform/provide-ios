@@ -105,7 +105,7 @@ class User: Model {
     func reloadPaymentMethods(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         if id > 0 {
             ApiService.shared.fetchPaymentMethods(onSuccess: { [weak self] statusCode, mappingResult in
-                self?.paymentMethods = mappingResult?.array() as! [PaymentMethod]
+                self?.paymentMethods = mappingResult?.array() as? [PaymentMethod]
                 onSuccess(statusCode, mappingResult)
             }, onError: onError)
         }
