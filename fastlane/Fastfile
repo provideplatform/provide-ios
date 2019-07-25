@@ -63,6 +63,20 @@ platform :ios do
     pilot
   end
 
+  desc "Submit arcade city beta to TestFlight"
+  lane :arcade_city_beta do
+    ENV["APP_IDENTIFIER"] = "arcade.city.rider"
+    gym(scheme: "arcade city")
+    pilot
+  end
+
+  desc "Submit arcade city driver beta to TestFlight"
+  lane :arcade_city_driver_beta do
+    ENV["APP_IDENTIFIER"] = "arcade.city.driver"
+    gym(scheme: "arcade city driver")
+    pilot
+  end
+
   # You can define as many lanes as you want
 
   after_all do |lane|
