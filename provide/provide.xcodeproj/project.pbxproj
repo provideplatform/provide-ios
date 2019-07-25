@@ -21,9 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		22554B22F2D962CD99419BC6 /* Pods_unicorn_driver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1E3845CCAABB63F1083924 /* Pods_unicorn_driver.framework */; };
 		3277524C2801264E166522E9 /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687D2D561FCFBE7D008A9A22 /* Pods_provide.framework */; };
 		3E78EEA212AF7C16683F8C8A /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687D2D581FCFC35A008A9A22 /* Pods_provide.framework */; };
-		4099AEB1B9C09B38FE0310C7 /* Pods_unicorn_driver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 336DD004743D72869A3CBE07 /* Pods_unicorn_driver.framework */; };
 		5C0049511B1BD9FF000ACE9D /* HTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = 5C0049501B1BD9FF000ACE9D /* HTTPStubs */; };
 		5C0049521B1BD9FF000ACE9D /* HTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = 5C0049501B1BD9FF000ACE9D /* HTTPStubs */; };
 		5C087C3D1B50614100A30549 /* MessageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C41C5961B2152A900FA7783 /* MessageServiceTests.swift */; };
@@ -221,7 +221,6 @@
 		68607C4B22EA3A6900ACD485 /* PinInputControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6899CDDD1F5D8CD60074370C /* PinInputControl.swift */; };
 		68607C4C22EA3A6900ACD485 /* AppearenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B01B08063B009A4C05 /* AppearenceProxy.swift */; };
 		68607C4E22EA3A6900ACD485 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0E6501D56D09800157123 /* MobileCoreServices.framework */; };
-		68607C4F22EA3A6900ACD485 /* Pods_unicorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */; };
 		68607C5122EA3A6900ACD485 /* Consumer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6C81F86804300BBD3B9 /* Consumer.storyboard */; };
 		68607C5222EA3A6900ACD485 /* Messages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6899CDD81F5D8B120074370C /* Messages.storyboard */; };
 		68607C5322EA3A6900ACD485 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412341B07FBEB009A4C05 /* Main.storyboard */; };
@@ -231,7 +230,6 @@
 		68607C5722EA3A6900ACD485 /* Exo2-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412451B07FC15009A4C05 /* Exo2-MediumItalic.ttf */; };
 		68607C5822EA3A6900ACD485 /* Exo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412471B07FC15009A4C05 /* Exo2-SemiBold.ttf */; };
 		68607C5922EA3A6900ACD485 /* Exo2-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123F1B07FC15009A4C05 /* Exo2-ExtraLight.ttf */; };
-		68607C5A22EA3A6900ACD485 /* unicorn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 687D2E011FD296DE008A9A22 /* unicorn.storyboard */; };
 		68607C5B22EA3A6900ACD485 /* Exo2-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123A1B07FC15009A4C05 /* Exo2-BlackItalic.ttf */; };
 		68607C5C22EA3A6900ACD485 /* Payments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B8826A1FDB8CA400100CF7 /* Payments.storyboard */; };
 		68607C5D22EA3A6900ACD485 /* OutboundMediaMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6B81F867F9700BBD3B9 /* OutboundMediaMessageCell.xib */; };
@@ -380,7 +378,6 @@
 		68607CF922EA3A7900ACD485 /* PinInputControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6899CDDD1F5D8CD60074370C /* PinInputControl.swift */; };
 		68607CFA22EA3A7900ACD485 /* AppearenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B01B08063B009A4C05 /* AppearenceProxy.swift */; };
 		68607CFC22EA3A7900ACD485 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0E6501D56D09800157123 /* MobileCoreServices.framework */; };
-		68607CFD22EA3A7900ACD485 /* Pods_unicorn_driver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 336DD004743D72869A3CBE07 /* Pods_unicorn_driver.framework */; };
 		68607CFF22EA3A7900ACD485 /* Consumer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6C81F86804300BBD3B9 /* Consumer.storyboard */; };
 		68607D0022EA3A7900ACD485 /* Messages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6899CDD81F5D8B120074370C /* Messages.storyboard */; };
 		68607D0122EA3A7900ACD485 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412341B07FBEB009A4C05 /* Main.storyboard */; };
@@ -390,7 +387,6 @@
 		68607D0522EA3A7900ACD485 /* Exo2-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412451B07FC15009A4C05 /* Exo2-MediumItalic.ttf */; };
 		68607D0622EA3A7900ACD485 /* Exo2-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412471B07FC15009A4C05 /* Exo2-SemiBold.ttf */; };
 		68607D0722EA3A7900ACD485 /* Exo2-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123F1B07FC15009A4C05 /* Exo2-ExtraLight.ttf */; };
-		68607D0822EA3A7900ACD485 /* unicorn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 687D2E011FD296DE008A9A22 /* unicorn.storyboard */; };
 		68607D0922EA3A7900ACD485 /* Exo2-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123A1B07FC15009A4C05 /* Exo2-BlackItalic.ttf */; };
 		68607D0A22EA3A7900ACD485 /* Payments.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B8826A1FDB8CA400100CF7 /* Payments.storyboard */; };
 		68607D0B22EA3A7900ACD485 /* OutboundMediaMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6B81F867F9700BBD3B9 /* OutboundMediaMessageCell.xib */; };
@@ -422,7 +418,9 @@
 		68607D4522EA3C3500ACD485 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68607D4622EA3C3600ACD485 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68607D4722EA3C3600ACD485 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
-		68607D4922EA3DE800ACD485 /* arcade-city.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68607D4822EA3DE800ACD485 /* arcade-city.storyboard */; };
+		68607D4A22EA3F3000ACD485 /* arcade-city.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68607D4822EA3DE800ACD485 /* arcade-city.storyboard */; };
+		68607D4B22EA3F3100ACD485 /* arcade-city.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68607D4822EA3DE800ACD485 /* arcade-city.storyboard */; };
+		68607D4C22EA3F3200ACD485 /* arcade-city.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68607D4822EA3DE800ACD485 /* arcade-city.storyboard */; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
 		686F26C91FF0458700168446 /* Prices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686F26C81FF0458700168446 /* Prices.swift */; };
 		686F26CA1FF0458700168446 /* Prices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686F26C81FF0458700168446 /* Prices.swift */; };
@@ -833,10 +831,12 @@
 		68F5371E1B834A9A0007F480 /* NameValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F537101B834A9A0007F480 /* NameValueTableViewCell.swift */; };
 		68F537211B834A9A0007F480 /* NavigationBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F537111B834A9A0007F480 /* NavigationBarButton.swift */; };
 		68F658061F9AB7E0008EEDAE /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F658051F9AB7E0008EEDAE /* CategoryButton.swift */; };
+		70A0D9F75EBEF6BB2C1B969F /* Pods_unicorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6578031355F89C74220F3D07 /* Pods_unicorn.framework */; };
 		7ACF0F2C9AE83D9254E5CB61 /* Pods_provideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BAE03306348524648965C /* Pods_provideTests.framework */; };
+		B60CC97E0DFDB8FC7794A335 /* Pods_arcade_city.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7507678EAEB87E8604B6E1 /* Pods_arcade_city.framework */; };
+		C15F744FEA72949531FE4207 /* Pods_arcade_city_driver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FE99A9B3DC646C348B6981 /* Pods_arcade_city_driver.framework */; };
 		C32E484A3D6A2B71B7B19DC3 /* Pods_provideUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA218394C86B3C20FA606CE /* Pods_provideUITests.framework */; };
 		EE42125EFC6A55E190E2E809 /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BD0BF5796F416A49F68121 /* Pods_provide.framework */; };
-		FD9399B1916A4822D8C9643B /* Pods_unicorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -892,11 +892,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01D6053B55B26EF910598387 /* Pods-arcade city driver.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-arcade city driver.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-arcade city driver/Pods-arcade city driver.adhoc.xcconfig"; sourceTree = "<group>"; };
 		12BDBB6CB0327EE190AFAE20 /* Pods-provide.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provide.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-provide/Pods-provide.adhoc.xcconfig"; sourceTree = "<group>"; };
 		18BD0BF5796F416A49F68121 /* Pods_provide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_provide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C5D7B343C7E0FC3A47E5859 /* Pods-arcade city.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-arcade city.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-arcade city/Pods-arcade city.adhoc.xcconfig"; sourceTree = "<group>"; };
 		2D3860B26130FFCE55B33CDD /* Pods-provideUITests.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideUITests.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-provideUITests/Pods-provideUITests.appstore.xcconfig"; sourceTree = "<group>"; };
-		336DD004743D72869A3CBE07 /* Pods_unicorn_driver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unicorn_driver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4207F994ECA4267CB7558ED3 /* Pods-unicorn driver.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn driver.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn driver/Pods-unicorn driver.appstore.xcconfig"; sourceTree = "<group>"; };
+		42E428BA84CBFD05DE59FA02 /* Pods-arcade city driver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-arcade city driver.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-arcade city driver/Pods-arcade city driver.debug.xcconfig"; sourceTree = "<group>"; };
 		5148C2D7F8B43DB5C38FB3FC /* Pods-unicorn.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn/Pods-unicorn.adhoc.xcconfig"; sourceTree = "<group>"; };
 		53B9F12E1B9F025FEB2EB8BB /* Pods-provideUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideUITests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-provideUITests/Pods-provideUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5C0049501B1BD9FF000ACE9D /* HTTPStubs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = HTTPStubs; sourceTree = "<group>"; };
@@ -949,7 +951,10 @@
 		5CE4D6D31F8B2CE800839001 /* ContactTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTests.swift; sourceTree = "<group>"; };
 		5CED50081F9C849E0007D19A /* ModelDescriptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDescriptions.swift; sourceTree = "<group>"; };
 		5CED500A1F9C956F0007D19A /* Monkey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monkey.swift; sourceTree = "<group>"; };
+		5F7507678EAEB87E8604B6E1 /* Pods_arcade_city.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_arcade_city.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		60FE99A9B3DC646C348B6981 /* Pods_arcade_city_driver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_arcade_city_driver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62D633DDD275017C21C43913 /* Pods-provide.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provide.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-provide/Pods-provide.appstore.xcconfig"; sourceTree = "<group>"; };
+		6578031355F89C74220F3D07 /* Pods_unicorn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unicorn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WorkOrderHistory.storyboard; sourceTree = "<group>"; };
 		68140DA71C1C28D9008F7E3A /* Provider.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Provider.storyboard; sourceTree = "<group>"; };
 		6816FD391C3234A6005A18BB /* WorkOrderDetailsHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderDetailsHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -1099,15 +1104,18 @@
 		68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProvider.swift; sourceTree = "<group>"; };
 		7065B6D67728BFBA41AF0B18 /* Pods-provideUITests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideUITests.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-provideUITests/Pods-provideUITests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		7E2337DF238DDA66D1C18C1E /* Pods-provideTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-provideTests/Pods-provideTests.debug.xcconfig"; sourceTree = "<group>"; };
+		82AEB51BC96F347AA267C750 /* Pods-arcade city driver.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-arcade city driver.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-arcade city driver/Pods-arcade city driver.appstore.xcconfig"; sourceTree = "<group>"; };
 		831BAE03306348524648965C /* Pods_provideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_provideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92EA2CD0A8044DA0AA3696C0 /* Pods-unicorn.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn/Pods-unicorn.appstore.xcconfig"; sourceTree = "<group>"; };
 		957740662E4E010F64737E3A /* Pods-provideTests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideTests.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-provideTests/Pods-provideTests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		9C092875ABDFBAE661DA7624 /* Pods-provideTests.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideTests.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-provideTests/Pods-provideTests.appstore.xcconfig"; sourceTree = "<group>"; };
-		AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unicorn.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA1E3845CCAABB63F1083924 /* Pods_unicorn_driver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_unicorn_driver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC824228D968B3F8CDE3D435 /* Pods-unicorn driver.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn driver.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn driver/Pods-unicorn driver.debug.xcconfig"; sourceTree = "<group>"; };
 		BDA218394C86B3C20FA606CE /* Pods_provideUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_provideUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDD54BFF7728B3334824BFB7 /* Pods-arcade city.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-arcade city.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-arcade city/Pods-arcade city.debug.xcconfig"; sourceTree = "<group>"; };
 		C4F11418DF2BB2EDAC67A1FE /* Pods-unicorn.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn/Pods-unicorn.debug.xcconfig"; sourceTree = "<group>"; };
 		C6567F6092FA1F535CF73935 /* Pods-unicorn driver.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn driver.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn driver/Pods-unicorn driver.adhoc.xcconfig"; sourceTree = "<group>"; };
+		E013D1F6D3C9CB420947731E /* Pods-arcade city.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-arcade city.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-arcade city/Pods-arcade city.appstore.xcconfig"; sourceTree = "<group>"; };
 		F56D0DC51ED6557597C526F0 /* Pods-provide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provide.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-provide/Pods-provide.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1117,7 +1125,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68607C4E22EA3A6900ACD485 /* MobileCoreServices.framework in Frameworks */,
-				68607C4F22EA3A6900ACD485 /* Pods_unicorn.framework in Frameworks */,
+				B60CC97E0DFDB8FC7794A335 /* Pods_arcade_city.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1126,7 +1134,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68607CFC22EA3A7900ACD485 /* MobileCoreServices.framework in Frameworks */,
-				68607CFD22EA3A7900ACD485 /* Pods_unicorn_driver.framework in Frameworks */,
+				C15F744FEA72949531FE4207 /* Pods_arcade_city_driver.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1135,7 +1143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				687D2D231FCFAB79008A9A22 /* MobileCoreServices.framework in Frameworks */,
-				FD9399B1916A4822D8C9643B /* Pods_unicorn.framework in Frameworks */,
+				70A0D9F75EBEF6BB2C1B969F /* Pods_unicorn.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1144,7 +1152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				687D2DCF1FD0DD23008A9A22 /* MobileCoreServices.framework in Frameworks */,
-				4099AEB1B9C09B38FE0310C7 /* Pods_unicorn_driver.framework in Frameworks */,
+				22554B22F2D962CD99419BC6 /* Pods_unicorn_driver.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1709,8 +1717,10 @@
 				18BD0BF5796F416A49F68121 /* Pods_provide.framework */,
 				831BAE03306348524648965C /* Pods_provideTests.framework */,
 				BDA218394C86B3C20FA606CE /* Pods_provideUITests.framework */,
-				AC9044ACCFB287E82D79FA2C /* Pods_unicorn.framework */,
-				336DD004743D72869A3CBE07 /* Pods_unicorn_driver.framework */,
+				5F7507678EAEB87E8604B6E1 /* Pods_arcade_city.framework */,
+				60FE99A9B3DC646C348B6981 /* Pods_arcade_city_driver.framework */,
+				6578031355F89C74220F3D07 /* Pods_unicorn.framework */,
+				AA1E3845CCAABB63F1083924 /* Pods_unicorn_driver.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1733,6 +1743,12 @@
 				C4F11418DF2BB2EDAC67A1FE /* Pods-unicorn.debug.xcconfig */,
 				5148C2D7F8B43DB5C38FB3FC /* Pods-unicorn.adhoc.xcconfig */,
 				92EA2CD0A8044DA0AA3696C0 /* Pods-unicorn.appstore.xcconfig */,
+				BDD54BFF7728B3334824BFB7 /* Pods-arcade city.debug.xcconfig */,
+				2C5D7B343C7E0FC3A47E5859 /* Pods-arcade city.adhoc.xcconfig */,
+				E013D1F6D3C9CB420947731E /* Pods-arcade city.appstore.xcconfig */,
+				42E428BA84CBFD05DE59FA02 /* Pods-arcade city driver.debug.xcconfig */,
+				01D6053B55B26EF910598387 /* Pods-arcade city driver.adhoc.xcconfig */,
+				82AEB51BC96F347AA267C750 /* Pods-arcade city driver.appstore.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1960,6 +1976,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68607C5122EA3A6900ACD485 /* Consumer.storyboard in Resources */,
+				68607D4A22EA3F3000ACD485 /* arcade-city.storyboard in Resources */,
 				68607C5222EA3A6900ACD485 /* Messages.storyboard in Resources */,
 				68607C5322EA3A6900ACD485 /* Main.storyboard in Resources */,
 				68607C5422EA3A6900ACD485 /* Exo2-Regular.ttf in Resources */,
@@ -1968,7 +1985,6 @@
 				68607C5722EA3A6900ACD485 /* Exo2-MediumItalic.ttf in Resources */,
 				68607C5822EA3A6900ACD485 /* Exo2-SemiBold.ttf in Resources */,
 				68607C5922EA3A6900ACD485 /* Exo2-ExtraLight.ttf in Resources */,
-				68607C5A22EA3A6900ACD485 /* unicorn.storyboard in Resources */,
 				68607C5B22EA3A6900ACD485 /* Exo2-BlackItalic.ttf in Resources */,
 				68607C5C22EA3A6900ACD485 /* Payments.storyboard in Resources */,
 				68607C5D22EA3A6900ACD485 /* OutboundMediaMessageCell.xib in Resources */,
@@ -2005,6 +2021,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68607CFF22EA3A7900ACD485 /* Consumer.storyboard in Resources */,
+				68607D4B22EA3F3100ACD485 /* arcade-city.storyboard in Resources */,
 				68607D0022EA3A7900ACD485 /* Messages.storyboard in Resources */,
 				68607D0122EA3A7900ACD485 /* Main.storyboard in Resources */,
 				68607D0222EA3A7900ACD485 /* Exo2-Regular.ttf in Resources */,
@@ -2013,7 +2030,6 @@
 				68607D0522EA3A7900ACD485 /* Exo2-MediumItalic.ttf in Resources */,
 				68607D0622EA3A7900ACD485 /* Exo2-SemiBold.ttf in Resources */,
 				68607D0722EA3A7900ACD485 /* Exo2-ExtraLight.ttf in Resources */,
-				68607D0822EA3A7900ACD485 /* unicorn.storyboard in Resources */,
 				68607D0922EA3A7900ACD485 /* Exo2-BlackItalic.ttf in Resources */,
 				68607D0A22EA3A7900ACD485 /* Payments.storyboard in Resources */,
 				68607D0B22EA3A7900ACD485 /* OutboundMediaMessageCell.xib in Resources */,
@@ -2167,7 +2183,7 @@
 				68A653A11F4C184B007CC52F /* ZeroState.storyboard in Resources */,
 				68140DA81C1C28D9008F7E3A /* Provider.storyboard in Resources */,
 				68B412541B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */,
-				68607D4922EA3DE800ACD485 /* arcade-city.storyboard in Resources */,
+				68607D4C22EA3F3200ACD485 /* arcade-city.storyboard in Resources */,
 				68B412661B07FC15009A4C05 /* Exo2-Light.ttf in Resources */,
 				68140DA21C1C23FD008F7E3A /* WorkOrderHistory.storyboard in Resources */,
 				68B412691B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,
@@ -2426,7 +2442,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-unicorn-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-arcade city-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2439,7 +2455,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-unicorn/Pods-unicorn-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-arcade city/Pods-arcade city-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/BadgeSwift/BadgeSwift.framework",
@@ -2516,7 +2532,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-unicorn/Pods-unicorn-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-arcade city/Pods-arcade city-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		68607C7822EA3A6900ACD485 /* Upload Symbol Files */ = {
@@ -2545,7 +2561,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-unicorn driver-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-arcade city driver-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2558,7 +2574,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-unicorn driver/Pods-unicorn driver-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-arcade city driver/Pods-arcade city driver-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/BadgeSwift/BadgeSwift.framework",
@@ -2635,7 +2651,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-unicorn driver/Pods-unicorn driver-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-arcade city driver/Pods-arcade city driver-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		68607D2622EA3A7900ACD485 /* swiftlint */ = {
@@ -3762,9 +3778,10 @@
 /* Begin XCBuildConfiguration section */
 		68607C7A22EA3A6900ACD485 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C4F11418DF2BB2EDAC67A1FE /* Pods-unicorn.debug.xcconfig */;
+			baseConfigurationReference = BDD54BFF7728B3334824BFB7 /* Pods-arcade city.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-arcade-city";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "arcade-city-launch";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3797,9 +3814,10 @@
 		};
 		68607C7B22EA3A6900ACD485 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5148C2D7F8B43DB5C38FB3FC /* Pods-unicorn.adhoc.xcconfig */;
+			baseConfigurationReference = 2C5D7B343C7E0FC3A47E5859 /* Pods-arcade city.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-arcade-city";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "arcade-city-launch";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3832,9 +3850,10 @@
 		};
 		68607C7C22EA3A6900ACD485 /* AppStore */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 92EA2CD0A8044DA0AA3696C0 /* Pods-unicorn.appstore.xcconfig */;
+			baseConfigurationReference = E013D1F6D3C9CB420947731E /* Pods-arcade city.appstore.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-arcade-city";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "arcade-city-launch";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3867,9 +3886,10 @@
 		};
 		68607D2922EA3A7900ACD485 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BC824228D968B3F8CDE3D435 /* Pods-unicorn driver.debug.xcconfig */;
+			baseConfigurationReference = 42E428BA84CBFD05DE59FA02 /* Pods-arcade city driver.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-arcade-city";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "arcade-city-launch";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3901,9 +3921,10 @@
 		};
 		68607D2A22EA3A7900ACD485 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C6567F6092FA1F535CF73935 /* Pods-unicorn driver.adhoc.xcconfig */;
+			baseConfigurationReference = 01D6053B55B26EF910598387 /* Pods-arcade city driver.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-arcade-city";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "arcade-city-launch";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -3935,9 +3956,10 @@
 		};
 		68607D2B22EA3A7900ACD485 /* AppStore */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4207F994ECA4267CB7558ED3 /* Pods-unicorn driver.appstore.xcconfig */;
+			baseConfigurationReference = 82AEB51BC96F347AA267C750 /* Pods-arcade city driver.appstore.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-arcade-city";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "arcade-city-launch";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

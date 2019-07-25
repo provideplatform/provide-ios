@@ -29,8 +29,8 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>unicorn</string>
-				<string>fb128411211186353</string>
+				<string>arcadecity</string>
+				<string>fb167607843598672</string>
 			</array>
 		</dict>
 		<dict>
@@ -59,9 +59,9 @@
 		</array>
 	</dict>
 	<key>FacebookAppID</key>
-	<string>128411211186353</string>
+	<string>167607843598672</string>
 	<key>FacebookDisplayName</key>
-	<string>unicorn</string>
+	<string>arcade city</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -83,20 +83,18 @@
 		<true/>
 	</dict>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>unicorn would like to use your bluetooth radio</string>
+	<string>arcade city would like to use your bluetooth radio</string>
 	<key>NSCameraUsageDescription</key>
-	<string>unicorn would like to use your camera</string>
+	<string>arcade city would like to use your camera</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>unicorn would like to use your current location</string>
+	<string>arcade city would like to use your current location</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>unicorn would like to use your photo library</string>
+	<string>arcade city would like to use your photo library</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
 		<string>remote-notification</string>
 	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>arcade-city</string>
 	<key>UIRequiredDeviceCapabilities</key>
