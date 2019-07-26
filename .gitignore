@@ -32,6 +32,10 @@ fastlane/test_output
 
 *.ipa
 *.app.dSYM.zip
+*.mobileprovision
+*.p12
+*.cer
+*.certSigningRequest
 
 # firebase
 *-firebase-crashreporting-*.json
