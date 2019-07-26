@@ -119,6 +119,8 @@
 	<false/>
 	<key>xAppMode</key>
 	<string>consumer</string>
+	<key>xAppZeroStateImage</key>
+	<string>provide-icon</string>
 	<key>xBuildShortTime</key>
 	<string>X_BUILD_TIME</string>
 	<key>xGitShortSHA</key>

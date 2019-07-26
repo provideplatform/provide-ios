@@ -8,11 +8,14 @@
 
 import UIKit
 
+
 class ZeroStateViewController: ViewController {
 
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var label: UILabel!
     @IBOutlet private weak var messageLabel: UILabel!
+
+    private let zeroStateImage: UIImage? = infoDictionaryValueFor("xAppZeroStateImage") != "" ? UIImage(named: infoDictionaryValueFor("xAppZeroStateImage")) : nil
 
     private var backgroundSubview: UIView!
 
@@ -34,6 +37,10 @@ class ZeroStateViewController: ViewController {
         backgroundSubview.backgroundColor = .black
         view.addSubview(backgroundSubview)
         view.sendSubview(toBack: backgroundSubview)
+
+        if let image = zeroStateImage {
+            imageView.image = image
+        }
 
         for item in [imageView, label, messageLabel] as [Any] {
             if let v = item as? UIView {
