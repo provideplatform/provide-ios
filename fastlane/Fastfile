@@ -20,8 +20,6 @@ platform :ios do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
     cocoapods
     # carthage
-
-    get_certificates
   end
 
   desc "Runs all the tests"
@@ -36,6 +34,7 @@ platform :ios do
     ENV["APP_IDENTIFIER"] = "services.provide"
     ENV["FASTLANE_ITC_TEAM_ID"] = "117789692"
     team_id "4A8DZ57H2Y" # Provide Technologies Inc. Developer Portal Team ID
+    get_certificates
     get_provisioning_profile(app_identifier: ENV['APP_IDENTIFIER'])
     gym(scheme: "provide") # Build your app - more options available
     pilot
@@ -51,6 +50,7 @@ platform :ios do
     ENV["APP_IDENTIFIER"] = "services.provide"
     ENV["FASTLANE_ITC_TEAM_ID"] = "117789692"
     team_id "4A8DZ57H2Y" # Provide Technologies Inc. Developer Portal Team ID
+    get_certificates
     get_provisioning_profile(app_identifier: ENV['APP_IDENTIFIER'])
     gym(scheme: "provide") # Build your app - more options available
     deliver(force: true)
@@ -62,6 +62,7 @@ platform :ios do
     ENV["APP_IDENTIFIER"] = "services.provide.unicorn"
     ENV["FASTLANE_ITC_TEAM_ID"] = "117789692"
     team_id "4A8DZ57H2Y" # Provide Technologies Inc. Developer Portal Team ID
+    get_certificates
     get_provisioning_profile(app_identifier: ENV['APP_IDENTIFIER'])
     gym(scheme: "unicorn")
     pilot
@@ -82,6 +83,7 @@ platform :ios do
     ENV["APP_IDENTIFIER"] = "arcade.city.rider"
     ENV["FASTLANE_ITC_TEAM_ID"] = "118112144"
     team_id "AY3DU4DJUH" # Arcade City Inc. Developer Portal Team ID
+    get_certificates
     get_provisioning_profile(app_identifier: ENV['APP_IDENTIFIER'])
     gym(scheme: "arcade city")
     pilot
@@ -92,6 +94,7 @@ platform :ios do
     ENV["APP_IDENTIFIER"] = "arcade.city.driver"
     ENV["FASTLANE_ITC_TEAM_ID"] = "118112144"
     team_id "AY3DU4DJUH" # Arcade City Inc. Developer Portal Team ID
+    get_certificates
     get_provisioning_profile(app_identifier: ENV['APP_IDENTIFIER'])
     gym(scheme: "arcade city driver")
     pilot
