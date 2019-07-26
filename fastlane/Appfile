@@ -1,8 +1,8 @@
 app_identifier ENV["APP_IDENTIFIER"] # The bundle identifier of your app
 apple_id "kyle@provide.services" # Your Apple email address
 
-#team_id "4A8DZ57H2Y" # Provide Technologies Inc. Developer Portal Team ID
-team_id "AY3DU4DJUH" # Arcade City Inc. Developer Portal Team ID
+team_id "4A8DZ57H2Y" # Provide Technologies Inc. Developer Portal Team ID
+#team_id "AY3DU4DJUH" # Arcade City Inc. Developer Portal Team ID
 
 # you can even provide different app identifiers, Apple IDs and team names per lane:
 # More information: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Appfile.md
