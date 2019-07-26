@@ -523,7 +523,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
 
         // TODO: switch on result contact type when additional sections are added to DestinationResultsViewController
 
-        LocationService.shared.resolveCurrentLocation { currentLocation in
+        LocationService.shared.resolveCurrentLocation(allowCachedLocation: true) { currentLocation in
             let origin = Contact()
             origin.latitude = currentLocation.coordinate.latitude
             origin.longitude = currentLocation.coordinate.longitude
