@@ -152,7 +152,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
     }
 
     @discardableResult
-    func presentStatusBarNotificationWithTitle(_ title: String, style: BannerStyle = .none, autoDismiss: Bool = true) -> StatusBarNotificationBanner {
+    func presentStatusBarNotificationWithTitle(_ title: String, style: BannerStyle = .info, autoDismiss: Bool = true) -> StatusBarNotificationBanner {
         let banner = StatusBarNotificationBanner(title: title, style: style)
         banner.autoDismiss = autoDismiss
         banner.show()
