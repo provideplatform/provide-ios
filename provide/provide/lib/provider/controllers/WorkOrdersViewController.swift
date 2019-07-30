@@ -443,6 +443,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         switch indexPath.row {
         case 0:
             return MenuItem(label: "History", action: "segueToWorkOrderHistory")
+        case 1:
+            return MenuItem(label: "Switch to Consumer", action: "enterConsumerApplication")
         default:
             break
         }
@@ -454,7 +456,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     func menuViewController(_ menuViewController: MenuViewController, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return UserMode.mode != nil ? 2 : 3
     }
 
     @objc private func clearProviderContext() {
@@ -471,7 +473,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
-    @objc func switchToConsumerMode() {
+    @objc func enterConsumerApplication() {
         // TODO: ensure there is not an active work order that should prevent this from happening...
         clearProviderContext()
 

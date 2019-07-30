@@ -36,11 +36,11 @@ class KeyChainService {
 
     var mode: UserMode? {
         get {
-            if let mode = UserMode.mode {
-                return mode
-            }
             if let m = self["mode"] {
                 return UserMode(rawValue: m)
+            }
+            if let mode = UserMode.mode {
+                return mode
             }
             return .consumer
         }

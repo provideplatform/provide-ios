@@ -69,6 +69,10 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         }
 
         KTNotificationCenter.addObserver(forName: Notification.Name(rawValue: "SegueToPaymentsStoryboard")) { [weak self] sender in
+            if KeyChainService.shared.mode! == .provider {
+                return
+            }
+
             if let strongSelf = self {
                 if !strongSelf.navigationControllerContains(PaymentMethodsViewController.self) {
                     strongSelf.performSegue(withIdentifier: "PaymentsViewControllerSegue", sender: strongSelf)
@@ -124,7 +128,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        UIApplication.shared.statusBarStyle = .default
         navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
         navigationController?.navigationBar.barTintColor = nil
         navigationController?.navigationBar.tintColor = nil
@@ -206,7 +209,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
 
     private func prepareForMenuItemSegue() {
         DispatchQueue.main.async { [weak self] in
-            UIApplication.shared.statusBarStyle = .lightContent
             self?.navigationController?.navigationBar.backgroundColor = .black
             self?.navigationController?.navigationBar.barTintColor = .black
             self?.navigationController?.navigationBar.tintColor = .white
@@ -476,6 +478,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
             return MenuItem(label: "History", action: "segueToWorkOrderHistory")
         case 1:
             return MenuItem(label: "Payments", action: "segueToPayments")
+        case 2:
+            return MenuItem(label: "Switch to Driver", action: "enterProviderApplication")
         default:
             return nil
         }
@@ -486,10 +490,10 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
     }
 
     func menuViewController(_ menuViewController: MenuViewController, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return UserMode.mode != nil ? 2 : 3
     }
 
-    @objc func provide() {
+    @objc func enterProviderApplication() {
         KeyChainService.shared.mode = .provider
         KTNotificationCenter.post(name: .ApplicationShouldReloadTopViewController)
     }

@@ -25,7 +25,7 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
         reload()
     }
 
-    func reload() {
+    @objc func reload() {
         if rootViewController != nil {
             navigationController?.setNavigationBarHidden(true, animated: false)
             navigationController?.popViewController(animated: false)

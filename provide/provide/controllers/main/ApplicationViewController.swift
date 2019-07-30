@@ -57,8 +57,10 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
                 tvc.reload()
             }
 
-            self?.refreshMenu()
-            self?.requireMinimumViableUser()
+            dispatch_after_delay(0.025) {
+                self?.refreshMenu()
+                self?.requireMinimumViableUser()
+            }
         }
     }
 
