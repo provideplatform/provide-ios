@@ -282,7 +282,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="icb-6b-eTV" firstAttribute="width" secondItem="EWQ-PR-FOY" secondAttribute="width" id="ESg-I3-iRg"/>
                             <constraint firstItem="EWQ-PR-FOY" firstAttribute="top" secondItem="icb-6b-eTV" secondAttribute="top" id="EdM-fh-9da"/>
@@ -298,7 +297,7 @@
                     <navigationItem key="navigationItem" title="Payments" id="fGI-45-clh">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="eAD-Pt-990">
                             <connections>
-                                <segue destination="V1h-05-vCu" kind="showDetail" identifier="PaymentMethodScannerViewControllerSegue" animates="NO" id="uZ2-kA-5Z9"/>
+                                <segue destination="V1h-05-vCu" kind="show" identifier="PaymentMethodScannerViewControllerSegue" animates="NO" id="uZ2-kA-5Z9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -317,16 +316,12 @@
         <scene sceneID="hHM-sa-snA">
             <objects>
                 <viewController id="V1h-05-vCu" customClass="PaymentMethodScannerViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Isd-fi-r6N">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="Isd-fi-r6N">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EDE-qa-yzn">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="20e-zz-5lN">
-                                <rect key="frame" x="38" y="130" width="300" height="320"/>
+                                <rect key="frame" x="38" y="110" width="300" height="320"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="320" id="ZxE-K6-7Nl"/>
@@ -463,15 +458,10 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="QHH-x5-FsR" firstAttribute="trailing" secondItem="20e-zz-5lN" secondAttribute="trailing" constant="37" id="1h2-Eg-Y1B"/>
-                            <constraint firstItem="QHH-x5-FsR" firstAttribute="bottom" secondItem="EDE-qa-yzn" secondAttribute="bottom" id="7qg-Yj-JHJ"/>
                             <constraint firstItem="20e-zz-5lN" firstAttribute="top" secondItem="QHH-x5-FsR" secondAttribute="top" constant="110" id="KeB-cR-cRM"/>
-                            <constraint firstItem="QHH-x5-FsR" firstAttribute="top" secondItem="EDE-qa-yzn" secondAttribute="top" constant="20" id="OCH-zn-4hA"/>
                             <constraint firstItem="20e-zz-5lN" firstAttribute="leading" secondItem="QHH-x5-FsR" secondAttribute="leading" constant="38" id="dx3-Gd-hz6"/>
-                            <constraint firstItem="EDE-qa-yzn" firstAttribute="leading" secondItem="QHH-x5-FsR" secondAttribute="leading" id="i6n-un-HSe"/>
-                            <constraint firstItem="QHH-x5-FsR" firstAttribute="trailing" secondItem="EDE-qa-yzn" secondAttribute="trailing" id="vOC-lK-fTT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QHH-x5-FsR"/>
                     </view>
