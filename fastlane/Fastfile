@@ -79,9 +79,9 @@ platform :ios do
   end
 
   desc "Submit arcade city beta to TestFlight"
-  lane :arcade_city_beta do
+  lane :arcade_city_rider_beta do
     ENV["APP_IDENTIFIER"] = "arcade.city.rider"
-    ENV["FASTLANE_ITC_TEAM_ID"] = "118112144"
+    ENV["FASTLANE_ITC_TEAM_ID"] = "1474288693"
     team_id "AY3DU4DJUH" # Arcade City Inc. Developer Portal Team ID
     get_certificates
     get_provisioning_profile(app_identifier: ENV['APP_IDENTIFIER'])
@@ -92,11 +92,22 @@ platform :ios do
   desc "Submit arcade city driver beta to TestFlight"
   lane :arcade_city_driver_beta do
     ENV["APP_IDENTIFIER"] = "arcade.city.driver"
-    ENV["FASTLANE_ITC_TEAM_ID"] = "118112144"
+    ENV["FASTLANE_ITC_TEAM_ID"] = "1465436427"
     team_id "AY3DU4DJUH" # Arcade City Inc. Developer Portal Team ID
     get_certificates
     get_provisioning_profile(app_identifier: ENV['APP_IDENTIFIER'])
     gym(scheme: "arcade city driver")
+    pilot
+  end
+
+  desc "Submit arcade city beta to TestFlight"
+  lane :arcade_city_beta do
+    ENV["APP_IDENTIFIER"] = "arcade.city.rides"
+    ENV["FASTLANE_ITC_TEAM_ID"] = "1474871378"
+    team_id "AY3DU4DJUH" # Arcade City Inc. Developer Portal Team ID
+    get_certificates
+    get_provisioning_profile(app_identifier: ENV['APP_IDENTIFIER'])
+    gym(scheme: "arcade city")
     pilot
   end
 
