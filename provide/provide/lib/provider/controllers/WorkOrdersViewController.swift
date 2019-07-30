@@ -456,7 +456,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     func menuViewController(_ menuViewController: MenuViewController, numberOfRowsInSection section: Int) -> Int {
-        return UserMode.mode != nil ? 2 : 3
+        return UserMode.mode != nil ? 1 : 2
     }
 
     @objc private func clearProviderContext() {
