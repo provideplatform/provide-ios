@@ -169,7 +169,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: Privacy view controller
 
     private func setupLaunchScreenViewController() {
-        launchScreenViewController = Bundle.main.loadNibNamed("LaunchScreen", owner: self, options: nil)?.first as? UIViewController
+        let privacyViewControllerNib = infoDictionaryValueFor("xAppPrivacyViewControllerNib") != "" ? infoDictionaryValueFor("xAppPrivacyViewControllerNib") : "LaunchScreen"
+        launchScreenViewController = Bundle.main.loadNibNamed(privacyViewControllerNib, owner: self, options: nil)?.first as? UIViewController
 
         let notificationNames: [NSNotification.Name] = [.ApplicationWillRegisterUserNotificationSettings, .ApplicationWillRequestLocationAuthorization, .ApplicationWillRequestMediaAuthorization]
         for notificationName in notificationNames {

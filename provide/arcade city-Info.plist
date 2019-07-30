@@ -115,6 +115,8 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>xAppPrivacyViewControllerNib</key>
+	<string>ArcadeCityLaunchScreen</string>
 	<key>xAppZeroStateImage</key>
 	<string>prvd-token</string>
 	<key>xBuildShortTime</key>

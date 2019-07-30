@@ -574,12 +574,15 @@
 		68607DEA22F0E96D00ACD485 /* Exo2-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412411B07FC15009A4C05 /* Exo2-Italic.ttf */; };
 		68607DEB22F0E96D00ACD485 /* Exo2-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123D1B07FC15009A4C05 /* Exo2-ExtraBold.ttf */; };
 		68607DEC22F0E96D00ACD485 /* Exo2-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412491B07FC15009A4C05 /* Exo2-Thin.ttf */; };
-		68607DED22F0E96D00ACD485 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CAC66201B1291620079A58E /* LaunchScreen.xib */; };
 		68607DEE22F0E96D00ACD485 /* Exo2-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412481B07FC15009A4C05 /* Exo2-SemiBoldItalic.ttf */; };
 		68607DEF22F0E96D00ACD485 /* Exo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412441B07FC15009A4C05 /* Exo2-Medium.ttf */; };
 		68607DF022F0E96D00ACD485 /* Exo2-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123E1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf */; };
 		68607DF122F0E96D00ACD485 /* InboundMediaMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6BB1F867F9700BBD3B9 /* InboundMediaMessageCell.xib */; };
 		68607DF222F0E96D00ACD485 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist */; };
+		68607DFE22F0F95200ACD485 /* ArcadeCityLaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68607DFB22F0F5B300ACD485 /* ArcadeCityLaunchScreen.xib */; };
+		68607DFF22F0F95200ACD485 /* ArcadeCityLaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68607DFB22F0F5B300ACD485 /* ArcadeCityLaunchScreen.xib */; };
+		68607E0022F0F95300ACD485 /* ArcadeCityLaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68607DFB22F0F5B300ACD485 /* ArcadeCityLaunchScreen.xib */; };
+		68607E0122F0F95A00ACD485 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5CAC66201B1291620079A58E /* LaunchScreen.xib */; };
 		686A5A1C1B0DF96400E0204A /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */; };
 		686F26C91FF0458700168446 /* Prices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686F26C81FF0458700168446 /* Prices.swift */; };
 		686F26CA1FF0458700168446 /* Prices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686F26C81FF0458700168446 /* Prices.swift */; };
@@ -1146,6 +1149,7 @@
 		68607D4822EA3DE800ACD485 /* arcade-city.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "arcade-city.storyboard"; sourceTree = "<group>"; };
 		68607DF922F0E96D00ACD485 /* arcade city.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "arcade city.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68607DFA22F0E96D00ACD485 /* arcade city-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "arcade city-Info.plist"; path = "/Users/kt/code/provide/provide-ios/provide/arcade city-Info.plist"; sourceTree = "<absolute>"; };
+		68607DFB22F0F5B300ACD485 /* ArcadeCityLaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ArcadeCityLaunchScreen.xib; sourceTree = "<group>"; };
 		686A5A1B1B0DF96400E0204A /* AnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		686F26C81FF0458700168446 /* Prices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prices.swift; sourceTree = "<group>"; };
 		687454391B3C014300C49B3F /* ProvideTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProvideTestCase.swift; sourceTree = "<group>"; };
@@ -1547,6 +1551,7 @@
 		68B411FF1B07FB02009A4C05 /* storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				68607DFB22F0F5B300ACD485 /* ArcadeCityLaunchScreen.xib */,
 				5CAC66201B1291620079A58E /* LaunchScreen.xib */,
 				68B412341B07FBEB009A4C05 /* Main.storyboard */,
 				5CB25A931F98A3770018D30F /* Menu.storyboard */,
@@ -2200,6 +2205,7 @@
 				68607C6822EA3A6900ACD485 /* Exo2-Light.ttf in Resources */,
 				68607C6922EA3A6900ACD485 /* WorkOrderHistory.storyboard in Resources */,
 				68607C6A22EA3A6900ACD485 /* Exo2-LightItalic.ttf in Resources */,
+				68607DFF22F0F95200ACD485 /* ArcadeCityLaunchScreen.xib in Resources */,
 				68607C6B22EA3A6900ACD485 /* Menu.storyboard in Resources */,
 				68607C6C22EA3A6900ACD485 /* Camera.storyboard in Resources */,
 				68607C6D22EA3A6900ACD485 /* OutboundMessageCell.xib in Resources */,
@@ -2245,6 +2251,7 @@
 				68607D1622EA3A7900ACD485 /* Exo2-Light.ttf in Resources */,
 				68607D1722EA3A7900ACD485 /* WorkOrderHistory.storyboard in Resources */,
 				68607D1822EA3A7900ACD485 /* Exo2-LightItalic.ttf in Resources */,
+				68607E0022F0F95300ACD485 /* ArcadeCityLaunchScreen.xib in Resources */,
 				68607D1922EA3A7900ACD485 /* Menu.storyboard in Resources */,
 				68607D1A22EA3A7900ACD485 /* Camera.storyboard in Resources */,
 				68607D1B22EA3A7900ACD485 /* OutboundMessageCell.xib in Resources */,
@@ -2286,17 +2293,18 @@
 				68607DE022F0E96D00ACD485 /* InboundMessageCell.xib in Resources */,
 				68607DE122F0E96D00ACD485 /* ZeroState.storyboard in Resources */,
 				68607DE222F0E96D00ACD485 /* Provider.storyboard in Resources */,
+				68607E0122F0F95A00ACD485 /* LaunchScreen.xib in Resources */,
 				68607DE322F0E96D00ACD485 /* Exo2-BoldItalic.ttf in Resources */,
 				68607DE422F0E96D00ACD485 /* Exo2-Light.ttf in Resources */,
 				68607DE522F0E96D00ACD485 /* WorkOrderHistory.storyboard in Resources */,
 				68607DE622F0E96D00ACD485 /* Exo2-LightItalic.ttf in Resources */,
+				68607DFE22F0F95200ACD485 /* ArcadeCityLaunchScreen.xib in Resources */,
 				68607DE722F0E96D00ACD485 /* Menu.storyboard in Resources */,
 				68607DE822F0E96D00ACD485 /* Camera.storyboard in Resources */,
 				68607DE922F0E96D00ACD485 /* OutboundMessageCell.xib in Resources */,
 				68607DEA22F0E96D00ACD485 /* Exo2-Italic.ttf in Resources */,
 				68607DEB22F0E96D00ACD485 /* Exo2-ExtraBold.ttf in Resources */,
 				68607DEC22F0E96D00ACD485 /* Exo2-Thin.ttf in Resources */,
-				68607DED22F0E96D00ACD485 /* LaunchScreen.xib in Resources */,
 				68607DEE22F0E96D00ACD485 /* Exo2-SemiBoldItalic.ttf in Resources */,
 				68607DEF22F0E96D00ACD485 /* Exo2-Medium.ttf in Resources */,
 				68607DF022F0E96D00ACD485 /* Exo2-ExtraBoldItalic.ttf in Resources */,
