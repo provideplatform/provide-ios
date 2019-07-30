@@ -41,13 +41,20 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
 
                 cardIcon.image = paymentMethod.icon
                 cardNumberField.text = paymentMethod.last4
-                expiryMonthField.text = "\(paymentMethod.expMonth)"
-                expiryYearField.text = "\(paymentMethod.expYear)"
-                expiryYearField.sizeToFit()
-
+                if paymentMethod.expMonth > 0 {
+                    expiryMonthField.text = "\(paymentMethod.expMonth)"
+                }
+                if paymentMethod.expYear > 0 {
+                    expiryYearField.text = "\(paymentMethod.expYear)"
+                    expiryYearField.sizeToFit()
+                }
                 creditCardTableView?.isHidden = false
 
-                if !cvcField.isFirstResponder {
+                if paymentMethod.expMonth <= 0 && !expiryMonthField.isFirstResponder {
+                    expiryMonthField.becomeFirstResponder()
+                } else if paymentMethod.expYear <= 0 && !expiryYearField.isFirstResponder {
+                    expiryYearField.becomeFirstResponder()
+                } else if !cvcField.isFirstResponder {
                     cvcField.becomeFirstResponder()
                 }
             } else {
@@ -83,6 +90,7 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
         creditCardTableView.isHidden = true
 
         cardIOView = CardIOView(frame: view.bounds)
+        cardIOView.backgroundColor = .clear
         cardIOView.delegate = self
         cardIOView.hideCardIOLogo = true
         cardIOView.scannedImageDuration = 0.1
@@ -133,15 +141,14 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
     // MARK: CardIOViewDelegate
 
     func cardIOView(_ cardIOView: CardIOView, didScanCard cardInfo: CardIOCreditCardInfo) {
-         cardIOView.isHidden = true
+        scanAttempts += 1
+        cardIOView.isHidden = true
+
         if let pmtMethod = cardInfo.toPaymentMethod() {
             paymentMethod = pmtMethod
         } else {
-            scanAttempts += 1
-
             let msg = "Hold your camera and credit card steady..."
             NotificationService.shared.presentStatusBarNotificationWithTitle(msg, style: .warning, autoDismiss: true)
-
             scan()
         }
     }
@@ -200,12 +207,14 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
         }) as? UITextField {
             expiryMonthField = textField
             expiryMonthField.text = ""
+            expiryMonthField.delegate = self
         }
         if let textField = cell.contentView.subviews.first(where: { subv -> Bool in
             return subv.isKind(of: UITextField.self) && subv != expiryMonthField
         }) as? UITextField {
             expiryYearField = textField
             expiryYearField.text = ""
+            expiryYearField.delegate = self
         }
         return cell
     }
@@ -267,20 +276,45 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
         let currentText = textField.text ?? ""
         let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
 
-        if updatedText.count > 4 {
-            return false
-        } else if updatedText.count == 3 || updatedText.count == 4 { // valid cvc length
-            DispatchQueue.main.async { [weak self] in
-                if let strongSelf = self {
-                    if strongSelf.cvcField.isFirstResponder {
-                        strongSelf.cvcField.resignFirstResponder()
-                    }
+        if textField == expiryMonthField {
+            if updatedText.count == 2 {
+                DispatchQueue.main.async { [weak self] in
+                    if let strongSelf = self {
+                        if strongSelf.expiryMonthField.isFirstResponder {
+                            strongSelf.expiryYearField.becomeFirstResponder()
+                        }
 
-                    strongSelf.paymentMethod.cvc = updatedText
-                    strongSelf.timer = Timer.scheduledTimer(timeInterval: 0.25, target: strongSelf, selector: #selector(strongSelf.createPaymentMethod), userInfo: nil, repeats: false)
+                        strongSelf.paymentMethod.expMonth = Int(updatedText)!
+                    }
                 }
             }
+        } else if textField == expiryYearField {
+            if updatedText.count == 4 {
+                DispatchQueue.main.async { [weak self] in
+                    if let strongSelf = self {
+                        if strongSelf.expiryYearField.isFirstResponder {
+                            strongSelf.cvcField.becomeFirstResponder()
+                        }
 
+                        strongSelf.paymentMethod.expYear = Int(updatedText)!
+                    }
+                }
+            }
+        } else if textField == cvcField {
+            if updatedText.count > 4 {
+                return false
+            } else if updatedText.count == 3 || updatedText.count == 4 { // valid cvc length
+                DispatchQueue.main.async { [weak self] in
+                    if let strongSelf = self {
+                        if strongSelf.cvcField.isFirstResponder {
+                            strongSelf.cvcField.resignFirstResponder()
+                        }
+
+                        strongSelf.paymentMethod.cvc = updatedText
+                        strongSelf.timer = Timer.scheduledTimer(timeInterval: 0.25, target: strongSelf, selector: #selector(strongSelf.createPaymentMethod), userInfo: nil, repeats: false)
+                    }
+                }
+            }
         }
 
         return true

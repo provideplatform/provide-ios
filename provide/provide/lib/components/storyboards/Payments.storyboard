@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4hW-Wh-ReH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4hW-Wh-ReH">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -43,7 +40,7 @@
         <!--Payments-->
         <scene sceneID="8ZZ-FH-dYc">
             <objects>
-                <viewController storyboardIdentifier="PaymentMethodsViewController" id="ELe-zS-9hv" customClass="PaymentMethodsViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PaymentMethodsViewController" id="ELe-zS-9hv" customClass="PaymentMethodsViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9mg-Rt-Dhv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -59,7 +56,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hsw-Wx-w1i" customClass="TokenBalanceHeaderView" customModule="provide" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hsw-Wx-w1i" customClass="TokenBalanceHeaderView" customModule="arcade_city" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="-1" width="375" height="72"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$2,159.22" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hOA-Sp-wWa" userLabel="USD Balance Label">
@@ -75,7 +72,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JBK-Ie-vKC">
-                                                            <rect key="frame" x="149" y="36" width="78" height="35"/>
+                                                            <rect key="frame" x="148.5" y="36" width="78" height="35"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="78" id="OkQ-N2-uzF"/>
                                                             </constraints>
@@ -86,16 +83,16 @@
                                                             <rect key="frame" x="0.0" y="44" width="375" height="27"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pay with PRVD?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWd-nv-7ea">
-                                                                    <rect key="frame" x="150" y="2" width="130" height="23"/>
+                                                                    <rect key="frame" x="150" y="1" width="130" height="25"/>
                                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ucz-cE-Vt0">
-                                                                    <rect key="frame" x="95" y="-3" width="51" height="31"/>
+                                                                    <rect key="frame" x="95" y="-3" width="51" height="33"/>
                                                                 </switch>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NXu-Ed-xFb" userLabel="Pay with PRVD Disclosure">
-                                                                    <rect key="frame" x="258" y="1" width="22" height="24"/>
+                                                                    <rect key="frame" x="258" y="1" width="22" height="25"/>
                                                                 </button>
                                                             </subviews>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -146,7 +143,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PaymentMethodTableViewCell" rowHeight="60" id="lvA-7D-JaV" userLabel="Payment Method Table View Cell" customClass="PaymentMethodTableViewCell" customModule="provide" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PaymentMethodTableViewCell" rowHeight="60" id="lvA-7D-JaV" userLabel="Payment Method Table View Cell" customClass="PaymentMethodTableViewCell" customModule="arcade_city" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="125.5" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lvA-7D-JaV" id="wCZ-bF-Brd">
@@ -161,7 +158,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•••• 7059" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="z9b-MF-4Pp">
-                                                    <rect key="frame" x="75" y="22" width="116" height="16"/>
+                                                    <rect key="frame" x="75" y="22" width="116" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="116" id="HTb-RQ-KUi"/>
                                                     </constraints>
@@ -215,7 +212,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Payment Method" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2SJ-P4-bu1">
-                                                    <rect key="frame" x="21" y="19" width="137" height="21"/>
+                                                    <rect key="frame" x="21" y="19" width="137" height="22"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                                     <color key="textColor" red="0.23137254900000001" green="0.52156862749999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -249,7 +246,7 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter your promo code" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="l9Y-t6-4aW">
-                                        <rect key="frame" x="30" y="6" width="314" height="40"/>
+                                        <rect key="frame" x="30" y="6" width="315" height="40"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -301,7 +298,7 @@
                     <navigationItem key="navigationItem" title="Payments" id="fGI-45-clh">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="eAD-Pt-990">
                             <connections>
-                                <segue destination="V1h-05-vCu" kind="showDetail" identifier="PaymentMethodScannerViewControllerSegue" animates="NO" action="showViewController:sender:" id="uZ2-kA-5Z9"/>
+                                <segue destination="V1h-05-vCu" kind="showDetail" identifier="PaymentMethodScannerViewControllerSegue" animates="NO" id="uZ2-kA-5Z9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -319,7 +316,7 @@
         <!--Payment Method Scanner View Controller-->
         <scene sceneID="hHM-sa-snA">
             <objects>
-                <viewController id="V1h-05-vCu" customClass="PaymentMethodScannerViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="V1h-05-vCu" customClass="PaymentMethodScannerViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Isd-fi-r6N">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -344,13 +341,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="•••• •••• •••• 5962" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="FN3-bb-QGM">
-                                                    <rect key="frame" x="97" y="8" width="229" height="27"/>
+                                                    <rect key="frame" x="97" y="8.5" width="229" height="27"/>
                                                     <accessibility key="accessibilityConfiguration" label="email"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next" textContentType="cc-number"/>
                                                 </textField>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="visa" translatesAutoresizingMaskIntoConstraints="NO" id="Rbo-bL-MHd">
-                                                    <rect key="frame" x="46" y="12" width="32" height="21"/>
+                                                    <rect key="frame" x="46" y="11.5" width="32" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="32" id="NGi-GG-KTN"/>
                                                         <constraint firstAttribute="height" constant="21" id="koF-fO-cZ9"/>
@@ -374,7 +371,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="exp month" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lvl-Xr-dvi">
-                                                    <rect key="frame" x="4" y="15" width="75" height="15"/>
+                                                    <rect key="frame" x="4" y="13.5" width="75" height="16.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="8Mh-ek-UeC"/>
                                                     </constraints>
@@ -382,8 +379,8 @@
                                                     <color key="textColor" red="0.18870663639999999" green="0.18870098890000001" blue="0.1887042075" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="12" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="h3b-qm-Z50">
-                                                    <rect key="frame" x="95" y="10" width="25" height="25"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="12" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h3b-qm-Z50">
+                                                    <rect key="frame" x="95" y="8.5" width="25" height="26.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="password"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="25" id="CQL-XA-HUN"/>
@@ -392,13 +389,13 @@
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" returnKeyType="next"/>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="exp year" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukU-dp-ofF">
-                                                    <rect key="frame" x="128" y="14" width="57.5" height="18"/>
+                                                    <rect key="frame" x="128" y="13" width="57.5" height="18"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="15"/>
                                                     <color key="textColor" red="0.18870663639999999" green="0.18870098890000001" blue="0.1887042075" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2017" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hwU-Cq-EyG">
-                                                    <rect key="frame" x="202" y="8" width="65" height="27"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2017" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hwU-Cq-EyG">
+                                                    <rect key="frame" x="201.5" y="7.5" width="65" height="27.5"/>
                                                     <accessibility key="accessibilityConfiguration" label="password"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="65" id="MIb-s4-XrS"/>
@@ -438,8 +435,8 @@
                                                     <color key="textColor" red="0.18870663639999999" green="0.18870098890000001" blue="0.1887042075" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123" adjustsFontSizeToFit="NO" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8bC-gY-GUb">
-                                                    <rect key="frame" x="95" y="10" width="80" height="27"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8bC-gY-GUb">
+                                                    <rect key="frame" x="95" y="30" width="80" height="7"/>
                                                     <accessibility key="accessibilityConfiguration" label="password"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="LiY-JC-YtF"/>
@@ -489,7 +486,7 @@
         <!--Buy PRVD-->
         <scene sceneID="9nu-qJ-fSN">
             <objects>
-                <viewController storyboardIdentifier="TokenPurchaseViewController" id="VxB-XA-Cma" customClass="TokenPurchaseViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TokenPurchaseViewController" id="VxB-XA-Cma" customClass="TokenPurchaseViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1sa-ae-iMt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -48,7 +48,7 @@ class PaymentMethod: Model {
 
 extension CardIOCreditCardInfo {
     func toPaymentMethod() -> PaymentMethod? {
-        if let cardNumber = cardNumber, expiryMonth > 0, expiryYear > 0 {
+        if let cardNumber = cardNumber {
             var redactedCardNumberWithSpaces = ""
             if cardNumber.length == 15 {
                 redactedCardNumberWithSpaces = "•••• •••••• •\(cardNumber.suffix(4))" // 4-6-5
