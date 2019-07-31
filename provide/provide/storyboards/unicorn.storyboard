@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="J41-78-tRE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="J41-78-tRE">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -64,7 +63,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- or -" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqm-5X-02o" userLabel="Or Label">
-                                <rect key="frame" x="174" y="359" width="28" height="14"/>
+                                <rect key="frame" x="173.66666666666666" y="359" width="28" height="14"/>
                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -81,13 +80,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- or -" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RND-VZ-c0C">
-                                <rect key="frame" x="174" y="428" width="28" height="14"/>
+                                <rect key="frame" x="173.66666666666666" y="428" width="28" height="14"/>
                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aB-u6-nxs" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="112" y="457" width="150" height="38"/>
+                                <rect key="frame" x="112" y="457" width="151" height="38"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="Yn4-0M-yDD"/>
@@ -115,7 +114,7 @@
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Isk-bN-U1h">
-                                <rect key="frame" x="112" y="68" width="149" height="149"/>
+                                <rect key="frame" x="112" y="68" width="151" height="149"/>
                                 <color key="tintColor" red="0.32691484689712524" green="0.49853861331939697" blue="0.74592679738998413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="149" id="Ymp-E6-n6Q"/>
@@ -196,20 +195,20 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EmailCell" id="Y2a-af-b6z" customClass="AuthenticationCell" customModule="unicorn" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.333333333333336" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.333333333333343" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y2a-af-b6z" id="z9i-9S-yRY">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KiV-zr-4NR">
-                                                    <rect key="frame" x="96" y="7.6666666666666679" width="274" height="27.000000000000004"/>
+                                                    <rect key="frame" x="96" y="8.3333333333333357" width="274" height="27"/>
                                                     <accessibility key="accessibilityConfiguration" label="email"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMG-6n-9RI">
-                                                    <rect key="frame" x="5" y="12" width="75" height="18"/>
+                                                    <rect key="frame" x="5" y="13" width="75" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="3za-xH-2j4"/>
                                                     </constraints>
@@ -238,7 +237,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qm1-XU-sQ9">
-                                                    <rect key="frame" x="5" y="14" width="75" height="16"/>
+                                                    <rect key="frame" x="5" y="13.666666666666666" width="75" height="16.333333333333336"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="WBP-lE-lYe"/>
                                                     </constraints>
@@ -247,7 +246,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0lo-59-hky">
-                                                    <rect key="frame" x="96" y="10" width="274" height="25"/>
+                                                    <rect key="frame" x="96" y="8.6666666666666661" width="274" height="26.333333333333336"/>
                                                     <accessibility key="accessibilityConfiguration" label="password"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
@@ -286,7 +285,6 @@
                             <constraint firstItem="pEk-Cn-F2e" firstAttribute="leading" secondItem="rQQ-e5-Ntm" secondAttribute="leading" id="xfE-gg-Psl"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="zgg-rd-vWF"/>
                     <connections>
                         <outlet property="tableView" destination="nE0-hN-Fx2" id="XG8-Wq-kdv"/>
@@ -454,7 +452,7 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PasswordCell" id="dPc-eh-P8F" customClass="AuthenticationCell" customModule="unicorn" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.333333333333336" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.333333333333343" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dPc-eh-P8F" id="7Ax-w4-izu">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
@@ -723,7 +721,6 @@
                             <constraint firstItem="dSJ-8L-R8b" firstAttribute="top" secondItem="VLD-NA-j6N" secondAttribute="bottom" id="vEE-PU-AtH"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="2dd-Ib-vnq"/>
                     <connections>
                         <outlet property="tableView" destination="VLD-NA-j6N" id="n6g-k2-VbX"/>
@@ -755,20 +752,20 @@
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NameCell" id="FlU-2r-LT4" userLabel="NameCell" customClass="AuthenticationCell" customModule="unicorn" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.333333333333336" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.333333333333343" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FlU-2r-LT4" id="rGH-rL-twR">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="TSH-Uc-OW5">
-                                                    <rect key="frame" x="96" y="7.6666666666666679" width="274" height="27.000000000000004"/>
+                                                    <rect key="frame" x="96" y="8.3333333333333357" width="274" height="27"/>
                                                     <accessibility key="accessibilityConfiguration" label="email"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" textContentType="name"/>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2kc-0D-Xzq">
-                                                    <rect key="frame" x="5" y="12" width="75" height="18"/>
+                                                    <rect key="frame" x="5" y="13" width="75" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="ZnN-Gu-ZpJ"/>
                                                     </constraints>
@@ -806,7 +803,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="C53-8y-6K6">
-                                                    <rect key="frame" x="96" y="7.6666666666666661" width="274" height="27.333333333333336"/>
+                                                    <rect key="frame" x="96" y="8.6666666666666661" width="274" height="26.333333333333336"/>
                                                     <accessibility key="accessibilityConfiguration" label="password"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="go" textContentType="email"/>
@@ -834,7 +831,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBG-4P-aBI">
-                                                    <rect key="frame" x="5" y="14" width="75" height="16"/>
+                                                    <rect key="frame" x="5" y="13.666666666666666" width="75" height="16.333333333333336"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="3rb-Mf-0AT"/>
                                                     </constraints>
@@ -843,7 +840,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="atG-cR-ZYQ">
-                                                    <rect key="frame" x="96" y="10" width="274" height="25"/>
+                                                    <rect key="frame" x="96" y="8.6666666666666661" width="274" height="26.333333333333336"/>
                                                     <accessibility key="accessibilityConfiguration" label="password"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
@@ -882,7 +879,6 @@
                             <constraint firstItem="bLt-Du-hxV" firstAttribute="leading" secondItem="zRJ-Da-bv8" secondAttribute="leading" id="chb-7T-UPH"/>
                         </constraints>
                     </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="alR-Ay-9Be"/>
                     <connections>
                         <outlet property="tableView" destination="zRJ-Da-bv8" id="6Jn-3e-dXC"/>
@@ -898,6 +894,7 @@
         <image name="prvd-splash" width="2048" height="1322"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ifq-UV-5Ww"/>
+        <segue reference="zl8-ty-CFI"/>
+        <segue reference="Dg0-CW-FQe"/>
     </inferredMetricsTieBreakers>
 </document>
