@@ -60,13 +60,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         navigationItem.hidesBackButton = true
 
         setupMenuBarButtonItem()
-
         loadWorkOrderContext()
-
-        LocationService.shared.resolveCurrentLocation { [weak self] (_) in
-            logmoji("📍", "Current location resolved for consumer view controller... refreshing context")
-            self?.loadCategoriesContext()
-        }
 
         KTNotificationCenter.addObserver(forName: Notification.Name(rawValue: "SegueToPaymentsStoryboard")) { [weak self] sender in
             if KeyChainService.shared.mode! == .provider {
@@ -131,6 +125,11 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
         navigationController?.navigationBar.barTintColor = nil
         navigationController?.navigationBar.tintColor = nil
+
+        LocationService.shared.resolveCurrentLocation(allowCachedLocation: true) { [weak self] (_) in
+            logmoji("📍", "Current location resolved for consumer view controller... refreshing context")
+            self?.loadCategoriesContext()
+        }
     }
 
     private func performTripCompletionViewControllerSegue(sender: WorkOrder) {
