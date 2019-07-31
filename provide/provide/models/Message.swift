@@ -60,7 +60,7 @@ class Message: Model {
         self.recipientId = recipientId
         self.senderID = senderId
         self.senderName = senderName
-        createdAt = NSDate() as Date!
+        createdAt = NSDate() as Date
     }
 
     override class func mapping() -> RKObjectMapping {

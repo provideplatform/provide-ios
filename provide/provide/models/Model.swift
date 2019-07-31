@@ -26,7 +26,7 @@ class Model: NSObject {
             let key = (NSString(cString: ivar_getName(ivars[Int(i)])!, encoding: String.Encoding.utf8.rawValue)! as String) as String
             ivarStrings.append(key)
         }
-        ivars.deallocate(capacity: Int(count))
+        ivars.deallocate()
         return ivarStrings
     }
 

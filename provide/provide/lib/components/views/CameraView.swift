@@ -438,7 +438,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         if renderFacialRecognition {
             DispatchQueue.main.async {
                 self.clearDetectedMetadataObjects()
-                self.showDetectedMetadataObjects(metadataObjects as [Any]!)
+                self.showDetectedMetadataObjects(metadataObjects as [Any])
             }
         }
     }
@@ -465,7 +465,7 @@ class CameraView: UIView, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptur
         if let lastOCRTimestamp = lastOCRTimestamp {
             if abs(lastOCRTimestamp.timeIntervalSinceNow) >= 2.0 {
                 dispatch_async_global_queue {
-                    self.lastOCRTimestamp = NSDate() as Date!
+                    self.lastOCRTimestamp = NSDate() as Date
 
                     // let tesseract = G8Tesseract(language: "eng")
                     // tesseract.delegate = self

@@ -174,7 +174,7 @@ class DirectionsViewController: ViewController {
 
                         LocationService.shared.monitorRegion(region, onDidEnterRegion: {
                             self.lastRegionCrossed = region
-                            self.lastRegionCrossing = NSDate() as Date!
+                            self.lastRegionCrossing = NSDate() as Date
 
                             self.regions.removeObject(region)
                             LocationService.shared.unregisterRegionMonitor(region.identifier)

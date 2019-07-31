@@ -118,7 +118,6 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
     private func prepareForMenuItemSegue() {
         DispatchQueue.main.async { [weak self] in
             if let strongSelf = self {
-                UIApplication.shared.statusBarStyle = .lightContent
                 if let navigationController = strongSelf.delegate?.navigationControllerForMenuViewController(strongSelf) {
                     navigationController.navigationBar.backgroundColor = .black
                     navigationController.navigationBar.barTintColor = .black

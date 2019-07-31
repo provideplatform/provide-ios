@@ -29,15 +29,15 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         refresh()
 
         KTNotificationCenter.addObserver(forName: .ProfileImageShouldRefresh) { _ in
-            if let user = currentUser {
-                self.profileImageUrl = user.profileImageUrl as URL!
+            if let user = currentUser, let profileImageUrl = user.profileImageUrl {
+                self.profileImageUrl = profileImageUrl
             } else {
                 self.profileImageUrl = nil
             }
         }
     }
 
-    private var profileImageUrl: URL! {
+    private var profileImageUrl: URL? {
         didSet {
             bringSubview(toFront: profileImageActivityIndicatorView)
             profileImageActivityIndicatorView.startAnimating()
@@ -84,7 +84,7 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         backgroundColor = .clear
 
         if let user = currentUser {
-            profileImageUrl = user.profileImageUrl as URL!
+            profileImageUrl = user.profileImageUrl
             nameLabel.text = user.name
         } else {
             profileImageUrl = nil
