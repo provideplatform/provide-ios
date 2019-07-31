@@ -9,7 +9,7 @@
 import UIKit
 import RestKit
 import FBSDKCoreKit
-import Crashlytics
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,28 +21,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var suppressLaunchScreenViewController = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        FirebaseApp.configure()
         AnalyticsService.shared.track("App Launched", properties: ["Version": "\(KTVersionHelper.fullVersion())"])
 
+        AppearenceProxy.setup()
+        ReachabilityService.shared.start()
+        
         RKLogConfigureFromEnvironment()
-
         RKObjectMapping.setDefaultSourceToDestinationKeyTransformationBlock { objectMapping, keyPath in
             return keyPath?.snakeCaseToCamelCaseString()
         }
-
-        AppearenceProxy.setup()
 
         if ApiService.shared.hasCachedToken {
             ApiService.shared.registerForRemoteNotifications()
             NotificationService.shared.connectWebsocket()
         }
 
-        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
-
-        ReachabilityService.shared.start()
-
         if let jsonBaseDir = ProcessInfo.processInfo.environment["SERVE_JSON_RESPONSES"] {
             OHHTTPStubsHelper.serveJsonResponses(fromDir: jsonBaseDir)
         }
+        
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
 
         return true
     }
