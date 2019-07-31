@@ -13,6 +13,7 @@ def shared_pods
   pod 'FacebookCore'
   pod 'FacebookLogin'
   pod 'Firebase/Analytics'
+  pod 'Firebase/Performance'
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'FontAwesomeKit/FontAwesome'
