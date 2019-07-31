@@ -257,7 +257,6 @@
 		68607C7322EA3A6900ACD485 /* Exo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412441B07FC15009A4C05 /* Exo2-Medium.ttf */; };
 		68607C7422EA3A6900ACD485 /* Exo2-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123E1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf */; };
 		68607C7522EA3A6900ACD485 /* InboundMediaMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6BB1F867F9700BBD3B9 /* InboundMediaMessageCell.xib */; };
-		68607C7622EA3A6900ACD485 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist */; };
 		68607C8422EA3A7900ACD485 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B65111C2439210088E539 /* MenuTableViewCell.swift */; };
 		68607C8522EA3A7900ACD485 /* JSONResponseWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */; };
 		68607C8622EA3A7900ACD485 /* NavigationBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F537111B834A9A0007F480 /* NavigationBarButton.swift */; };
@@ -414,7 +413,6 @@
 		68607D2122EA3A7900ACD485 /* Exo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412441B07FC15009A4C05 /* Exo2-Medium.ttf */; };
 		68607D2222EA3A7900ACD485 /* Exo2-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123E1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf */; };
 		68607D2322EA3A7900ACD485 /* InboundMediaMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6BB1F867F9700BBD3B9 /* InboundMediaMessageCell.xib */; };
-		68607D2422EA3A7900ACD485 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist */; };
 		68607D4522EA3C3500ACD485 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68607D4622EA3C3600ACD485 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68607D4722EA3C3600ACD485 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
@@ -541,7 +539,6 @@
 		68607DC722F0E96D00ACD485 /* PinInputControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6899CDDD1F5D8CD60074370C /* PinInputControl.swift */; };
 		68607DC822F0E96D00ACD485 /* AppearenceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68B412B01B08063B009A4C05 /* AppearenceProxy.swift */; };
 		68607DCA22F0E96D00ACD485 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0E6501D56D09800157123 /* MobileCoreServices.framework */; };
-		68607DCB22F0E96D00ACD485 /* Pods_arcade_city.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7507678EAEB87E8604B6E1 /* Pods_arcade_city.framework */; };
 		68607DCD22F0E96D00ACD485 /* Consumer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6C81F86804300BBD3B9 /* Consumer.storyboard */; };
 		68607DCE22F0E96D00ACD485 /* arcade-city.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68607D4822EA3DE800ACD485 /* arcade-city.storyboard */; };
 		68607DCF22F0E96D00ACD485 /* Messages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6899CDD81F5D8B120074370C /* Messages.storyboard */; };
@@ -578,7 +575,6 @@
 		68607DEF22F0E96D00ACD485 /* Exo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412441B07FC15009A4C05 /* Exo2-Medium.ttf */; };
 		68607DF022F0E96D00ACD485 /* Exo2-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123E1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf */; };
 		68607DF122F0E96D00ACD485 /* InboundMediaMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6BB1F867F9700BBD3B9 /* InboundMediaMessageCell.xib */; };
-		68607DF222F0E96D00ACD485 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist */; };
 		68607DFE22F0F95200ACD485 /* ArcadeCityLaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68607DFB22F0F5B300ACD485 /* ArcadeCityLaunchScreen.xib */; };
 		68607DFF22F0F95200ACD485 /* ArcadeCityLaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68607DFB22F0F5B300ACD485 /* ArcadeCityLaunchScreen.xib */; };
 		68607E0022F0F95300ACD485 /* ArcadeCityLaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68607DFB22F0F5B300ACD485 /* ArcadeCityLaunchScreen.xib */; };
@@ -741,7 +737,7 @@
 		687D2D471FCFAB79008A9A22 /* Exo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412441B07FC15009A4C05 /* Exo2-Medium.ttf */; };
 		687D2D481FCFAB79008A9A22 /* Exo2-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123E1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf */; };
 		687D2D491FCFAB79008A9A22 /* InboundMediaMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6BB1F867F9700BBD3B9 /* InboundMediaMessageCell.xib */; };
-		687D2D4A1FCFAB79008A9A22 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist */; };
+		687D2D4A1FCFAB79008A9A22 /* GoogleService-Info.plist.orig in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */; };
 		687D2D5E1FD0DD23008A9A22 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B65111C2439210088E539 /* MenuTableViewCell.swift */; };
 		687D2D5F1FD0DD23008A9A22 /* JSONResponseWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */; };
 		687D2D601FD0DD23008A9A22 /* NavigationBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F537111B834A9A0007F480 /* NavigationBarButton.swift */; };
@@ -889,11 +885,11 @@
 		687D2DF31FD0DD23008A9A22 /* Exo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412441B07FC15009A4C05 /* Exo2-Medium.ttf */; };
 		687D2DF41FD0DD23008A9A22 /* Exo2-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123E1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf */; };
 		687D2DF51FD0DD23008A9A22 /* InboundMediaMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6BB1F867F9700BBD3B9 /* InboundMediaMessageCell.xib */; };
-		687D2DF61FD0DD23008A9A22 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist */; };
+		687D2DF61FD0DD23008A9A22 /* GoogleService-Info.plist.orig in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */; };
 		687D2E031FD298CB008A9A22 /* unicorn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 687D2E011FD296DE008A9A22 /* unicorn.storyboard */; };
 		687D2E041FD298CC008A9A22 /* unicorn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 687D2E011FD296DE008A9A22 /* unicorn.storyboard */; };
 		688127141F8B67BC00BE7971 /* AttachmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688127131F8B67BC00BE7971 /* AttachmentTests.swift */; };
-		688127171F8D134400BE7971 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist */; };
+		688127171F8D134400BE7971 /* GoogleService-Info.plist.orig in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */; };
 		6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6884415B1C06F6810017D4AA /* PinInput.storyboard */; };
 		6889951D1C9D3AEF00F7D25F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889951C1C9D3AEF00F7D25F /* ImageService.swift */; };
 		6899CDD91F5D8B120074370C /* Messages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6899CDD81F5D8B120074370C /* Messages.storyboard */; };
@@ -971,6 +967,10 @@
 		68BA45651FA13FED00322B7C /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BA45641FA13FED00322B7C /* ReachabilityService.swift */; };
 		68C0E6511D56D09800157123 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0E6501D56D09800157123 /* MobileCoreServices.framework */; };
 		68C16A111FAB021E001DAF90 /* ApiOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C16A101FAB021E001DAF90 /* ApiOperation.swift */; };
+		68C539D922F14920000C267B /* GoogleService-Info.plist.orig in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */; };
+		68C539DD22F14DF7000C267B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68C539DA22F14953000C267B /* GoogleService-Info.plist */; };
+		68C539DE22F15CD6000C267B /* GoogleService-Info.plist.orig in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */; };
+		68C539DF22F15CD8000C267B /* GoogleService-Info.plist.orig in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */; };
 		68CD56051F6C8C3B007E66CE /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CD56041F6C8C3B007E66CE /* PaymentMethod.swift */; };
 		68D843C11BFAA73800DE7400 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C01BFAA73800DE7400 /* NotificationService.swift */; };
 		68DCAE461BEC6BB3009B383E /* WorkOrderHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */; };
@@ -1167,7 +1167,7 @@
 		687D2E001FD0DD24008A9A22 /* unicorn-driver-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "unicorn-driver-Info.plist"; sourceTree = "<group>"; };
 		687D2E011FD296DE008A9A22 /* unicorn.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = unicorn.storyboard; sourceTree = "<group>"; };
 		688127131F8B67BC00BE7971 /* AttachmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTests.swift; sourceTree = "<group>"; };
-		688127161F8D134400BE7971 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "GoogleService-Info.plist.orig"; sourceTree = "<group>"; };
 		6884415B1C06F6810017D4AA /* PinInput.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PinInput.storyboard; sourceTree = "<group>"; };
 		6889951C1C9D3AEF00F7D25F /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		689608911B3A1F21008719B0 /* provideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = provideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1236,6 +1236,7 @@
 		68BA45641FA13FED00322B7C /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
 		68C0E6501D56D09800157123 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		68C16A101FAB021E001DAF90 /* ApiOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiOperation.swift; sourceTree = "<group>"; };
+		68C539DA22F14953000C267B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		68CD56041F6C8C3B007E66CE /* PaymentMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethod.swift; sourceTree = "<group>"; };
 		68D843C01BFAA73800DE7400 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderHistoryViewController.swift; sourceTree = "<group>"; };
@@ -1314,7 +1315,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				68607DCA22F0E96D00ACD485 /* MobileCoreServices.framework in Frameworks */,
-				68607DCB22F0E96D00ACD485 /* Pods_arcade_city.framework in Frameworks */,
 				C946489B9183F0CDB76C8975 /* Pods_arcade_city.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1811,7 +1811,8 @@
 		68DFB0811B07C5C4002A72E8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				688127161F8D134400BE7971 /* GoogleService-Info.plist */,
+				688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */,
+				68C539DA22F14953000C267B /* GoogleService-Info.plist */,
 				68DFB0821B07C5C4002A72E8 /* Info.plist */,
 				68AAF65C1D8C7B2300EAFD6F /* provide.entitlements */,
 				682D326C1B07CD4200BC4EEC /* provide-prefix.pch */,
@@ -1990,7 +1991,7 @@
 				68607DC922F0E96D00ACD485 /* Frameworks */,
 				68607DCC22F0E96D00ACD485 /* Resources */,
 				68607DF322F0E96D00ACD485 /* [CP] Embed Pods Frameworks */,
-				68607DF422F0E96D00ACD485 /* Upload Symbol Files */,
+				68607DF422F0E96D00ACD485 /* Fabric */,
 			);
 			buildRules = (
 			);
@@ -2205,6 +2206,7 @@
 				68607C6822EA3A6900ACD485 /* Exo2-Light.ttf in Resources */,
 				68607C6922EA3A6900ACD485 /* WorkOrderHistory.storyboard in Resources */,
 				68607C6A22EA3A6900ACD485 /* Exo2-LightItalic.ttf in Resources */,
+				68C539DF22F15CD8000C267B /* GoogleService-Info.plist.orig in Resources */,
 				68607DFF22F0F95200ACD485 /* ArcadeCityLaunchScreen.xib in Resources */,
 				68607C6B22EA3A6900ACD485 /* Menu.storyboard in Resources */,
 				68607C6C22EA3A6900ACD485 /* Camera.storyboard in Resources */,
@@ -2217,7 +2219,6 @@
 				68607C7322EA3A6900ACD485 /* Exo2-Medium.ttf in Resources */,
 				68607C7422EA3A6900ACD485 /* Exo2-ExtraBoldItalic.ttf in Resources */,
 				68607C7522EA3A6900ACD485 /* InboundMediaMessageCell.xib in Resources */,
-				68607C7622EA3A6900ACD485 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2251,6 +2252,7 @@
 				68607D1622EA3A7900ACD485 /* Exo2-Light.ttf in Resources */,
 				68607D1722EA3A7900ACD485 /* WorkOrderHistory.storyboard in Resources */,
 				68607D1822EA3A7900ACD485 /* Exo2-LightItalic.ttf in Resources */,
+				68C539D922F14920000C267B /* GoogleService-Info.plist.orig in Resources */,
 				68607E0022F0F95300ACD485 /* ArcadeCityLaunchScreen.xib in Resources */,
 				68607D1922EA3A7900ACD485 /* Menu.storyboard in Resources */,
 				68607D1A22EA3A7900ACD485 /* Camera.storyboard in Resources */,
@@ -2263,7 +2265,6 @@
 				68607D2122EA3A7900ACD485 /* Exo2-Medium.ttf in Resources */,
 				68607D2222EA3A7900ACD485 /* Exo2-ExtraBoldItalic.ttf in Resources */,
 				68607D2322EA3A7900ACD485 /* InboundMediaMessageCell.xib in Resources */,
-				68607D2422EA3A7900ACD485 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2288,6 +2289,7 @@
 				68607DDB22F0E96D00ACD485 /* Exo2-Bold.ttf in Resources */,
 				68607DDC22F0E96D00ACD485 /* Images.xcassets in Resources */,
 				68607DDD22F0E96D00ACD485 /* Selfie.storyboard in Resources */,
+				68C539DE22F15CD6000C267B /* GoogleService-Info.plist.orig in Resources */,
 				68607DDE22F0E96D00ACD485 /* PinInput.storyboard in Resources */,
 				68607DDF22F0E96D00ACD485 /* Exo2-Black.ttf in Resources */,
 				68607DE022F0E96D00ACD485 /* InboundMessageCell.xib in Resources */,
@@ -2303,13 +2305,13 @@
 				68607DE822F0E96D00ACD485 /* Camera.storyboard in Resources */,
 				68607DE922F0E96D00ACD485 /* OutboundMessageCell.xib in Resources */,
 				68607DEA22F0E96D00ACD485 /* Exo2-Italic.ttf in Resources */,
+				68C539DD22F14DF7000C267B /* GoogleService-Info.plist in Resources */,
 				68607DEB22F0E96D00ACD485 /* Exo2-ExtraBold.ttf in Resources */,
 				68607DEC22F0E96D00ACD485 /* Exo2-Thin.ttf in Resources */,
 				68607DEE22F0E96D00ACD485 /* Exo2-SemiBoldItalic.ttf in Resources */,
 				68607DEF22F0E96D00ACD485 /* Exo2-Medium.ttf in Resources */,
 				68607DF022F0E96D00ACD485 /* Exo2-ExtraBoldItalic.ttf in Resources */,
 				68607DF122F0E96D00ACD485 /* InboundMediaMessageCell.xib in Resources */,
-				68607DF222F0E96D00ACD485 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2354,7 +2356,7 @@
 				687D2D471FCFAB79008A9A22 /* Exo2-Medium.ttf in Resources */,
 				687D2D481FCFAB79008A9A22 /* Exo2-ExtraBoldItalic.ttf in Resources */,
 				687D2D491FCFAB79008A9A22 /* InboundMediaMessageCell.xib in Resources */,
-				687D2D4A1FCFAB79008A9A22 /* GoogleService-Info.plist in Resources */,
+				687D2D4A1FCFAB79008A9A22 /* GoogleService-Info.plist.orig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2399,7 +2401,7 @@
 				687D2DF31FD0DD23008A9A22 /* Exo2-Medium.ttf in Resources */,
 				687D2DF41FD0DD23008A9A22 /* Exo2-ExtraBoldItalic.ttf in Resources */,
 				687D2DF51FD0DD23008A9A22 /* InboundMediaMessageCell.xib in Resources */,
-				687D2DF61FD0DD23008A9A22 /* GoogleService-Info.plist in Resources */,
+				687D2DF61FD0DD23008A9A22 /* GoogleService-Info.plist.orig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2451,7 +2453,7 @@
 				68B4126C1B07FC15009A4C05 /* Exo2-Medium.ttf in Resources */,
 				68B4125A1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf in Resources */,
 				5C68C6C11F867F9700BBD3B9 /* InboundMediaMessageCell.xib in Resources */,
-				688127171F8D134400BE7971 /* GoogleService-Info.plist in Resources */,
+				688127171F8D134400BE7971 /* GoogleService-Info.plist.orig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2482,6 +2484,7 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/FontAwesomeKit/FontAwesomeKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/ISO8601DateFormatterValueTransformer/ISO8601DateFormatterValueTransformer.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
@@ -2504,6 +2507,7 @@
 				"${BUILT_PRODUCTS_DIR}/TransitionKit/TransitionKit.framework",
 				"${BUILT_PRODUCTS_DIR}/UICKeyChainStore/UICKeyChainStore.framework",
 				"${BUILT_PRODUCTS_DIR}/jetfire/jetfire.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2516,6 +2520,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesomeKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ISO8601DateFormatterValueTransformer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
@@ -2538,6 +2543,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICKeyChainStore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jetfire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2592,6 +2598,7 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/FontAwesomeKit/FontAwesomeKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/ISO8601DateFormatterValueTransformer/ISO8601DateFormatterValueTransformer.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
@@ -2614,6 +2621,7 @@
 				"${BUILT_PRODUCTS_DIR}/TransitionKit/TransitionKit.framework",
 				"${BUILT_PRODUCTS_DIR}/UICKeyChainStore/UICKeyChainStore.framework",
 				"${BUILT_PRODUCTS_DIR}/jetfire/jetfire.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2626,6 +2634,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesomeKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ISO8601DateFormatterValueTransformer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
@@ -2648,6 +2657,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICKeyChainStore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jetfire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2716,6 +2726,7 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/FontAwesomeKit/FontAwesomeKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/ISO8601DateFormatterValueTransformer/ISO8601DateFormatterValueTransformer.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
@@ -2738,6 +2749,7 @@
 				"${BUILT_PRODUCTS_DIR}/TransitionKit/TransitionKit.framework",
 				"${BUILT_PRODUCTS_DIR}/UICKeyChainStore/UICKeyChainStore.framework",
 				"${BUILT_PRODUCTS_DIR}/jetfire/jetfire.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2750,6 +2762,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesomeKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ISO8601DateFormatterValueTransformer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
@@ -2772,6 +2785,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICKeyChainStore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jetfire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2841,6 +2855,7 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/FontAwesomeKit/FontAwesomeKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/ISO8601DateFormatterValueTransformer/ISO8601DateFormatterValueTransformer.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
@@ -2863,6 +2878,7 @@
 				"${BUILT_PRODUCTS_DIR}/TransitionKit/TransitionKit.framework",
 				"${BUILT_PRODUCTS_DIR}/UICKeyChainStore/UICKeyChainStore.framework",
 				"${BUILT_PRODUCTS_DIR}/jetfire/jetfire.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -2875,6 +2891,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesomeKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ISO8601DateFormatterValueTransformer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
@@ -2897,26 +2914,26 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICKeyChainStore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jetfire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-arcade city/Pods-arcade city-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		68607DF422F0E96D00ACD485 /* Upload Symbol Files */ = {
+		68607DF422F0E96D00ACD485 /* Fabric */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/.provide-1503754249681-firebase-crashreporting-rrfb0-d1d2d50402.json",
 			);
-			name = "Upload Symbol Files";
+			name = Fabric;
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "FIREBASE_PRIVATE_KEY=$SCRIPT_INPUT_FILE_0\n# when changing, reset OAuth credentials: `rm $HOME/Library/Preferences/com.google.SymbolUpload*`\n\nif [ -f $FIREBASE_PRIVATE_KEY ]; then\n  GOOGLE_APP_ID=1:618633099810:ios:bd096ad57911440e\n  \"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${FIREBASE_PRIVATE_KEY}\"\nelse\n  echo \"Not uploading symbol files to Firebase; obtain and install a valid private key.\"\nfi";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
 		};
 		687D2D4E1FCFAB79008A9A22 /* Upload Symbol Files */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2996,6 +3013,7 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/FontAwesomeKit/FontAwesomeKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/ISO8601DateFormatterValueTransformer/ISO8601DateFormatterValueTransformer.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
@@ -3018,6 +3036,7 @@
 				"${BUILT_PRODUCTS_DIR}/TransitionKit/TransitionKit.framework",
 				"${BUILT_PRODUCTS_DIR}/UICKeyChainStore/UICKeyChainStore.framework",
 				"${BUILT_PRODUCTS_DIR}/jetfire/jetfire.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -3030,6 +3049,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesomeKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ISO8601DateFormatterValueTransformer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
@@ -3052,6 +3072,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICKeyChainStore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jetfire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3143,6 +3164,7 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/FontAwesomeKit/FontAwesomeKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/ISO8601DateFormatterValueTransformer/ISO8601DateFormatterValueTransformer.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
@@ -3165,6 +3187,7 @@
 				"${BUILT_PRODUCTS_DIR}/TransitionKit/TransitionKit.framework",
 				"${BUILT_PRODUCTS_DIR}/UICKeyChainStore/UICKeyChainStore.framework",
 				"${BUILT_PRODUCTS_DIR}/jetfire/jetfire.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -3177,6 +3200,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesomeKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ISO8601DateFormatterValueTransformer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
@@ -3199,6 +3223,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICKeyChainStore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jetfire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -3221,6 +3246,7 @@
 				"${BUILT_PRODUCTS_DIR}/FacebookCore/FacebookCore.framework",
 				"${BUILT_PRODUCTS_DIR}/FacebookLogin/FacebookLogin.framework",
 				"${BUILT_PRODUCTS_DIR}/FontAwesomeKit/FontAwesomeKit.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/ISO8601DateFormatterValueTransformer/ISO8601DateFormatterValueTransformer.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
@@ -3243,6 +3269,7 @@
 				"${BUILT_PRODUCTS_DIR}/TransitionKit/TransitionKit.framework",
 				"${BUILT_PRODUCTS_DIR}/UICKeyChainStore/UICKeyChainStore.framework",
 				"${BUILT_PRODUCTS_DIR}/jetfire/jetfire.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -3255,6 +3282,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FacebookLogin.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FontAwesomeKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ISO8601DateFormatterValueTransformer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
@@ -3277,6 +3305,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UICKeyChainStore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/jetfire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

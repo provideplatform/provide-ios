@@ -2,39 +2,35 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
-	<string>ca-app-pub-3940256099942544/2934735716</string>
-	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
-	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>618633099810-vl5am3qmv0q54gh29k8c1juoah1fl4bu.apps.googleusercontent.com</string>
+	<string>302314920932-modtnhandemiu1cfdc0lfcnr5h0n2nn4.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.618633099810-vl5am3qmv0q54gh29k8c1juoah1fl4bu</string>
+	<string>com.googleusercontent.apps.302314920932-modtnhandemiu1cfdc0lfcnr5h0n2nn4</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAEGd5_PFCdfgkqJ-8sODIxXCT8q7kSwcc</string>
+	<string>AIzaSyDP2avIqxO2kNp_xw6p2wqaxf6OcWPCBe4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>618633099810</string>
+	<string>302314920932</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>services.provide</string>
+	<string>arcade.city.rides</string>
 	<key>PROJECT_ID</key>
-	<string>provide-1503754249681</string>
+	<string>arcade-city-57220</string>
 	<key>STORAGE_BUCKET</key>
-	<string>provide-1503754249681.appspot.com</string>
+	<string>arcade-city-57220.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<true></true>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<false></false>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:618633099810:ios:bd096ad57911440e</string>
+	<string>1:302314920932:ios:ec2bd63896cda090</string>
 	<key>DATABASE_URL</key>
-	<string>https://provide-1503754249681.firebaseio.com</string>
+	<string>https://arcade-city-57220.firebaseio.com</string>
 </dict>
 </plist>
