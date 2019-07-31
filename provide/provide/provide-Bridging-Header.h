@@ -8,8 +8,6 @@
 #import <UIKit/UIKit.h>
 #import <UIKit/UIGestureRecognizerSubclass.h>
 
-@import KTSwiftExtensions;
-
 // CocoaPods
 //#import <Analytics/SEGAnalytics.h>
 #import <CardIO/CardIO.h>
@@ -28,6 +26,9 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <SDWebImage/UIImageView+HighlightedWebCache.h>
 
+
 @import BadgeSwift;
+@import FirebaseAnalytics;
 @import FontAwesomeKit;
+@import KTSwiftExtensions;
 @import RestKit;

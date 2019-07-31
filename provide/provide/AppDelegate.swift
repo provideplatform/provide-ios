@@ -9,6 +9,7 @@
 import UIKit
 import RestKit
 import FBSDKCoreKit
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
