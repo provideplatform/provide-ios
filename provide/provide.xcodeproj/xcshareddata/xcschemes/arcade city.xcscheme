@@ -64,7 +64,7 @@
       <AdditionalOptions>
       </AdditionalOptions>
       <LocationScenarioReference
-         identifier = "../provide/provide/gpx/atlanta/atlanta.gpx"
+         identifier = "../provide/provide/gpx/lexington/cottage.gpx"
          referenceType = "0">
       </LocationScenarioReference>
    </LaunchAction>
