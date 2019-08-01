@@ -351,6 +351,7 @@ class ApiService: NSObject {
                         "fb_user_id": token.userID,
                         "fb_access_token": token.tokenString,
                         "fb_access_token_expires_at": token.expirationDate.utcString,
+                        "time_zone": TimeZone.current.identifier,
                     ]
                     self?.createUser(params, onSuccess: onSuccess, onError: onError)
                 } else {
