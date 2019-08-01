@@ -11,7 +11,7 @@ import UIKit
 class Color {
 
     class func darkBlueBackground() -> UIColor {
-        return UIColor("#202838")
+        return UIColor("#120b29") // "haiti"
     }
 
     class func applicationDefaultBackgroundImage() -> UIImage {
@@ -43,35 +43,35 @@ class Color {
     }
 
     class func polylineStrokeColor() -> UIColor {
-        return UIColor(red: 0.392, green: 0.706, blue: 0.820, alpha: 1.0)
+        return UIColor("1C133A") // purple
     }
 
     class func warningBackground() -> UIColor {
-        return UIColor(red: 0.737, green: 0.267, blue: 0.192, alpha: 1.00)
+        return UIColor("#FC3A57") // radicalRed
     }
 
     class func awaitingScheduleStatusColor() -> UIColor {
-        return UIColor("#0070c0")
+        return UIColor("#9D98CB") // blueBell
     }
 
     class func scheduledStatusColor() -> UIColor {
-        return UIColor("#0070c0")
+        return UIColor("#5B20F2") // electricIndigo
     }
 
     class func enRouteStatusColor() -> UIColor {
-        return UIColor("#ffc000")
+        return UIColor("#F459F4") // pinkFlamingo
     }
 
     class func inProgressStatusColor() -> UIColor {
-        return UIColor("#ffc000")
+        return UIColor("#AE30FF") // electricViolet
     }
 
     class func canceledStatusColor() -> UIColor {
-        return UIColor("#ff0000")
+        return UIColor("#F459F4") // pinkFlamingo
     }
 
     class func pendingCompletionStatusColor() -> UIColor {
-        return UIColor("#ffff00")
+        return UIColor("#EEECFB") // moonRaker
     }
 
     class func completedStatusColor() -> UIColor {
