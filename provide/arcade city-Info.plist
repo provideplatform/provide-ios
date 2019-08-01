@@ -52,9 +52,6 @@
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>dbapi-1</string>
-		<string>dbapi-2</string>
-		<string>dbapi-3</string>
 		<string>fbapi</string>
 		<string>fb-messenger-api</string>
 		<string>fbauth</string>
