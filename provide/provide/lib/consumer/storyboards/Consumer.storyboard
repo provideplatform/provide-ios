@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6Mz-5N-8Tx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="6Mz-5N-8Tx">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,10 +27,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Consumer View Controller-->
+        <!--Delegate-->
         <scene sceneID="4KT-MQ-DfX">
             <objects>
-                <viewController modalTransitionStyle="crossDissolve" id="6Mz-5N-8Tx" customClass="ConsumerViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" id="6Mz-5N-8Tx" customClass="ConsumerViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5Lx-mI-Cuo"/>
                         <viewControllerLayoutGuide type="bottom" id="XKs-fz-a12"/>
@@ -42,7 +39,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Q4r-Uq-ubh" customClass="ConsumerMapView" customModule="provide" customModuleProvider="target">
+                            <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Q4r-Uq-ubh" customClass="ConsumerMapView" customModule="arcade_city" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </mapView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yuA-CY-FCD" userLabel="destination-input-vc">
@@ -78,16 +75,32 @@
                                     <segue destination="zk4-0m-Dt4" kind="embed" identifier="ProviderEnRouteViewControllerEmbedSegue" id="uP8-2c-5ZX"/>
                                 </connections>
                             </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SoP-QS-QMC" customClass="MGLMapView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/aclions/cjeai04xo08k02rozqsi9di5a"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showsUserLocation" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="showsHeading" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="6Mz-5N-8Tx" id="hE9-Zd-TUb"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Q4r-Uq-ubh" secondAttribute="trailing" id="7ao-JB-r5r"/>
+                            <constraint firstItem="SoP-QS-QMC" firstAttribute="trailing" secondItem="yuA-CY-FCD" secondAttribute="trailing" id="ARi-1d-aLE"/>
                             <constraint firstItem="yuA-CY-FCD" firstAttribute="top" secondItem="u6f-jT-dJR" secondAttribute="top" constant="80" id="D8Z-S8-vE7"/>
                             <constraint firstItem="Q4r-Uq-ubh" firstAttribute="bottom" secondItem="XKs-fz-a12" secondAttribute="top" id="DS7-EG-ZMR"/>
                             <constraint firstItem="Q4r-Uq-ubh" firstAttribute="leading" secondItem="u6f-jT-dJR" secondAttribute="leading" id="FA2-EL-1l0"/>
+                            <constraint firstItem="SoP-QS-QMC" firstAttribute="top" secondItem="Q4r-Uq-ubh" secondAttribute="top" id="Gwt-HW-QO6"/>
+                            <constraint firstItem="SoP-QS-QMC" firstAttribute="leading" secondItem="uRj-tW-oAL" secondAttribute="leading" id="IIU-Ss-yUK"/>
                             <constraint firstItem="HEj-dW-59K" firstAttribute="leading" secondItem="u6f-jT-dJR" secondAttribute="leading" id="MaK-bv-Xea"/>
                             <constraint firstItem="XKs-fz-a12" firstAttribute="top" secondItem="HEj-dW-59K" secondAttribute="bottom" constant="307" id="Oyf-jm-67V"/>
                             <constraint firstAttribute="trailing" secondItem="yuA-CY-FCD" secondAttribute="trailing" id="VPQ-ls-jwe"/>
+                            <constraint firstItem="SoP-QS-QMC" firstAttribute="bottom" secondItem="XKs-fz-a12" secondAttribute="top" id="Z7P-py-VEk"/>
                             <constraint firstAttribute="trailing" secondItem="uRj-tW-oAL" secondAttribute="trailing" id="ezm-2v-21d"/>
                             <constraint firstItem="XKs-fz-a12" firstAttribute="top" secondItem="uRj-tW-oAL" secondAttribute="bottom" constant="10" id="hnl-uV-YGP"/>
                             <constraint firstAttribute="trailing" secondItem="HEj-dW-59K" secondAttribute="trailing" id="l9X-fh-nuT"/>
@@ -100,6 +113,7 @@
                     <connections>
                         <outlet property="confirmWorkOrderViewControllerBottomConstraint" destination="hnl-uV-YGP" id="SJT-mA-ig3"/>
                         <outlet property="destinationInputViewControllerTopConstraint" destination="D8Z-S8-vE7" id="o5R-Lk-PvW"/>
+                        <outlet property="mapBox" destination="SoP-QS-QMC" id="pff-eT-riA"/>
                         <outlet property="mapView" destination="Q4r-Uq-ubh" id="wTq-6o-sbU"/>
                         <outlet property="providerEnRouteViewControllerBottomConstaint" destination="Oyf-jm-67V" id="8DV-YX-AW7"/>
                         <segue destination="FNp-tj-7th" kind="presentation" identifier="TripCompletionViewControllerSegue" id="lJU-eQ-kt3"/>
@@ -115,7 +129,7 @@
         <!--Destination Input View Controller-->
         <scene sceneID="W13-tB-vm8">
             <objects>
-                <viewController id="9XP-iM-cxc" customClass="DestinationInputViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9XP-iM-cxc" customClass="DestinationInputViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lDm-3e-tgf"/>
                         <viewControllerLayoutGuide type="bottom" id="CmA-yP-9ss"/>
@@ -158,7 +172,7 @@
         <!--Destination Results View Controller-->
         <scene sceneID="plQ-lW-ph4">
             <objects>
-                <viewController id="TlW-I9-Qya" customClass="DestinationResultsViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="TlW-I9-Qya" customClass="DestinationResultsViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="W7Q-rt-4q8"/>
                         <viewControllerLayoutGuide type="bottom" id="Kvt-GH-Q2h"/>
@@ -171,7 +185,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DestinationResultTableViewCell" id="yoF-Z4-d8n" customClass="DestinationResultTableViewCell" customModule="provide" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DestinationResultTableViewCell" id="yoF-Z4-d8n" customClass="DestinationResultTableViewCell" customModule="arcade_city" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yoF-Z4-d8n" id="leB-r8-BQj">
@@ -194,7 +208,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="provide-pin" translatesAutoresizingMaskIntoConstraints="NO" id="eAy-9B-4AI">
-                                                    <rect key="frame" x="33" y="23" width="20" height="14"/>
+                                                    <rect key="frame" x="33" y="23" width="20" height="13.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="bPU-4B-cbx"/>
                                                     </constraints>
@@ -260,7 +274,7 @@
         <!--Confirm Work Order View Controller-->
         <scene sceneID="m4u-Py-LLR">
             <objects>
-                <viewController id="wcE-do-F58" customClass="ConfirmWorkOrderViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="wcE-do-F58" customClass="ConfirmWorkOrderViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rq0-kD-m0C"/>
                         <viewControllerLayoutGuide type="bottom" id="OTV-Cs-16T"/>
@@ -269,27 +283,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lHM-7B-TGH" customClass="CategorySelectionControl" customModule="provide" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lHM-7B-TGH" customClass="CategorySelectionControl" customModule="arcade_city" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ho8-GQ-zIL">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4g8-B9-cmf" customClass="CategoryButton" customModule="provide" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4g8-B9-cmf" customClass="CategoryButton" customModule="arcade_city" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="100"/>
                                                 <state key="normal" title="Sedan"/>
                                                 <connections>
                                                     <action selector="categoryButtonTapped:" destination="lHM-7B-TGH" eventType="touchUpInside" id="zRB-cg-hsH"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6kc-Zb-6lg" customClass="CategoryButton" customModule="provide" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6kc-Zb-6lg" customClass="CategoryButton" customModule="arcade_city" customModuleProvider="target">
                                                 <rect key="frame" x="125" y="0.0" width="125" height="100"/>
                                                 <state key="normal" title="XL/SUV"/>
                                                 <connections>
                                                     <action selector="categoryButtonTapped:" destination="lHM-7B-TGH" eventType="touchUpInside" id="keD-pT-NdU"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8w-uM-gIa" customClass="CategoryButton" customModule="provide" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8w-uM-gIa" customClass="CategoryButton" customModule="arcade_city" customModuleProvider="target">
                                                 <rect key="frame" x="250" y="0.0" width="125" height="100"/>
                                                 <state key="normal" title="Black Car"/>
                                                 <connections>
@@ -326,11 +340,11 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•••• 7059" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="doh-wC-dlI">
-                                        <rect key="frame" x="54" y="51" width="116" height="16"/>
+                                        <rect key="frame" x="54" y="52" width="115.5" height="15"/>
                                         <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHE-A0-35R" customClass="RoundedButton" customModule="provide" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHE-A0-35R" customClass="RoundedButton" customModule="arcade_city" customModuleProvider="target">
                                         <rect key="frame" x="16" y="82" width="343" height="51"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -346,7 +360,7 @@
                                         </connections>
                                     </button>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="f7X-Fg-TVf">
-                                        <rect key="frame" x="178" y="58" width="20" height="28"/>
+                                        <rect key="frame" x="177.5" y="58" width="20" height="28"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1-4" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="3ew-Eg-3DR">
                                         <rect key="frame" x="330" y="51" width="29" height="15"/>
@@ -369,7 +383,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$12" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="xkL-Ur-DnX">
-                                        <rect key="frame" x="337.5" y="17" width="21.5" height="17"/>
+                                        <rect key="frame" x="337" y="17" width="21.5" height="17"/>
                                         <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -436,7 +450,7 @@
         <!--Provider En Route View Controller-->
         <scene sceneID="Htm-1e-rS0">
             <objects>
-                <viewController id="zk4-0m-Dt4" customClass="ProviderEnRouteViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zk4-0m-Dt4" customClass="ProviderEnRouteViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="iEm-fi-Ncs"/>
                         <viewControllerLayoutGuide type="bottom" id="04R-tR-NLZ"/>
@@ -446,7 +460,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOUR DRIVER IS EN ROUTE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRe-sc-aCK">
-                                <rect key="frame" x="40" y="8" width="296" height="17"/>
+                                <rect key="frame" x="40" y="8" width="295" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="F3a-gS-kSg"/>
                                 </constraints>
@@ -464,17 +478,17 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UcH-Qq-h5l" customClass="ProfileImageView" customModule="provide" customModuleProvider="target">
-                                <rect key="frame" x="150" y="54" width="75" height="76"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UcH-Qq-h5l" customClass="ProfileImageView" customModule="arcade_city" customModuleProvider="target">
+                                <rect key="frame" x="150.5" y="54" width="74" height="76"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PAULO" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q1c-NC-gGu">
-                                <rect key="frame" x="11" y="72" width="132" height="20"/>
+                                <rect key="frame" x="11" y="72" width="132.5" height="19"/>
                                 <fontDescription key="fontDescription" name="Exo2-Medium" family="Exo 2" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOYOTA" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5R-TN-Unf">
-                                <rect key="frame" x="233" y="73" width="131" height="19"/>
+                                <rect key="frame" x="232.5" y="72" width="131.5" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="CWK-yw-Mcv"/>
                                 </constraints>
@@ -483,19 +497,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="prvdX" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQ7-lL-A5U">
-                                <rect key="frame" x="11" y="100" width="132" height="20"/>
+                                <rect key="frame" x="11" y="99" width="132.5" height="21"/>
                                 <fontDescription key="fontDescription" name="Exo2-ExtraLight" family="Exo 2" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PRIUS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uum-f1-t1r">
-                                <rect key="frame" x="233" y="100" width="131" height="20"/>
+                                <rect key="frame" x="232.5" y="99" width="131.5" height="21"/>
                                 <fontDescription key="fontDescription" name="Exo2-ExtraLight" family="Exo 2" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="c1T-nx-Lxe">
-                                <rect key="frame" x="177" y="78" width="20" height="27"/>
+                                <rect key="frame" x="177.5" y="78" width="20" height="28"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -548,7 +562,7 @@
         <!--Trip Complete-->
         <scene sceneID="60l-PU-9Ym">
             <objects>
-                <viewController id="aNT-5D-3ig" customClass="TripCompletionViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="aNT-5D-3ig" customClass="TripCompletionViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hP0-Wr-stO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -569,7 +583,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ozh-6g-MKY">
                                 <rect key="frame" x="16" y="477" width="223" height="110"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYd-OD-FGU" customClass="CircleButton" customModule="provide" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYd-OD-FGU" customClass="CircleButton" customModule="arcade_city" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="25" width="60" height="60"/>
                                         <color key="backgroundColor" red="0.53769487140000005" green="0.7112385631" blue="0.97082155940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -589,7 +603,7 @@
                                             <action selector="anyButtonTapped:" destination="aNT-5D-3ig" eventType="touchUpInside" id="GKz-QL-V79"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xUP-AG-90N" customClass="CircleButton" customModule="provide" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xUP-AG-90N" customClass="CircleButton" customModule="arcade_city" customModuleProvider="target">
                                         <rect key="frame" x="81.5" y="25" width="60" height="60"/>
                                         <color key="backgroundColor" red="0.53769487140000005" green="0.7112385631" blue="0.97082155940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="$2">
@@ -605,7 +619,7 @@
                                             <action selector="anyButtonTapped:" destination="aNT-5D-3ig" eventType="touchUpInside" id="ulv-ZO-AAP"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PPY-fr-jnp" customClass="CircleButton" customModule="provide" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PPY-fr-jnp" customClass="CircleButton" customModule="arcade_city" customModuleProvider="target">
                                         <rect key="frame" x="163" y="25" width="60" height="60"/>
                                         <color key="backgroundColor" red="0.53769487140000005" green="0.7112385631" blue="0.97082155940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -633,7 +647,7 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="yYq-Gv-EkN">
-                                <rect key="frame" x="16" y="356.5" width="343" height="100.5"/>
+                                <rect key="frame" x="16" y="357" width="343" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add a tip for &lt;driver name&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wAk-yV-c3e">
                                         <rect key="frame" x="0.0" y="40" width="243" height="20.5"/>
@@ -642,7 +656,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6qK-2c-HlU">
-                                        <rect key="frame" x="243" y="0.0" width="100" height="100.5"/>
+                                        <rect key="frame" x="243" y="0.0" width="100" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="6qK-2c-HlU" secondAttribute="height" multiplier="1:1" id="YkS-Zl-cQq"/>
                                             <constraint firstAttribute="height" constant="100" id="u88-kE-d8g"/>
@@ -651,7 +665,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sU-V5-ypK" customClass="CircleButton" customModule="provide" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5sU-V5-ypK" customClass="CircleButton" customModule="arcade_city" customModuleProvider="target">
                                 <rect key="frame" x="299" y="502" width="60" height="60"/>
                                 <color key="backgroundColor" red="0.53769487140000005" green="0.7112385631" blue="0.97082155940000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>

@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Mapbox
 
-class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOrderHistoryViewControllerDelegate {
+class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOrderHistoryViewControllerDelegate, MGLMapViewDelegate {
 
+    @IBOutlet private weak var mapBox: MGLMapView!
     @IBOutlet private weak var mapView: ConsumerMapView!
     @IBOutlet private weak var destinationInputViewControllerTopConstraint: NSLayoutConstraint!
     @IBOutlet private var confirmWorkOrderViewControllerBottomConstraint: NSLayoutConstraint!
@@ -599,4 +601,178 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
             "user_id": currentUser.id,
         ]
     }
+
+    // MARK: - MGLMapViewDelegate
+
+//    func mapViewDidBecomeIdle(_ mapView: MGLMapView) {
+//
+//    }
+//
+//    func mapViewRegionIsChanging(_ mapView: MGLMapView) {
+//
+//    }
+//
+//    func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
+//
+//    }
+//
+//    func mapViewDidStopLocatingUser(_ mapView: MGLMapView) {
+//
+//    }
+//
+//    func mapViewWillStartLoadingMap(_ mapView: MGLMapView) {
+//
+//    }
+//
+//    func mapViewWillStartLocatingUser(_ mapView: MGLMapView) {
+//
+//    }
+//
+//    func mapViewWillStartRenderingMap(_ mapView: MGLMapView) {
+//
+//    }
+//
+//    func mapViewWillStartRenderingFrame(_ mapView: MGLMapView) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+//
+//    }
+//
+////    func mapViewUserLocationAnchorPoint(_ mapView: MGLMapView) -> CGPoint {
+////
+////    }
+//
+//    func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, didDeselect annotation: MGLAnnotation) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, regionWillChangeAnimated animated: Bool) {
+//
+//    }
+//
+//    func mapViewDidFailLoadingMap(_ mapView: MGLMapView, withError error: Error) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, didUpdate userLocation: MGLUserLocation?) {
+//
+//    }
+//
+//    func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, didFailToLocateUserWithError error: Error) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
+//
+//    }
+//
+//    func mapViewDidFinishRenderingFrame(_ mapView: MGLMapView, fullyRendered: Bool) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, didAdd annotationViews: [MGLAnnotationView]) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, didSelect annotationView: MGLAnnotationView) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, didDeselect annotationView: MGLAnnotationView) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, didFailToLoadImage imageName: String) -> UIImage? {
+//        return nil
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, shouldRemoveStyleImage imageName: String) -> Bool {
+//        return false
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, regionIsChangingWith reason: MGLCameraChangeReason) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, didChange mode: MGLUserTrackingMode, animated: Bool) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, shapeAnnotationIsEnabled annotation: MGLShape) -> Bool {
+//        return true
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, alphaForShapeAnnotation annotation: MGLShape) -> CGFloat {
+//        return 50.0
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+//        return nil
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
+//        return nil
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+//        return false
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, calloutViewFor annotation: MGLAnnotation) -> MGLCalloutView? {
+//        return nil
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
+//        return Color.polylineStrokeColor()
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor {
+//        return Color.polylineStrokeColor()
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
+//        return nil
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
+//        return 50.0
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
+//        return nil
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, regionWillChangeWith reason: MGLCameraChangeReason, animated: Bool) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
+//
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, shouldChangeFrom oldCamera: MGLMapCamera, to newCamera: MGLMapCamera) -> Bool {
+//        return true
+//    }
+//
+//    func mapView(_ mapView: MGLMapView, shouldChangeFrom oldCamera: MGLMapCamera, to newCamera: MGLMapCamera, reason: MGLCameraChangeReason) -> Bool {
+//        return true
+//    }
 }

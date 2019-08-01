@@ -20,6 +20,7 @@ def shared_pods
   pod 'jetfire'
   pod 'JSQMessagesViewController', '~> 7.3.4'
   pod 'KTSwiftExtensions', git: 'https://github.com/kthomas/KTSwiftExtensions'
+  pod 'Mapbox-iOS-SDK'
   pod 'NotificationBannerSwift'
   pod 'OHHTTPStubs'
   pod 'PDTSimpleCalendar'

@@ -117,6 +117,7 @@ PODS:
     - JWTDecode (~> 2.0)
     - MBProgressHUD (~> 1.0)
     - ObjectMapper (~> 3.0)
+  - Mapbox-iOS-SDK (5.2.0)
   - MarqueeLabel (4.0.0)
   - MBProgressHUD (1.1.0)
   - nanopb (0.3.901):
@@ -189,6 +190,7 @@ DEPENDENCIES:
   - jetfire
   - JSQMessagesViewController (~> 7.3.4)
   - KTSwiftExtensions (from `https://github.com/kthomas/KTSwiftExtensions`)
+  - Mapbox-iOS-SDK
   - NotificationBannerSwift
   - OHHTTPStubs
   - PDTSimpleCalendar
@@ -229,6 +231,7 @@ SPEC REPOS:
     - JSQMessagesViewController
     - JSQSystemSoundPlayer
     - JWTDecode
+    - Mapbox-iOS-SDK
     - MarqueeLabel
     - MBProgressHUD
     - nanopb
@@ -297,6 +300,7 @@ SPEC CHECKSUMS:
   JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
   JWTDecode: fb77675c8049c1a7e9433c7cf448c3ce33ee4ac7
   KTSwiftExtensions: 1ea0c09484f611e6af2de65d4ec90571bea7df40
+  Mapbox-iOS-SDK: 3e095b305126d52ba166fe215d847b15b6fbee63
   MarqueeLabel: b55b26e690b6ad41faedd95cbf5eae6f1d1735b4
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
@@ -317,6 +321,6 @@ SPEC CHECKSUMS:
   TransitionKit: 9ceccda4cd0cdc0a05ef85eb235e5a3292c3c250
   UICKeyChainStore: 85db518bb1d294366d15ec9b92a416c4e670518f
 
-PODFILE CHECKSUM: 68507d196829347632be35a114a863d8c055dc3f
+PODFILE CHECKSUM: f8bee168471338eca0630ac8a4cff8061e36af95
 
 COCOAPODS: 1.7.5
