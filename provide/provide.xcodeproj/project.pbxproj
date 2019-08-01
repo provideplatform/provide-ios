@@ -413,9 +413,6 @@
 		68607D2122EA3A7900ACD485 /* Exo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412441B07FC15009A4C05 /* Exo2-Medium.ttf */; };
 		68607D2222EA3A7900ACD485 /* Exo2-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123E1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf */; };
 		68607D2322EA3A7900ACD485 /* InboundMediaMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6BB1F867F9700BBD3B9 /* InboundMediaMessageCell.xib */; };
-		68607D4522EA3C3500ACD485 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
-		68607D4622EA3C3600ACD485 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
-		68607D4722EA3C3600ACD485 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68607D4A22EA3F3000ACD485 /* arcade-city.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68607D4822EA3DE800ACD485 /* arcade-city.storyboard */; };
 		68607D4B22EA3F3100ACD485 /* arcade-city.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68607D4822EA3DE800ACD485 /* arcade-city.storyboard */; };
 		68607D4C22EA3F3200ACD485 /* arcade-city.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68607D4822EA3DE800ACD485 /* arcade-city.storyboard */; };
@@ -2334,7 +2331,6 @@
 				687D2D321FCFAB79008A9A22 /* OutboundMediaMessageCell.xib in Resources */,
 				687D2D331FCFAB79008A9A22 /* Exo2-ThinItalic.ttf in Resources */,
 				687D2D341FCFAB79008A9A22 /* Exo2-Bold.ttf in Resources */,
-				68607D4622EA3C3600ACD485 /* Images.xcassets in Resources */,
 				687D2D351FCFAB79008A9A22 /* Selfie.storyboard in Resources */,
 				687D2D361FCFAB79008A9A22 /* PinInput.storyboard in Resources */,
 				687D2D371FCFAB79008A9A22 /* Exo2-Black.ttf in Resources */,
@@ -2379,7 +2375,6 @@
 				687D2DDE1FD0DD23008A9A22 /* OutboundMediaMessageCell.xib in Resources */,
 				687D2DDF1FD0DD23008A9A22 /* Exo2-ThinItalic.ttf in Resources */,
 				687D2DE01FD0DD23008A9A22 /* Exo2-Bold.ttf in Resources */,
-				68607D4722EA3C3600ACD485 /* Images.xcassets in Resources */,
 				687D2DE11FD0DD23008A9A22 /* Selfie.storyboard in Resources */,
 				687D2DE21FD0DD23008A9A22 /* PinInput.storyboard in Resources */,
 				687D2DE31FD0DD23008A9A22 /* Exo2-Black.ttf in Resources */,
@@ -2423,7 +2418,6 @@
 				68B412601B07FC15009A4C05 /* Exo2-ExtraLightItalic.ttf in Resources */,
 				5C0049511B1BD9FF000ACE9D /* HTTPStubs in Resources */,
 				68B4126F1B07FC15009A4C05 /* Exo2-MediumItalic.ttf in Resources */,
-				68607D4522EA3C3500ACD485 /* Images.xcassets in Resources */,
 				68B412751B07FC15009A4C05 /* Exo2-SemiBold.ttf in Resources */,
 				68B4125D1B07FC15009A4C05 /* Exo2-ExtraLight.ttf in Resources */,
 				68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */,
