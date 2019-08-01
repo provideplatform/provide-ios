@@ -255,6 +255,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
                     let params = [
                         "email": user.email!,
                         "invitation_token": pin,
+                        "time_zone": TimeZone.current.identifier,
                     ]
 
                     ApiService.shared.createUser(params, onSuccess: { [weak self] statusCode, mappingResult in

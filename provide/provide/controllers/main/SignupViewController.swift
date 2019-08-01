@@ -115,6 +115,7 @@ class SignupViewController: ViewController, UITableViewDataSource, UITableViewDe
             "name": nameField.text!,
             "email": emailField.text!,
             "password": passwordField.text!,
+            "time_zone": TimeZone.current.identifier,
         ]
 
         ApiService.shared.createUser(params, onSuccess: { statusCode, responseString in
