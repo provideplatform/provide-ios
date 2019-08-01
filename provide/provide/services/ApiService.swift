@@ -366,7 +366,6 @@ class ApiService: NSObject {
 
     func createUser(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
         dispatchApiOperationForPath("users", method: .POST, params: params, onSuccess: { statusCode, mappingResult in
-            assert(statusCode == 201)
             let userToken = mappingResult?.firstObject as! UserToken
             if let token = userToken.token {
                 token.user = userToken.user
