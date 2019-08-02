@@ -30,15 +30,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>arcadecity</string>
-				<string>fb167607843598672</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>db-el712k0lhw2f1h8</string>
+				<string>fb441167009808396</string>
 			</array>
 		</dict>
 	</array>
