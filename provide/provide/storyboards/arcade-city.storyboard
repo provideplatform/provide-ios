@@ -51,7 +51,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arcade-city-splash" translatesAutoresizingMaskIntoConstraints="NO" id="OL2-Wh-LPf">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Qu-xR-JKv" userLabel="Sign Up Button">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Qu-xR-JKv" userLabel="Sign Up Button">
                                 <rect key="frame" x="151" y="359" width="73" height="36"/>
                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="20"/>
                                 <state key="normal" title="SIGN UP">
@@ -62,13 +62,13 @@
                                     <segue destination="lcj-hX-cwv" kind="custom" identifier="SignupViewControllerSegue" customClass="AuthenticationStoryboardSegue" customModule="arcade_city" customModuleProvider="target" id="C50-VZ-xgK"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqm-5X-02o" userLabel="Or Label">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqm-5X-02o" userLabel="Or Label">
                                 <rect key="frame" x="181.66666666666666" y="399" width="11.666666666666657" height="15"/>
                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ewp-oP-mJb">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ewp-oP-mJb">
                                 <rect key="frame" x="135" y="428" width="105" height="36"/>
                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="20"/>
                                 <state key="normal" title="SIGN IN">
@@ -79,7 +79,7 @@
                                     <segue destination="xdW-1X-RWT" kind="custom" identifier="AuthenticationViewControllerSegue" customClass="AuthenticationStoryboardSegue" customModule="arcade_city" customModuleProvider="target" id="JlE-hD-X26"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RND-VZ-c0C">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RND-VZ-c0C">
                                 <rect key="frame" x="181.66666666666666" y="468" width="11.666666666666657" height="14"/>
                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -108,7 +108,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aB-u6-nxs" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="86" y="497" width="203" height="38"/>
+                                <rect key="frame" x="86" y="387" width="203" height="38"/>
                                 <color key="backgroundColor" red="0.62721836566925049" green="0.22931230068206787" blue="0.96475964784622192" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="Yn4-0M-yDD"/>
@@ -134,7 +134,7 @@
                             <constraint firstItem="5aB-u6-nxs" firstAttribute="leading" secondItem="Pce-DG-jaQ" secondAttribute="leadingMargin" constant="70" id="Nqo-tH-nLb"/>
                             <constraint firstItem="6Qu-xR-JKv" firstAttribute="centerX" secondItem="Pce-DG-jaQ" secondAttribute="centerX" id="PE3-Fo-uof"/>
                             <constraint firstItem="RND-VZ-c0C" firstAttribute="centerX" secondItem="Pce-DG-jaQ" secondAttribute="centerX" id="QjK-GX-4lC"/>
-                            <constraint firstItem="5aB-u6-nxs" firstAttribute="top" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="33" id="SWL-eg-xPK"/>
+                            <constraint firstItem="5aB-u6-nxs" firstAttribute="top" secondItem="ewp-oP-mJb" secondAttribute="bottom" constant="-77" id="SWL-eg-xPK"/>
                             <constraint firstItem="ewp-oP-mJb" firstAttribute="top" secondItem="6Qu-xR-JKv" secondAttribute="bottom" constant="33" id="TKs-PB-ZQw"/>
                             <constraint firstItem="OL2-Wh-LPf" firstAttribute="leading" secondItem="Pce-DG-jaQ" secondAttribute="leading" id="gFF-vS-mbM"/>
                             <constraint firstItem="aFy-U9-0mG" firstAttribute="top" secondItem="OL2-Wh-LPf" secondAttribute="bottom" constant="-34" id="huM-KG-qvU"/>
