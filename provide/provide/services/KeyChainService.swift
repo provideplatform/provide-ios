@@ -16,6 +16,8 @@ class KeyChainService {
 
     private var cachedToken: Token?
 
+    private var cachedFbUserId: String?
+
     subscript(key: String) -> String? {
         get {
             return uicStore[envPrefixedKey(key)]
@@ -36,7 +38,14 @@ class KeyChainService {
     
     var fbUserId: String? {
         get {
-            return self["fb_user_id"]
+            if let fbUserId = cachedFbUserId {
+                return fbUserId
+            } else if let fbUserId = self["fb_user_id"] {
+                cachedFbUserId = fbUserId
+                return cachedFbUserId
+            } else {
+                return nil
+            }
         }
         set {
             self["fb_user_id"] = newValue
@@ -112,6 +121,7 @@ class KeyChainService {
 
     func clearStoredUserData() {
         cachedToken = nil
+        cachedFbUserId = nil
 
         if CurrentBuildConfig != .debug {
             uicStore.removeAllItems()

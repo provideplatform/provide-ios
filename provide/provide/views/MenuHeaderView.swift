@@ -84,7 +84,9 @@ class MenuHeaderView: UIView, UIActionSheetDelegate, CameraViewControllerDelegat
         backgroundColor = .clear
 
         if let user = currentUser {
-            profileImageUrl = user.profileImageUrl
+            if let url = user.profileImageUrl {
+                profileImageUrl = user.profileImageUrl
+            }
             nameLabel.text = user.name
         } else {
             profileImageUrl = nil

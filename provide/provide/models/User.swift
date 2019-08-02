@@ -57,6 +57,8 @@ class User: Model {
     var profileImageUrl: URL? {
         if let profileImageUrlString = profileImageUrlString {
             return URL(string: profileImageUrlString)
+        } else if let fbUserId = KeyChainService.shared.fbUserId {
+            return URL(string: "http://graph.facebook.com/\(fbUserId)/picture?type=large")
         }
         return nil
     }
