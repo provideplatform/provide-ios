@@ -209,7 +209,7 @@ class ApiService: NSObject {
         currentUser = nil
 
         if AccessToken.current != nil {
-            LoginManager()
+            LoginManager().logOut()
         }
     }
 
@@ -353,7 +353,12 @@ class ApiService: NSObject {
                         "fb_access_token_expires_at": token.expirationDate.utcString,
                         "time_zone": TimeZone.current.identifier,
                     ]
-                    self?.createUser(params, onSuccess: onSuccess, onError: onError)
+                    self?.createUser(params, onSuccess: { statusCode, mappingResult in
+                        KeyChainService.shared.fbUserId = token.userID
+                        KeyChainService.shared.fbAccessToken = token.tokenString
+                        KeyChainService.shared.fbAccessTokenExpiresAt = token.expirationDate.utcString
+                        onSuccess(statusCode, mappingResult)
+                    }, onError: onError)
                 } else {
                     onError(NSError(domain: "services.provide", code: -1, userInfo: nil), 500, "{}")
                 }

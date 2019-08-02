@@ -33,6 +33,33 @@ class KeyChainService {
             self["email"] = newValue
         }
     }
+    
+    var fbUserId: String? {
+        get {
+            return self["fb_user_id"]
+        }
+        set {
+            self["fb_user_id"] = newValue
+        }
+    }
+    
+    var fbAccessToken: String? {
+        get {
+            return self["fb_access_token"]
+        }
+        set {
+            self["fb_access_token"] = newValue
+        }
+    }
+    
+    var fbAccessTokenExpiresAt: String? {
+        get {
+            return self["fb_access_token_expires_at"]
+        }
+        set {
+            self["fb_access_token_expires_at"] = newValue
+        }
+    }
 
     var mode: UserMode? {
         get {
@@ -89,7 +116,16 @@ class KeyChainService {
         if CurrentBuildConfig != .debug {
             uicStore.removeAllItems()
         } else {
-            for key in ["user", "token", "email", "deviceId", "cryptoOptIn"] where self[key] != nil {
+            for key in [
+                "user",
+                "token",
+                "email",
+                "deviceId",
+                "cryptoOptIn",
+                "fbUserId",
+                "fbAccessToken",
+                "fbAccessTokenExpiresAt"
+            ] where self[key] != nil {
                 self[key] = nil
             }
         }
