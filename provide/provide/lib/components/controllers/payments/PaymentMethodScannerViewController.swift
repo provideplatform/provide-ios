@@ -21,6 +21,7 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
     weak var delegate: PaymentMethodScannerViewControllerDelegate!
 
     @IBOutlet private weak var creditCardTableView: UITableView!
+    @IBOutlet private weak var cardIOViewOptOutButton: UIButton!
 
     private var cardIOView: CardIOView!
 
@@ -37,9 +38,14 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
     private var paymentMethod: PaymentMethod! {
         didSet {
             if paymentMethod != nil {
-                cardIOView.isHidden = true
+                cardIOView?.isHidden = true
 
                 cardIcon.image = paymentMethod.icon
+                cardNumberField?.isSecureTextEntry = !paymentMethod.validCardNumber
+                if !paymentMethod.validCardNumber {
+                    return
+                }
+
                 cardNumberField.text = paymentMethod.last4
                 if paymentMethod.expMonth > 0 {
                     expiryMonthField.text = "\(paymentMethod.expMonth)"
@@ -79,6 +85,27 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         CardIOUtilities.preloadCardIO()
+        view.bringSubview(toFront: cardIOViewOptOutButton)
+    }
+
+    private func enterManually() {
+        if cardIOView != nil {
+            cardIOView.removeFromSuperview()
+            cardIOView = nil
+        }
+
+        creditCardTableView?.reloadData()
+        creditCardTableView?.isHidden = false
+        cardIOViewOptOutButton?.isHidden = true
+
+        cardNumberField?.isSecureTextEntry = true
+        cardNumberField?.isUserInteractionEnabled = true
+        cardNumberField?.text = ""
+        cardNumberField?.addTarget(self, action: #selector(creditCardNumberManuallyChanged), for: .editingChanged)
+
+        dispatch_after_delay(0.1) {
+            self.cardNumberField?.becomeFirstResponder()
+        }
     }
 
     private func scan() {
@@ -86,6 +113,14 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
             cardIOView.removeFromSuperview()
             cardIOView = nil
         }
+
+        if let cardNumberField = cardNumberField, cardNumberField.isFirstResponder {
+            cardNumberField.resignFirstResponder()
+        }
+        cardNumberField?.removeTarget(self, action: nil, for: .editingChanged)
+        cardNumberField?.isUserInteractionEnabled = false
+        cardNumberField?.isSecureTextEntry = false
+        cardNumberField?.text = ""
 
         creditCardTableView.isHidden = true
 
@@ -99,6 +134,8 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
         view.addSubview(cardIOView)
         view.bringSubview(toFront: cardIOView)
         cardIOView.isHidden = false // TODO-- remove default animation
+
+        cardIOViewOptOutButton?.isHidden = false
     }
 
     @objc private func createPaymentMethod() {
@@ -208,6 +245,7 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
             expiryMonthField = textField
             expiryMonthField.text = ""
             expiryMonthField.delegate = self
+            expiryMonthField.addTarget(self, action: #selector(creditCardExpirationMonthManuallyChanged), for: .editingChanged)
         }
         if let textField = cell.contentView.subviews.first(where: { subv -> Bool in
             return subv.isKind(of: UITextField.self) && subv != expiryMonthField
@@ -215,6 +253,7 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
             expiryYearField = textField
             expiryYearField.text = ""
             expiryYearField.delegate = self
+            expiryYearField.addTarget(self, action: #selector(creditCardExpirationYearManuallyChanged), for: .editingChanged)
         }
         return cell
     }
@@ -229,6 +268,57 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
             cvcField.delegate = self
         }
         return cell
+    }
+
+    @IBAction private func optOutOfPaymentMethodScanner(_ sender: UIButton) {
+        enterManually()
+    }
+
+    @objc private func creditCardNumberManuallyChanged(_ sender: UITextField) {
+        let cardNumber = sender.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let pm = paymentMethod ?? PaymentMethod()
+        let cardInfo = pm.toCardIOCreditCardInfo()
+        cardInfo.cardNumber = cardNumber
+        paymentMethod = cardInfo.toPaymentMethod()
+    }
+
+    @objc private func creditCardExpirationMonthManuallyChanged(_ sender: UITextField) {
+        let pm = paymentMethod ?? PaymentMethod()
+        let expMonth = sender.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if let expMonthInt = Int(expMonth) {
+            if expMonthInt > 1 && expMonthInt <= 12 {
+                pm.expMonth = expMonthInt
+                paymentMethod = pm
+            } else if expMonthInt > 12 {
+                sender.text = ""
+            }
+        }
+    }
+
+    @objc private func creditCardExpirationYearManuallyChanged(_ sender: UITextField) {
+        let pm = paymentMethod ?? PaymentMethod()
+        let expYear = sender.text?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let expYearMin = Date().year
+        let expYearMinRel = expYearMin - 2000
+        let expYearMax = 99
+
+        if let expYearInt = Int(expYear) {
+            if expYearInt >= expYearMinRel && expYearInt <= expYearMax  {
+                if expYearMinRel == 19 && expYearInt == 20 { // edge case when entering "202x"...
+                    return
+                }
+
+                if expYearInt == expYearMinRel && pm.expMonth < Date().month {
+                    log("TODO: show error message related to card expiration date")
+                } else {
+                    pm.expYear = 2000 + expYearInt
+                    paymentMethod = pm
+                }
+            } else if expYearInt >= expYearMin {
+                pm.expYear = expYearInt
+                paymentMethod = pm
+            }
+        }
     }
 
     // MARK: UITableViewDelegate
@@ -277,29 +367,29 @@ class PaymentMethodScannerViewController: ViewController, CardIOViewDelegate, UI
         let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
 
         if textField == expiryMonthField {
-            if updatedText.count == 2 {
-                DispatchQueue.main.async { [weak self] in
-                    if let strongSelf = self {
-                        if strongSelf.expiryMonthField.isFirstResponder {
-                            strongSelf.expiryYearField.becomeFirstResponder()
-                        }
-
-                        strongSelf.paymentMethod.expMonth = Int(updatedText)!
-                    }
-                }
-            }
+//            if updatedText.count == 2 {
+//                DispatchQueue.main.async { [weak self] in
+//                    if let strongSelf = self {
+//                        if strongSelf.expiryMonthField.isFirstResponder {
+//                            strongSelf.expiryYearField.becomeFirstResponder()
+//                        }
+//
+//                        strongSelf.paymentMethod.expMonth = Int(updatedText)!
+//                    }
+//                }
+//            }
         } else if textField == expiryYearField {
-            if updatedText.count == 4 {
-                DispatchQueue.main.async { [weak self] in
-                    if let strongSelf = self {
-                        if strongSelf.expiryYearField.isFirstResponder {
-                            strongSelf.cvcField.becomeFirstResponder()
-                        }
-
-                        strongSelf.paymentMethod.expYear = Int(updatedText)!
-                    }
-                }
-            }
+//            if updatedText.count == 4 {
+//                DispatchQueue.main.async { [weak self] in
+//                    if let strongSelf = self {
+//                        if strongSelf.expiryYearField.isFirstResponder {
+//                            strongSelf.cvcField.becomeFirstResponder()
+//                        }
+//
+//                        strongSelf.paymentMethod.expYear = Int(updatedText)!
+//                    }
+//                }
+//            }
         } else if textField == cvcField {
             if updatedText.count > 4 {
                 return false

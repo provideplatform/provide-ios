@@ -9,6 +9,13 @@
 import Foundation
 import RestKit
 
+enum PaymentCardBrands: String {
+    case amex = "amex"
+    case discover = "discover"
+    case mastercard = "mastercard"
+    case visa = "visa"
+}
+
 @objcMembers
 class PaymentMethod: Model {
 
@@ -29,6 +36,18 @@ class PaymentMethod: Model {
         return nil
     }
 
+    var validCardNumber: Bool {
+        if let cardNumber = cardNumber, let brand = brand, let type = type, type == "card", let cardBrand = PaymentCardBrands(rawValue: brand) {
+            switch cardBrand {
+            case .amex:
+                return cardNumber.length == 15
+            default:
+                return cardNumber.length == 16
+            }
+        }
+        return false
+    }
+
     override class func mapping() -> RKObjectMapping {
         let mapping = RKObjectMapping(for: self)
         mapping?.addAttributeMappings(from: [
@@ -43,6 +62,12 @@ class PaymentMethod: Model {
             "type",
         ])
         return mapping!
+    }
+
+    func toCardIOCreditCardInfo() -> CardIOCreditCardInfo {
+        let cardInfo = CardIOCreditCardInfo()
+        cardInfo.cardNumber = cardNumber
+        return cardInfo
     }
 }
 
