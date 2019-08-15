@@ -85,7 +85,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8s-wM-zeM">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8s-wM-zeM">
                                 <rect key="frame" x="135" y="734" width="105" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="105" id="jYx-nT-Ss7"/>
@@ -323,53 +323,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="IkJ-Dh-D5D">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="IkJ-Dh-D5D">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; create your 4 digit pin &gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ort-kP-aFj" userLabel="• messageLabel">
-                                <rect key="frame" x="20" y="441" width="335" height="21"/>
-                                <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
-                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tld-W0-AeS" userLabel="BlueView">
-                                <rect key="frame" x="0.0" y="482" width="375" height="296"/>
+                                <rect key="frame" x="0.0" y="377" width="375" height="401"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XkK-wc-C0A" userLabel="• pinInputControl" customClass="PinInputControl" customModule="carmony" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="qes-If-lcO"/>
-                                        </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6cZ-ob-hua" userLabel="Keyboard Height Placeholder">
-                                        <rect key="frame" x="0.0" y="80" width="375" height="216"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="296"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="216" id="dDM-XV-939"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="XkK-wc-C0A" firstAttribute="top" secondItem="Tld-W0-AeS" secondAttribute="top" id="6b8-Zt-9Ax"/>
-                                    <constraint firstItem="6cZ-ob-hua" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="Njc-pM-vsh"/>
-                                    <constraint firstItem="XkK-wc-C0A" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="Poa-1c-d8E"/>
-                                    <constraint firstAttribute="height" constant="296" id="XdM-Xe-WSl"/>
-                                    <constraint firstAttribute="trailing" secondItem="6cZ-ob-hua" secondAttribute="trailing" id="YAl-ZG-zhO"/>
-                                    <constraint firstAttribute="bottom" secondItem="6cZ-ob-hua" secondAttribute="bottom" id="g9S-sz-j8T"/>
-                                    <constraint firstAttribute="trailing" secondItem="XkK-wc-C0A" secondAttribute="trailing" id="viy-K7-gMd"/>
+                                    <constraint firstItem="6cZ-ob-hua" firstAttribute="leading" secondItem="XkK-wc-C0A" secondAttribute="leading" id="7hm-mm-6bJ"/>
+                                    <constraint firstItem="XkK-wc-C0A" firstAttribute="trailing" secondItem="6cZ-ob-hua" secondAttribute="trailing" id="Imk-2F-Xua"/>
+                                    <constraint firstItem="XkK-wc-C0A" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="UQ5-xA-jXa"/>
+                                    <constraint firstItem="XkK-wc-C0A" firstAttribute="top" secondItem="6cZ-ob-hua" secondAttribute="top" id="UbC-35-KX2"/>
+                                    <constraint firstItem="6cZ-ob-hua" firstAttribute="top" secondItem="Tld-W0-AeS" secondAttribute="top" id="YLw-t0-f4M"/>
+                                    <constraint firstAttribute="bottom" secondItem="XkK-wc-C0A" secondAttribute="bottom" constant="321" id="jLc-MD-TPN"/>
+                                    <constraint firstAttribute="bottom" secondItem="6cZ-ob-hua" secondAttribute="bottom" constant="105" id="q3I-Gk-PIe"/>
+                                    <constraint firstAttribute="trailing" secondItem="XkK-wc-C0A" secondAttribute="trailing" id="z02-km-Vim"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; create your 4 digit pin &gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ort-kP-aFj" userLabel="• messageLabel">
+                                <rect key="frame" x="20" y="348" width="335" height="21"/>
+                                <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Tld-W0-AeS" firstAttribute="top" secondItem="ort-kP-aFj" secondAttribute="bottom" constant="20" id="0Z7-L8-Lzz"/>
-                            <constraint firstAttribute="trailing" secondItem="Tld-W0-AeS" secondAttribute="trailing" id="XX3-kM-Tpn"/>
-                            <constraint firstAttribute="trailing" secondItem="ort-kP-aFj" secondAttribute="trailing" constant="20" id="c4b-Ek-81R"/>
-                            <constraint firstItem="gMS-vV-EGl" firstAttribute="top" secondItem="Tld-W0-AeS" secondAttribute="bottom" id="gQu-wr-lUD"/>
-                            <constraint firstItem="ort-kP-aFj" firstAttribute="leading" secondItem="O0R-jw-XEh" secondAttribute="leading" constant="20" id="tTg-hq-hfc"/>
-                            <constraint firstItem="Tld-W0-AeS" firstAttribute="leading" secondItem="O0R-jw-XEh" secondAttribute="leading" id="uTi-nI-p6v"/>
+                            <constraint firstItem="IkJ-Dh-D5D" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="3Ph-OV-0bk"/>
+                            <constraint firstAttribute="bottom" secondItem="IkJ-Dh-D5D" secondAttribute="bottom" id="Crz-wz-1Rg"/>
+                            <constraint firstItem="Tld-W0-AeS" firstAttribute="top" secondItem="ort-kP-aFj" secondAttribute="bottom" constant="8" symbolic="YES" id="HUn-0m-pZq"/>
+                            <constraint firstItem="IkJ-Dh-D5D" firstAttribute="leading" secondItem="O0R-jw-XEh" secondAttribute="leading" id="SPm-eY-JRb"/>
+                            <constraint firstAttribute="trailing" secondItem="IkJ-Dh-D5D" secondAttribute="trailing" id="XSq-kZ-wPh"/>
+                            <constraint firstItem="ort-kP-aFj" firstAttribute="centerX" secondItem="Tld-W0-AeS" secondAttribute="centerX" id="bXr-my-RCq"/>
+                            <constraint firstItem="IkJ-Dh-D5D" firstAttribute="top" secondItem="O0R-jw-XEh" secondAttribute="top" id="eZ8-aD-B3x"/>
+                            <constraint firstItem="ort-kP-aFj" firstAttribute="leading" secondItem="O0R-jw-XEh" secondAttribute="leadingMargin" constant="4" id="iAo-eB-I0C"/>
+                            <constraint firstItem="Tld-W0-AeS" firstAttribute="bottom" secondItem="gMS-vV-EGl" secondAttribute="top" id="jrQ-Eb-9mU"/>
+                            <constraint firstItem="IkJ-Dh-D5D" firstAttribute="trailing" secondItem="Tld-W0-AeS" secondAttribute="trailing" id="mer-ju-0d9"/>
+                            <constraint firstItem="ort-kP-aFj" firstAttribute="top" secondItem="4Om-Bk-VdT" secondAttribute="bottom" constant="304" id="qeN-Ah-4zd"/>
                         </constraints>
                     </view>
                     <connections>
@@ -379,7 +378,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hZt-wa-Ftv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="629" y="-1189"/>
+            <point key="canvasLocation" x="628" y="-1189.6551724137933"/>
         </scene>
         <!--Top View Controller-->
         <scene sceneID="RYy-qi-bSX">
@@ -891,7 +890,6 @@
         <image name="background" width="414" height="666.66668701171875"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zl8-ty-CFI"/>
         <segue reference="Dg0-CW-FQe"/>
     </inferredMetricsTieBreakers>
 </document>

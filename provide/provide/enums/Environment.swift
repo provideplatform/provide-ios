@@ -8,9 +8,12 @@
 
 import Foundation
 
+private let configuredApiHostSuffix = infoDictionaryValueFor("xApiHostSuffix")
+private let configuredMarketingHostSuffix = infoDictionaryValueFor("xMarketingHostSuffix")
 private let defaultEnvironment = Environment.production
-private let productionApiHostSuffix = "staging-api.carmonyconnect.com"
-private let productionMarketingHostSuffix = "provideapp.com"
+
+private let apiHostSuffix = configuredApiHostSuffix != "" ? configuredApiHostSuffix : "unicorn.provide.services"
+private let marketingHostSuffix = configuredMarketingHostSuffix != "" ? configuredMarketingHostSuffix : "provide.services"
 
 let CurrentEnvironment = Environment(rawValue: ENV("OVERRIDE_ENVIRONMENT") ?? "") ?? defaultEnvironment
 
@@ -28,7 +31,7 @@ enum Environment: String {
     }
 
     private var apiHostname: String {
-        var hostName = productionApiHostSuffix
+        var hostName = apiHostSuffix
         switch self {
         case .qa:
             hostName = "\(prefixString).\(hostName)"
@@ -40,7 +43,7 @@ enum Environment: String {
     }
 
     private var apiUseSSL: Bool {
-        return apiHostname.hasSuffix(productionApiHostSuffix)
+        return apiHostname.hasSuffix(apiHostSuffix)
     }
 
     var websocketBaseUrlString: String {
@@ -54,7 +57,7 @@ enum Environment: String {
     }
 
     private var marketingHostname: String {
-        var hostName = productionMarketingHostSuffix
+        var hostName = marketingHostSuffix
         switch self {
         case .qa:
             hostName = "\(prefixString).\(hostName)"
@@ -66,7 +69,7 @@ enum Environment: String {
     }
 
     private var marketingUseSSL: Bool {
-        return marketingHostname.hasSuffix(productionMarketingHostSuffix)
+        return marketingHostname.hasSuffix(marketingHostSuffix)
     }
 
     var prefixString: String {

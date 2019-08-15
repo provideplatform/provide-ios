@@ -22,8 +22,6 @@
 
 /* Begin PBXBuildFile section */
 		22554B22F2D962CD99419BC6 /* Pods_unicorn_driver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA1E3845CCAABB63F1083924 /* Pods_unicorn_driver.framework */; };
-		3277524C2801264E166522E9 /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687D2D561FCFBE7D008A9A22 /* Pods_provide.framework */; };
-		3E78EEA212AF7C16683F8C8A /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687D2D581FCFC35A008A9A22 /* Pods_provide.framework */; };
 		5C0049511B1BD9FF000ACE9D /* HTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = 5C0049501B1BD9FF000ACE9D /* HTTPStubs */; };
 		5C0049521B1BD9FF000ACE9D /* HTTPStubs in Resources */ = {isa = PBXBuildFile; fileRef = 5C0049501B1BD9FF000ACE9D /* HTTPStubs */; };
 		5C087C3D1B50614100A30549 /* MessageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C41C5961B2152A900FA7783 /* MessageServiceTests.swift */; };
@@ -731,7 +729,6 @@
 		687D2D471FCFAB79008A9A22 /* Exo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412441B07FC15009A4C05 /* Exo2-Medium.ttf */; };
 		687D2D481FCFAB79008A9A22 /* Exo2-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123E1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf */; };
 		687D2D491FCFAB79008A9A22 /* InboundMediaMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6BB1F867F9700BBD3B9 /* InboundMediaMessageCell.xib */; };
-		687D2D4A1FCFAB79008A9A22 /* GoogleService-Info.plist.orig in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */; };
 		687D2D5E1FD0DD23008A9A22 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B65111C2439210088E539 /* MenuTableViewCell.swift */; };
 		687D2D5F1FD0DD23008A9A22 /* JSONResponseWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */; };
 		687D2D601FD0DD23008A9A22 /* NavigationBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F537111B834A9A0007F480 /* NavigationBarButton.swift */; };
@@ -879,11 +876,9 @@
 		687D2DF31FD0DD23008A9A22 /* Exo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412441B07FC15009A4C05 /* Exo2-Medium.ttf */; };
 		687D2DF41FD0DD23008A9A22 /* Exo2-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123E1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf */; };
 		687D2DF51FD0DD23008A9A22 /* InboundMediaMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6BB1F867F9700BBD3B9 /* InboundMediaMessageCell.xib */; };
-		687D2DF61FD0DD23008A9A22 /* GoogleService-Info.plist.orig in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */; };
 		687D2E031FD298CB008A9A22 /* unicorn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 687D2E011FD296DE008A9A22 /* unicorn.storyboard */; };
 		687D2E041FD298CC008A9A22 /* unicorn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 687D2E011FD296DE008A9A22 /* unicorn.storyboard */; };
 		688127141F8B67BC00BE7971 /* AttachmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688127131F8B67BC00BE7971 /* AttachmentTests.swift */; };
-		688127171F8D134400BE7971 /* GoogleService-Info.plist.orig in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */; };
 		6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6884415B1C06F6810017D4AA /* PinInput.storyboard */; };
 		6889951D1C9D3AEF00F7D25F /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6889951C1C9D3AEF00F7D25F /* ImageService.swift */; };
 		6899CDD91F5D8B120074370C /* Messages.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6899CDD81F5D8B120074370C /* Messages.storyboard */; };
@@ -1042,7 +1037,6 @@
 		68AC2CF12304E4DF00795FBE /* Exo2-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412421B07FC15009A4C05 /* Exo2-Light.ttf */; };
 		68AC2CF22304E4DF00795FBE /* WorkOrderHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68140DA11C1C23FD008F7E3A /* WorkOrderHistory.storyboard */; };
 		68AC2CF32304E4DF00795FBE /* Exo2-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412431B07FC15009A4C05 /* Exo2-LightItalic.ttf */; };
-		68AC2CF42304E4DF00795FBE /* ArcadeCityLaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68607DFB22F0F5B300ACD485 /* ArcadeCityLaunchScreen.xib */; };
 		68AC2CF52304E4DF00795FBE /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CB25A931F98A3770018D30F /* Menu.storyboard */; };
 		68AC2CF62304E4DF00795FBE /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68F536D81B834A330007F480 /* Camera.storyboard */; };
 		68AC2CF72304E4DF00795FBE /* OutboundMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6BA1F867F9700BBD3B9 /* OutboundMessageCell.xib */; };
@@ -1056,6 +1050,12 @@
 		68AC2D112304E8EE00795FBE /* carmony-mobility.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68AC2D102304E8EE00795FBE /* carmony-mobility.storyboard */; };
 		68AC2D162304EBD300795FBE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68AC2D192304EC1100795FBE /* CarmonyMobilityLaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AC2D182304EC1100795FBE /* CarmonyMobilityLaunchScreen.xib */; };
+		68AC2D20230502E800795FBE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
+		68AC2D21230502EA00795FBE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
+		68AC2D22230502EB00795FBE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
+		68AC2D23230502EB00795FBE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
+		68AC2D24230502EC00795FBE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
+		68AC2D25230502EC00795FBE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68B412351B07FBEB009A4C05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68B412341B07FBEB009A4C05 /* Main.storyboard */; };
 		68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412391B07FC15009A4C05 /* Exo2-Black.ttf */; };
 		68B4124E1B07FC15009A4C05 /* Exo2-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123A1B07FC15009A4C05 /* Exo2-BlackItalic.ttf */; };
@@ -1120,10 +1120,7 @@
 		68BA45651FA13FED00322B7C /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68BA45641FA13FED00322B7C /* ReachabilityService.swift */; };
 		68C0E6511D56D09800157123 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68C0E6501D56D09800157123 /* MobileCoreServices.framework */; };
 		68C16A111FAB021E001DAF90 /* ApiOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C16A101FAB021E001DAF90 /* ApiOperation.swift */; };
-		68C539D922F14920000C267B /* GoogleService-Info.plist.orig in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */; };
 		68C539DD22F14DF7000C267B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 68C539DA22F14953000C267B /* GoogleService-Info.plist */; };
-		68C539DE22F15CD6000C267B /* GoogleService-Info.plist.orig in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */; };
-		68C539DF22F15CD8000C267B /* GoogleService-Info.plist.orig in Resources */ = {isa = PBXBuildFile; fileRef = 688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */; };
 		68CD56051F6C8C3B007E66CE /* PaymentMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68CD56041F6C8C3B007E66CE /* PaymentMethod.swift */; };
 		68D843C11BFAA73800DE7400 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68D843C01BFAA73800DE7400 /* NotificationService.swift */; };
 		68DCAE461BEC6BB3009B383E /* WorkOrderHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68DCAE451BEC6BB3009B383E /* WorkOrderHistoryViewController.swift */; };
@@ -1151,8 +1148,8 @@
 		BA294AA2A32A245EDE373EEF /* Pods_carmony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F265BD1C028AE161DCEBFE1E /* Pods_carmony.framework */; };
 		C15F744FEA72949531FE4207 /* Pods_arcade_city_driver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FE99A9B3DC646C348B6981 /* Pods_arcade_city_driver.framework */; };
 		C32E484A3D6A2B71B7B19DC3 /* Pods_provideUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA218394C86B3C20FA606CE /* Pods_provideUITests.framework */; };
-		C946489B9183F0CDB76C8975 /* Pods_arcade_city.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7507678EAEB87E8604B6E1 /* Pods_arcade_city.framework */; };
 		EE42125EFC6A55E190E2E809 /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BD0BF5796F416A49F68121 /* Pods_provide.framework */; };
+		EF282E4F8B7837D4454FA043 /* Pods_arcade_city.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EED28841152744FB0D9B2AE /* Pods_arcade_city.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1329,7 +1326,6 @@
 		687D2E001FD0DD24008A9A22 /* unicorn-driver-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "unicorn-driver-Info.plist"; sourceTree = "<group>"; };
 		687D2E011FD296DE008A9A22 /* unicorn.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = unicorn.storyboard; sourceTree = "<group>"; };
 		688127131F8B67BC00BE7971 /* AttachmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentTests.swift; sourceTree = "<group>"; };
-		688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "GoogleService-Info.plist.orig"; sourceTree = "<group>"; };
 		6884415B1C06F6810017D4AA /* PinInput.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PinInput.storyboard; sourceTree = "<group>"; };
 		6889951C1C9D3AEF00F7D25F /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		689608911B3A1F21008719B0 /* provideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = provideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1444,6 +1440,7 @@
 		68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkOrderProvider.swift; sourceTree = "<group>"; };
 		7065B6D67728BFBA41AF0B18 /* Pods-provideUITests.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideUITests.adhoc.xcconfig"; path = "../Pods/Target Support Files/Pods-provideUITests/Pods-provideUITests.adhoc.xcconfig"; sourceTree = "<group>"; };
 		7E2337DF238DDA66D1C18C1E /* Pods-provideTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-provideTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-provideTests/Pods-provideTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7EED28841152744FB0D9B2AE /* Pods_arcade_city.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_arcade_city.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		82AEB51BC96F347AA267C750 /* Pods-arcade city driver.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-arcade city driver.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-arcade city driver/Pods-arcade city driver.appstore.xcconfig"; sourceTree = "<group>"; };
 		831BAE03306348524648965C /* Pods_provideTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_provideTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92EA2CD0A8044DA0AA3696C0 /* Pods-unicorn.appstore.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-unicorn.appstore.xcconfig"; path = "../Pods/Target Support Files/Pods-unicorn/Pods-unicorn.appstore.xcconfig"; sourceTree = "<group>"; };
@@ -1483,7 +1480,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68607DCA22F0E96D00ACD485 /* MobileCoreServices.framework in Frameworks */,
-				C946489B9183F0CDB76C8975 /* Pods_arcade_city.framework in Frameworks */,
+				EF282E4F8B7837D4454FA043 /* Pods_arcade_city.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1528,8 +1525,6 @@
 			files = (
 				68C0E6511D56D09800157123 /* MobileCoreServices.framework in Frameworks */,
 				EE42125EFC6A55E190E2E809 /* Pods_provide.framework in Frameworks */,
-				3277524C2801264E166522E9 /* Pods_provide.framework in Frameworks */,
-				3E78EEA212AF7C16683F8C8A /* Pods_provide.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1991,18 +1986,17 @@
 		68DFB0811B07C5C4002A72E8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				688127161F8D134400BE7971 /* GoogleService-Info.plist.orig */,
 				68C539DA22F14953000C267B /* GoogleService-Info.plist */,
 				68DFB0821B07C5C4002A72E8 /* Info.plist */,
 				68AAF65C1D8C7B2300EAFD6F /* provide.entitlements */,
 				682D326C1B07CD4200BC4EEC /* provide-prefix.pch */,
 				682D326D1B07CD4200BC4EEC /* provide-Bridging-Header.h */,
-				68AC2D072304E4E000795FBE /* carmony-mobility-Info.plist */,
 				687D2D541FCFAB7A008A9A22 /* unicorn-Info.plist */,
 				687D2E001FD0DD24008A9A22 /* unicorn-driver-Info.plist */,
 				68607DFA22F0E96D00ACD485 /* arcade city-Info.plist */,
 				68607C7E22EA3A6A00ACD485 /* arcade city rider-Info.plist */,
 				68607D2D22EA3A7900ACD485 /* arcade city driver-Info.plist */,
+				68AC2D072304E4E000795FBE /* carmony-mobility-Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2087,6 +2081,7 @@
 				6578031355F89C74220F3D07 /* Pods_unicorn.framework */,
 				AA1E3845CCAABB63F1083924 /* Pods_unicorn_driver.framework */,
 				F265BD1C028AE161DCEBFE1E /* Pods_carmony.framework */,
+				7EED28841152744FB0D9B2AE /* Pods_arcade_city.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2325,6 +2320,7 @@
 					689608901B3A1F21008719B0 = {
 						CreatedOnToolsVersion = 7.0;
 						LastSwiftMigration = 0900;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 68DFB07D1B07C5C4002A72E8;
 					};
 					68DFB07D1B07C5C4002A72E8 = {
@@ -2388,6 +2384,7 @@
 				68607C5122EA3A6900ACD485 /* Consumer.storyboard in Resources */,
 				68607D4A22EA3F3000ACD485 /* arcade-city.storyboard in Resources */,
 				68607C5222EA3A6900ACD485 /* Messages.storyboard in Resources */,
+				68AC2D21230502EA00795FBE /* Images.xcassets in Resources */,
 				68607C5322EA3A6900ACD485 /* Main.storyboard in Resources */,
 				68607C5422EA3A6900ACD485 /* Exo2-Regular.ttf in Resources */,
 				68607C5522EA3A6900ACD485 /* Exo2-ExtraLightItalic.ttf in Resources */,
@@ -2410,7 +2407,6 @@
 				68607C6822EA3A6900ACD485 /* Exo2-Light.ttf in Resources */,
 				68607C6922EA3A6900ACD485 /* WorkOrderHistory.storyboard in Resources */,
 				68607C6A22EA3A6900ACD485 /* Exo2-LightItalic.ttf in Resources */,
-				68C539DF22F15CD8000C267B /* GoogleService-Info.plist.orig in Resources */,
 				68607DFF22F0F95200ACD485 /* ArcadeCityLaunchScreen.xib in Resources */,
 				68607C6B22EA3A6900ACD485 /* Menu.storyboard in Resources */,
 				68607C6C22EA3A6900ACD485 /* Camera.storyboard in Resources */,
@@ -2433,6 +2429,7 @@
 				68607CFF22EA3A7900ACD485 /* Consumer.storyboard in Resources */,
 				68607D4B22EA3F3100ACD485 /* arcade-city.storyboard in Resources */,
 				68607D0022EA3A7900ACD485 /* Messages.storyboard in Resources */,
+				68AC2D20230502E800795FBE /* Images.xcassets in Resources */,
 				68607D0122EA3A7900ACD485 /* Main.storyboard in Resources */,
 				68607D0222EA3A7900ACD485 /* Exo2-Regular.ttf in Resources */,
 				68607D0322EA3A7900ACD485 /* Exo2-ExtraLightItalic.ttf in Resources */,
@@ -2455,7 +2452,6 @@
 				68607D1622EA3A7900ACD485 /* Exo2-Light.ttf in Resources */,
 				68607D1722EA3A7900ACD485 /* WorkOrderHistory.storyboard in Resources */,
 				68607D1822EA3A7900ACD485 /* Exo2-LightItalic.ttf in Resources */,
-				68C539D922F14920000C267B /* GoogleService-Info.plist.orig in Resources */,
 				68607E0022F0F95300ACD485 /* ArcadeCityLaunchScreen.xib in Resources */,
 				68607D1922EA3A7900ACD485 /* Menu.storyboard in Resources */,
 				68607D1A22EA3A7900ACD485 /* Camera.storyboard in Resources */,
@@ -2476,6 +2472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68607DCD22F0E96D00ACD485 /* Consumer.storyboard in Resources */,
+				68AC2D22230502EB00795FBE /* Images.xcassets in Resources */,
 				68607DCE22F0E96D00ACD485 /* arcade-city.storyboard in Resources */,
 				68607DCF22F0E96D00ACD485 /* Messages.storyboard in Resources */,
 				68607DD022F0E96D00ACD485 /* Main.storyboard in Resources */,
@@ -2491,7 +2488,6 @@
 				68607DDA22F0E96D00ACD485 /* Exo2-ThinItalic.ttf in Resources */,
 				68607DDB22F0E96D00ACD485 /* Exo2-Bold.ttf in Resources */,
 				68607DDD22F0E96D00ACD485 /* Selfie.storyboard in Resources */,
-				68C539DE22F15CD6000C267B /* GoogleService-Info.plist.orig in Resources */,
 				68607DDE22F0E96D00ACD485 /* PinInput.storyboard in Resources */,
 				68607DDF22F0E96D00ACD485 /* Exo2-Black.ttf in Resources */,
 				68607DE022F0E96D00ACD485 /* InboundMessageCell.xib in Resources */,
@@ -2536,6 +2532,7 @@
 				687D2D321FCFAB79008A9A22 /* OutboundMediaMessageCell.xib in Resources */,
 				687D2D331FCFAB79008A9A22 /* Exo2-ThinItalic.ttf in Resources */,
 				687D2D341FCFAB79008A9A22 /* Exo2-Bold.ttf in Resources */,
+				68AC2D24230502EC00795FBE /* Images.xcassets in Resources */,
 				687D2D351FCFAB79008A9A22 /* Selfie.storyboard in Resources */,
 				687D2D361FCFAB79008A9A22 /* PinInput.storyboard in Resources */,
 				687D2D371FCFAB79008A9A22 /* Exo2-Black.ttf in Resources */,
@@ -2557,7 +2554,6 @@
 				687D2D471FCFAB79008A9A22 /* Exo2-Medium.ttf in Resources */,
 				687D2D481FCFAB79008A9A22 /* Exo2-ExtraBoldItalic.ttf in Resources */,
 				687D2D491FCFAB79008A9A22 /* InboundMediaMessageCell.xib in Resources */,
-				687D2D4A1FCFAB79008A9A22 /* GoogleService-Info.plist.orig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2580,6 +2576,7 @@
 				687D2DDE1FD0DD23008A9A22 /* OutboundMediaMessageCell.xib in Resources */,
 				687D2DDF1FD0DD23008A9A22 /* Exo2-ThinItalic.ttf in Resources */,
 				687D2DE01FD0DD23008A9A22 /* Exo2-Bold.ttf in Resources */,
+				68AC2D23230502EB00795FBE /* Images.xcassets in Resources */,
 				687D2DE11FD0DD23008A9A22 /* Selfie.storyboard in Resources */,
 				687D2DE21FD0DD23008A9A22 /* PinInput.storyboard in Resources */,
 				687D2DE31FD0DD23008A9A22 /* Exo2-Black.ttf in Resources */,
@@ -2601,7 +2598,6 @@
 				687D2DF31FD0DD23008A9A22 /* Exo2-Medium.ttf in Resources */,
 				687D2DF41FD0DD23008A9A22 /* Exo2-ExtraBoldItalic.ttf in Resources */,
 				687D2DF51FD0DD23008A9A22 /* InboundMediaMessageCell.xib in Resources */,
-				687D2DF61FD0DD23008A9A22 /* GoogleService-Info.plist.orig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2644,7 +2640,6 @@
 				68AC2CF12304E4DF00795FBE /* Exo2-Light.ttf in Resources */,
 				68AC2CF22304E4DF00795FBE /* WorkOrderHistory.storyboard in Resources */,
 				68AC2CF32304E4DF00795FBE /* Exo2-LightItalic.ttf in Resources */,
-				68AC2CF42304E4DF00795FBE /* ArcadeCityLaunchScreen.xib in Resources */,
 				68AC2CF52304E4DF00795FBE /* Menu.storyboard in Resources */,
 				68AC2CF62304E4DF00795FBE /* Camera.storyboard in Resources */,
 				68AC2CF72304E4DF00795FBE /* OutboundMessageCell.xib in Resources */,
@@ -2677,6 +2672,7 @@
 				68B412511B07FC15009A4C05 /* Exo2-Bold.ttf in Resources */,
 				68B4133A1B083161009A4C05 /* Selfie.storyboard in Resources */,
 				6884415C1C06F6810017D4AA /* PinInput.storyboard in Resources */,
+				68AC2D25230502EC00795FBE /* Images.xcassets in Resources */,
 				68B4124B1B07FC15009A4C05 /* Exo2-Black.ttf in Resources */,
 				5C68C6BC1F867F9700BBD3B9 /* InboundMessageCell.xib in Resources */,
 				68A653A11F4C184B007CC52F /* ZeroState.storyboard in Resources */,
@@ -2698,7 +2694,6 @@
 				68B4126C1B07FC15009A4C05 /* Exo2-Medium.ttf in Resources */,
 				68B4125A1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf in Resources */,
 				5C68C6C11F867F9700BBD3B9 /* InboundMediaMessageCell.xib in Resources */,
-				688127171F8D134400BE7971 /* GoogleService-Info.plist.orig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5201,11 +5196,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 53B9F12E1B9F025FEB2EB8BB /* Pods-provideUITests.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4A8DZ57H2Y;
 				INFOPLIST_FILE = provideUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = services.provideUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = provide;
 				USES_XCTRUNNER = YES;
@@ -5230,9 +5229,12 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4A8DZ57H2Y;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5248,6 +5250,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = services.provideUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = provide;
 				USES_XCTRUNNER = YES;
@@ -5273,8 +5276,11 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4A8DZ57H2Y;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5290,6 +5296,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = services.provideUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = provide;
 				USES_XCTRUNNER = YES;
@@ -5573,6 +5580,7 @@
 			baseConfigurationReference = 7E2337DF238DDA66D1C18C1E /* Pods-provideTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 4A8DZ57H2Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -5595,6 +5603,7 @@
 			baseConfigurationReference = 957740662E4E010F64737E3A /* Pods-provideTests.adhoc.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 4A8DZ57H2Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -5709,6 +5718,7 @@
 			baseConfigurationReference = 9C092875ABDFBAE661DA7624 /* Pods-provideTests.appstore.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 4A8DZ57H2Y;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

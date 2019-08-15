@@ -70,6 +70,8 @@
 		<string>location</string>
 		<string>remote-notification</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>ArcadeCityLaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>arcade-city</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -90,6 +92,10 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>xApiHostSuffix</key>
+	<string>unicorn.provide.services</string>
+	<key>xMarketingHostSuffix</key>
+	<string>unicorn.provide.services</string>
 	<key>xAppPrivacyViewControllerNib</key>
 	<string>ArcadeCityLaunchScreen</string>
 	<key>xAppZeroStateImage</key>

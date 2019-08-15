@@ -29,27 +29,14 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>arcadecity</string>
-				<string>fb441167009808396</string>
+				<string>carmony</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>X_BUILD_NUMBER</string>
-	<key>FacebookAppID</key>
-	<string>441167009808396</string>
-	<key>FacebookDisplayName</key>
-	<string>arcade city</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-api</string>
-		<string>fbauth</string>
-		<string>fbauth2</string>
-		<string>fbshareextension</string>
-	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -92,6 +79,10 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>xApiHostSuffix</key>
+	<string>staging-api.carmonyconnect.com</string>
+	<key>xMarketingHostSuffix</key>
+	<string>staging.carmonyconnect.com</string>
 	<key>xAppPrivacyViewControllerNib</key>
 	<string>CarmonyMobilityLaunchScreen</string>
 	<key>xAppZeroStateImage</key>

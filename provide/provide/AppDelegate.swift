@@ -21,7 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var suppressLaunchScreenViewController = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        guard let FirebaseApp.configure()
+        if let _ = Bundle.main.path(forResource: "GoogleService-Info", ofType: "plist") {
+            FirebaseApp.configure()
+        }
+
         AnalyticsService.shared.track("App Launched", properties: ["Version": "\(KTVersionHelper.fullVersion())"])
 
         AppearenceProxy.setup()

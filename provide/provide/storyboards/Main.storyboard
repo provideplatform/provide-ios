@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="J41-78-tRE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="J41-78-tRE">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -40,7 +39,7 @@
         <!--Delegate-->
         <scene sceneID="Avf-HL-ytF">
             <objects>
-                <viewController id="G1v-PW-MaR" customClass="NavigationRootViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="G1v-PW-MaR" customClass="NavigationRootViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JYX-3X-yd8"/>
                         <viewControllerLayoutGuide type="bottom" id="aFy-U9-0mG"/>
@@ -53,7 +52,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="provide-logo" translatesAutoresizingMaskIntoConstraints="NO" id="Isk-bN-U1h">
-                                <rect key="frame" x="66" y="74" width="244" height="87"/>
+                                <rect key="frame" x="65.666666666666686" y="74" width="244" height="87"/>
                                 <color key="tintColor" red="0.32691484689712524" green="0.49853861331939697" blue="0.74592679738998413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="244" id="CLu-8a-BiA"/>
@@ -68,7 +67,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="lcj-hX-cwv" kind="custom" identifier="SignupViewControllerSegue" customClass="AuthenticationStoryboardSegue" customModule="provide" customModuleProvider="target" id="C50-VZ-xgK"/>
+                                    <segue destination="lcj-hX-cwv" kind="custom" identifier="SignupViewControllerSegue" customClass="AuthenticationStoryboardSegue" customModule="arcade_city" customModuleProvider="target" id="C50-VZ-xgK"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- or -" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqm-5X-02o" userLabel="Or Label">
@@ -85,7 +84,7 @@
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="xdW-1X-RWT" kind="custom" identifier="AuthenticationViewControllerSegue" customClass="AuthenticationStoryboardSegue" customModule="provide" customModuleProvider="target" id="JlE-hD-X26"/>
+                                    <segue destination="xdW-1X-RWT" kind="custom" identifier="AuthenticationViewControllerSegue" customClass="AuthenticationStoryboardSegue" customModule="arcade_city" customModuleProvider="target" id="JlE-hD-X26"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- or -" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RND-VZ-c0C">
@@ -95,7 +94,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aB-u6-nxs" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="111.99999999999999" y="457" width="149.66666666666663" height="38"/>
+                                <rect key="frame" x="112" y="457" width="151" height="38"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="Yn4-0M-yDD"/>
@@ -108,7 +107,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8s-wM-zeM">
-                                <rect key="frame" x="134.66666666666666" y="734" width="105" height="36"/>
+                                <rect key="frame" x="135" y="734" width="105" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="105" id="jYx-nT-Ss7"/>
                                     <constraint firstAttribute="height" constant="36" id="tZr-Jq-Uex"/>
@@ -168,7 +167,7 @@
                         <outlet property="signInButton" destination="ewp-oP-mJb" id="uT0-Th-LAv"/>
                         <outlet property="signUpButton" destination="6Qu-xR-JKv" id="IGr-wA-Rnz"/>
                         <segue destination="dY7-kw-4Fv" kind="presentation" identifier="ApplicationViewControllerSegue" modalTransitionStyle="crossDissolve" id="qEh-KF-YoG"/>
-                        <segue destination="0AS-GH-aMX" kind="custom" identifier="SetPasswordViewControllerSegue" customClass="AuthenticationStoryboardSegue" customModule="provide" customModuleProvider="target" id="zl8-ty-CFI"/>
+                        <segue destination="0AS-GH-aMX" kind="custom" identifier="SetPasswordViewControllerSegue" customClass="AuthenticationStoryboardSegue" customModule="arcade_city" customModuleProvider="target" id="zl8-ty-CFI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dmw-du-LFr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -178,7 +177,7 @@
         <!--Sign In-->
         <scene sceneID="CRL-d1-7mo">
             <objects>
-                <viewController id="xdW-1X-RWT" userLabel="Sign In" customClass="AuthenticationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="xdW-1X-RWT" userLabel="Sign In" customClass="AuthenticationViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4oU-J5-t14"/>
                         <viewControllerLayoutGuide type="bottom" id="1gT-5H-qin"/>
@@ -195,21 +194,21 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EmailCell" id="Y2a-af-b6z" customClass="AuthenticationCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.333333333333336" width="375" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EmailCell" id="Y2a-af-b6z" customClass="AuthenticationCell" customModule="arcade_city" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.333333333333343" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Y2a-af-b6z" id="z9i-9S-yRY">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KiV-zr-4NR">
-                                                    <rect key="frame" x="96" y="7.6666666666666679" width="274" height="27.000000000000004"/>
+                                                    <rect key="frame" x="96" y="8.3333333333333357" width="274" height="27"/>
                                                     <accessibility key="accessibilityConfiguration" label="email"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="next"/>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMG-6n-9RI">
-                                                    <rect key="frame" x="5" y="12" width="75" height="18"/>
+                                                    <rect key="frame" x="5" y="13" width="75" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="3za-xH-2j4"/>
                                                     </constraints>
@@ -230,7 +229,7 @@
                                             <outlet property="textField" destination="KiV-zr-4NR" id="0t2-cO-fgD"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PasswordCell" id="aLi-80-mNL" customClass="AuthenticationCell" customModule="provide" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PasswordCell" id="aLi-80-mNL" customClass="AuthenticationCell" customModule="arcade_city" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="99.333333333333343" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aLi-80-mNL" id="nvt-U7-Wmo">
@@ -238,7 +237,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qm1-XU-sQ9">
-                                                    <rect key="frame" x="5" y="14" width="75" height="16"/>
+                                                    <rect key="frame" x="5" y="13.666666666666666" width="75" height="16.333333333333336"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="WBP-lE-lYe"/>
                                                     </constraints>
@@ -247,7 +246,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0lo-59-hky">
-                                                    <rect key="frame" x="96" y="10" width="274" height="25"/>
+                                                    <rect key="frame" x="96" y="8.6666666666666661" width="274" height="26.333333333333336"/>
                                                     <accessibility key="accessibilityConfiguration" label="password"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
@@ -290,7 +289,7 @@
                     <navigationItem key="navigationItem" id="zgg-rd-vWF"/>
                     <connections>
                         <outlet property="tableView" destination="nE0-hN-Fx2" id="XG8-Wq-kdv"/>
-                        <segue destination="G1v-PW-MaR" kind="custom" identifier="AuthenticationViewControllerUnwindSegue" customClass="AuthenticationStoryboardSegue" customModule="provide" customModuleProvider="target" id="baH-vf-SLM"/>
+                        <segue destination="G1v-PW-MaR" kind="custom" identifier="AuthenticationViewControllerUnwindSegue" customClass="AuthenticationStoryboardSegue" customModule="arcade_city" customModuleProvider="target" id="baH-vf-SLM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="moV-Id-8Ci" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -300,7 +299,7 @@
         <!--Application View Controller-->
         <scene sceneID="GcK-9v-0kR">
             <objects>
-                <viewController id="dY7-kw-4Fv" customClass="ApplicationViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="dY7-kw-4Fv" customClass="ApplicationViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="d4n-Gf-dzm"/>
                         <viewControllerLayoutGuide type="bottom" id="LBg-EW-qci"/>
@@ -332,64 +331,66 @@
         <!--Pin Input View Controller-->
         <scene sceneID="BH5-FR-gBJ">
             <objects>
-                <viewController storyboardIdentifier="PinInputViewController" id="OYp-7G-woo" customClass="PinInputViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PinInputViewController" id="OYp-7G-woo" customClass="PinInputViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4Om-Bk-VdT"/>
                         <viewControllerLayoutGuide type="bottom" id="gMS-vV-EGl"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="O0R-jw-XEh">
+                    <view key="view" contentMode="scaleToFill" id="hiD-OA-3UM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; create your 4 digit pin &gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ort-kP-aFj" userLabel="• messageLabel">
-                                <rect key="frame" x="20" y="440" width="335" height="22"/>
-                                <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
-                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tld-W0-AeS" userLabel="BlueView">
-                                <rect key="frame" x="0.0" y="482" width="375" height="296"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prvd-splash" translatesAutoresizingMaskIntoConstraints="NO" id="jbu-2q-fL7">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dyt-QI-VWj" userLabel="BlueView">
+                                <rect key="frame" x="0.0" y="377" width="375" height="401"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XkK-wc-C0A" userLabel="• pinInputControl" customClass="PinInputControl" customModule="provide" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wIK-uW-YeL" userLabel="• pinInputControl" customClass="PinInputControl" customModule="carmony" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="qes-If-lcO"/>
-                                        </constraints>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6cZ-ob-hua" userLabel="Keyboard Height Placeholder">
-                                        <rect key="frame" x="0.0" y="80" width="375" height="216"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j8Q-Yw-97t" userLabel="Keyboard Height Placeholder">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="296"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="216" id="dDM-XV-939"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.3269148469" green="0.49853861329999999" blue="0.74592679740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="XkK-wc-C0A" firstAttribute="top" secondItem="Tld-W0-AeS" secondAttribute="top" id="6b8-Zt-9Ax"/>
-                                    <constraint firstItem="6cZ-ob-hua" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="Njc-pM-vsh"/>
-                                    <constraint firstItem="XkK-wc-C0A" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="Poa-1c-d8E"/>
-                                    <constraint firstAttribute="height" constant="296" id="XdM-Xe-WSl"/>
-                                    <constraint firstAttribute="trailing" secondItem="6cZ-ob-hua" secondAttribute="trailing" id="YAl-ZG-zhO"/>
-                                    <constraint firstAttribute="bottom" secondItem="6cZ-ob-hua" secondAttribute="bottom" id="g9S-sz-j8T"/>
-                                    <constraint firstAttribute="trailing" secondItem="XkK-wc-C0A" secondAttribute="trailing" id="viy-K7-gMd"/>
+                                    <constraint firstItem="wIK-uW-YeL" firstAttribute="trailing" secondItem="j8Q-Yw-97t" secondAttribute="trailing" id="6oL-SK-ehl"/>
+                                    <constraint firstItem="j8Q-Yw-97t" firstAttribute="leading" secondItem="wIK-uW-YeL" secondAttribute="leading" id="P2v-a1-z7D"/>
+                                    <constraint firstAttribute="bottom" secondItem="wIK-uW-YeL" secondAttribute="bottom" constant="321" id="Qqp-Vf-7sg"/>
+                                    <constraint firstAttribute="bottom" secondItem="j8Q-Yw-97t" secondAttribute="bottom" constant="105" id="Rf2-j1-c3Y"/>
+                                    <constraint firstItem="j8Q-Yw-97t" firstAttribute="top" secondItem="Dyt-QI-VWj" secondAttribute="top" id="S1m-ag-SM0"/>
+                                    <constraint firstItem="wIK-uW-YeL" firstAttribute="leading" secondItem="Dyt-QI-VWj" secondAttribute="leading" id="S7R-ID-hYa"/>
+                                    <constraint firstItem="wIK-uW-YeL" firstAttribute="top" secondItem="j8Q-Yw-97t" secondAttribute="top" id="Vb9-Mb-fbX"/>
+                                    <constraint firstAttribute="trailing" secondItem="wIK-uW-YeL" secondAttribute="trailing" id="ceQ-oR-NFR"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; create your 4 digit pin &gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQh-8p-b3H" userLabel="• messageLabel">
+                                <rect key="frame" x="20" y="348" width="335" height="21"/>
+                                <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Tld-W0-AeS" firstAttribute="top" secondItem="ort-kP-aFj" secondAttribute="bottom" constant="20" id="0Z7-L8-Lzz"/>
-                            <constraint firstAttribute="trailing" secondItem="Tld-W0-AeS" secondAttribute="trailing" id="XX3-kM-Tpn"/>
-                            <constraint firstAttribute="trailing" secondItem="ort-kP-aFj" secondAttribute="trailing" constant="20" id="c4b-Ek-81R"/>
-                            <constraint firstItem="gMS-vV-EGl" firstAttribute="top" secondItem="Tld-W0-AeS" secondAttribute="bottom" id="gQu-wr-lUD"/>
-                            <constraint firstItem="ort-kP-aFj" firstAttribute="leading" secondItem="O0R-jw-XEh" secondAttribute="leading" constant="20" id="tTg-hq-hfc"/>
-                            <constraint firstItem="Tld-W0-AeS" firstAttribute="leading" secondItem="O0R-jw-XEh" secondAttribute="leading" id="uTi-nI-p6v"/>
+                            <constraint firstItem="VQh-8p-b3H" firstAttribute="leading" secondItem="hiD-OA-3UM" secondAttribute="leadingMargin" constant="4" id="24Z-h5-S8F"/>
+                            <constraint firstItem="jbu-2q-fL7" firstAttribute="leading" secondItem="Dyt-QI-VWj" secondAttribute="leading" id="2p2-TI-yM6"/>
+                            <constraint firstAttribute="bottom" secondItem="jbu-2q-fL7" secondAttribute="bottom" id="4st-iQ-mdD"/>
+                            <constraint firstItem="Dyt-QI-VWj" firstAttribute="bottom" secondItem="gMS-vV-EGl" secondAttribute="top" id="7Ds-eW-Jqa"/>
+                            <constraint firstItem="VQh-8p-b3H" firstAttribute="top" secondItem="4Om-Bk-VdT" secondAttribute="bottom" constant="304" id="Fgf-YN-dIR"/>
+                            <constraint firstItem="Dyt-QI-VWj" firstAttribute="top" secondItem="VQh-8p-b3H" secondAttribute="bottom" constant="8" symbolic="YES" id="GbU-vC-s2o"/>
+                            <constraint firstAttribute="trailing" secondItem="jbu-2q-fL7" secondAttribute="trailing" id="IkL-Wy-VJr"/>
+                            <constraint firstItem="jbu-2q-fL7" firstAttribute="leading" secondItem="hiD-OA-3UM" secondAttribute="leading" id="ToR-47-s9B"/>
+                            <constraint firstItem="VQh-8p-b3H" firstAttribute="centerX" secondItem="Dyt-QI-VWj" secondAttribute="centerX" id="YX8-2u-rGy"/>
+                            <constraint firstItem="jbu-2q-fL7" firstAttribute="trailing" secondItem="Dyt-QI-VWj" secondAttribute="trailing" id="e44-Va-r8t"/>
+                            <constraint firstItem="jbu-2q-fL7" firstAttribute="top" secondItem="hiD-OA-3UM" secondAttribute="top" id="s4t-Qx-YHc"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="messageLabel" destination="ort-kP-aFj" id="Pzt-Pm-KAp"/>
-                        <outlet property="pinInputControl" destination="XkK-wc-C0A" id="Yzb-T6-1rn"/>
+                        <outlet property="messageLabel" destination="VQh-8p-b3H" id="Rfx-4n-5GA"/>
+                        <outlet property="pinInputControl" destination="wIK-uW-YeL" id="5LJ-ZW-Kv6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hZt-wa-Ftv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -399,7 +400,7 @@
         <!--Top View Controller-->
         <scene sceneID="RYy-qi-bSX">
             <objects>
-                <viewController id="S0A-u2-MFO" customClass="TopViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="S0A-u2-MFO" customClass="TopViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CUt-9o-d0A"/>
                         <viewControllerLayoutGuide type="bottom" id="Db6-Og-aM0"/>
@@ -435,7 +436,7 @@
         <!--Set Password-->
         <scene sceneID="gHh-Lz-Kf9">
             <objects>
-                <viewController id="0AS-GH-aMX" userLabel="Set Password" customClass="SetPasswordViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="0AS-GH-aMX" userLabel="Set Password" customClass="SetPasswordViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TFv-MJ-dea"/>
                         <viewControllerLayoutGuide type="bottom" id="dSJ-8L-R8b"/>
@@ -453,8 +454,8 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PasswordCell" id="dPc-eh-P8F" customClass="AuthenticationCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.333333333333336" width="375" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PasswordCell" id="dPc-eh-P8F" customClass="AuthenticationCell" customModule="arcade_city" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.333333333333343" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dPc-eh-P8F" id="7Ax-w4-izu">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
@@ -582,7 +583,7 @@
                                             <outlet property="textField" destination="xjt-vG-yCQ" id="t9x-41-vrZ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ConfirmCell" id="Kbj-1u-IwZ" customClass="AuthenticationCell" customModule="provide" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ConfirmCell" id="Kbj-1u-IwZ" customClass="AuthenticationCell" customModule="arcade_city" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="99.333333333333343" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kbj-1u-IwZ" id="Yyu-hx-Uug">
@@ -727,7 +728,7 @@
                     <navigationItem key="navigationItem" id="2dd-Ib-vnq"/>
                     <connections>
                         <outlet property="tableView" destination="VLD-NA-j6N" id="n6g-k2-VbX"/>
-                        <segue destination="G1v-PW-MaR" kind="custom" identifier="SetPasswordViewControllerUnwindSegue" customClass="AuthenticationStoryboardSegue" customModule="provide" customModuleProvider="target" id="Dg0-CW-FQe"/>
+                        <segue destination="G1v-PW-MaR" kind="custom" identifier="SetPasswordViewControllerUnwindSegue" customClass="AuthenticationStoryboardSegue" customModule="arcade_city" customModuleProvider="target" id="Dg0-CW-FQe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jsj-Ce-Btr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -737,7 +738,7 @@
         <!--Sign Up-->
         <scene sceneID="Cj2-fO-wtJ">
             <objects>
-                <viewController id="lcj-hX-cwv" userLabel="Sign Up" customClass="SignupViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="lcj-hX-cwv" userLabel="Sign Up" customClass="SignupViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yJl-16-pLk"/>
                         <viewControllerLayoutGuide type="bottom" id="8wc-tj-Jas"/>
@@ -754,21 +755,21 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NameCell" id="FlU-2r-LT4" userLabel="NameCell" customClass="AuthenticationCell" customModule="provide" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.333333333333336" width="375" height="44"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NameCell" id="FlU-2r-LT4" userLabel="NameCell" customClass="AuthenticationCell" customModule="arcade_city" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.333333333333343" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FlU-2r-LT4" id="rGH-rL-twR">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="TSH-Uc-OW5">
-                                                    <rect key="frame" x="96" y="7.6666666666666679" width="274" height="27.000000000000004"/>
+                                                    <rect key="frame" x="96" y="8.3333333333333357" width="274" height="27"/>
                                                     <accessibility key="accessibilityConfiguration" label="email"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next" textContentType="name"/>
                                                 </textField>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2kc-0D-Xzq">
-                                                    <rect key="frame" x="5" y="12" width="75" height="18"/>
+                                                    <rect key="frame" x="5" y="13" width="75" height="18"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="ZnN-Gu-ZpJ"/>
                                                     </constraints>
@@ -789,7 +790,7 @@
                                             <outlet property="textField" destination="TSH-Uc-OW5" id="TwP-Nc-AOr"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EmailCell" id="zNb-Qj-NPT" userLabel="EmailCell" customClass="AuthenticationCell" customModule="provide" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EmailCell" id="zNb-Qj-NPT" userLabel="EmailCell" customClass="AuthenticationCell" customModule="arcade_city" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="99.333333333333343" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zNb-Qj-NPT" id="ZW3-SK-TDi">
@@ -806,7 +807,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="C53-8y-6K6">
-                                                    <rect key="frame" x="96" y="7.6666666666666661" width="274" height="27.333333333333336"/>
+                                                    <rect key="frame" x="96" y="8.6666666666666661" width="274" height="26.333333333333336"/>
                                                     <accessibility key="accessibilityConfiguration" label="password"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="go" textContentType="email"/>
@@ -826,7 +827,7 @@
                                             <outlet property="textField" destination="C53-8y-6K6" id="WVd-Jy-ycR"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PasswordCell" id="YDo-Nx-ypq" customClass="AuthenticationCell" customModule="provide" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PasswordCell" id="YDo-Nx-ypq" customClass="AuthenticationCell" customModule="arcade_city" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="143.33333333333334" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YDo-Nx-ypq" id="yIi-I7-47y">
@@ -834,7 +835,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBG-4P-aBI">
-                                                    <rect key="frame" x="5" y="14" width="75" height="16"/>
+                                                    <rect key="frame" x="5" y="13.666666666666666" width="75" height="16.333333333333336"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="75" id="3rb-Mf-0AT"/>
                                                     </constraints>
@@ -843,7 +844,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="atG-cR-ZYQ">
-                                                    <rect key="frame" x="96" y="10" width="274" height="25"/>
+                                                    <rect key="frame" x="96" y="8.6666666666666661" width="274" height="26.333333333333336"/>
                                                     <accessibility key="accessibilityConfiguration" label="password"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="password"/>
@@ -886,7 +887,7 @@
                     <navigationItem key="navigationItem" id="alR-Ay-9Be"/>
                     <connections>
                         <outlet property="tableView" destination="zRJ-Da-bv8" id="6Jn-3e-dXC"/>
-                        <segue destination="G1v-PW-MaR" kind="custom" identifier="SignupViewControllerUnwindSegue" customClass="AuthenticationStoryboardSegue" customModule="provide" customModuleProvider="target" id="ifq-UV-5Ww"/>
+                        <segue destination="G1v-PW-MaR" kind="custom" identifier="SignupViewControllerUnwindSegue" customClass="AuthenticationStoryboardSegue" customModule="arcade_city" customModuleProvider="target" id="ifq-UV-5Ww"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Kc-B3-ucj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -895,11 +896,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="provide-logo" width="341" height="170"/>
+        <image name="provide-logo" width="341.33334350585938" height="170.66667175292969"/>
         <image name="prvd-splash" width="2048" height="1322"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="C50-VZ-xgK"/>
         <segue reference="ifq-UV-5Ww"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -20,7 +20,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prvd-splash" translatesAutoresizingMaskIntoConstraints="NO" id="CNb-gf-oad">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="CNb-gf-oad">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                     </imageView>
                 </subviews>
@@ -38,6 +38,6 @@
         </viewController>
     </objects>
     <resources>
-        <image name="prvd-splash" width="2048" height="1322"/>
+        <image name="background" width="414" height="666.66668701171875"/>
     </resources>
 </document>

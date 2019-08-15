@@ -335,59 +335,61 @@
                         <viewControllerLayoutGuide type="top" id="4Om-Bk-VdT"/>
                         <viewControllerLayoutGuide type="bottom" id="gMS-vV-EGl"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="O0R-jw-XEh">
+                    <view key="view" contentMode="scaleToFill" id="VvG-xc-EyO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; create your 4 digit pin &gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ort-kP-aFj" userLabel="• messageLabel">
-                                <rect key="frame" x="20" y="440" width="335" height="22"/>
-                                <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
-                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tld-W0-AeS" userLabel="BlueView">
-                                <rect key="frame" x="0.0" y="482" width="375" height="296"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prvd-splash" translatesAutoresizingMaskIntoConstraints="NO" id="3sl-jG-t3S">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YXy-kd-yWV" userLabel="BlueView">
+                                <rect key="frame" x="0.0" y="377" width="375" height="401"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XkK-wc-C0A" userLabel="• pinInputControl" customClass="PinInputControl" customModule="unicorn" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O0H-ir-jlv" userLabel="• pinInputControl" customClass="PinInputControl" customModule="carmony" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="qes-If-lcO"/>
-                                        </constraints>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6cZ-ob-hua" userLabel="Keyboard Height Placeholder">
-                                        <rect key="frame" x="0.0" y="80" width="375" height="216"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eM6-Xb-vHD" userLabel="Keyboard Height Placeholder">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="296"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="216" id="dDM-XV-939"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.3269148469" green="0.49853861329999999" blue="0.74592679740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="XkK-wc-C0A" firstAttribute="top" secondItem="Tld-W0-AeS" secondAttribute="top" id="6b8-Zt-9Ax"/>
-                                    <constraint firstItem="6cZ-ob-hua" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="Njc-pM-vsh"/>
-                                    <constraint firstItem="XkK-wc-C0A" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="Poa-1c-d8E"/>
-                                    <constraint firstAttribute="height" constant="296" id="XdM-Xe-WSl"/>
-                                    <constraint firstAttribute="trailing" secondItem="6cZ-ob-hua" secondAttribute="trailing" id="YAl-ZG-zhO"/>
-                                    <constraint firstAttribute="bottom" secondItem="6cZ-ob-hua" secondAttribute="bottom" id="g9S-sz-j8T"/>
-                                    <constraint firstAttribute="trailing" secondItem="XkK-wc-C0A" secondAttribute="trailing" id="viy-K7-gMd"/>
+                                    <constraint firstItem="eM6-Xb-vHD" firstAttribute="leading" secondItem="O0H-ir-jlv" secondAttribute="leading" id="28l-5e-ebn"/>
+                                    <constraint firstItem="eM6-Xb-vHD" firstAttribute="top" secondItem="YXy-kd-yWV" secondAttribute="top" id="7VP-WC-4bh"/>
+                                    <constraint firstItem="O0H-ir-jlv" firstAttribute="top" secondItem="eM6-Xb-vHD" secondAttribute="top" id="DZE-Ny-cVZ"/>
+                                    <constraint firstItem="O0H-ir-jlv" firstAttribute="leading" secondItem="YXy-kd-yWV" secondAttribute="leading" id="QSp-gu-YMG"/>
+                                    <constraint firstItem="O0H-ir-jlv" firstAttribute="trailing" secondItem="eM6-Xb-vHD" secondAttribute="trailing" id="QWl-z3-Mzt"/>
+                                    <constraint firstAttribute="bottom" secondItem="O0H-ir-jlv" secondAttribute="bottom" constant="321" id="ULK-rV-ykN"/>
+                                    <constraint firstAttribute="trailing" secondItem="O0H-ir-jlv" secondAttribute="trailing" id="o8p-oY-tZc"/>
+                                    <constraint firstAttribute="bottom" secondItem="eM6-Xb-vHD" secondAttribute="bottom" constant="105" id="tQ3-yr-IKU"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; create your 4 digit pin &gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSC-QW-d3o" userLabel="• messageLabel">
+                                <rect key="frame" x="20" y="348" width="335" height="21"/>
+                                <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Tld-W0-AeS" firstAttribute="top" secondItem="ort-kP-aFj" secondAttribute="bottom" constant="20" id="0Z7-L8-Lzz"/>
-                            <constraint firstAttribute="trailing" secondItem="Tld-W0-AeS" secondAttribute="trailing" id="XX3-kM-Tpn"/>
-                            <constraint firstAttribute="trailing" secondItem="ort-kP-aFj" secondAttribute="trailing" constant="20" id="c4b-Ek-81R"/>
-                            <constraint firstItem="gMS-vV-EGl" firstAttribute="top" secondItem="Tld-W0-AeS" secondAttribute="bottom" id="gQu-wr-lUD"/>
-                            <constraint firstItem="ort-kP-aFj" firstAttribute="leading" secondItem="O0R-jw-XEh" secondAttribute="leading" constant="20" id="tTg-hq-hfc"/>
-                            <constraint firstItem="Tld-W0-AeS" firstAttribute="leading" secondItem="O0R-jw-XEh" secondAttribute="leading" id="uTi-nI-p6v"/>
+                            <constraint firstItem="iSC-QW-d3o" firstAttribute="leading" secondItem="VvG-xc-EyO" secondAttribute="leadingMargin" constant="4" id="52o-by-Lzq"/>
+                            <constraint firstItem="iSC-QW-d3o" firstAttribute="centerX" secondItem="YXy-kd-yWV" secondAttribute="centerX" id="9oC-rQ-9LU"/>
+                            <constraint firstItem="3sl-jG-t3S" firstAttribute="top" secondItem="VvG-xc-EyO" secondAttribute="top" id="AmS-Ch-FPZ"/>
+                            <constraint firstItem="YXy-kd-yWV" firstAttribute="bottom" secondItem="gMS-vV-EGl" secondAttribute="top" id="F7Q-xD-UhF"/>
+                            <constraint firstItem="3sl-jG-t3S" firstAttribute="leading" secondItem="VvG-xc-EyO" secondAttribute="leading" id="G5O-mA-q3F"/>
+                            <constraint firstAttribute="trailing" secondItem="3sl-jG-t3S" secondAttribute="trailing" id="Jcz-zg-oH1"/>
+                            <constraint firstItem="YXy-kd-yWV" firstAttribute="top" secondItem="iSC-QW-d3o" secondAttribute="bottom" constant="8" symbolic="YES" id="Kvh-oo-ijr"/>
+                            <constraint firstItem="3sl-jG-t3S" firstAttribute="leading" secondItem="YXy-kd-yWV" secondAttribute="leading" id="LPF-GZ-Ue4"/>
+                            <constraint firstAttribute="bottom" secondItem="3sl-jG-t3S" secondAttribute="bottom" id="RBK-Ct-tQs"/>
+                            <constraint firstItem="3sl-jG-t3S" firstAttribute="trailing" secondItem="YXy-kd-yWV" secondAttribute="trailing" id="qW3-jg-1hE"/>
+                            <constraint firstItem="iSC-QW-d3o" firstAttribute="top" secondItem="4Om-Bk-VdT" secondAttribute="bottom" constant="304" id="xoc-Y5-IPs"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="messageLabel" destination="ort-kP-aFj" id="Pzt-Pm-KAp"/>
-                        <outlet property="pinInputControl" destination="XkK-wc-C0A" id="Yzb-T6-1rn"/>
+                        <outlet property="messageLabel" destination="iSC-QW-d3o" id="Gz3-oS-I3h"/>
+                        <outlet property="pinInputControl" destination="O0H-ir-jlv" id="6jQ-FH-LdP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hZt-wa-Ftv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -894,7 +896,6 @@
         <image name="prvd-splash" width="2048" height="1322"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="zl8-ty-CFI"/>
         <segue reference="Dg0-CW-FQe"/>
     </inferredMetricsTieBreakers>
 </document>
