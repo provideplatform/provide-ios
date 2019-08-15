@@ -1144,11 +1144,11 @@
 		68F537211B834A9A0007F480 /* NavigationBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F537111B834A9A0007F480 /* NavigationBarButton.swift */; };
 		68F658061F9AB7E0008EEDAE /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F658051F9AB7E0008EEDAE /* CategoryButton.swift */; };
 		70A0D9F75EBEF6BB2C1B969F /* Pods_unicorn.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6578031355F89C74220F3D07 /* Pods_unicorn.framework */; };
+		726D014CB0BE1C9B0784086F /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 687D2D581FCFC35A008A9A22 /* Pods_provide.framework */; };
 		7ACF0F2C9AE83D9254E5CB61 /* Pods_provideTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 831BAE03306348524648965C /* Pods_provideTests.framework */; };
 		BA294AA2A32A245EDE373EEF /* Pods_carmony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F265BD1C028AE161DCEBFE1E /* Pods_carmony.framework */; };
 		C15F744FEA72949531FE4207 /* Pods_arcade_city_driver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60FE99A9B3DC646C348B6981 /* Pods_arcade_city_driver.framework */; };
 		C32E484A3D6A2B71B7B19DC3 /* Pods_provideUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA218394C86B3C20FA606CE /* Pods_provideUITests.framework */; };
-		EE42125EFC6A55E190E2E809 /* Pods_provide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18BD0BF5796F416A49F68121 /* Pods_provide.framework */; };
 		EF282E4F8B7837D4454FA043 /* Pods_arcade_city.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EED28841152744FB0D9B2AE /* Pods_arcade_city.framework */; };
 /* End PBXBuildFile section */
 
@@ -1524,7 +1524,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68C0E6511D56D09800157123 /* MobileCoreServices.framework in Frameworks */,
-				EE42125EFC6A55E190E2E809 /* Pods_provide.framework in Frameworks */,
+				726D014CB0BE1C9B0784086F /* Pods_provide.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3469,7 +3469,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "FIREBASE_PRIVATE_KEY=$SCRIPT_INPUT_FILE_0\n# when changing, reset OAuth credentials: `rm $HOME/Library/Preferences/com.google.SymbolUpload*`\n\nif [ -f $FIREBASE_PRIVATE_KEY ]; then\n  GOOGLE_APP_ID=1:618633099810:ios:bd096ad57911440e\n  \"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${FIREBASE_PRIVATE_KEY}\"\nelse\n  echo \"Not uploading symbol files to Firebase; obtain and install a valid private key.\"\nfi";
+			shellScript = "FIREBASE_PRIVATE_KEY=$SCRIPT_INPUT_FILE_0\n# when changing, reset OAuth credentials: `rm $HOME/Library/Preferences/com.google.SymbolUpload*`\n\nif [ -f $FIREBASE_PRIVATE_KEY ]; then\n  GOOGLE_APP_ID=1:618633099810:ios:bd096ad57911440e\n  \"${PODS_ROOT}\"/FirebaseCrash/upload-sym \"${FIREBASE_PRIVATE_KEY}\"\nelse\n  echo \"Not uploading symbol files to Firebase; obtain and install a valid private key.\"\nfi\n";
 		};
 		9E6EB53BB17DCF32736F4403 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
