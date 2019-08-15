@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2019 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -36,8 +36,8 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         signInButton.setTitleColor(.darkGray, for: .highlighted)
         signInButton.alpha = 0.0
 
-        fbSignInButton.permissions = ["public_profile", "email"]
-        fbSignInButton.alpha = 0.0
+        fbSignInButton?.permissions = ["public_profile", "email"]
+        fbSignInButton?.alpha = 0.0
 
         codeButton.setTitleColor(Color.authenticationViewControllerButtonColor(), for: UIControlState())
         codeButton.setTitleColor(.darkGray, for: .highlighted)
@@ -61,7 +61,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
             logoImageView.alpha = 1.0
             signUpButton.alpha = 1.0
             signInButton.alpha = 1.0
-            fbSignInButton.alpha = 1.0
+            fbSignInButton?.alpha = 1.0
             codeButton.alpha = 1.0
             orLabel1.alpha = 1.0
             orLabel2.alpha = 1.0
@@ -89,7 +89,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
             self?.logoImageView.alpha = 1.0
             self?.signUpButton.alpha = 1.0
             self?.signInButton.alpha = 1.0
-            self?.fbSignInButton.alpha = 1.0
+            self?.fbSignInButton?.alpha = 1.0
             self?.codeButton.alpha = 1.0
             self?.orLabel1.alpha = 1.0
             self?.orLabel2.alpha = 1.0
@@ -117,7 +117,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         DispatchQueue.main.async { [weak self] in
             self?.signUpButton.alpha = 0.0
             self?.signInButton.alpha = 0.0
-            self?.fbSignInButton.alpha = 0.0
+            self?.fbSignInButton?.alpha = 0.0
             self?.codeButton.alpha = 0.0
             self?.orLabel1.alpha = 0.0
             self?.orLabel2.alpha = 0.0
@@ -128,7 +128,7 @@ class NavigationRootViewController: ViewController, ApplicationViewControllerDel
         DispatchQueue.main.async { [weak self] in
             self?.signUpButton.alpha = 1.0
             self?.signInButton.alpha = 1.0
-            self?.fbSignInButton.alpha = 1.0
+            self?.fbSignInButton?.alpha = 1.0
             self?.codeButton.alpha = 1.0
             self?.orLabel1.alpha = 1.0
             self?.orLabel2.alpha = 1.0

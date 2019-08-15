@@ -3,7 +3,7 @@
 //  provideTests
 //
 //  Created by Jawwad Ahmad on 10/8/17.
-//  Copyright © 2017 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2019 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation

@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 11/6/15.
-//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2019 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit

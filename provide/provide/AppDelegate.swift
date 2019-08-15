@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2019 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit
@@ -21,12 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var suppressLaunchScreenViewController = false
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        FirebaseApp.configure()
+        guard let FirebaseApp.configure()
         AnalyticsService.shared.track("App Launched", properties: ["Version": "\(KTVersionHelper.fullVersion())"])
 
         AppearenceProxy.setup()
         ReachabilityService.shared.start()
-        
+
         RKLogConfigureFromEnvironment()
         RKObjectMapping.setDefaultSourceToDestinationKeyTransformationBlock { objectMapping, keyPath in
             return keyPath?.snakeCaseToCamelCaseString()

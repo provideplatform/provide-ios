@@ -63,7 +63,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqm-5X-02o" userLabel="Or Label">
-                                <rect key="frame" x="181.66666666666666" y="399" width="11.666666666666657" height="15"/>
+                                <rect key="frame" x="181.66666666666666" y="399" width="12" height="15"/>
                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -80,12 +80,12 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RND-VZ-c0C">
-                                <rect key="frame" x="181.66666666666666" y="468" width="11.666666666666657" height="14"/>
+                                <rect key="frame" x="181.66666666666666" y="468" width="12" height="14"/>
                                 <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="12"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8s-wM-zeM">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8s-wM-zeM">
                                 <rect key="frame" x="135" y="734" width="105" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="105" id="jYx-nT-Ss7"/>
@@ -100,7 +100,7 @@
                                     <segue destination="OYp-7G-woo" kind="presentation" identifier="PinInputViewControllerSegue" modalTransitionStyle="crossDissolve" id="Wzh-ch-uKh"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Isk-bN-U1h">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Isk-bN-U1h">
                                 <rect key="frame" x="112" y="68" width="151" height="149"/>
                                 <color key="tintColor" red="0.32691484689712524" green="0.49853861331939697" blue="0.74592679738998413" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -117,7 +117,9 @@
                             <constraint firstItem="OL2-Wh-LPf" firstAttribute="top" secondItem="JYX-3X-yd8" secondAttribute="bottom" constant="-44" id="F6Q-rc-aVy"/>
                             <constraint firstItem="6Qu-xR-JKv" firstAttribute="centerX" secondItem="Pce-DG-jaQ" secondAttribute="centerX" id="PE3-Fo-uof"/>
                             <constraint firstItem="RND-VZ-c0C" firstAttribute="centerX" secondItem="Pce-DG-jaQ" secondAttribute="centerX" id="QjK-GX-4lC"/>
+                            <constraint firstItem="Isk-bN-U1h" firstAttribute="centerX" secondItem="6Qu-xR-JKv" secondAttribute="centerX" id="SV7-F6-wJb"/>
                             <constraint firstItem="ewp-oP-mJb" firstAttribute="top" secondItem="6Qu-xR-JKv" secondAttribute="bottom" constant="33" id="TKs-PB-ZQw"/>
+                            <constraint firstItem="Isk-bN-U1h" firstAttribute="leading" secondItem="Pce-DG-jaQ" secondAttribute="leadingMargin" constant="96" id="Zb2-F4-Dj1"/>
                             <constraint firstItem="OL2-Wh-LPf" firstAttribute="leading" secondItem="Pce-DG-jaQ" secondAttribute="leading" id="gFF-vS-mbM"/>
                             <constraint firstItem="aFy-U9-0mG" firstAttribute="top" secondItem="OL2-Wh-LPf" secondAttribute="bottom" constant="-34" id="huM-KG-qvU"/>
                             <constraint firstItem="ewp-oP-mJb" firstAttribute="centerX" secondItem="Pce-DG-jaQ" secondAttribute="centerX" id="j2z-nS-CpL"/>
@@ -321,8 +323,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="IkJ-Dh-D5D">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; create your 4 digit pin &gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ort-kP-aFj" userLabel="• messageLabel">
-                                <rect key="frame" x="20" y="440" width="335" height="22"/>
+                                <rect key="frame" x="20" y="441" width="335" height="21"/>
                                 <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
                                 <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -345,7 +351,6 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.3269148469" green="0.49853861329999999" blue="0.74592679740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="XkK-wc-C0A" firstAttribute="top" secondItem="Tld-W0-AeS" secondAttribute="top" id="6b8-Zt-9Ax"/>
                                     <constraint firstItem="6cZ-ob-hua" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="Njc-pM-vsh"/>
@@ -886,6 +891,7 @@
         <image name="background" width="414" height="666.66668701171875"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="zl8-ty-CFI"/>
         <segue reference="Dg0-CW-FQe"/>
     </inferredMetricsTieBreakers>
 </document>

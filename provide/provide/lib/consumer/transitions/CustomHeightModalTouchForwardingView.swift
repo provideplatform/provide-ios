@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Jawwad Ahmad on 10/30/17.
-//  Copyright © 2017 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2019 Provide Technologies Inc. All rights reserved.
 //
 
 import UIKit

@@ -32,7 +32,6 @@ def shared_pods
   pod 'UICKeyChainStore'
 end
 
-
 target 'provide' do
   shared_pods
 end
@@ -58,5 +57,9 @@ target 'arcade city' do
 end
 
 target 'arcade city driver' do
+  shared_pods
+end
+
+target 'carmony' do
   shared_pods
 end

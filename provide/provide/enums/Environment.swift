@@ -3,13 +3,13 @@
 //  provide
 //
 //  Created by Kyle Thomas on 5/16/15.
-//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2019 Provide Technologies Inc. All rights reserved.
 //
 
 import Foundation
 
 private let defaultEnvironment = Environment.production
-private let productionApiHostSuffix = "unicorn.provide.services"
+private let productionApiHostSuffix = "staging-api.carmonyconnect.com"
 private let productionMarketingHostSuffix = "provideapp.com"
 
 let CurrentEnvironment = Environment(rawValue: ENV("OVERRIDE_ENVIRONMENT") ?? "") ?? defaultEnvironment

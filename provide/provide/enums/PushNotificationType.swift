@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Jawwad Ahmad on 6/4/15.
-//  Copyright © 2016 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2019 Provide Technologies Inc. All rights reserved.
 //
 
 enum PushNotificationType: String {

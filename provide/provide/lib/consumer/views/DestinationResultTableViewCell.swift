@@ -3,7 +3,7 @@
 //  provide
 //
 //  Created by Kyle Thomas on 8/26/17.
-//  Copyright © 2017 Provide Technologies Inc. All rights reserved.
+//  Copyright © 2019 Provide Technologies Inc. All rights reserved.
 //
 
 class DestinationResultTableViewCell: UITableViewCell {
