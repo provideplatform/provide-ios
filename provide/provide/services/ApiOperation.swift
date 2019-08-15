@@ -271,8 +271,6 @@ class ApiOperation: Operation {
                 self?.task = nil
                 self?.apiCall()
             }
-
-
         }
     }
 }

@@ -81,12 +81,4 @@ class Attachment: Model {
     private var thumbnailUrl: URL? {
         return (metadata?["thumbnail_url"] as? String).flatMap { URL(string: $0) }
     }
-
-    private var maxZoomLevel: Int? {
-        return metadata?["max_zoom_level"] as? Int
-    }
-
-    private var tilingBaseUrl: URL? {
-        return (metadata?["tiling_base_url"] as? String).flatMap { URL(string: $0) }
-    }
 }

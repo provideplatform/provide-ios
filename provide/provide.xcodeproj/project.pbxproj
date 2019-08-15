@@ -2055,6 +2055,7 @@
 				687B650D1C2431800088E539 /* MenuItem.swift */,
 				5C4AF39E1B13A3ED00423B71 /* Message.swift */,
 				68F7305F1B07DE94001A21B0 /* Model.swift */,
+				5CED50081F9C849E0007D19A /* ModelDescriptions.swift */,
 				68CD56041F6C8C3B007E66CE /* PaymentMethod.swift */,
 				68F730611B07DE94001A21B0 /* Provider.swift */,
 				68F730661B07DE94001A21B0 /* Token.swift */,
@@ -2063,7 +2064,6 @@
 				68B882801FDBCF4200100CF7 /* Wallet.swift */,
 				68F730681B07DE94001A21B0 /* WorkOrder.swift */,
 				68F730691B07DE94001A21B0 /* WorkOrderProvider.swift */,
-				5CED50081F9C849E0007D19A /* ModelDescriptions.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
