@@ -99,7 +99,7 @@
 	<key>xAppPrivacyViewControllerNib</key>
 	<string>ArcadeCityLaunchScreen</string>
 	<key>xAppZeroStateImage</key>
-	<string>prvd-token</string>
+	<string>arcade-city-icon</string>
 	<key>xBuildShortTime</key>
 	<string>X_BUILD_TIME</string>
 	<key>xGitShortSHA</key>
