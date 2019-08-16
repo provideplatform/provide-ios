@@ -109,7 +109,7 @@
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aB-u6-nxs" customClass="FBSDKLoginButton">
                                 <rect key="frame" x="86" y="387" width="203" height="38"/>
-                                <color key="backgroundColor" red="0.62721836566925049" green="0.22931230068206787" blue="0.96475964784622192" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.27935266494750977" green="0.7129172682762146" blue="0.66798108816146851" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="38" id="Yn4-0M-yDD"/>
                                 </constraints>
@@ -461,7 +461,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="xjt-vG-yCQ">
-                                                    <rect key="frame" x="106" y="54" width="254" height="27"/>
+                                                    <rect key="frame" x="106" y="54" width="254" height="26"/>
                                                     <accessibility key="accessibilityConfiguration" label="email"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="next" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
@@ -611,7 +611,7 @@
                                                     </variation>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DAh-vK-VzY">
-                                                    <rect key="frame" x="106" y="54" width="254" height="27"/>
+                                                    <rect key="frame" x="106" y="54" width="254" height="26"/>
                                                     <accessibility key="accessibilityConfiguration" label="password"/>
                                                     <fontDescription key="fontDescription" name="Exo2-Light" family="Exo 2" pointSize="22"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
