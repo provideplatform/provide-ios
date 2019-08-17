@@ -4221,7 +4221,7 @@
 				);
 				INFOPLIST_FILE = "carmony-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = carmony.mobility;
+				PRODUCT_BUNDLE_IDENTIFIER = io.carmony.connect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 4.0;
@@ -4257,7 +4257,7 @@
 				);
 				INFOPLIST_FILE = "carmony-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = carmony.mobility;
+				PRODUCT_BUNDLE_IDENTIFIER = io.carmony.connect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 4.0;
@@ -4293,7 +4293,7 @@
 				);
 				INFOPLIST_FILE = "carmony-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = carmony.mobility;
+				PRODUCT_BUNDLE_IDENTIFIER = io.carmony.connect;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 4.0;
