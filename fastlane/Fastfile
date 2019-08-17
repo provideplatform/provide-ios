@@ -78,6 +78,16 @@ platform :ios do
     pilot
   end
 
+  desc "Submit carmony beta to TestFlight"
+  lane :carmony_beta do
+    ENV["APP_IDENTIFIER"] = "io.carmony.connect"
+    ENV["FASTLANE_ITC_TEAM_ID"] = "117789692"
+    team_id "4A8DZ57H2Y" # Provide Technologies Inc. Developer Portal Team ID
+    get_provisioning_profile(app_identifier: ENV['APP_IDENTIFIER'])
+    gym(scheme: "carmony")
+    pilot
+  end
+
   desc "Submit arcade city beta to TestFlight"
   lane :arcade_city_beta do
     ENV["APP_IDENTIFIER"] = "arcade.city.rides"
