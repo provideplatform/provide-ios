@@ -12,9 +12,11 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
 
     @IBOutlet private weak var mapView: ConsumerMapView!
     @IBOutlet private weak var destinationInputViewControllerTopConstraint: NSLayoutConstraint!
-    @IBOutlet private var confirmWorkOrderViewControllerBottomConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var providerEnRouteViewControllerBottomConstaint: NSLayoutConstraint!
-    private var providerEnRouteTransitioningDelegate = CustomHeightModalTransitioningDelegate(height: 500) // swiftlint:disable:this weak_delegate (needs to be strong)
+//    @IBOutlet private var confirmWorkOrderViewControllerBottomConstraint: NSLayoutConstraint!
+//    @IBOutlet private weak var providerEnRouteViewControllerBottomConstaint: NSLayoutConstraint!
+    private var destinationResultsTransitioningDelegate = CustomHeightModalTransitioningDelegate(height: 500) // swiftlint:disable:this weak_delegate (needs to be strong)
+    private var confirmWorkOrderTransitioningDelegate = CustomHeightModalTransitioningDelegate(height: 220) // swiftlint:disable:this weak_delegate (needs to be strong)
+    private var providerEnRouteTransitioningDelegate = CustomHeightModalTransitioningDelegate(height: 150) // swiftlint:disable:this weak_delegate (needs to be strong)
 
     private var destinationInputViewController: DestinationInputViewController!
     var destinationResultsViewController: DestinationResultsViewController!
@@ -53,17 +55,20 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         }
 
         destinationInputViewControllerTopConstraint.constant = -destinationInputViewController.view.height
-        confirmWorkOrderViewControllerBottomConstraint.constant = -confirmWorkOrderViewController.view.height
-        providerEnRouteViewControllerBottomConstaint.constant = -providerEnRouteViewController.view.height
-
         destinationInputViewController.destinationTextField.addTarget(self, action: #selector(destinationTextFieldEditingDidBegin), for: .editingDidBegin)
         navigationItem.hidesBackButton = true
 
         setupMenuBarButtonItem()
         loadWorkOrderContext()
+    }
 
+    private func registerObservers() {
         KTNotificationCenter.addObserver(forName: Notification.Name(rawValue: "SegueToPaymentsStoryboard")) { [weak self] sender in
             if KeyChainService.shared.mode! == .provider {
+                return
+            }
+
+            if let _ = WorkOrderService.shared.inProgressWorkOrder {
                 return
             }
 
@@ -147,8 +152,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
     private func handleInProgressWorkOrderStateChange() {
         if let workOrder = WorkOrderService.shared.inProgressWorkOrder, workOrder.status == "en_route" {
             // ensure we weren't previously awaiting confirmation
-            if confirmWorkOrderViewController?.workOrder != nil {
-                confirmWorkOrderViewController?.prepareForReuse()
+            if confirmWorkOrderViewController != nil {
+                animateConfirmWorkOrderView(toHidden: true)
             }
 
             attemptSegueToValidWorkOrderContext()
@@ -170,23 +175,28 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
-        case "ProviderEnRouteViewControllerEmbedSegue":
-            providerEnRouteViewController = segue.destination as? ProviderEnRouteViewController
+        case "ConfirmWorkOrderViewControllerSegue":
+            confirmWorkOrderViewController = segue.destination as? ConfirmWorkOrderViewController
+            confirmWorkOrderViewController?.transitioningDelegate = confirmWorkOrderTransitioningDelegate
+            confirmWorkOrderViewController?.modalPresentationStyle = .custom
+            confirmWorkOrderViewController?.configure(workOrder: sender as? WorkOrder, categories: categories, paymentMethod: currentUser.defaultPaymentMethod) { _ in
+                self.setupCancelWorkOrderBarButtonItem()
+            }
         case "DestinationInputViewControllerEmbedSegue":
             destinationInputViewController = segue.destination as? DestinationInputViewController
         case "DestinationResultsViewControllerSegue":
             let extraSpace: CGFloat = 50 // visible map amount
             let destinationResultsViewControllerHeight = UIScreen.main.bounds.height - destinationInputViewController.view.height - extraSpace
-            providerEnRouteTransitioningDelegate = CustomHeightModalTransitioningDelegate(height: destinationResultsViewControllerHeight)
+            destinationResultsTransitioningDelegate = CustomHeightModalTransitioningDelegate(height: destinationResultsViewControllerHeight)
             destinationResultsViewController = segue.destination as? DestinationResultsViewController
-            destinationResultsViewController?.transitioningDelegate = providerEnRouteTransitioningDelegate
+            destinationResultsViewController?.transitioningDelegate = destinationResultsTransitioningDelegate
             destinationResultsViewController?.modalPresentationStyle = .custom
             destinationResultsViewController.configure(results: [], onResultSelected: onResultSelected)
-        case "ConfirmWorkOrderViewControllerEmbedSegue":
-            confirmWorkOrderViewController = segue.destination as? ConfirmWorkOrderViewController
-            confirmWorkOrderViewController.configure(workOrder: nil, categories: categories, paymentMethod: currentUser.defaultPaymentMethod) { _ in
-                self.setupCancelWorkOrderBarButtonItem()
-            }
+        case "ProviderEnRouteViewControllerSegue":
+            providerEnRouteViewController = segue.destination as? ProviderEnRouteViewController
+            providerEnRouteViewController?.transitioningDelegate = providerEnRouteTransitioningDelegate
+            providerEnRouteViewController?.modalPresentationStyle = .custom
+            providerEnRouteViewController?.configure(workOrder: sender as? WorkOrder)
         case "TripCompletionViewControllerSegue":
             let tripCompletionNVC = segue.destination as! UINavigationController
             let tripCompletionVC = tripCompletionNVC.topViewController as! TripCompletionViewController
@@ -340,6 +350,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
 
     private func loadWorkOrderContext(workOrder: WorkOrder? = nil) {
         let onWorkOrdersFetched: ([WorkOrder]) -> Void = { [weak self] workOrders in
+            self?.registerObservers()
+
             DispatchQueue.main.async {
                 WorkOrderService.shared.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
                 self?.attemptSegueToValidWorkOrderContext()
@@ -366,24 +378,29 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
             if ["en_route", "arriving", "in_progress"].contains(workOrder.status) {
                 setupCancelWorkOrderBarButtonItem()
                 setupMessagesBarButtonItem()
-                let workOrder = WorkOrderService.shared.inProgressWorkOrder!
-                providerEnRouteViewController?.configure(workOrder: workOrder)
-                animateProviderEnRouteViewController(toHidden: false)
+                if let providerEnRouteViewController = providerEnRouteViewController {
+                    providerEnRouteViewController.configure(workOrder: workOrder)
+                } else {
+                    performSegue(withIdentifier: "ProviderEnRouteViewControllerSegue", sender: workOrder)
+                }
             } else if ["awaiting_schedule", "pending_acceptance"].contains(workOrder.status) {
                 setupCancelWorkOrderBarButtonItem()
-                confirmWorkOrderViewController.configure(workOrder: workOrder, categories: categories, paymentMethod: currentUser.defaultPaymentMethod) { _ in
-                    self.setupCancelWorkOrderBarButtonItem()
+                if let confirmWorkOrderViewController = confirmWorkOrderViewController {
+                    confirmWorkOrderViewController.configure(workOrder: workOrder, categories: categories, paymentMethod: currentUser.defaultPaymentMethod) { _ in
+                        self.setupCancelWorkOrderBarButtonItem()
+                    }
+                } else {
+                    performSegue(withIdentifier: "ConfirmWorkOrderViewControllerSegue", sender: workOrder)
                 }
             }
         } else {
             UIApplication.shared.applicationIconBadgeNumber = 0
 
             setupMenuBarButtonItem()
-
             mapView?.removeOverlays()
-            animateProviderEnRouteViewController(toHidden: true)
-            providerEnRouteViewController?.prepareForReuse()
-            confirmWorkOrderViewController?.prepareForReuse()
+
+            animateConfirmWorkOrderView(toHidden: true)
+            animateProviderEnRouteView(toHidden: true)
 
             if let hasFirstResponder = destinationInputViewController?.hasFirstResponder, !hasFirstResponder {
                 destinationResultsViewController?.prepareForReuse()
@@ -392,6 +409,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
 
             DispatchQueue.main.async { [weak self] in
                 self?.mapView?.centerOnUserLocation()
+                self?.confirmWorkOrderViewController?.prepareForReuse()
+                self?.providerEnRouteViewController?.prepareForReuse()
             }
         }
     }
@@ -511,7 +530,33 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
 
     func selectDestination(destination: Contact, startingFrom origin: Contact) {
         setupCancelWorkOrderBarButtonItem()
-        confirmWorkOrderViewController.confirmWorkOrderWithOrigin(origin, destination: destination)
+        confirmWorkOrderWithOrigin(origin, destination: destination)
+    }
+
+    func confirmWorkOrderWithOrigin(_ origin: Contact, destination: Contact) {
+        let latitude = origin.latitude
+        let longitude = origin.longitude
+
+        logInfo("Creating work order from \(latitude),\(longitude) -> \(destination.desc!)")
+
+        let pendingWorkOrder = WorkOrder()
+        pendingWorkOrder.desc = destination.desc
+        if let cfg = destination.data {
+            pendingWorkOrder.config = [
+                "origin": origin.toDictionary(),
+                "destination": cfg,
+            ]
+        }
+
+        pendingWorkOrder.save(onSuccess: { [weak self] statusCode, mappingResult in
+            if let workOrder = mappingResult?.firstObject as? WorkOrder {
+                logInfo("Created work order for hire: \(workOrder)")
+                WorkOrderService.shared.setWorkOrders([workOrder])
+                self?.performSegue(withIdentifier: "ConfirmWorkOrderViewControllerSegue", sender: workOrder)
+            }
+        }, onError: { err, statusCode, responseString in
+                logWarn("Failed to create work order for hire (\(statusCode))")
+        })
     }
 
     func onResultSelected(result: Contact?) {
@@ -545,18 +590,34 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
     }
 
     func animateConfirmWorkOrderView(toHidden hidden: Bool) {
-        view.layoutIfNeeded()
-        confirmWorkOrderViewControllerBottomConstraint.constant = hidden ? -confirmWorkOrderViewController.view.height : 0
-        UIView.animate(withDuration: 0.25) {
-            self.view.layoutIfNeeded()
+        if let confirmWorkOrderViewController = confirmWorkOrderViewController {
+            view.layoutIfNeeded()
+            UIView.animate(withDuration: 0.25) {
+                confirmWorkOrderViewController.view.frame.origin.y += hidden ? confirmWorkOrderViewController.view.height : -confirmWorkOrderViewController.view.height
+                self.view.layoutIfNeeded()
+                if hidden {
+                    confirmWorkOrderViewController.dismiss(animated: true, completion: {
+                        log("Dismissed work order confirmation")
+                        self.confirmWorkOrderViewController = nil
+                    })
+                }
+            }
         }
     }
 
-    func animateProviderEnRouteViewController(toHidden hidden: Bool) {
-        view.layoutIfNeeded()
-        providerEnRouteViewControllerBottomConstaint.constant = hidden ? -providerEnRouteViewController.view.height : 0
-        UIView.animate(withDuration: 0.25) {
-            self.view.layoutIfNeeded()
+    func animateProviderEnRouteView(toHidden hidden: Bool) {
+        if let providerEnRouteViewController = providerEnRouteViewController {
+            view.layoutIfNeeded()
+            UIView.animate(withDuration: 0.25) {
+                providerEnRouteViewController.view.frame.origin.y += hidden ? providerEnRouteViewController.view.height : -providerEnRouteViewController.view.height
+                self.view.layoutIfNeeded()
+                if hidden {
+                    providerEnRouteViewController.dismiss(animated: true, completion: {
+                        log("Dismissed provider en route")
+                        self.providerEnRouteViewController = nil
+                    })
+                }
+            }
         }
     }
 

@@ -8,7 +8,7 @@
 
 class ProviderEnRouteViewController: ViewController {
 
-    func configure(workOrder: WorkOrder) {
+    func configure(workOrder: WorkOrder?) {
         self.workOrder = workOrder
     }
 
@@ -36,9 +36,7 @@ class ProviderEnRouteViewController: ViewController {
                 CheckinService.shared.enableNavigationAccuracy()
 
                 refreshStatus()
-
                 configureUI()
-
                 refreshProvider()
             }
         }

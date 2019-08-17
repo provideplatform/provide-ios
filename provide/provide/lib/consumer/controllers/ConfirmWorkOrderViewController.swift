@@ -61,27 +61,29 @@ class ConfirmWorkOrderViewController: ViewController {
 
     private(set) var workOrder: WorkOrder? {
         didSet {
+            setViews(hidden: true)
             if workOrder == nil {
                 if oldValue != nil {
                     (parent as? ConsumerViewController)?.animateConfirmWorkOrderView(toHidden: true)
-                    self.activityIndicatorView.stopAnimating()
-                    self.setViews(hidden: false)
+                    activityIndicatorView?.stopAnimating()
                 }
             } else if let workOrder = workOrder {
                 if workOrder.status == "awaiting_schedule" {
-                    distanceEstimateLabel.text = "\(workOrder.estimatedDistance) miles / \(workOrder.estimatedDuration) minutes"
-                    distanceEstimateLabel.isHidden = false
+                    setViews(hidden: false)
+
+                    distanceEstimateLabel?.text = "\(workOrder.estimatedDistance) miles / \(workOrder.estimatedDuration) minutes"
+                    distanceEstimateLabel?.isHidden = false
 
                     let price = workOrder.estimatedPriceForCategory(1) ?? 0
-                    fareEstimateLabel.text = Formatters.currencyFormatter.string(from: price as NSNumber)
-                    fareEstimateLabel.isHidden = false
+                    fareEstimateLabel?.text = Formatters.currencyFormatter.string(from: price as NSNumber)
+                    fareEstimateLabel?.isHidden = false
 
                     monkey("👨‍💼 Tap: CONFIRM PRVD") {
                         self.confirmButtonTapped(UIButton())
                     }
                 } else if workOrder.status == "pending_acceptance" {
                     setViews(hidden: true)
-                    activityIndicatorView.startAnimating()
+                    activityIndicatorView?.startAnimating()
                 }
 
                 if oldValue == nil {
@@ -93,14 +95,8 @@ class ConfirmWorkOrderViewController: ViewController {
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        view.addDropShadow()
-    }
-
     private func setViews(hidden: Bool) {
-        let views: [UIView] = [
+        let views: [UIView?] = [
             categorySelectionControl,
             confirmButton,
             creditCardIcon,
@@ -110,11 +106,24 @@ class ConfirmWorkOrderViewController: ViewController {
             distanceEstimateLabel,
             fareEstimateLabel,
         ]
-        views.forEach { $0.isHidden = hidden }
+        views.forEach { $0?.isHidden = hidden }
+    }
+
+    func render() {
+        // HACK to make the view re-render
+        if let workOrder = workOrder {
+            self.workOrder = workOrder
+        }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        view.addDropShadow()
     }
 
     @IBAction private func confirmButtonTapped(_ sender: UIButton) {
-        setViews(hidden: true)
         activityIndicatorView.startAnimating()
 
         logmoji("👱", "Tapped: CONFIRM PRVD")
@@ -125,7 +134,8 @@ class ConfirmWorkOrderViewController: ViewController {
     }
 
     private func saveWorkOrder() {
-        // TODO: show progress HUD
+        setViews(hidden: true)
+        activityIndicatorView?.startAnimating()
 
         workOrder?.save(onSuccess: { [weak self] statusCode, mappingResult in
             if statusCode == 201 {
@@ -141,33 +151,5 @@ class ConfirmWorkOrderViewController: ViewController {
 
     func prepareForReuse() {
         workOrder = nil
-    }
-
-    func confirmWorkOrderWithOrigin(_ origin: Contact, destination: Contact) {
-        let latitude = origin.latitude
-        let longitude = origin.longitude
-
-        logInfo("Creating work order from \(latitude),\(longitude) -> \(destination.desc!)")
-
-        // TODO: show progress HUD
-
-        let pendingWorkOrder = WorkOrder()
-        pendingWorkOrder.desc = destination.desc
-        if let cfg = destination.data {
-            pendingWorkOrder.config = [
-                "origin": origin.toDictionary(),
-                "destination": cfg,
-            ]
-        }
-
-        pendingWorkOrder.save(onSuccess: { [weak self] statusCode, mappingResult in
-            if let workOrder = mappingResult?.firstObject as? WorkOrder {
-                logInfo("Created work order for hire: \(workOrder)")
-                WorkOrderService.shared.setWorkOrders([workOrder])
-                self?.workOrder = workOrder
-            }
-        }, onError: { err, statusCode, responseString in
-            logWarn("Failed to create work order for hire (\(statusCode))")
-        })
     }
 }
