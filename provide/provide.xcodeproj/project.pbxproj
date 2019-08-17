@@ -733,7 +733,7 @@
 		68AC2CFD2304E4DF00795FBE /* Exo2-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B412441B07FC15009A4C05 /* Exo2-Medium.ttf */; };
 		68AC2CFE2304E4DF00795FBE /* Exo2-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68B4123E1B07FC15009A4C05 /* Exo2-ExtraBoldItalic.ttf */; };
 		68AC2CFF2304E4DF00795FBE /* InboundMediaMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C68C6BB1F867F9700BBD3B9 /* InboundMediaMessageCell.xib */; };
-		68AC2D112304E8EE00795FBE /* carmony-mobility.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68AC2D102304E8EE00795FBE /* carmony-mobility.storyboard */; };
+		68AC2D112304E8EE00795FBE /* carmony.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68AC2D102304E8EE00795FBE /* carmony.storyboard */; };
 		68AC2D162304EBD300795FBE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
 		68AC2D192304EC1100795FBE /* CarmonyMobilityLaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 68AC2D182304EC1100795FBE /* CarmonyMobilityLaunchScreen.xib */; };
 		68AC2D22230502EB00795FBE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68DFB08D1B07C5C4002A72E8 /* Images.xcassets */; };
@@ -1008,8 +1008,8 @@
 		68A653A21F4C20D7007CC52F /* ProviderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderService.swift; sourceTree = "<group>"; };
 		68AAF65C1D8C7B2300EAFD6F /* provide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = provide.entitlements; sourceTree = "<group>"; };
 		68AC2D062304E4DF00795FBE /* carmony.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = carmony.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		68AC2D072304E4E000795FBE /* carmony-mobility-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "carmony-mobility-Info.plist"; path = "/Users/kt/code/provide/provide-ios/provide/carmony-mobility-Info.plist"; sourceTree = "<absolute>"; };
-		68AC2D102304E8EE00795FBE /* carmony-mobility.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "carmony-mobility.storyboard"; sourceTree = "<group>"; };
+		68AC2D072304E4E000795FBE /* carmony-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "carmony-Info.plist"; path = "/Users/kt/code/provide/provide-ios/provide/carmony-Info.plist"; sourceTree = "<absolute>"; };
+		68AC2D102304E8EE00795FBE /* carmony.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = carmony.storyboard; sourceTree = "<group>"; };
 		68AC2D182304EC1100795FBE /* CarmonyMobilityLaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarmonyMobilityLaunchScreen.xib; sourceTree = "<group>"; };
 		68B412341B07FBEB009A4C05 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		68B412391B07FC15009A4C05 /* Exo2-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Exo2-Black.ttf"; sourceTree = "<group>"; };
@@ -1377,7 +1377,7 @@
 				68B412341B07FBEB009A4C05 /* Main.storyboard */,
 				5CB25A931F98A3770018D30F /* Menu.storyboard */,
 				68607D4822EA3DE800ACD485 /* arcade-city.storyboard */,
-				68AC2D102304E8EE00795FBE /* carmony-mobility.storyboard */,
+				68AC2D102304E8EE00795FBE /* carmony.storyboard */,
 				687D2E011FD296DE008A9A22 /* unicorn.storyboard */,
 			);
 			path = storyboards;
@@ -1640,7 +1640,7 @@
 				687D2D541FCFAB7A008A9A22 /* unicorn-Info.plist */,
 				687D2E001FD0DD24008A9A22 /* unicorn-driver-Info.plist */,
 				68607DFA22F0E96D00ACD485 /* arcade city-Info.plist */,
-				68AC2D072304E4E000795FBE /* carmony-mobility-Info.plist */,
+				68AC2D072304E4E000795FBE /* carmony-Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -2140,7 +2140,7 @@
 				68AC2CE52304E4DF00795FBE /* Exo2-ThinItalic.ttf in Resources */,
 				68AC2CE62304E4DF00795FBE /* Exo2-Bold.ttf in Resources */,
 				68AC2CE82304E4DF00795FBE /* Selfie.storyboard in Resources */,
-				68AC2D112304E8EE00795FBE /* carmony-mobility.storyboard in Resources */,
+				68AC2D112304E8EE00795FBE /* carmony.storyboard in Resources */,
 				68AC2CEA2304E4DF00795FBE /* PinInput.storyboard in Resources */,
 				68AC2CEB2304E4DF00795FBE /* Exo2-Black.ttf in Resources */,
 				68AC2CEC2304E4DF00795FBE /* InboundMessageCell.xib in Resources */,
@@ -4197,8 +4197,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 933A49FE4F9D709166021F8E /* Pods-carmony.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-carmony-mobility";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "carmony-mobility-launch";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-carmony";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "carmony-launch";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -4219,13 +4219,13 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=consumer",
 				);
-				INFOPLIST_FILE = "carmony-mobility-Info.plist";
+				INFOPLIST_FILE = "carmony-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = carmony.mobility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -4233,8 +4233,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 18E069528F1ECE80FFB5E149 /* Pods-carmony.adhoc.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-carmony-mobility";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "carmony-mobility-launch";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-carmony";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "carmony-launch";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -4255,13 +4255,13 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=consumer",
 				);
-				INFOPLIST_FILE = "carmony-mobility-Info.plist";
+				INFOPLIST_FILE = "carmony-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = carmony.mobility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = AdHoc;
 		};
@@ -4269,8 +4269,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 14052417317288AD24CEA23E /* Pods-carmony.appstore.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-carmony-mobility";
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "carmony-mobility-launch";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-carmony";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "carmony-launch";
 				CODE_SIGN_ENTITLEMENTS = provide/provide.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -4291,13 +4291,13 @@
 					"PB_NO_PACKED_STRUCTS=1",
 					"APP_MODE=consumer",
 				);
-				INFOPLIST_FILE = "carmony-mobility-Info.plist";
+				INFOPLIST_FILE = "carmony-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = carmony.mobility;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = AppStore;
 		};

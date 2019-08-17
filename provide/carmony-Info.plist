@@ -57,10 +57,8 @@
 		<string>location</string>
 		<string>remote-notification</string>
 	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>CarmonyMobilityLaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
-	<string>carmony-mobility</string>
+	<string>carmony</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -81,8 +79,6 @@
 	<false/>
 	<key>xApiHostSuffix</key>
 	<string>staging-api.carmonyconnect.com</string>
-	<key>xMarketingHostSuffix</key>
-	<string>staging.carmonyconnect.com</string>
 	<key>xAppPrivacyViewControllerNib</key>
 	<string>CarmonyMobilityLaunchScreen</string>
 	<key>xAppZeroStateImage</key>
@@ -91,5 +87,7 @@
 	<string>X_BUILD_TIME</string>
 	<key>xGitShortSHA</key>
 	<string>X_GIT_HASH</string>
+	<key>xMarketingHostSuffix</key>
+	<string>staging.carmonyconnect.com</string>
 </dict>
 </plist>

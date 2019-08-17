@@ -94,12 +94,14 @@
 	<false/>
 	<key>xApiHostSuffix</key>
 	<string>unicorn.provide.services</string>
+	<key>xAppMenuBackgroundImage</key>
+	<string>lightning-splash</string>
+	<key>xAppMenuStoryboard</key>
+	<string>arcade-city-menu</string>
 	<key>xAppPrivacyViewControllerNib</key>
 	<string>ArcadeCityLaunchScreen</string>
 	<key>xAppZeroStateImage</key>
 	<string>arcade-city-icon</string>
-	<key>xAppMenuBackgroundImage</key>
-	<string>lightning-splash</string>
 	<key>xBuildShortTime</key>
 	<string>X_BUILD_TIME</string>
 	<key>xGitShortSHA</key>
