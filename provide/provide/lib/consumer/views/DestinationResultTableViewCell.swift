@@ -15,7 +15,7 @@ class DestinationResultTableViewCell: UITableViewCell {
     var result: Contact? {
         didSet {
             if let result = result {
-                icon.image = #imageLiteral(resourceName: "provide-pin")
+                icon.image = #imageLiteral(resourceName: "prvd-token")
                 titleLabel.text = result.desc
 
                 var st = ""

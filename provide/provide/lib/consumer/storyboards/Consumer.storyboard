@@ -147,7 +147,7 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DestinationResultTableViewCell" id="yoF-Z4-d8n" customClass="DestinationResultTableViewCell" customModule="arcade_city" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yoF-Z4-d8n" id="leB-r8-BQj">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="yoF-Z4-d8n" id="leB-r8-BQj">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="59.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -169,6 +169,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="prvd-token" translatesAutoresizingMaskIntoConstraints="NO" id="eAy-9B-4AI">
                                                     <rect key="frame" x="28" y="17" width="25" height="25"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="NFS-Fa-LSO"/>
                                                         <constraint firstAttribute="width" constant="25" id="bPU-4B-cbx"/>
                                                     </constraints>
                                                 </imageView>
