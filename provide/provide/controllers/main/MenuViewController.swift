@@ -41,6 +41,13 @@ class MenuViewController: UITableViewController, MenuHeaderViewDelegate {
         menuHeaderView.delegate = self
 
         alignSections()
+
+        let backgroundImageName = infoDictionaryValueFor("xAppMenuBackgroundImage")
+        if let backgroundImage = UIImage(named: backgroundImageName) {
+            tableView.backgroundColor = .clear
+            tableView.backgroundView = UIImageView(image: backgroundImage)
+            tableView.backgroundView?.contentMode = .center
+        }
     }
 
     // MARK: UITableViewDataSource

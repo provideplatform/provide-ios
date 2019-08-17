@@ -43,16 +43,6 @@ Submit unicorn beta to TestFlight
 fastlane ios unicorn_driver_beta
 ```
 Submit unicorn driver beta to TestFlight
-### ios arcade_city_rider_beta
-```
-fastlane ios arcade_city_rider_beta
-```
-Submit arcade city beta to TestFlight
-### ios arcade_city_driver_beta
-```
-fastlane ios arcade_city_driver_beta
-```
-Submit arcade city driver beta to TestFlight
 ### ios arcade_city_beta
 ```
 fastlane ios arcade_city_beta

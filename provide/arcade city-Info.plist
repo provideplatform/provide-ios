@@ -98,6 +98,8 @@
 	<string>ArcadeCityLaunchScreen</string>
 	<key>xAppZeroStateImage</key>
 	<string>arcade-city-icon</string>
+	<key>xAppMenuBackgroundImage</key>
+	<string>lightning-splash</string>
 	<key>xBuildShortTime</key>
 	<string>X_BUILD_TIME</string>
 	<key>xGitShortSHA</key>
