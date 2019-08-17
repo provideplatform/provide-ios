@@ -56,10 +56,6 @@ target 'arcade city' do
   shared_pods
 end
 
-target 'arcade city driver' do
-  shared_pods
-end
-
 target 'carmony' do
   shared_pods
 end
