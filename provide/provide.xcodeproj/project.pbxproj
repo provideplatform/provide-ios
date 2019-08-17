@@ -99,7 +99,6 @@
 		68544C3B1FDDDB010014AC7F /* TokenBalanceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68544C391FDDDB010014AC7F /* TokenBalanceHeaderView.swift */; };
 		68544C3C1FDDDB010014AC7F /* TokenBalanceHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68544C391FDDDB010014AC7F /* TokenBalanceHeaderView.swift */; };
 		6855D0BD1F6EBCF3001A4D33 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6855D0BC1F6EBCF3001A4D33 /* ProfileImageView.swift */; };
-		68607D4C22EA3F3200ACD485 /* arcade-city.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68607D4822EA3DE800ACD485 /* arcade-city.storyboard */; };
 		68607D5222F0E96D00ACD485 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B65111C2439210088E539 /* MenuTableViewCell.swift */; };
 		68607D5322F0E96D00ACD485 /* JSONResponseWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD54CC41F8FE2AD00A24B5E /* JSONResponseWriter.swift */; };
 		68607D5422F0E96D00ACD485 /* NavigationBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68F537111B834A9A0007F480 /* NavigationBarButton.swift */; };
@@ -2189,7 +2188,6 @@
 				68A653A11F4C184B007CC52F /* ZeroState.storyboard in Resources */,
 				68140DA81C1C28D9008F7E3A /* Provider.storyboard in Resources */,
 				68B412541B07FC15009A4C05 /* Exo2-BoldItalic.ttf in Resources */,
-				68607D4C22EA3F3200ACD485 /* arcade-city.storyboard in Resources */,
 				68B412661B07FC15009A4C05 /* Exo2-Light.ttf in Resources */,
 				68140DA21C1C23FD008F7E3A /* WorkOrderHistory.storyboard in Resources */,
 				68B412691B07FC15009A4C05 /* Exo2-LightItalic.ttf in Resources */,

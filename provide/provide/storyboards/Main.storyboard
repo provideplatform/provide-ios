@@ -346,7 +346,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dyt-QI-VWj" userLabel="BlueView">
                                 <rect key="frame" x="0.0" y="377" width="375" height="401"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wIK-uW-YeL" userLabel="• pinInputControl" customClass="PinInputControl" customModule="carmony" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wIK-uW-YeL" userLabel="• pinInputControl" customClass="PinInputControl" customModule="arcade_city" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
@@ -900,6 +900,6 @@
         <image name="prvd-splash" width="2048" height="1322"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ifq-UV-5Ww"/>
+        <segue reference="pyb-Ej-lW7"/>
     </inferredMetricsTieBreakers>
 </document>
