@@ -337,59 +337,61 @@
                         <viewControllerLayoutGuide type="top" id="4Om-Bk-VdT"/>
                         <viewControllerLayoutGuide type="bottom" id="gMS-vV-EGl"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="O0R-jw-XEh">
+                    <view key="view" contentMode="scaleToFill" id="lWZ-CL-fQB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; create your 4 digit pin &gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ort-kP-aFj" userLabel="• messageLabel">
-                                <rect key="frame" x="20" y="440" width="335" height="22"/>
-                                <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
-                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tld-W0-AeS" userLabel="BlueView">
-                                <rect key="frame" x="0.0" y="482" width="375" height="296"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arcade-city-splash" translatesAutoresizingMaskIntoConstraints="NO" id="LOs-cI-hvX">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bDA-sx-Zhh" userLabel="BlueView">
+                                <rect key="frame" x="0.0" y="377" width="375" height="401"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XkK-wc-C0A" userLabel="• pinInputControl" customClass="PinInputControl" customModule="arcade_city" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KMj-hU-ZOJ" userLabel="• pinInputControl" customClass="PinInputControl" customModule="carmony" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="qes-If-lcO"/>
-                                        </constraints>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6cZ-ob-hua" userLabel="Keyboard Height Placeholder">
-                                        <rect key="frame" x="0.0" y="80" width="375" height="216"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WHC-8n-1I6" userLabel="Keyboard Height Placeholder">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="296"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="216" id="dDM-XV-939"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.3269148469" green="0.49853861329999999" blue="0.74592679740000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="XkK-wc-C0A" firstAttribute="top" secondItem="Tld-W0-AeS" secondAttribute="top" id="6b8-Zt-9Ax"/>
-                                    <constraint firstItem="6cZ-ob-hua" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="Njc-pM-vsh"/>
-                                    <constraint firstItem="XkK-wc-C0A" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="Poa-1c-d8E"/>
-                                    <constraint firstAttribute="height" constant="296" id="XdM-Xe-WSl"/>
-                                    <constraint firstAttribute="trailing" secondItem="6cZ-ob-hua" secondAttribute="trailing" id="YAl-ZG-zhO"/>
-                                    <constraint firstAttribute="bottom" secondItem="6cZ-ob-hua" secondAttribute="bottom" id="g9S-sz-j8T"/>
-                                    <constraint firstAttribute="trailing" secondItem="XkK-wc-C0A" secondAttribute="trailing" id="viy-K7-gMd"/>
+                                    <constraint firstItem="KMj-hU-ZOJ" firstAttribute="trailing" secondItem="WHC-8n-1I6" secondAttribute="trailing" id="7pd-u7-dP2"/>
+                                    <constraint firstAttribute="trailing" secondItem="KMj-hU-ZOJ" secondAttribute="trailing" id="8bJ-2U-PkX"/>
+                                    <constraint firstItem="KMj-hU-ZOJ" firstAttribute="leading" secondItem="bDA-sx-Zhh" secondAttribute="leading" id="Rza-vp-694"/>
+                                    <constraint firstAttribute="bottom" secondItem="WHC-8n-1I6" secondAttribute="bottom" constant="105" id="T9L-16-loA"/>
+                                    <constraint firstAttribute="bottom" secondItem="KMj-hU-ZOJ" secondAttribute="bottom" constant="321" id="dBE-Zp-pQf"/>
+                                    <constraint firstItem="WHC-8n-1I6" firstAttribute="leading" secondItem="KMj-hU-ZOJ" secondAttribute="leading" id="noK-i0-Krg"/>
+                                    <constraint firstItem="WHC-8n-1I6" firstAttribute="top" secondItem="bDA-sx-Zhh" secondAttribute="top" id="tI4-8C-bkj"/>
+                                    <constraint firstItem="KMj-hU-ZOJ" firstAttribute="top" secondItem="WHC-8n-1I6" secondAttribute="top" id="vco-Q5-2Wh"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt; create your 4 digit pin &gt;" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZV-UU-wrN" userLabel="• messageLabel">
+                                <rect key="frame" x="20" y="348" width="335" height="21"/>
+                                <fontDescription key="fontDescription" name="Exo2-SemiBold" family="Exo 2" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Tld-W0-AeS" firstAttribute="top" secondItem="ort-kP-aFj" secondAttribute="bottom" constant="20" id="0Z7-L8-Lzz"/>
-                            <constraint firstAttribute="trailing" secondItem="Tld-W0-AeS" secondAttribute="trailing" id="XX3-kM-Tpn"/>
-                            <constraint firstAttribute="trailing" secondItem="ort-kP-aFj" secondAttribute="trailing" constant="20" id="c4b-Ek-81R"/>
-                            <constraint firstItem="gMS-vV-EGl" firstAttribute="top" secondItem="Tld-W0-AeS" secondAttribute="bottom" id="gQu-wr-lUD"/>
-                            <constraint firstItem="ort-kP-aFj" firstAttribute="leading" secondItem="O0R-jw-XEh" secondAttribute="leading" constant="20" id="tTg-hq-hfc"/>
-                            <constraint firstItem="Tld-W0-AeS" firstAttribute="leading" secondItem="O0R-jw-XEh" secondAttribute="leading" id="uTi-nI-p6v"/>
+                            <constraint firstItem="LOs-cI-hvX" firstAttribute="leading" secondItem="lWZ-CL-fQB" secondAttribute="leading" id="3x4-Qp-JTM"/>
+                            <constraint firstAttribute="bottom" secondItem="LOs-cI-hvX" secondAttribute="bottom" id="6XE-pH-Y02"/>
+                            <constraint firstItem="LOs-cI-hvX" firstAttribute="leading" secondItem="bDA-sx-Zhh" secondAttribute="leading" id="CXK-GM-fU6"/>
+                            <constraint firstAttribute="trailing" secondItem="LOs-cI-hvX" secondAttribute="trailing" id="QAk-OF-15a"/>
+                            <constraint firstItem="bDA-sx-Zhh" firstAttribute="top" secondItem="SZV-UU-wrN" secondAttribute="bottom" constant="8" symbolic="YES" id="RAo-Bw-Vc2"/>
+                            <constraint firstItem="LOs-cI-hvX" firstAttribute="trailing" secondItem="bDA-sx-Zhh" secondAttribute="trailing" id="We6-z6-ilB"/>
+                            <constraint firstItem="LOs-cI-hvX" firstAttribute="top" secondItem="lWZ-CL-fQB" secondAttribute="top" id="aaY-EE-zkz"/>
+                            <constraint firstItem="SZV-UU-wrN" firstAttribute="centerX" secondItem="bDA-sx-Zhh" secondAttribute="centerX" id="eZF-Uc-DD1"/>
+                            <constraint firstItem="SZV-UU-wrN" firstAttribute="top" secondItem="4Om-Bk-VdT" secondAttribute="bottom" constant="304" id="jxa-f2-Q85"/>
+                            <constraint firstItem="SZV-UU-wrN" firstAttribute="leading" secondItem="lWZ-CL-fQB" secondAttribute="leadingMargin" constant="4" id="lOw-MH-qW5"/>
+                            <constraint firstItem="bDA-sx-Zhh" firstAttribute="bottom" secondItem="gMS-vV-EGl" secondAttribute="top" id="yEa-KF-CnB"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="messageLabel" destination="ort-kP-aFj" id="Pzt-Pm-KAp"/>
-                        <outlet property="pinInputControl" destination="XkK-wc-C0A" id="Yzb-T6-1rn"/>
+                        <outlet property="messageLabel" destination="SZV-UU-wrN" id="oww-7Y-EFw"/>
+                        <outlet property="pinInputControl" destination="KMj-hU-ZOJ" id="WR8-cz-h4b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hZt-wa-Ftv" userLabel="First Responder" sceneMemberID="firstResponder"/>

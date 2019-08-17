@@ -359,16 +359,16 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="IkJ-Dh-D5D" firstAttribute="leading" secondItem="Tld-W0-AeS" secondAttribute="leading" id="3Ph-OV-0bk"/>
+                            <constraint firstItem="Tld-W0-AeS" firstAttribute="bottom" secondItem="gMS-vV-EGl" secondAttribute="top" id="52r-12-kCt"/>
                             <constraint firstAttribute="bottom" secondItem="IkJ-Dh-D5D" secondAttribute="bottom" id="Crz-wz-1Rg"/>
                             <constraint firstItem="Tld-W0-AeS" firstAttribute="top" secondItem="ort-kP-aFj" secondAttribute="bottom" constant="8" symbolic="YES" id="HUn-0m-pZq"/>
+                            <constraint firstItem="ort-kP-aFj" firstAttribute="top" secondItem="4Om-Bk-VdT" secondAttribute="bottom" constant="304" id="PrT-pd-u0G"/>
                             <constraint firstItem="IkJ-Dh-D5D" firstAttribute="leading" secondItem="O0R-jw-XEh" secondAttribute="leading" id="SPm-eY-JRb"/>
                             <constraint firstAttribute="trailing" secondItem="IkJ-Dh-D5D" secondAttribute="trailing" id="XSq-kZ-wPh"/>
                             <constraint firstItem="ort-kP-aFj" firstAttribute="centerX" secondItem="Tld-W0-AeS" secondAttribute="centerX" id="bXr-my-RCq"/>
                             <constraint firstItem="IkJ-Dh-D5D" firstAttribute="top" secondItem="O0R-jw-XEh" secondAttribute="top" id="eZ8-aD-B3x"/>
                             <constraint firstItem="ort-kP-aFj" firstAttribute="leading" secondItem="O0R-jw-XEh" secondAttribute="leadingMargin" constant="4" id="iAo-eB-I0C"/>
-                            <constraint firstItem="Tld-W0-AeS" firstAttribute="bottom" secondItem="gMS-vV-EGl" secondAttribute="top" id="jrQ-Eb-9mU"/>
                             <constraint firstItem="IkJ-Dh-D5D" firstAttribute="trailing" secondItem="Tld-W0-AeS" secondAttribute="trailing" id="mer-ju-0d9"/>
-                            <constraint firstItem="ort-kP-aFj" firstAttribute="top" secondItem="4Om-Bk-VdT" secondAttribute="bottom" constant="304" id="qeN-Ah-4zd"/>
                         </constraints>
                     </view>
                     <connections>

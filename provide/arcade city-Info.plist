@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>ghost</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -94,8 +96,6 @@
 	<false/>
 	<key>xApiHostSuffix</key>
 	<string>unicorn.provide.services</string>
-	<key>xMarketingHostSuffix</key>
-	<string>unicorn.provide.services</string>
 	<key>xAppPrivacyViewControllerNib</key>
 	<string>ArcadeCityLaunchScreen</string>
 	<key>xAppZeroStateImage</key>
@@ -104,5 +104,7 @@
 	<string>X_BUILD_TIME</string>
 	<key>xGitShortSHA</key>
 	<string>X_GIT_HASH</string>
+	<key>xMarketingHostSuffix</key>
+	<string>unicorn.provide.services</string>
 </dict>
 </plist>
