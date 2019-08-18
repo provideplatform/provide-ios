@@ -127,7 +127,7 @@ class ProviderEnRouteViewController: ViewController {
             }
             providerStatusLabel?.isHidden = false
 
-            if ["en_route", "in_progress"].contains(workOrder.status) {
+            if ["arriving", "en_route", "in_progress"].contains(workOrder.status) {
                 if let eta = workOrder.config["eta"] as? [String: Double], let minutes = eta["minutes"], let time = Date().addingTimeInterval(minutes).timeString {
                     providerSubStatusLabel?.text = "\(time) arrival"
                     providerSubStatusLabel?.isHidden = false
