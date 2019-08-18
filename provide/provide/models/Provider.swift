@@ -138,7 +138,7 @@ class Provider: Model {
             if provider.categoryId > 0 {
                 return CategoryService.shared.iconForCategoryId(provider.categoryId)
             }
-            return #imageLiteral(resourceName: "prvdX")
+            return #imageLiteral(resourceName: "ghost1")
         }
 
         @objc var profileImageUrl: URL? {
