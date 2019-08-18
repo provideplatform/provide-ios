@@ -571,6 +571,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     private func showHeaderView() {
+        if let headerViewControllerTopConstraintConstant = headerViewControllerTopConstraint?.constant, headerViewControllerTopConstraintConstant == 0 {
+            return
+        }
         let workOrder = WorkOrderService.shared.nextWorkOrder ?? WorkOrderService.shared.inProgressWorkOrder
         workOrder?.reload(onSuccess: { [weak self] statusCode, _ in
             let headerViewController = self?.childViewControllers.first as? WorkOrderDestinationHeaderViewController
@@ -597,14 +600,12 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     func segueToWorkOrderDestinationConfirmationViewController(_ viewController: UIViewController) {
-        var wo = WorkOrderService.shared.nextWorkOrder
-        if wo == nil {
-            wo = WorkOrderService.shared.inProgressWorkOrder
+        if WorkOrderService.shared.nextWorkOrder == nil {
+            return
         }
-        if let status = wo?.status, status == "in_progress" {
-            DispatchQueue.main.async { [weak self] in
-                self?.showHeaderView()
-            }
+
+        DispatchQueue.main.async { [weak self] in
+            self?.showHeaderView()
         }
 
         performSegue(withIdentifier: "WorkOrderDestinationConfirmationViewControllerSegue", sender: self)
