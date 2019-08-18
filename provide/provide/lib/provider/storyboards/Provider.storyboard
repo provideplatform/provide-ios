@@ -176,7 +176,6 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="Gma-S2-oka"/>
-                                    <constraint firstAttribute="width" constant="375" id="Hlg-ye-fld"/>
                                 </constraints>
                                 <connections>
                                     <segue destination="mb7-X8-f0h" kind="embed" identifier="WorkOrderDestinationHeaderViewControllerEmbedSegue" id="Vqx-Ee-xt8"/>
@@ -192,6 +191,7 @@
                             <constraint firstAttribute="trailing" secondItem="rux-3S-Dfa" secondAttribute="trailing" id="aXB-tT-pyO"/>
                             <constraint firstItem="rux-3S-Dfa" firstAttribute="bottom" secondItem="urM-pc-Y9e" secondAttribute="top" constant="34" id="fav-5t-iZu"/>
                             <constraint firstAttribute="trailing" secondItem="3nf-IJ-AWu" secondAttribute="trailing" id="k3M-0I-kVh"/>
+                            <constraint firstItem="rux-3S-Dfa" firstAttribute="width" secondItem="dOc-tC-XPP" secondAttribute="width" id="l08-TW-Erc"/>
                             <constraint firstItem="3nf-IJ-AWu" firstAttribute="top" secondItem="539-BZ-ZYt" secondAttribute="bottom" id="pUK-DE-cs0"/>
                         </constraints>
                     </view>
