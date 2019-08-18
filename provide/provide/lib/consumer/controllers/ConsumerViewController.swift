@@ -461,9 +461,9 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
     }
 
     private func updateProviderLocation(_ provider: Provider) {
-//        if provider.userId == currentUser.id {
-//            return  // HACK!!! API should not return this
-//        }
+        if provider.userId == currentUser.id {
+            return  // HACK!!! API should not return this
+        }
 
         if !mapView.annotations.contains(where: { annotation -> Bool in
             if let providerAnnotation = annotation as? Provider.Annotation, providerAnnotation.matches(provider) {
