@@ -43,6 +43,12 @@ class ProviderEnRouteViewController: ViewController {
     }
 
     private func configureUI() {
+        providerStatusLabel?.text = ""
+        providerStatusLabel?.isHidden = true
+
+        providerSubStatusLabel?.text = ""
+        providerSubStatusLabel?.isHidden = true
+
         nameLabel?.text = workOrder?.providers.last?.firstName?.uppercased() ?? "Name Unknown"
         nameLabel?.isHidden = false
 
@@ -128,7 +134,7 @@ class ProviderEnRouteViewController: ViewController {
             providerStatusLabel?.isHidden = false
 
             if ["arriving", "en_route", "in_progress"].contains(workOrder.status) {
-                if let eta = workOrder.config["eta"] as? [String: Double], let minutes = eta["minutes"], let time = Date().addingTimeInterval(minutes).timeString {
+                if let eta = workOrder.config["eta"] as? [String: Any], let minutes = eta["minutes"] as? Double, let time = Date().addingTimeInterval(minutes*60).timeString {
                     providerSubStatusLabel?.text = "\(time) arrival"
                     providerSubStatusLabel?.isHidden = false
                 }
