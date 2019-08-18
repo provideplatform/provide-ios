@@ -600,7 +600,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     func segueToWorkOrderDestinationConfirmationViewController(_ viewController: UIViewController) {
-        if WorkOrderService.shared.nextWorkOrder == nil {
+        if WorkOrderService.shared.nextWorkOrder == nil && WorkOrderService.shared.inProgressWorkOrder == nil {
             return
         }
 
