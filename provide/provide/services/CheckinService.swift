@@ -9,7 +9,7 @@
 class CheckinService: NSObject {
     static let shared = CheckinService()
 
-    let defaultCheckinTimeInterval: TimeInterval = 300
+    let defaultCheckinTimeInterval: TimeInterval = 30
     let navigationCheckinTimeInterval: TimeInterval = 10
 
     private var checkinTimeInterval: TimeInterval! {
