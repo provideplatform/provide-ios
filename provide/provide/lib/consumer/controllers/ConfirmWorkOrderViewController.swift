@@ -25,6 +25,7 @@ class ConfirmWorkOrderViewController: ViewController {
     @IBOutlet private weak var capacityLabel: UILabel!
     @IBOutlet private weak var distanceEstimateLabel: UILabel!
     @IBOutlet private weak var fareEstimateLabel: UILabel!
+    @IBOutlet private weak var topLineView: UIView!
     @IBOutlet private weak var userIconImageView: UIImageView! {
         didSet {
             userIconImageView?.image = userIconImageView?.image?.withRenderingMode(.alwaysTemplate)
@@ -105,6 +106,7 @@ class ConfirmWorkOrderViewController: ViewController {
             capacityLabel,
             distanceEstimateLabel,
             fareEstimateLabel,
+            topLineView,
         ]
         views.forEach { $0?.isHidden = hidden }
     }
