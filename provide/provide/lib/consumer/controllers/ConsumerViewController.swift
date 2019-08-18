@@ -341,7 +341,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
             providerService.fetch(1, rpp: 100, available: true, active: true, nearbyCoordinate: coordinate) { [weak self] providers in
                 logInfo("Found \(providers.count) provider(s): \(providers)")
                 self?.providers = providers
-                logWarn("Categories resolved but initial filtering by category not yet implemented")
+                logWarn("Categories resolved but no default category selected")
             }
         } else {
             logWarn("No current location resolved for consumer view controller; nearby providers not fetched")
@@ -431,7 +431,14 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         DispatchQueue.main.async { [weak self] in
             guard let strongSelf = self else { return }
 
-            let invalidAnnotations = strongSelf.providers.filter({ $0.categoryId != category.id }).map({ $0.annotation })
+            var invalidAnnotations = [Provider.Annotation]()
+            for annotation in strongSelf.mapView.annotations {
+                if let providerAnnotation = annotation as? Provider.Annotation {
+                    if providerAnnotation.provider.categoryId != category.id {
+                        invalidAnnotations.append(providerAnnotation)
+                    }
+                }
+            }
             strongSelf.mapView.removeAnnotations(invalidAnnotations)
 
             let annotations = strongSelf.providers.filter({ $0.categoryId == category.id }).map({ $0.annotation })
@@ -454,9 +461,9 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
     }
 
     private func updateProviderLocation(_ provider: Provider) {
-        if provider.userId == currentUser.id {
-            return  // HACK!!! API should not return this
-        }
+//        if provider.userId == currentUser.id {
+//            return  // HACK!!! API should not return this
+//        }
 
         if !mapView.annotations.contains(where: { annotation -> Bool in
             if let providerAnnotation = annotation as? Provider.Annotation, providerAnnotation.matches(provider) {

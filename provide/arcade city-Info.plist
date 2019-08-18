@@ -98,6 +98,8 @@
 	<string>lightning-splash</string>
 	<key>xAppMenuStoryboard</key>
 	<string>arcade-city-menu</string>
+	<key>xAppDefaultProviderAnnotationImage</key>
+	<string>ghost1</string>
 	<key>xAppPrivacyViewControllerNib</key>
 	<string>ArcadeCityLaunchScreen</string>
 	<key>xAppZeroStateImage</key>

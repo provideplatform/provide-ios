@@ -47,7 +47,7 @@ class MessagesViewController: JSQMessagesViewController {
 
         // Setup the input toolbar
         inputToolbar!.backgroundColor = .clear
-        inputToolbar!.contentView!.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        inputToolbar!.contentView!.backgroundColor = UIColor.black.withAlphaComponent(0.8)
         inputToolbar!.contentView!.leftBarButtonContainerView?.backgroundColor = .clear
         inputToolbar!.contentView!.rightBarButtonContainerView?.backgroundColor = .clear
 
@@ -88,7 +88,7 @@ class MessagesViewController: JSQMessagesViewController {
     }
 
     private func fetchMessages() {
-        if recipientId != nil && !pendingFetch && shouldPage {
+        if let recipientId = recipientId, !pendingFetch && shouldPage {
             pendingFetch = true
 
             showHUD()
@@ -99,7 +99,15 @@ class MessagesViewController: JSQMessagesViewController {
                 collectionView.alpha = 0.0
             }
 
-            let params: [String: Any] = ["recipient_id": recipientId, "page": nextPage]
+            var params: [String: Any] = [
+                "recipient_id": recipientId,
+                "page": nextPage,
+            ]
+
+            if let senderId = senderId {
+                params["sender_id"] = senderId
+            }
+
             MessageService.shared.fetch(params: params, onMessagesFetched: { messages in
                 self.hideHUD()
 
@@ -119,6 +127,9 @@ class MessagesViewController: JSQMessagesViewController {
                             i += 1
                         }
                         self.collectionView.insertItems(at: indexPaths)
+                        for indexPath in indexPaths {
+                            self.collectionView.cellForItem(at: indexPath)?.layoutSubviews()
+                        }
                     }, completion: { _ in
                         self.page = nextPage
                         if self.page == 1 {
@@ -408,10 +419,15 @@ class MessagesViewController: JSQMessagesViewController {
 
     private func configureNavigationItemTitleView() {
         navigationController?.navigationBar.backgroundColor = UIColor.black.withAlphaComponent(0.8)
-        if let recipient = recipient {
-            (navigationItem.titleView as! MessagesTitleView).configure(name: (recipient.firstName ?? recipient.name),
-                                                                       profileImageUrl: recipient.profileImageUrl,
-                                                                       height: navigationController?.navigationBar.height ?? 64.0)
+        let messagesTitleView = navigationItem.titleView as? MessagesTitleView
+        if let recipient = recipient, let name = recipient.firstName ?? recipient.name {
+            messagesTitleView?.configure(name: name,
+                                         profileImageUrl: recipient.profileImageUrl,
+                                         height: navigationController?.navigationBar.height ?? 64.0)
+        } else {
+            messagesTitleView?.configure(name: "",
+                                         profileImageUrl: recipient.profileImageUrl,
+                                         height: navigationController?.navigationBar.height ?? 64.0)
         }
     }
 }

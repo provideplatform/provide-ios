@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4yg-8T-R36">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="4yg-8T-R36">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Direct Message-->
         <scene sceneID="nPg-Ul-YaQ">
             <objects>
-                <viewController storyboardIdentifier="MessagesViewController" modalPresentationStyle="currentContext" id="BcV-L3-hl3" customClass="MessagesViewController" customModule="provide" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MessagesViewController" modalTransitionStyle="crossDissolve" id="BcV-L3-hl3" customClass="MessagesViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MCu-5M-Uzi"/>
                         <viewControllerLayoutGuide type="bottom" id="80m-ni-kPJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gcB-XL-yH7">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Direct Message" id="oys-Os-81h">
-                        <view key="titleView" contentMode="scaleToFill" id="oie-zw-utm" customClass="MessagesTitleView" customModule="provide" customModuleProvider="target">
+                        <view key="titleView" contentMode="scaleToFill" id="oie-zw-utm" customClass="MessagesTitleView" customModule="arcade_city" customModuleProvider="target">
                             <rect key="frame" x="8" y="0.0" width="359" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KXB-DZ-gaE">
-                                    <rect key="frame" x="165" y="0.0" width="29" height="29"/>
+                                    <rect key="frame" x="154.66666666666666" y="0.0" width="45" height="45"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="29" id="ZwG-pj-gfc"/>
+                                        <constraint firstAttribute="width" constant="45" id="q2O-Qt-MFz"/>
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kt" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACu-tn-F9P">
-                                    <rect key="frame" x="175.5" y="28" width="8.5" height="16"/>
+                                    <rect key="frame" x="175" y="46" width="9.3333333333333428" height="11.666666666666664"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Direct Message" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnT-NR-9Nx">
-                                    <rect key="frame" x="116.5" y="11.5" width="127" height="20.5"/>
+                                    <rect key="frame" x="116" y="9" width="127" height="21"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
@@ -49,14 +49,14 @@
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstItem="ACu-tn-F9P" firstAttribute="top" secondItem="oie-zw-utm" secondAttribute="top" constant="28" id="7nL-Bz-5tS"/>
-                                <constraint firstAttribute="bottom" secondItem="ACu-tn-F9P" secondAttribute="bottom" id="EW5-SI-tnd"/>
-                                <constraint firstItem="KXB-DZ-gaE" firstAttribute="centerX" secondItem="oie-zw-utm" secondAttribute="centerX" id="Jka-vy-vEi"/>
-                                <constraint firstAttribute="bottom" secondItem="KXB-DZ-gaE" secondAttribute="bottom" constant="15" id="KtN-6B-kBy"/>
-                                <constraint firstItem="jnT-NR-9Nx" firstAttribute="centerY" secondItem="oie-zw-utm" secondAttribute="centerY" id="T2y-Fn-Oen"/>
-                                <constraint firstItem="KXB-DZ-gaE" firstAttribute="top" secondItem="oie-zw-utm" secondAttribute="top" id="bTL-7s-rMq"/>
-                                <constraint firstItem="ACu-tn-F9P" firstAttribute="centerX" secondItem="KXB-DZ-gaE" secondAttribute="centerX" id="lzT-Xd-AxV"/>
-                                <constraint firstItem="jnT-NR-9Nx" firstAttribute="centerX" secondItem="oie-zw-utm" secondAttribute="centerX" id="m8w-KZ-uDh"/>
+                                <constraint firstItem="KXB-DZ-gaE" firstAttribute="top" secondItem="oie-zw-utm" secondAttribute="top" id="26r-0D-PPz"/>
+                                <constraint firstItem="ACu-tn-F9P" firstAttribute="top" secondItem="jnT-NR-9Nx" secondAttribute="bottom" constant="16" id="3Zj-zz-FjZ"/>
+                                <constraint firstAttribute="bottom" secondItem="KXB-DZ-gaE" secondAttribute="bottom" constant="-1" id="RWV-mK-axe"/>
+                                <constraint firstItem="KXB-DZ-gaE" firstAttribute="centerX" secondItem="oie-zw-utm" secondAttribute="centerX" constant="-2.3333333333333428" id="TtY-Lq-5BN"/>
+                                <constraint firstItem="jnT-NR-9Nx" firstAttribute="centerX" secondItem="ACu-tn-F9P" secondAttribute="centerX" id="a5a-eJ-70r"/>
+                                <constraint firstItem="jnT-NR-9Nx" firstAttribute="centerX" secondItem="oie-zw-utm" secondAttribute="centerX" id="qCc-gw-xEl"/>
+                                <constraint firstItem="ACu-tn-F9P" firstAttribute="centerX" secondItem="oie-zw-utm" secondAttribute="centerX" id="uLD-NQ-ZEy"/>
+                                <constraint firstItem="jnT-NR-9Nx" firstAttribute="top" secondItem="oie-zw-utm" secondAttribute="top" constant="9" id="vRc-gt-fpR"/>
                             </constraints>
                             <connections>
                                 <outlet property="nameLabel" destination="ACu-tn-F9P" id="kOk-ZK-Vxx"/>
@@ -76,9 +76,9 @@
         <!--Navigation Controller-->
         <scene sceneID="MG0-Yi-Ajs">
             <objects>
-                <navigationController modalPresentationStyle="currentContext" id="4yg-8T-R36" sceneMemberID="viewController">
+                <navigationController modalTransitionStyle="crossDissolve" id="4yg-8T-R36" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ErW-mf-qFP">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>

@@ -52,6 +52,8 @@ class DestinationInputViewController: ViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.setNavigationBarHidden(true, animated: false)
+
         KTNotificationCenter.addObserver(forName: .ApplicationWillResignActive) { [weak self] notification in
             guard let strongSelf = self else { return }
             if strongSelf.expanded {

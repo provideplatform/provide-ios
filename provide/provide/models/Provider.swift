@@ -9,6 +9,9 @@
 import Foundation
 import RestKit
 
+let defaultProviderAnnotationImageName = infoDictionaryValueFor("xAppDefaultProviderAnnotationImage")
+let defaultProviderAnnotationImage = defaultProviderAnnotationImageName != "" ? UIImage(named: defaultProviderAnnotationImageName)?.scaledToWidth(50.0) : nil
+
 var currentProvider: Provider!
 
 @objcMembers
@@ -18,6 +21,7 @@ class Provider: Model {
     var userId = 0
     var categoryId = 0
     var contact: Contact!
+    var nameString: String!
     var profileImageUrlString: String!
     var available: Bool = false
     var lastCheckinAt: String!
@@ -26,6 +30,9 @@ class Provider: Model {
     var lastCheckinHeading: Double = 0
 
     var name: String? {
+        if let nameString = nameString {
+            return nameString
+        }
         return contact?.name
     }
 
@@ -68,7 +75,7 @@ class Provider: Model {
             "id": "id",
             "user_id": "userId",
             "category_id": "categoryId",
-            "name": "name",
+            "name": "nameString",
             "profile_image_url": "profileImageUrlString",
             "available": "available",
             "last_checkin_at": "lastCheckinAt",
@@ -137,6 +144,9 @@ class Provider: Model {
         @objc var icon: UIImage? {
             if provider.categoryId > 0 {
                 return CategoryService.shared.iconForCategoryId(provider.categoryId)
+            }
+            if let defaultProviderAnnotationImage = defaultProviderAnnotationImage {
+                return defaultProviderAnnotationImage
             }
             return #imageLiteral(resourceName: "prvdX")
         }

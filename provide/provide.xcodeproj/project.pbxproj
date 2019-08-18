@@ -1375,9 +1375,9 @@
 				5CAC66201B1291620079A58E /* LaunchScreen.xib */,
 				68B412341B07FBEB009A4C05 /* Main.storyboard */,
 				5CB25A931F98A3770018D30F /* Menu.storyboard */,
-				68607D4822EA3DE800ACD485 /* arcade-city.storyboard */,
 				68AC2D102304E8EE00795FBE /* carmony.storyboard */,
 				687D2E011FD296DE008A9A22 /* unicorn.storyboard */,
+				68607D4822EA3DE800ACD485 /* arcade-city.storyboard */,
 			);
 			path = storyboards;
 			sourceTree = "<group>";

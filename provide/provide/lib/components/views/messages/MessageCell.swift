@@ -84,6 +84,7 @@ class MessageCell: JSQMessagesCollectionViewCell {
         if let profileImageUrl = message.senderProfileImageUrl {
             avatarImageView.sd_setImage(with: profileImageUrl) { image, err, cacheType, url in
                 logInfo("load avatar image view")
+                self.avatarImageView.makeCircular()
             }
         }
 
@@ -133,5 +134,7 @@ class MessageCell: JSQMessagesCollectionViewCell {
             messageBubbleContainerView?.gestureRecognizers?.forEach { removeGestureRecognizer($0) }
             messageBubbleContainerView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(mediaContainerViewTapped)))
         }
+
+        layoutSubviews()
     }
 }
