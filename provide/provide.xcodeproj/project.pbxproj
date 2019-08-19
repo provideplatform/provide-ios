@@ -1780,6 +1780,7 @@
 				68607DCC22F0E96D00ACD485 /* Resources */,
 				68607DF322F0E96D00ACD485 /* [CP] Embed Pods Frameworks */,
 				68607DF422F0E96D00ACD485 /* Fabric */,
+				689E0C15230B6AB300224157 /* Prepare for Distribution */,
 			);
 			buildRules = (
 			);
@@ -2723,6 +2724,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-unicorn driver/Pods-unicorn driver-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		689E0C15230B6AB300224157 /* Prepare for Distribution */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Prepare for Distribution";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "LINK_ROOT=${PODS_ROOT:+$PODS_ROOT/Plaid/ios}\ncp \"${LINK_ROOT:-$PROJECT_DIR}\"/LinkKit.framework/prepare_for_distribution.sh \"${CODESIGNING_FOLDER_PATH}\"/Frameworks/LinkKit.framework/prepare_for_distribution.sh\n\"${CODESIGNING_FOLDER_PATH}\"/Frameworks/LinkKit.framework/prepare_for_distribution.sh\n";
 		};
 		68AC2C5B2304E4DF00795FBE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
