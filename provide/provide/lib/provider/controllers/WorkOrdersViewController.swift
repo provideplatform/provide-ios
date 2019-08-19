@@ -415,7 +415,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     private func presentConsumerAccountActiveZeroState() {
-        zeroStateViewController.setMessage("Your provider account cannot be active while consuming service.")
+        zeroStateViewController.setMessage("Your provider account is unavailable.")
         zeroStateViewController.render(view)
         setupMenuBarButtonItem(tintColor: .white)
         availabilityBarButtonItem?.isEnabled = false
