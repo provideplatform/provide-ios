@@ -208,11 +208,17 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         dismiss(animated: true)
     }
 
-    @IBAction private func toggleAvailability(_ sender: UISwitch) {
+    @IBAction private func toggleAvailability(_ sender: UISwitch!) {
         if let currentProvider = currentProvider {
             availabilityBarButtonItem?.isEnabled = false
             currentProvider.toggleAvailability(onSuccess: { [weak self] statusCode, mappingResult in
-                logInfo("Current provider context marked \(sender.isOn ? "available" : "unavailable") for hire")
+                logInfo("Current provider context marked \(currentProvider.available ? "available" : "unavailable") for hire")
+
+                if sender == nil {
+                    if let switchView = self?.availabilityBarButtonItem!.customView! as? UISwitch {
+                        switchView.isOn = !switchView.isOn
+                    }
+                }
                 self?.availabilityBarButtonItem?.isEnabled = true
 
                 if currentProvider.isAvailable {
@@ -343,6 +349,16 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         workOrderService.fetch(status: "pending_acceptance,en_route,arriving,in_progress") { [weak self] workOrders in
             workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 
+            for workOrder in workOrders {
+                if workOrder.userId == currentProvider.userId {
+                    if currentProvider.isAvailable {
+                        self?.toggleAvailability(nil)
+                    }
+                    self?.presentConsumerAccountActiveZeroState()
+                    return
+                }
+            }
+
             self?.registerProviderContextObservers()
             if currentProvider.defaultPayoutMethod == nil {
                 self?.presentPayoutMethodRequiredZeroState()
@@ -389,6 +405,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         DispatchQueue.main.async { [weak self] in
             self?.zeroStateViewController.dismiss()
             self?.setupMenuBarButtonItem()
+            self?.availabilityBarButtonItem?.isEnabled = true
         }
     }
 
@@ -397,10 +414,18 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         setupMenuBarButtonItem(tintColor: .white)
     }
 
+    private func presentConsumerAccountActiveZeroState() {
+        zeroStateViewController.setMessage("Your provider account cannot be active while consuming service.")
+        zeroStateViewController.render(view)
+        setupMenuBarButtonItem(tintColor: .white)
+        availabilityBarButtonItem?.isEnabled = false
+    }
+
     private func presentPayoutMethodRequiredZeroState() {
         zeroStateViewController.setMessage("Please setup a valid payout method.")
         zeroStateViewController.render(view)
         setupMenuBarButtonItem(tintColor: .white)
+        availabilityBarButtonItem?.isEnabled = true
     }
 
     private func refreshAnnotations() {
