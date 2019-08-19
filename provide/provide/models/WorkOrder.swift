@@ -39,6 +39,7 @@ class WorkOrder: Model {
     var configJson: String!
     var expensesCount = 0
     var expensedAmount: Double!
+    var paymentMethods: [PaymentMethod]!
     var price: Double!
     var priority = 0
     var supervisors: [User]!
@@ -79,6 +80,7 @@ class WorkOrder: Model {
             "provider_rating": "providerRating",
             "expenses_count": "expensesCount",
             "expensed_amount": "expensedAmount",
+            "payment_methods": "paymentMethods",
             "price": "price",
             "priority": "priority",
             "user_id": "userId",
@@ -86,6 +88,7 @@ class WorkOrder: Model {
         mapping?.addRelationshipMapping(withSourceKeyPath: "user", mapping: User.mapping())
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "attachments", toKeyPath: "attachments", with: Attachment.mappingWithRepresentations()))
         mapping?.addRelationshipMapping(withSourceKeyPath: "category", mapping: Category.mapping())
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "payment_methods", toKeyPath: "payment_methods", with: PaymentMethod.mapping()))
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "supervisors", toKeyPath: "supervisors", with: User.mapping()))
         mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "work_order_providers", toKeyPath: "workOrderProviders", with: WorkOrderProvider.mapping()))
 
@@ -574,7 +577,13 @@ class WorkOrder: Model {
     }
 
     func reload(onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
-        reload(["include_estimated_cost": "false", "include_job": "false", "include_supervisors": "false", "include_work_order_providers": "true"], onSuccess: onSuccess, onError: onError)
+        reload([
+            "include_estimated_cost": "false",
+            "include_job": "false",
+            "include_supervisors": "false",
+            "include_work_order_providers": "true",
+            "include_work_order_payment_methods": "true",
+        ], onSuccess: onSuccess, onError: onError)
     }
 
     private func reload(_ params: [String: Any], onSuccess: @escaping OnSuccess, onError: @escaping OnError) {
@@ -617,6 +626,38 @@ class WorkOrder: Model {
                 }
             }
             workOrderProviders.remove(at: i)
+        }
+    }
+
+    private func hasPaymentMethod(_ paymentMethod: PaymentMethod) -> Bool {
+        if paymentMethods == nil {
+            return false
+        }
+        return paymentMethods.contains { $0.id == paymentMethod.id }
+    }
+
+    func removePaymentMethod(_ paymentMethod: PaymentMethod) {
+        if hasPaymentMethod(paymentMethod) {
+            var i = -1
+            for pm in paymentMethods {
+                i += 1
+                if pm.id == paymentMethod.id {
+                    break
+                }
+            }
+            paymentMethods.remove(at: i)
+        }
+    }
+
+    func addPaymentMethod(_ paymentMethod: PaymentMethod) {
+        if paymentMethods == nil {
+            paymentMethods = [PaymentMethod]()
+        }
+
+        if !hasPaymentMethod(paymentMethod) {
+//            let workOrderPaymentMethod = WorkOrderPaymentMethod()
+//            workOrderPaymentMethod.paymentMethod = paymentMethod
+            paymentMethods.append(paymentMethod)
         }
     }
 

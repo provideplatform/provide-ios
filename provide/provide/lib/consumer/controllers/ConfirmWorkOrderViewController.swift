@@ -34,12 +34,21 @@ class ConfirmWorkOrderViewController: ViewController {
     }
 
     @IBAction func categoryChanged(_ sender: CategorySelectionControl) {
-        let categoryId = sender.selectedIndex + 1 // TODO: Make robust
-        let price = workOrder?.estimatedPriceForCategory(categoryId) ?? 0
-        fareEstimateLabel.text = Formatters.currencyFormatter.string(from: price as NSNumber)
-        capacityLabel.text = "1-\(CategoryService.shared.capacityForCategoryId(categoryId))"
-        workOrder?.categoryId = categoryId
-        KTNotificationCenter.post(name: .CategorySelectionChanged, object: categoryId)
+        if let categoryId = sender.selectedCategoryId {
+            let price = workOrder?.estimatedPriceForCategory(categoryId) ?? 0
+            fareEstimateLabel.text = Formatters.currencyFormatter.string(from: price as NSNumber)
+            let capacity = CategoryService.shared.capacityForCategoryId(categoryId)
+            if capacity > 0 {
+                capacityLabel.text = "1-\(capacity)"
+            } else {
+                capacityLabel.text = "???"
+            }
+
+            workOrder?.categoryId = categoryId
+            KTNotificationCenter.post(name: .CategorySelectionChanged, object: categoryId)
+        } else {
+            workOrder?.categoryId = 0
+        }
     }
 
     private(set) var categories: [Category]! {
@@ -50,9 +59,14 @@ class ConfirmWorkOrderViewController: ViewController {
 
     var paymentMethod: PaymentMethod! {
         didSet {
-            if paymentMethod != nil, let last4 = paymentMethod.last4 {
-                creditCardIcon.image = paymentMethod.icon
-                creditCardLastFourLabel.text = "•••• \(last4)"
+            if let paymentMethod = paymentMethod, let last4 = paymentMethod.last4, let icon = paymentMethod.icon {
+                creditCardIcon?.image = icon
+                creditCardLastFourLabel?.text = "•••• \(last4)"
+
+                if oldValue != nil {
+                    workOrder?.removePaymentMethod(paymentMethod)
+                }
+                workOrder?.addPaymentMethod(paymentMethod)
             } else {
                 creditCardIcon?.image = nil
                 creditCardLastFourLabel?.text = ""
@@ -113,8 +127,16 @@ class ConfirmWorkOrderViewController: ViewController {
 
     func render() {
         // HACK to make the view re-render
+        if let categories = categories {
+            self.categories = categories
+        }
+
         if let workOrder = workOrder {
             self.workOrder = workOrder
+        }
+
+        if let paymentMethod = paymentMethod {
+            self.paymentMethod = paymentMethod
         }
     }
 
@@ -123,6 +145,11 @@ class ConfirmWorkOrderViewController: ViewController {
 
         navigationController?.setNavigationBarHidden(true, animated: false)
         view.addDropShadow()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        render()
     }
 
     @IBAction private func confirmButtonTapped(_ sender: UIButton) {
@@ -152,6 +179,7 @@ class ConfirmWorkOrderViewController: ViewController {
     }
 
     func prepareForReuse() {
+        paymentMethod = nil
         workOrder = nil
     }
 }

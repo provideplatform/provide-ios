@@ -13,6 +13,10 @@ class CategorySelectionControl: UIControl {
     var selectedIndex = 0
     private var selectedButton: CategoryButton?
 
+    var selectedCategoryId: Int? {
+        return selectedButton?.categoryId
+    }
+
     @IBOutlet var stackView: UIStackView!
 
     @IBAction func categoryButtonTapped(_ sender: CategoryButton) {
@@ -37,8 +41,12 @@ class CategorySelectionControl: UIControl {
         }
 
         if selectedButton == nil {
+            // FIXME-- implement a way to remember the user's last category selection and select it by default
             selectedButton = stackView.arrangedSubviews.filter { $0 is CategoryButton }.map { $0 as! CategoryButton }.first
-            selectedButton?.isSelected = true
+            if let selectedButton = selectedButton {
+                selectedButton.isSelected = true
+                categoryButtonTapped(selectedButton)
+            }
         }
     }
 }

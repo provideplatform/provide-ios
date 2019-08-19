@@ -324,8 +324,10 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
     }
 
     private func dismissZeroStateViewController() {
-        zeroStateViewController.dismiss()
-        setupMenuBarButtonItem(tintColor: .white)
+        DispatchQueue.main.async { [weak self] in
+            self?.zeroStateViewController.dismiss()
+            self?.setupMenuBarButtonItem()
+        }
     }
 
     private func presentPaymentMethodRequiredZeroState() {
@@ -404,7 +406,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
             providerService.fetch(1, rpp: 100, available: true, active: true, nearbyCoordinate: coordinate) { [weak self] providers in
                 logInfo("Found \(providers.count) provider(s): \(providers)")
                 self?.providers = providers
-                logWarn("Categories resolved but no default category selected")
             }
         } else {
             logWarn("No current location resolved for consumer view controller; nearby providers not fetched")

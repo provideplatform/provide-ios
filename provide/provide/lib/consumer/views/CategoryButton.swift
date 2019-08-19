@@ -10,7 +10,17 @@ import UIKit
 
 class CategoryButton: UIButton {
 
+    private var category: Category?
+
+    var categoryId: Int? {
+        if let category = category {
+            return category.id
+        }
+        return nil
+    }
+
     func configure(category: Category) {
+        self.category = category
         setTitle(category.name, for: .normal)
     }
 }

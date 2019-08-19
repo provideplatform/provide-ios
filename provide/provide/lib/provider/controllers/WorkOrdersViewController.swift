@@ -359,8 +359,10 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     private func dismissZeroStateViewController() {
-        zeroStateViewController.dismiss()
-        setupMenuBarButtonItem()
+        DispatchQueue.main.async { [weak self] in
+            self?.zeroStateViewController.dismiss()
+            self?.setupMenuBarButtonItem()
+        }
     }
 
     private func presentZeroState() {
