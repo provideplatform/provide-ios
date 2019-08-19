@@ -51,6 +51,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         return (childViewControllers.first as? WorkOrderDestinationHeaderViewController)?.view
     }
 
+    private var registeredProviderContextObservers = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -59,8 +61,37 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         navigationItem.hidesBackButton = true
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "DISMISS", style: .plain, target: nil, action: nil)
 
-        requireProviderContext()
+        setupMenuBarButtonItem()
+        setupRightBarButtonItem()
 
+        registerRequiredObservers()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
+        navigationController?.navigationBar.barTintColor = nil
+        navigationController?.navigationBar.tintColor = Color.applicationDefaultBarTintColor()
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = false
+        }
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        hideHeaderView()
+
+        dispatch_after_delay(0.25) {
+            LocationService.shared.resolveCurrentLocation(allowCachedLocation: true) { [weak self] (_) in
+                logmoji("📍", "Current location resolved for consumer view controller... refreshing context")
+                self?.requireProviderContext()
+            }
+        }
+    }
+
+    private func registerRequiredObservers() {
         // FIXME-- how does this next line actually work? localLogout has been called at this point...
         KTNotificationCenter.addObserver(observer: self, selector: #selector(clearProviderContext), name: .ApplicationUserLoggedOut)
 
@@ -71,7 +102,15 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                 }
             }
         }
+    }
 
+    private func registerProviderContextObservers() {
+        if registeredProviderContextObservers {
+            return
+        }
+        registeredProviderContextObservers = true
+
+        // TODO: deregister these when it applies
         KTNotificationCenter.addObserver(forName: .WorkOrderChanged) { [weak self] notification in
             if let workOrder = notification.object as? WorkOrder {
                 if WorkOrderService.shared.inProgressWorkOrder?.id == workOrder.id, let pendingManualCompletion = self?.pendingManualCompletion, !pendingManualCompletion {
@@ -114,26 +153,6 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                 self?.setupRightBarButtonItem()
             }
         }
-
-        setupMenuBarButtonItem()
-        setupRightBarButtonItem()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
-        navigationController?.navigationBar.barTintColor = nil
-        navigationController?.navigationBar.tintColor = Color.applicationDefaultBarTintColor()
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = false
-        }
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        hideHeaderView()
     }
 
     private func setupRightBarButtonItem() {
@@ -324,6 +343,14 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         workOrderService.fetch(status: "pending_acceptance,en_route,arriving,in_progress") { [weak self] workOrders in
             workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 
+            self?.registerProviderContextObservers()
+            if currentProvider.defaultPayoutMethod == nil {
+                self?.presentPayoutMethodRequiredZeroState()
+                return
+            }
+
+            self?.dismissZeroStateViewController()
+
             if workOrders.count == 0 || WorkOrderService.shared.inProgressWorkOrder == nil {
                 self?.presentZeroState()
             }
@@ -366,6 +393,12 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     private func presentZeroState() {
+        zeroStateViewController.render(view)
+        setupMenuBarButtonItem(tintColor: .white)
+    }
+
+    private func presentPayoutMethodRequiredZeroState() {
+        zeroStateViewController.setMessage("Please setup a valid payout method.")
         zeroStateViewController.render(view)
         setupMenuBarButtonItem(tintColor: .white)
     }

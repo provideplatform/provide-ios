@@ -22,12 +22,21 @@ class Provider: Model {
     var categoryId = 0
     var contact: Contact!
     var nameString: String!
+    var paymentMethods: [PaymentMethod]!
     var profileImageUrlString: String!
     var available: Bool = false
     var lastCheckinAt: String!
     var lastCheckinLatitude: Double = 0
     var lastCheckinLongitude: Double = 0
     var lastCheckinHeading: Double = 0
+
+    var defaultPayoutMethod: PaymentMethod? {
+        if let paymentMethods = paymentMethods {
+            // FIXME-- filter on valid payment methods for sending payments to this provider
+            return paymentMethods.first
+        }
+        return nil
+    }
 
     var name: String? {
         if let nameString = nameString {
@@ -84,6 +93,7 @@ class Provider: Model {
             "last_checkin_heading": "lastCheckinHeading",
         ])
         mapping?.addRelationshipMapping(withSourceKeyPath: "contact", mapping: Contact.mapping())
+        mapping?.addPropertyMapping(RKRelationshipMapping(fromKeyPath: "payment_methods", toKeyPath: "paymentMethods", with: PaymentMethod.mapping()))
         return mapping!
     }
 
