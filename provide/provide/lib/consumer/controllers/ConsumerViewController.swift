@@ -23,6 +23,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
     private var confirmWorkOrderViewController: ConfirmWorkOrderViewController!
     private var providerEnRouteViewController: ProviderEnRouteViewController!
 
+    private var registeredConsumerContextObservers = false
     private var zeroStateViewController = UIStoryboard("ZeroState").instantiateInitialViewController() as! ZeroStateViewController
 
     private var updatingWorkOrderContext = false
@@ -62,6 +63,19 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         registerRequiredObservers()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
+        navigationController?.navigationBar.barTintColor = nil
+        navigationController?.navigationBar.tintColor = nil
+
+        LocationService.shared.resolveCurrentLocation(allowCachedLocation: false) { [weak self] (_) in
+            logmoji("📍", "Current location resolved for consumer view controller... refreshing context")
+            self?.requireConsumerContext()
+        }
+    }
+
     private func registerRequiredObservers() {
         KTNotificationCenter.addObserver(forName: Notification.Name(rawValue: "SegueToPaymentsStoryboard")) { [weak self] sender in
             if KeyChainService.shared.mode! == .provider {
@@ -93,6 +107,11 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
     }
 
     private func registerConsumerContextObservers() {
+        if registeredConsumerContextObservers {
+            return
+        }
+        registeredConsumerContextObservers = true
+
         // TODO: deregister these when it applies
         KTNotificationCenter.addObserver(forName: .CategorySelectionChanged, using: filterProvidersByCategoryFromNotification)
 
@@ -124,19 +143,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
                     self?.performTripCompletionViewControllerSegue(sender: workOrder)
                 }
             }
-        }
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
-        navigationController?.navigationBar.barTintColor = nil
-        navigationController?.navigationBar.tintColor = nil
-
-        LocationService.shared.resolveCurrentLocation(allowCachedLocation: true) { [weak self] (_) in
-            logmoji("📍", "Current location resolved for consumer view controller... refreshing context")
-            self?.requireConsumerContext()
         }
     }
 
