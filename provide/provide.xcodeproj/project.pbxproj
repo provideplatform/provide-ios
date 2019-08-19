@@ -1570,10 +1570,10 @@
 		68B882771FDBA04D00100CF7 /* payments */ = {
 			isa = PBXGroup;
 			children = (
+				689E0C0F230B4B8900224157 /* LinkBankAccountViewController.swift */,
 				68B8826E1FDB8D2D00100CF7 /* PaymentMethodsViewController.swift */,
 				68B882841FDBD62C00100CF7 /* PaymentMethodScannerViewController.swift */,
 				68B882721FDB999D00100CF7 /* TokenPurchaseViewController.swift */,
-				689E0C0F230B4B8900224157 /* LinkBankAccountViewController.swift */,
 			);
 			path = payments;
 			sourceTree = "<group>";
