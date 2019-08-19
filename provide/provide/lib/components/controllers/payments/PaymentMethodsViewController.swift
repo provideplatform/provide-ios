@@ -9,7 +9,7 @@
 import UIKit
 import MBProgressHUD
 
-class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class PaymentMethodsViewController: ViewController, LinkBankAccountViewControllerDelegate, PaymentMethodScannerViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
 
     //FIXME @IBOutlet private weak var tokenBalanceHeaderView: TokenBalanceHeaderView!
     @IBOutlet private weak var paymentMethodsTableView: UITableView!
@@ -84,6 +84,8 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
         super.prepare(for: segue, sender: sender)
 
         switch segue.identifier! {
+        case "LinkBankAccountViewControllerSegue":
+            (segue.destination as! LinkBankAccountViewController).delegate = self
         case "PaymentMethodScannerViewControllerSegue":
             (segue.destination as! PaymentMethodScannerViewController).delegate = self
         default:
@@ -104,6 +106,18 @@ class PaymentMethodsViewController: ViewController, PaymentMethodScannerViewCont
                 MBProgressHUD.hide(for: strongSelf.view, animated: true)
             }
         })
+    }
+
+    // MARK: LinkBankAccountViewControllerDelegate
+
+    func linkBankAccountViewController(_ viewController: LinkBankAccountViewController, didLinkBankAccount bankAccount: PaymentMethod) {
+        log("Linked bank account: \(bankAccount)")
+        navigationController?.popViewController(animated: false)
+    }
+
+    func linkBankAccountViewControllerExited(_ viewController: LinkBankAccountViewController, withError: Error?) {
+        log("Did not linked bank account...")
+        navigationController?.popViewController(animated: false)
     }
 
     // MARK: PaymentMethodScannerViewControllerDelegate

@@ -575,6 +575,11 @@
 		689B0CB61B07E0A7005694B7 /* KeyChainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CB51B07E0A7005694B7 /* KeyChainService.swift */; };
 		689B0CBC1B07E0F1005694B7 /* BuildConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */; };
 		689B0CBF1B07E0F1005694B7 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689B0CBB1B07E0F1005694B7 /* Environment.swift */; };
+		689E0C10230B4B8900224157 /* LinkBankAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689E0C0F230B4B8900224157 /* LinkBankAccountViewController.swift */; };
+		689E0C11230B4DC600224157 /* LinkBankAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689E0C0F230B4B8900224157 /* LinkBankAccountViewController.swift */; };
+		689E0C12230B4DC700224157 /* LinkBankAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689E0C0F230B4B8900224157 /* LinkBankAccountViewController.swift */; };
+		689E0C13230B4DC700224157 /* LinkBankAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689E0C0F230B4B8900224157 /* LinkBankAccountViewController.swift */; };
+		689E0C14230B4DC800224157 /* LinkBankAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 689E0C0F230B4B8900224157 /* LinkBankAccountViewController.swift */; };
 		68A653A11F4C184B007CC52F /* ZeroState.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68A653A01F4C184B007CC52F /* ZeroState.storyboard */; };
 		68A653A31F4C20D7007CC52F /* ProviderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68A653A21F4C20D7007CC52F /* ProviderService.swift */; };
 		68AC2C5D2304E4DF00795FBE /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 687B65111C2439210088E539 /* MenuTableViewCell.swift */; };
@@ -1003,6 +1008,7 @@
 		689B0CB51B07E0A7005694B7 /* KeyChainService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyChainService.swift; sourceTree = "<group>"; };
 		689B0CBA1B07E0F1005694B7 /* BuildConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuildConfig.swift; sourceTree = "<group>"; };
 		689B0CBB1B07E0F1005694B7 /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		689E0C0F230B4B8900224157 /* LinkBankAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkBankAccountViewController.swift; sourceTree = "<group>"; };
 		68A653A01F4C184B007CC52F /* ZeroState.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ZeroState.storyboard; sourceTree = "<group>"; };
 		68A653A21F4C20D7007CC52F /* ProviderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProviderService.swift; sourceTree = "<group>"; };
 		68AAF65C1D8C7B2300EAFD6F /* provide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = provide.entitlements; sourceTree = "<group>"; };
@@ -1567,6 +1573,7 @@
 				68B8826E1FDB8D2D00100CF7 /* PaymentMethodsViewController.swift */,
 				68B882841FDBD62C00100CF7 /* PaymentMethodScannerViewController.swift */,
 				68B882721FDB999D00100CF7 /* TokenPurchaseViewController.swift */,
+				689E0C0F230B4B8900224157 /* LinkBankAccountViewController.swift */,
 			);
 			path = payments;
 			sourceTree = "<group>";
@@ -2247,6 +2254,7 @@
 				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PDTSimpleCalendar/PDTSimpleCalendar.framework",
+				"${PODS_ROOT}/Plaid/LinkKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RFGravatarImageView/RFGravatarImageView.framework",
 				"${BUILT_PRODUCTS_DIR}/RKValueTransformers/RKValueTransformers.framework",
@@ -2286,6 +2294,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDTSimpleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RFGravatarImageView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RKValueTransformers.framework",
@@ -2367,6 +2376,7 @@
 				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PDTSimpleCalendar/PDTSimpleCalendar.framework",
+				"${PODS_ROOT}/Plaid/LinkKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RFGravatarImageView/RFGravatarImageView.framework",
 				"${BUILT_PRODUCTS_DIR}/RKValueTransformers/RKValueTransformers.framework",
@@ -2406,6 +2416,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDTSimpleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RFGravatarImageView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RKValueTransformers.framework",
@@ -2486,6 +2497,7 @@
 				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PDTSimpleCalendar/PDTSimpleCalendar.framework",
+				"${PODS_ROOT}/Plaid/LinkKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RFGravatarImageView/RFGravatarImageView.framework",
 				"${BUILT_PRODUCTS_DIR}/RKValueTransformers/RKValueTransformers.framework",
@@ -2525,6 +2537,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDTSimpleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RFGravatarImageView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RKValueTransformers.framework",
@@ -2651,6 +2664,7 @@
 				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PDTSimpleCalendar/PDTSimpleCalendar.framework",
+				"${PODS_ROOT}/Plaid/LinkKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RFGravatarImageView/RFGravatarImageView.framework",
 				"${BUILT_PRODUCTS_DIR}/RKValueTransformers/RKValueTransformers.framework",
@@ -2690,6 +2704,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDTSimpleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RFGravatarImageView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RKValueTransformers.framework",
@@ -2757,6 +2772,7 @@
 				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PDTSimpleCalendar/PDTSimpleCalendar.framework",
+				"${PODS_ROOT}/Plaid/LinkKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RFGravatarImageView/RFGravatarImageView.framework",
 				"${BUILT_PRODUCTS_DIR}/RKValueTransformers/RKValueTransformers.framework",
@@ -2796,6 +2812,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDTSimpleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RFGravatarImageView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RKValueTransformers.framework",
@@ -2914,6 +2931,7 @@
 				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PDTSimpleCalendar/PDTSimpleCalendar.framework",
+				"${PODS_ROOT}/Plaid/LinkKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RFGravatarImageView/RFGravatarImageView.framework",
 				"${BUILT_PRODUCTS_DIR}/RKValueTransformers/RKValueTransformers.framework",
@@ -2953,6 +2971,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDTSimpleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RFGravatarImageView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RKValueTransformers.framework",
@@ -3002,6 +3021,7 @@
 				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/PDTSimpleCalendar/PDTSimpleCalendar.framework",
+				"${PODS_ROOT}/Plaid/LinkKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RFGravatarImageView/RFGravatarImageView.framework",
 				"${BUILT_PRODUCTS_DIR}/RKValueTransformers/RKValueTransformers.framework",
@@ -3041,6 +3061,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDTSimpleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LinkKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RFGravatarImageView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RKValueTransformers.framework",
@@ -3127,6 +3148,7 @@
 				68607D8B22F0E96D00ACD485 /* PinInputViewController.swift in Sources */,
 				68607D8C22F0E96D00ACD485 /* AppDelegate.swift in Sources */,
 				68607D8D22F0E96D00ACD485 /* ProfileImageView.swift in Sources */,
+				689E0C13230B4DC700224157 /* LinkBankAccountViewController.swift in Sources */,
 				68607D8E22F0E96D00ACD485 /* MessagesViewController.swift in Sources */,
 				68607D8F22F0E96D00ACD485 /* Logmoji.swift in Sources */,
 				68607D9022F0E96D00ACD485 /* WorkOrderDetailsHeaderTableViewCell.swift in Sources */,
@@ -3253,6 +3275,7 @@
 				687D2CE81FCFAB79008A9A22 /* PinInputViewController.swift in Sources */,
 				687D2CE91FCFAB79008A9A22 /* AppDelegate.swift in Sources */,
 				687D2CEA1FCFAB79008A9A22 /* ProfileImageView.swift in Sources */,
+				689E0C11230B4DC600224157 /* LinkBankAccountViewController.swift in Sources */,
 				687D2CEB1FCFAB79008A9A22 /* MessagesViewController.swift in Sources */,
 				687D2CEC1FCFAB79008A9A22 /* Logmoji.swift in Sources */,
 				687D2CED1FCFAB79008A9A22 /* WorkOrderDetailsHeaderTableViewCell.swift in Sources */,
@@ -3379,6 +3402,7 @@
 				687D2D941FD0DD23008A9A22 /* PinInputViewController.swift in Sources */,
 				687D2D951FD0DD23008A9A22 /* AppDelegate.swift in Sources */,
 				687D2D961FD0DD23008A9A22 /* ProfileImageView.swift in Sources */,
+				689E0C12230B4DC700224157 /* LinkBankAccountViewController.swift in Sources */,
 				687D2D971FD0DD23008A9A22 /* MessagesViewController.swift in Sources */,
 				687D2D981FD0DD23008A9A22 /* Logmoji.swift in Sources */,
 				687D2D991FD0DD23008A9A22 /* WorkOrderDetailsHeaderTableViewCell.swift in Sources */,
@@ -3513,6 +3537,7 @@
 				68AC2C962304E4DF00795FBE /* PinInputViewController.swift in Sources */,
 				68AC2C972304E4DF00795FBE /* AppDelegate.swift in Sources */,
 				68AC2C982304E4DF00795FBE /* ProfileImageView.swift in Sources */,
+				689E0C14230B4DC800224157 /* LinkBankAccountViewController.swift in Sources */,
 				68AC2C992304E4DF00795FBE /* MessagesViewController.swift in Sources */,
 				68AC2C9A2304E4DF00795FBE /* Logmoji.swift in Sources */,
 				68AC2C9B2304E4DF00795FBE /* WorkOrderDetailsHeaderTableViewCell.swift in Sources */,
@@ -3639,6 +3664,7 @@
 				6899CDE91F5D8D200074370C /* PinInputViewController.swift in Sources */,
 				68DFB0841B07C5C4002A72E8 /* AppDelegate.swift in Sources */,
 				6855D0BD1F6EBCF3001A4D33 /* ProfileImageView.swift in Sources */,
+				689E0C10230B4B8900224157 /* LinkBankAccountViewController.swift in Sources */,
 				6899CDE81F5D8D200074370C /* MessagesViewController.swift in Sources */,
 				5C4D96401F9F628300AD564F /* Logmoji.swift in Sources */,
 				6816FD3A1C3234A6005A18BB /* WorkOrderDetailsHeaderTableViewCell.swift in Sources */,

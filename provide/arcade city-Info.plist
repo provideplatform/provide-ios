@@ -94,6 +94,21 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>PLKPlaidLinkConfiguration</key>
+	<dict>
+		<key>clientName</key>
+		<string>Arcade City</string>
+		<key>env</key>
+		<string>sandbox</string>
+		<key>key</key>
+		<string>6e28c4e4070ef53f8ee068b44c5ccf</string>
+		<key>product</key>
+		<array>
+			<string>auth</string>
+			<string>identity</string>
+			<string>transactions</string>
+		</array>
+	</dict>
 	<key>xApiHostSuffix</key>
 	<string>unicorn.provide.services</string>
 	<key>xMarketingHostSuffix</key>

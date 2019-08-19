@@ -31,4 +31,5 @@
 @import FirebaseAnalytics;
 @import FontAwesomeKit;
 @import KTSwiftExtensions;
+@import LinkKit;
 @import RestKit;

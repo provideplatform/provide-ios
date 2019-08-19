@@ -23,6 +23,7 @@ def shared_pods
   pod 'NotificationBannerSwift'
   pod 'OHHTTPStubs'
   pod 'PDTSimpleCalendar'
+  pod 'Plaid'
   pod 'Reachability'
   pod 'RestKit'
   pod 'RFGravatarImageView'
