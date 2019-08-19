@@ -62,30 +62,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         registerRequiredObservers()
     }
 
-    private func requireConsumerContext() {
-        if let user = currentUser {
-            if user.providerIds.count == 1 {
-                ApiService.shared.fetchProviderWithId(String(user.providerIds.first!), onSuccess: { [weak self] statusCode, mappingResult in
-                    if let provider = mappingResult!.firstObject as? Provider {
-                        logInfo("Fetched provider context for user: \(provider)")
-                        if provider.available {
-                            logWarn("User has an active provider context; consuming services will be disabled while still active")
-                            currentProvider = provider
-                            self?.presentServiceProviderAccountActiveZeroState()
-                            return
-                        }
-
-                        self?.loadWorkOrderContext()
-                    }
-                }, onError: { err, statusCode, response in
-                        logWarn("Failed to fetch provider (id: \(user.providerIds.first!)) for user (\(statusCode))")
-                })
-            }
-        } else {
-            logWarn("No user for which provider context can be loaded")
-        }
-    }
-
     private func registerRequiredObservers() {
         KTNotificationCenter.addObserver(forName: Notification.Name(rawValue: "SegueToPaymentsStoryboard")) { [weak self] sender in
             if KeyChainService.shared.mode! == .provider {
@@ -160,10 +136,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
 
         LocationService.shared.resolveCurrentLocation(allowCachedLocation: true) { [weak self] (_) in
             logmoji("📍", "Current location resolved for consumer view controller... refreshing context")
-            self?.loadCategoriesContext()
+            self?.requireConsumerContext()
         }
-
-        requireConsumerContext()
     }
 
     private func performTripCompletionViewControllerSegue(sender: WorkOrder) {
@@ -347,14 +321,40 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         LocationService.shared.reverseGeocodeLocation(LocationService.shared.currentLocation) { [weak self] placemark in
             var msg = "No service available yet"
             if let locality = placemark.locality {
-                msg = "\(msg) in \(locality)"
+                msg = "\(msg) in \(locality)."
             }
             self?.zeroStateViewController.setMessage(msg)
             self?.zeroStateViewController.render(self!.view)
         }
     }
 
-    private func loadCategoriesContext() {
+    private func requireConsumerContext() {
+        if let user = currentUser {
+            if user.providerIds.count == 1 {
+                ApiService.shared.fetchProviderWithId(String(user.providerIds.first!), onSuccess: { [weak self] statusCode, mappingResult in
+                    if let provider = mappingResult!.firstObject as? Provider {
+                        logInfo("Fetched provider context for user: \(provider)")
+                        if provider.available {
+                            logWarn("User has an active provider context; consuming services will be disabled while still active")
+                            currentProvider = provider
+                            self?.presentServiceProviderAccountActiveZeroState()
+                            return
+                        }
+
+                        self?.loadMarketContext()
+                    }
+                    }, onError: { err, statusCode, response in
+                        logWarn("Failed to fetch provider (id: \(user.providerIds.first!)) for user (\(statusCode))")
+                })
+            } else {
+                loadMarketContext()
+            }
+        } else {
+            logWarn("No user for which provider context can be loaded")
+        }
+    }
+
+    private func loadMarketContext() {
         if let coordinate = LocationService.shared.currentLocation?.coordinate {
             CategoryService.shared.nearby(coordinate: coordinate, radius: 50.0, onSuccess: { [weak self] categories in
                 logInfo("Found \(categories.count) categories: \(categories)")
@@ -363,8 +363,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
                 if categories.count == 0 {
                     self?.presentServiceAvailabilityZeroState()
                 } else {
-                    self?.zeroStateViewController.dismiss()
                     self?.loadProviderContext()
+                    self?.loadWorkOrderContext()
                 }
             }, onError: { error, statusCode, response in
                 logWarn("Failed to fetch categories near \(coordinate)")

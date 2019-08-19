@@ -22,6 +22,10 @@ class ZeroStateViewController: ViewController {
     private var message: String!
     private var rendered = false
 
+    var isRendered: Bool {
+        return rendered
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
