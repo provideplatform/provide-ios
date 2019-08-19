@@ -524,7 +524,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$100" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eb7-Uc-xm3">
-                                <rect key="frame" x="88" y="238" width="199" height="129"/>
+                                <rect key="frame" x="88" y="239" width="199" height="129"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="129" id="JQg-6S-cr6"/>
                                 </constraints>
@@ -533,7 +533,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•••• 7059" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="gGx-a4-w1j">
-                                <rect key="frame" x="182" y="387" width="55" height="16"/>
+                                <rect key="frame" x="182" y="388" width="55" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="55" id="5s3-zI-V8I"/>
                                     <constraint firstAttribute="height" constant="16" id="9je-yF-x3u"/>
@@ -548,19 +548,19 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dIL-jg-AdI">
-                                <rect key="frame" x="151.66666666666666" y="419" width="72" height="33"/>
+                                <rect key="frame" x="151.66666666666666" y="420" width="72" height="32"/>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="17"/>
                                 <state key="normal" title="Purchase"/>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="visa" translatesAutoresizingMaskIntoConstraints="NO" id="cfd-zO-N6T">
-                                <rect key="frame" x="139" y="385" width="32" height="20"/>
+                                <rect key="frame" x="139" y="386" width="32" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="3x2-Gy-AI2"/>
                                     <constraint firstAttribute="height" constant="20" id="tQJ-YD-w5I"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@ $0.22 per PRVD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szt-ff-HBt">
-                                <rect key="frame" x="136.66666666666666" y="118" width="102" height="16"/>
+                                <rect key="frame" x="134" y="118" width="107" height="16"/>
                                 <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
