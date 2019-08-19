@@ -69,10 +69,16 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
         navigationController?.navigationBar.barTintColor = nil
         navigationController?.navigationBar.tintColor = nil
+    }
 
-        LocationService.shared.resolveCurrentLocation(allowCachedLocation: false) { [weak self] (_) in
-            logmoji("📍", "Current location resolved for consumer view controller... refreshing context")
-            self?.requireConsumerContext()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        dispatch_after_delay(0.25) {
+            LocationService.shared.resolveCurrentLocation(allowCachedLocation: true) { [weak self] (_) in
+                logmoji("📍", "Current location resolved for consumer view controller... refreshing context")
+                self?.requireConsumerContext()
+            }
         }
     }
 

@@ -178,16 +178,16 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
     // MARK: Location resolution
 
     func resolveCurrentLocation(_ durableKey: String? = nil, allowCachedLocation: Bool = false, onResolved: @escaping OnLocationResolved) {
-        if allowCachedLocation && currentLocation != nil {
-            onResolved(currentLocation)
-        } else {
-            foreground()
-        }
-
         if let durableKey = durableKey {
             onLocationResolvedDurableCallbacks[durableKey] = onResolved
         } else if !allowCachedLocation {
             onLocationResolvedCallbacks.append(onResolved)
+        }
+
+        if allowCachedLocation && currentLocation != nil {
+            onResolved(currentLocation)
+        } else {
+            foreground()
         }
     }
 
