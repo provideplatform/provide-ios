@@ -20,6 +20,7 @@ class ZeroStateViewController: ViewController {
     private var backgroundSubview: UIView!
 
     private var message: String!
+    private var rendered = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +64,10 @@ class ZeroStateViewController: ViewController {
     }
 
     private func render(_ targetView: UIView, animated: Bool) {
+        if rendered {
+            return
+        }
+
         if let superview = view.superview {
             if targetView == superview {
                 return
@@ -76,10 +81,12 @@ class ZeroStateViewController: ViewController {
             UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseOut, animations: {
                 self.view.alpha = 1.0
                 self.view.frame.origin.y -= self.view.height
+                self.rendered = true
             })
         } else {
             view.alpha = 1.0
             view.frame.origin.y -= view.height
+            self.rendered = true
         }
     }
 
@@ -90,6 +97,7 @@ class ZeroStateViewController: ViewController {
                 self.view.frame.origin.y += self.view.height
             }, completion: { completed in
                 self.view.removeFromSuperview()
+                self.rendered = false
             })
         }
     }

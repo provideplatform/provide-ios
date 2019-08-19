@@ -59,10 +59,34 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         navigationItem.hidesBackButton = true
 
         setupMenuBarButtonItem()
-        loadWorkOrderContext()
+        registerRequiredObservers()
     }
 
-    private func registerObservers() {
+    private func requireConsumerContext() {
+        if let user = currentUser {
+            if user.providerIds.count == 1 {
+                ApiService.shared.fetchProviderWithId(String(user.providerIds.first!), onSuccess: { [weak self] statusCode, mappingResult in
+                    if let provider = mappingResult!.firstObject as? Provider {
+                        logInfo("Fetched provider context for user: \(provider)")
+                        if provider.available {
+                            logWarn("User has an active provider context; consuming services will be disabled while still active")
+                            currentProvider = provider
+                            self?.presentServiceProviderAccountActiveZeroState()
+                            return
+                        }
+
+                        self?.loadWorkOrderContext()
+                    }
+                }, onError: { err, statusCode, response in
+                        logWarn("Failed to fetch provider (id: \(user.providerIds.first!)) for user (\(statusCode))")
+                })
+            }
+        } else {
+            logWarn("No user for which provider context can be loaded")
+        }
+    }
+
+    private func registerRequiredObservers() {
         KTNotificationCenter.addObserver(forName: Notification.Name(rawValue: "SegueToPaymentsStoryboard")) { [weak self] sender in
             if KeyChainService.shared.mode! == .provider {
                 return
@@ -87,6 +111,13 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
             }
         }
 
+        KTNotificationCenter.addObserver(forName: .ProviderBecameAvailable, using: updateProviderLocationFromNotification)
+        KTNotificationCenter.addObserver(forName: .ProviderBecameUnavailable, using: updateProviderLocationFromNotification)
+        KTNotificationCenter.addObserver(forName: .ProviderLocationChanged, using: updateProviderLocationFromNotification)
+    }
+
+    private func registerConsumerContextObservers() {
+        // TODO: deregister these when it applies
         KTNotificationCenter.addObserver(forName: .CategorySelectionChanged, using: filterProvidersByCategoryFromNotification)
 
         KTNotificationCenter.addObserver(forName: .NewMessageReceivedNotification) { [weak self] notification in
@@ -94,10 +125,6 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
                 self?.setupMessagesBarButtonItem()
             }
         }
-
-        KTNotificationCenter.addObserver(forName: .ProviderBecameAvailable, using: updateProviderLocationFromNotification)
-        KTNotificationCenter.addObserver(forName: .ProviderBecameUnavailable, using: updateProviderLocationFromNotification)
-        KTNotificationCenter.addObserver(forName: .ProviderLocationChanged, using: updateProviderLocationFromNotification)
 
         KTNotificationCenter.addObserver(forName: .WorkOrderContextShouldRefresh) { [weak self] notification in
             guard let strongSelf = self else { return }
@@ -135,6 +162,8 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
             logmoji("📍", "Current location resolved for consumer view controller... refreshing context")
             self?.loadCategoriesContext()
         }
+
+        requireConsumerContext()
     }
 
     private func performTripCompletionViewControllerSegue(sender: WorkOrder) {
@@ -304,6 +333,16 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         }
     }
 
+    private func presentPaymentMethodRequiredZeroState() {
+        zeroStateViewController.setMessage("Please setup a valid payment method.")
+        zeroStateViewController.render(view)
+    }
+
+    private func presentServiceProviderAccountActiveZeroState() {
+        zeroStateViewController.setMessage("Your service provider account is currently active.")
+        zeroStateViewController.render(view)
+    }
+
     private func presentServiceAvailabilityZeroState() {
         LocationService.shared.reverseGeocodeLocation(LocationService.shared.currentLocation) { [weak self] placemark in
             var msg = "No service available yet"
@@ -350,7 +389,13 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
 
     private func loadWorkOrderContext(workOrder: WorkOrder? = nil) {
         let onWorkOrdersFetched: ([WorkOrder]) -> Void = { [weak self] workOrders in
-            self?.registerObservers()
+            self?.registerConsumerContextObservers()
+            if currentUser.defaultPaymentMethod == nil {
+                self?.presentPaymentMethodRequiredZeroState()
+                return
+            }
+
+            self?.zeroStateViewController.dismiss()
 
             DispatchQueue.main.async {
                 WorkOrderService.shared.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
@@ -462,7 +507,16 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
 
     private func updateProviderLocation(_ provider: Provider) {
         if provider.userId == currentUser.id {
-            return  // HACK!!! API should not return this
+            // HACK!!! API should not return this
+            if currentProvider == nil {
+                currentProvider = provider
+            }
+
+            if currentProvider.id == provider.id {
+                currentProvider = nil
+                requireConsumerContext()
+            }
+            return
         }
 
         if !mapView.annotations.contains(where: { annotation -> Bool in

@@ -252,6 +252,7 @@ class NotificationService: NSObject, JFRWebSocketDelegate {
             KTNotificationCenter.post(name: .ProviderBecameAvailable, object: provider)
         case "provider_became_unavailable":
             if let providerId = payload["provider_id"] as? Int, let provider = ProviderService.shared.cachedProvider(providerId) {
+                provider.available = false
                 ProviderService.shared.removeProvider(providerId)
                 KTNotificationCenter.post(name: .ProviderBecameUnavailable, object: provider)
             }

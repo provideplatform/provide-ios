@@ -132,9 +132,7 @@ class ApplicationViewController: UIViewController, CameraViewControllerDelegate 
             }
         }
 
-        if currentUser.defaultPaymentMethod == nil {
-            KTNotificationCenter.post(name: Notification.Name(rawValue: "SegueToPaymentsStoryboard"), object: nil)
-        } else if currentUser.profileImageUrl == nil && !currentUser.hasBeenPromptedToTakeSelfie {
+        if currentUser.profileImageUrl == nil && !currentUser.hasBeenPromptedToTakeSelfie {
             promptUserToTakeSelfie()
         }
     }
