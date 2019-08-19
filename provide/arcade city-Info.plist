@@ -96,6 +96,10 @@
 	<false/>
 	<key>xApiHostSuffix</key>
 	<string>unicorn.provide.services</string>
+	<key>xMarketingHostSuffix</key>
+	<string>unicorn.provide.services</string>
+	<key>xAppLegalAgreementsUrl</key>
+	<string>arcade.city/terms</string>
 	<key>xAppMenuBackgroundImage</key>
 	<string>lightning-splash</string>
 	<key>xAppMenuStoryboard</key>
@@ -110,7 +114,5 @@
 	<string>X_BUILD_TIME</string>
 	<key>xGitShortSHA</key>
 	<string>X_GIT_HASH</string>
-	<key>xMarketingHostSuffix</key>
-	<string>unicorn.provide.services</string>
 </dict>
 </plist>

@@ -952,6 +952,7 @@
                             <constraint firstItem="3S6-iS-TtA" firstAttribute="top" secondItem="HI0-cN-QaN" secondAttribute="top" id="nC3-UU-lcp"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="webView" destination="3S6-iS-TtA" id="ayA-qY-x5l"/>
                     </connections>
@@ -981,7 +982,7 @@
                                     </constraints>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dpv-XC-pjz">
-                                    <rect key="frame" x="13" y="104" width="67" height="30.333333333333329"/>
+                                    <rect key="frame" x="13" y="103.66666666666667" width="67" height="30.666666666666671"/>
                                     <fontDescription key="fontDescription" name="Exo2-Regular" family="Exo 2" pointSize="14"/>
                                     <state key="normal" title="change">
                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1074,7 +1075,6 @@
         <image name="ghost3" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="C50-VZ-xgK"/>
         <segue reference="ifq-UV-5Ww"/>
     </inferredMetricsTieBreakers>
 </document>

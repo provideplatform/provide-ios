@@ -23,7 +23,7 @@
         <!--Work Order Destination Header View Controller-->
         <scene sceneID="k4H-rC-I6e">
             <objects>
-                <viewController storyboardIdentifier="WorkOrderDestinationHeaderViewController" autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="currentContext" id="mb7-X8-f0h" customClass="WorkOrderDestinationHeaderViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WorkOrderDestinationHeaderViewController" modalPresentationStyle="currentContext" id="mb7-X8-f0h" customClass="WorkOrderDestinationHeaderViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Vd7-yb-t2b"/>
                         <viewControllerLayoutGuide type="bottom" id="rgQ-wU-gLf"/>
@@ -73,7 +73,7 @@
         <!--Work Order Annotation View Controller-->
         <scene sceneID="pCR-jE-I1i">
             <objects>
-                <viewController storyboardIdentifier="WorkOrderAnnotationViewController" autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="currentContext" id="yQd-Wz-48G" customClass="WorkOrderAnnotationViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WorkOrderAnnotationViewController" modalPresentationStyle="currentContext" id="yQd-Wz-48G" customClass="WorkOrderAnnotationViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kBu-Ry-nqG"/>
                         <viewControllerLayoutGuide type="bottom" id="80p-AK-2I6"/>
@@ -211,7 +211,7 @@
         <!--Work Order Destination Confirmation View Controller-->
         <scene sceneID="FK1-ch-8aL">
             <objects>
-                <viewController storyboardIdentifier="WorkOrderDestinationConfirmationViewController" autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="currentContext" id="4Ye-TD-wVA" customClass="WorkOrderDestinationConfirmationViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WorkOrderDestinationConfirmationViewController" modalPresentationStyle="currentContext" id="4Ye-TD-wVA" customClass="WorkOrderDestinationConfirmationViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="F2X-co-KVE"/>
                         <viewControllerLayoutGuide type="bottom" id="4h1-EW-dKe"/>
@@ -270,7 +270,7 @@
         <!--Directions View Controller-->
         <scene sceneID="hSa-W7-qkt">
             <objects>
-                <viewController autoresizesArchivedViewToFullSize="NO" id="MA2-QH-nQX" customClass="DirectionsViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="MA2-QH-nQX" customClass="DirectionsViewController" customModule="arcade_city" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="AIN-Ki-bmt"/>
                         <viewControllerLayoutGuide type="bottom" id="1KI-vO-vST"/>
@@ -407,6 +407,6 @@
         <image name="uturn-left" width="100" height="100"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="e4f-A0-qEi"/>
+        <segue reference="bum-oQ-6Bm"/>
     </inferredMetricsTieBreakers>
 </document>

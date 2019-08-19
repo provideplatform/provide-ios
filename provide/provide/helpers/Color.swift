@@ -31,7 +31,7 @@ class Color {
     }
 
     class func applicationDefaultBarButtonItemTintColor() -> UIColor {
-        return darkBlueBackground()
+        return .white
     }
 
     class func pinInputControlBoxBorderColor() -> UIColor {

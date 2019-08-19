@@ -69,6 +69,9 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
         navigationController?.navigationBar.barTintColor = nil
         navigationController?.navigationBar.tintColor = nil
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = false
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {

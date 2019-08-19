@@ -15,6 +15,10 @@ class WorkOrderDestinationHeaderViewController: ViewController {
     override func awakeFromNib() {
         super.awakeFromNib()
 
+        navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
+        navigationController?.navigationBar.barTintColor = nil
+        navigationController?.navigationBar.tintColor = nil
+
         view.addDropShadow(height: 1.25, radius: 2.0, opacity: 0.3)
     }
 

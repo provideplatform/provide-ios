@@ -54,7 +54,14 @@ class TopViewController: ViewController, MenuViewControllerDelegate {
         if indexPath.section == numberOfSectionsInMenuViewController(menuViewController) - 1 {
             switch indexPath.row {
             case 0:
-                return MenuItem(label: "Legal", urlString: "\(CurrentEnvironment.baseUrlString)/#/legal")
+                var legalUrl = infoDictionaryValueFor("xAppLegalAgreementsUrl")
+                if legalUrl != "" {
+                    let legalUrlScheme = infoDictionaryValueFor("xAppLegalAgreementsUrlScheme") != "" ? infoDictionaryValueFor("xAppLegalAgreementsUrlScheme") : "https"
+                    legalUrl = "\(legalUrlScheme)://\(legalUrl)"
+                } else {
+                    legalUrl = "\(CurrentEnvironment.baseUrlString)/#/legal"
+                }
+                return MenuItem(label: "Legal", urlString: legalUrl)
             case 1:
                 return MenuItem(label: "Logout", action: #selector(MenuViewController.logout))
             default:

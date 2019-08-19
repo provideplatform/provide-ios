@@ -28,6 +28,10 @@ class WorkOrderDetailsViewController: ViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
+        navigationController?.navigationBar.barTintColor = nil
+        navigationController?.navigationBar.tintColor = nil
+
         if let workOrder = workOrder, workOrder.jobId == 0 {
             DispatchQueue.main.async {
                 if let tableView = self.tableView {
