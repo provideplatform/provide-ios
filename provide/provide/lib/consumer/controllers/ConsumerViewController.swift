@@ -68,7 +68,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
 
         navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
         navigationController?.navigationBar.barTintColor = nil
-        navigationController?.navigationBar.tintColor = nil
+        setupMenuBarButtonItem()
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = false
         }
@@ -246,9 +246,10 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         }
     }
 
-    private func setupMenuBarButtonItem() {
+    private func setupMenuBarButtonItem(tintColor: UIColor = Color.applicationDefaultBarTintColor()) {
         let menuIconImage = FAKFontAwesome.naviconIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
-        navigationItem.leftBarButtonItem = NavigationBarButton.barButtonItemWithImage(menuIconImage, target: self, action: #selector(menuButtonTapped))
+        navigationItem.leftBarButtonItem = NavigationBarButton.barButtonItemWithImage(menuIconImage, target: self, action: #selector(menuButtonTapped), tintColor: tintColor)
+        navigationItem.leftBarButtonItem?.tintColor = tintColor
         navigationItem.rightBarButtonItem = nil
     }
 
@@ -322,14 +323,21 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
         }
     }
 
+    private func dismissZeroStateViewController() {
+        zeroStateViewController.dismiss()
+        setupMenuBarButtonItem(tintColor: .white)
+    }
+
     private func presentPaymentMethodRequiredZeroState() {
         zeroStateViewController.setMessage("Please setup a valid payment method.")
         zeroStateViewController.render(view)
+        setupMenuBarButtonItem(tintColor: .white)
     }
 
     private func presentServiceProviderAccountActiveZeroState() {
         zeroStateViewController.setMessage("Your service provider account is currently active.")
         zeroStateViewController.render(view)
+        setupMenuBarButtonItem(tintColor: .white)
     }
 
     private func presentServiceAvailabilityZeroState() {
@@ -340,6 +348,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
             }
             self?.zeroStateViewController.setMessage(msg)
             self?.zeroStateViewController.render(self!.view)
+            self?.setupMenuBarButtonItem(tintColor: .white)
         }
     }
 
@@ -410,7 +419,7 @@ class ConsumerViewController: ViewController, MenuViewControllerDelegate, WorkOr
                 return
             }
 
-            self?.zeroStateViewController.dismiss()
+            self?.dismissZeroStateViewController()
 
             DispatchQueue.main.async {
                 WorkOrderService.shared.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead

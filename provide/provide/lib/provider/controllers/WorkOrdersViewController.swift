@@ -124,7 +124,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
         navigationController?.navigationBar.backgroundColor = Color.applicationDefaultNavigationBarBackgroundColor()
         navigationController?.navigationBar.barTintColor = nil
-        navigationController?.navigationBar.tintColor = nil
+        navigationController?.navigationBar.tintColor = Color.applicationDefaultBarTintColor()
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = false
         }
@@ -148,9 +148,9 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
     }
 
-    private func setupMenuBarButtonItem() {
+    private func setupMenuBarButtonItem(tintColor: UIColor = Color.applicationDefaultBarTintColor()) {
         let menuIconImage = FAKFontAwesome.naviconIcon(withSize: 25.0).image(with: CGSize(width: 25.0, height: 25.0)).withRenderingMode(.alwaysTemplate)
-        navigationItem.leftBarButtonItem = NavigationBarButton.barButtonItemWithImage(menuIconImage, target: self, action: #selector(menuButtonTapped))
+        navigationItem.leftBarButtonItem = NavigationBarButton.barButtonItemWithImage(menuIconImage, target: self, action: #selector(menuButtonTapped), tintColor: tintColor)
     }
 
     private func setupMessagesBarButtonItem() {
@@ -325,7 +325,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             workOrderService.setWorkOrders(workOrders) // FIXME -- decide if this should live in the service instead
 
             if workOrders.count == 0 || WorkOrderService.shared.inProgressWorkOrder == nil {
-                self?.zeroStateViewController.render(self!.view)
+                self?.presentZeroState()
             }
 
             self?.nextWorkOrderContextShouldBeRewound()
@@ -356,6 +356,16 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         }
 
         availabilityBarButtonItem?.isEnabled = availabilityBarButtonItemEnabled
+    }
+
+    private func dismissZeroStateViewController() {
+        zeroStateViewController.dismiss()
+        setupMenuBarButtonItem()
+    }
+
+    private func presentZeroState() {
+        zeroStateViewController.render(view)
+        setupMenuBarButtonItem(tintColor: .white)
     }
 
     private func refreshAnnotations() {
@@ -405,7 +415,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if managedViewControllerSegues.contains(segue.identifier!) {
             managedViewControllers.append(segue.destination)
-            zeroStateViewController.dismiss()
+            dismissZeroStateViewController()
         }
 
         switch segue.identifier! {
