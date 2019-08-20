@@ -48,7 +48,23 @@ class PaymentMethodsViewController: ViewController, LinkBankAccountViewControlle
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: .UIKeyboardWillHide, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: .UIKeyboardWillShow, object: nil)
 
+        setupNavigationItem()
         reload()
+    }
+
+    func setupNavigationItem() {
+        let bankAccountIcon = FAKFontAwesome.bankIcon(withSize: 22.0).image(with: CGSize(width: 22.0, height: 22.0)).withRenderingMode(.alwaysTemplate)
+        let creditCardIcon = FAKFontAwesome.creditCardIcon(withSize: 22.0).image(with: CGSize(width: 22.0, height: 22.0)).withRenderingMode(.alwaysTemplate)
+
+        let addBankAccountPaymentMethodItem = NavigationBarButton.barButtonItemWithImage(bankAccountIcon, target: self, action: #selector(addBankAccount), tintColor: .white)
+        let addCreditCardPaymentMethodItem = NavigationBarButton.barButtonItemWithImage(creditCardIcon, target: self, action: #selector(addCreditCard), tintColor: .white)
+
+        if let mode = KeyChainService.shared.mode, mode == .provider {
+            let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+            navigationItem.rightBarButtonItems = [addCreditCardPaymentMethodItem, flexSpace, addBankAccountPaymentMethodItem]
+        } else {
+            navigationItem.rightBarButtonItems = [addCreditCardPaymentMethodItem]
+        }
     }
 
     @objc
@@ -236,6 +252,14 @@ class PaymentMethodsViewController: ViewController, LinkBankAccountViewControlle
                 }
             }
         }
+    }
+
+    @objc private func addBankAccount(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "LinkBankAccountViewControllerSegue", sender: self)
+    }
+
+    @objc private func addCreditCard(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "PaymentMethodScannerViewControllerSegue", sender: self)
     }
 
     @IBAction private func removePaymentMethod(sender: PaymentMethodTableViewCell) {

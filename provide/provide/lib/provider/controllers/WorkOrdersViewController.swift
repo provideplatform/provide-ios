@@ -53,6 +53,10 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
 
     private var registeredProviderContextObservers = false
 
+    private var showsPaymentsMenuItem: Bool {
+        return infoDictionaryValueFor("xAppProviderMenuShowsPayments") == "1"
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -94,6 +98,18 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     private func registerRequiredObservers() {
         // FIXME-- how does this next line actually work? localLogout has been called at this point...
         KTNotificationCenter.addObserver(observer: self, selector: #selector(clearProviderContext), name: .ApplicationUserLoggedOut)
+
+        KTNotificationCenter.addObserver(forName: Notification.Name(rawValue: "SegueToPaymentsStoryboard")) { [weak self] sender in
+            if let _ = WorkOrderService.shared.inProgressWorkOrder {
+                return
+            }
+
+            if let strongSelf = self {
+                if !strongSelf.navigationControllerContains(PaymentMethodsViewController.self) {
+                    strongSelf.performSegue(withIdentifier: "PaymentsViewControllerSegue", sender: strongSelf)
+                }
+            }
+        }
 
         KTNotificationCenter.addObserver(forName: Notification.Name(rawValue: "SegueToWorkOrderHistoryStoryboard")) { [weak self] sender in
             if let strongSelf = self {
@@ -488,6 +504,8 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
             LocationService.shared.enableNavigationAccuracy()
 
             (segue.destination as! DirectionsViewController).configure(targetView: view, mapView: mapView, delegate: self)
+        case "PaymentsViewControllerSegue":
+            prepareForMenuItemSegue()
         case "WorkOrderAnnotationViewControllerSegue":
             (segue.destination as! WorkOrderAnnotationViewController).configure(delegate: self, mapView: mapView, onConfirmationRequired: {
                 segue.destination.performSegue(withIdentifier: "WorkOrderAnnotationViewTouchedUpInsideSegue", sender: self)
@@ -507,6 +525,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
                 workOrdersViewControllerDelegate?.confirmationReceivedForWorkOrderViewController?(destinationConfirmationViewController)
             })
         case "WorkOrderHistoryViewControllerSegue":
+            prepareForMenuItemSegue()
             let workOrderHistoryViewController = segue.destination as! WorkOrderHistoryViewController
             workOrderHistoryViewController.delegate = self
         default:
@@ -525,6 +544,11 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         case 0:
             return MenuItem(label: "History", action: "segueToWorkOrderHistory")
         case 1:
+            if showsPaymentsMenuItem {
+                return MenuItem(label: "Payments", action: "segueToPayments")
+            }
+            return MenuItem(label: "Switch to Consumer", action: "enterConsumerApplication")
+        case 2:
             return MenuItem(label: "Switch to Consumer", action: "enterConsumerApplication")
         default:
             break
@@ -537,7 +561,7 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     }
 
     func menuViewController(_ menuViewController: MenuViewController, numberOfRowsInSection section: Int) -> Int {
-        return UserMode.mode != nil ? 1 : 2
+        return (UserMode.mode != nil ? 1 : 2) + (showsPaymentsMenuItem ? 1 : 0)
     }
 
     @objc private func clearProviderContext() {
@@ -562,9 +586,26 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
         KTNotificationCenter.post(name: .ApplicationShouldReloadTopViewController)
     }
 
+    private func prepareForMenuItemSegue() {
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationController?.navigationBar.backgroundColor = .black
+            self?.navigationController?.navigationBar.barTintColor = .black
+            self?.navigationController?.navigationBar.tintColor = .white
+            if #available(iOS 11.0, *) {
+                self?.navigationController?.navigationBar.prefersLargeTitles = true
+                self?.navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+            }
+        }
+    }
+
     @objc func segueToWorkOrderHistory() {
         KTNotificationCenter.post(name: .MenuContainerShouldReset)
         KTNotificationCenter.post(name: Notification.Name(rawValue: "SegueToWorkOrderHistoryStoryboard"), object: nil)
+    }
+
+    @objc func segueToPayments() {
+        KTNotificationCenter.post(name: .MenuContainerShouldReset)
+        KTNotificationCenter.post(name: Notification.Name(rawValue: "SegueToPaymentsStoryboard"), object: nil)
     }
 
     // MARK: WorkOrdersViewControllerDelegate
@@ -778,10 +819,15 @@ class WorkOrdersViewController: ViewController, MenuViewControllerDelegate, Work
     // MARK: WorkOrderHistoryViewControllerDelegate
 
     func paramsForWorkOrderHistoryViewController(viewController: WorkOrderHistoryViewController) -> [String: Any] {
-        return  [
+        var params: [String: Any] = [
             "status": "completed",
             "sort_started_at_desc": "true",
-            "provider_id": currentProvider.id,
         ]
+
+        if let currentProvider = currentProvider {
+            params["provider_id"] = currentProvider.id
+        }
+
+        return params
     }
 }

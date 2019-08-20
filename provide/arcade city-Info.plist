@@ -119,6 +119,8 @@
 	<string>lightning-splash</string>
 	<key>xAppMenuStoryboard</key>
 	<string>arcade-city-menu</string>
+	<key>xAppProviderMenuShowsPayments</key>
+	<string>1</string>
 	<key>xAppDefaultProviderAnnotationImage</key>
 	<string>ghost1</string>
 	<key>xAppPrivacyViewControllerNib</key>

@@ -202,6 +202,7 @@
                         <segue destination="yQd-Wz-48G" kind="custom" identifier="WorkOrderAnnotationViewControllerSegue" customClass="RenderComponentStoryboardSegue" customModule="arcade_city" customModuleProvider="target" id="vW2-GH-KBk"/>
                         <segue destination="MA2-QH-nQX" kind="custom" identifier="DirectionsViewControllerSegue" customClass="RenderComponentStoryboardSegue" customModule="arcade_city" customModuleProvider="target" id="MiJ-YI-L7r"/>
                         <segue destination="jaQ-Tq-Id1" kind="show" identifier="WorkOrderHistoryViewControllerSegue" id="OLb-DH-gpG"/>
+                        <segue destination="5my-cr-gvh" kind="show" identifier="PaymentsViewControllerSegue" id="cbh-UO-JYl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OHU-6G-z65" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -401,6 +402,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kbm-GQ-7wS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="274" y="978"/>
+        </scene>
+        <!--PaymentMethodsViewController-->
+        <scene sceneID="QNd-sp-SH3">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Payments" referencedIdentifier="PaymentMethodsViewController" id="5my-cr-gvh" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ntu-16-EUa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="342" y="1020"/>
         </scene>
     </scenes>
     <resources>
