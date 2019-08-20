@@ -206,6 +206,8 @@ class LocationService: CLLocationManager, CLLocationManagerDelegate {
         if let location = location {
             lastAccurateLocationDate = Date()
             locationResolved(location)
+        } else if currentLocation == nil {
+            locationResolved(locations.first!)
         }
     }
 
