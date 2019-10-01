@@ -13,14 +13,14 @@
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <viewController id="VgG-OA-nT5">
             <layoutGuides>
-                <viewControllerLayoutGuide type="top" id="HKQ-L0-yIt"/>
-                <viewControllerLayoutGuide type="bottom" id="9aV-y1-lTs"/>
+                <viewControllerLayoutGuide type="top" id="tGl-9W-MDZ"/>
+                <viewControllerLayoutGuide type="bottom" id="hwH-Gv-cLM"/>
             </layoutGuides>
             <view key="view" contentMode="scaleToFill" id="Ems-6k-Ba2">
                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="CNb-gf-oad">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg" translatesAutoresizingMaskIntoConstraints="NO" id="CNb-gf-oad">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                     </imageView>
                 </subviews>
@@ -38,6 +38,6 @@
         </viewController>
     </objects>
     <resources>
-        <image name="background" width="414" height="666.66668701171875"/>
+        <image name="bg" width="375" height="808"/>
     </resources>
 </document>
